@@ -6,6 +6,13 @@
  *
  */
 module B2B_Portal_Delaware {
+	exports domein;
+	exports main;
+	exports util;
+	
+	opens domein;
+	
+	
 	// FX
 	requires javafx.base;
 	requires javafx.controls;
