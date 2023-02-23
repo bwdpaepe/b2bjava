@@ -1,14 +1,15 @@
 package main;
 
-import domein.Medewerker;
 import javax.persistence.EntityManager;
+
+import domein.Medewerker;
 import util.JPAUtil;
 
 public class DBTEST {
 
     public static void main(String args[]) {
     	
-    	Medewerker m = new Medewerker("Jos", "Yzendijk", "jos@gmail.com", "SomerandomHash");
+    	Medewerker m = new Medewerker("Test", "Test", "test@gmail.com", "SomerandomHash");
     	System.out.print(m);
         
 
@@ -19,7 +20,7 @@ public class DBTEST {
         ////start een transactie
         entityManager.getTransaction().begin();
         
-        ////persisteer de 3 objecten
+        ////persisteer de objecten
         entityManager.persist(m);
  
         //commit
