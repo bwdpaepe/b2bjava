@@ -18,63 +18,62 @@ import javax.persistence.Transient;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-
 @Entity
 @Table(name = "medewerkers")
-@NamedQueries({
-    @NamedQuery(name = "Medewerker.findByEmailAdress",
-                         query = "select m from Medewerker m where m.emailAdress = :emailAdress")            
-})
+@NamedQueries(
+	{ @NamedQuery(name = "Medewerker.findByEmailAdress", query = "select m from Medewerker m where m.emailAdress = :emailAdress") })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "soort")
-public abstract class Medewerker implements Serializable{
+public abstract class Medewerker implements Serializable
+{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	@Transient
+	private static final int MIN_PW_LENGTH = 0; // TODO afspreken met team
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column(name = "personeelsNr", unique = true)
 	private int personeelsNr;
-	
-	
-
 	@Column(name = "Voornaam")
-    private String voornaam;
+	private String voornaam;
 	@Column(name = "Familienaam")
-    private String familienaam;
+	private String familienaam;
 	@Column(name = "Email_adres", unique = true)
-    private String emailAdress;
+	private String emailAdress;
 	@Column(name = "Hashed_paswoord")
-    private String hashedPW;
+	private String hashedPW;
 
 	@Transient
 	String salt = BCrypt.gensalt(12);
-    
-    public Medewerker(String voornaam, String familienaam, String email, String password, int personeelsNr) {
 
+	public Medewerker(String voornaam, String familienaam, String email, String password, int personeelsNr)
+	{
 		setVoornaam(voornaam);
 		setFamilienaam(familienaam);
 		setEmail(email);
 		setHashedPW(password);
-		setPersoneelsNr(personeelsNr);;
+		setPersoneelsNr(personeelsNr);
 	}
 
-	public Medewerker() {
-    	
-    }
-	
-    @Override
-	public int hashCode() {
+	// Lege constructor nodig voor JPA
+	public Medewerker()
+	{
+
+	}
+
+	@Override
+	public int hashCode()
+	{
 		return Objects.hash(personeelsNr);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -85,75 +84,77 @@ public abstract class Medewerker implements Serializable{
 		return personeelsNr == other.personeelsNr;
 	}
 
-	public int getMederwerkersNR() {
-		return personeelsNr;
-	}
-
-	public final void setMederwerkersNR(int mederwerkersNR) {
-		this.personeelsNr = mederwerkersNR;
-	}
-
-	public String getVoornaam() {
+	public String getVoornaam()
+	{
 		return voornaam;
 	}
 
-	public final void setVoornaam(String voornaam) {
+	public final void setVoornaam(String voornaam)
+	{
+		if(voornaam == null || voornaam.isBlank()) {
+			throw new IllegalArgumentException("Voornaam is verplicht");
+		}
 		this.voornaam = voornaam;
 	}
 
-	public String getFamilienaam() {
+	public String getFamilienaam()
+	{
 		return familienaam;
 	}
 
-	public final void setFamilienaam(String familienaam) {
+	public final void setFamilienaam(String familienaam)
+	{
+		if(familienaam == null || familienaam.isBlank()) {
+			throw new IllegalArgumentException("Familienaam is verplicht");
+		}
 		this.familienaam = familienaam;
 	}
 
-	public String getEmail() {
+	public String getEmail()
+	{
 		return emailAdress;
 	}
 
-	public final void setEmail(String email) {
-		
+	public final void setEmail(String email)
+	{
+		if (email == null || email.isBlank()) {
+            throw new IllegalArgumentException("E-mailadres is verplicht");
+		}
+		if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            throw new IllegalArgumentException("Ongeldig e-mailadres formaat");
+        }
 		this.emailAdress = email;
 	}
 
-	public String getHashedPW() {
+	public String getHashedPW()
+	{
 		return hashedPW;
 	}
 
-	public final void setHashedPW(String password) {
+	public final void setHashedPW(String password)
+	{
+		// error als geen wachtwoord, te kort, of bevat spatie
+		if(password == null || password.length() < MIN_PW_LENGTH || password.matches(".*\\s.*")) {
+			throw new IllegalArgumentException("Wachtwoord is ongeldig");
+		}
 		this.hashedPW = BCrypt.hashpw(password, salt);
-	}	
-	
-	
-	public int getPersoneelsNr() {
+	}
+
+	public int getPersoneelsNr()
+	{
 		return personeelsNr;
 	}
 
-	public final void setPersoneelsNr(int personeelsNR) {
+	public final void setPersoneelsNr(int personeelsNR)
+	{
+		if(personeelsNR <= 0 ) {// eventueel nog andere checks toevoegen
+			throw new IllegalArgumentException("Personeelnummer is ongeldig");
+		}
 		this.personeelsNr = personeelsNR;
 	}
 
-	public abstract String getRol() ;
+	public abstract String getRol();
 
-	public abstract void setRol() ;
+	public abstract void setRol();
 
-
-	
-	
-	
 }
-
-
-    
-
-
-
-
-
-
-
-
-
-
