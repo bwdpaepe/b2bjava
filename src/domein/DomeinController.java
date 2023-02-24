@@ -36,7 +36,7 @@ public class DomeinController {
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String paswoord, String rol,
 			int personeelsNR) {
-		GenericDaoJpa.startTransaction();
+		MedewerkerDaoJpa.startTransaction();
 
 		switch (rol.toLowerCase()) {
 		case "magazijnier":
@@ -50,7 +50,8 @@ public class DomeinController {
 			break;
 		}
 
-		GenericDaoJpa.commitTransaction();
+
+		MedewerkerDaoJpa.commitTransaction();
 
 	}
 	

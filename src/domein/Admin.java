@@ -2,7 +2,7 @@ package domein;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+
 
 @Entity
 @DiscriminatorValue("A")
@@ -18,7 +18,7 @@ public class Admin extends Medewerker {
 	public Admin(String voornaam, String familienaam, String email, String hashedPW, int personeelsNR) {
 		super(voornaam, familienaam, email, hashedPW, personeelsNR);
 		setRol();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public Admin() {

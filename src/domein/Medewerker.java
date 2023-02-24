@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "medewerkers")
 @NamedQueries({
-    @NamedQuery(name = "Medewerker.findByName",
+    @NamedQuery(name = "Medewerker.findByEmailAdress",
                          query = "select m from Medewerker m where m.emailAdress = :emailAdress")            
 })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -36,7 +36,7 @@ public abstract class Medewerker implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "personeelsNR")
+	@Column(name = "personeelsNR", unique = true)
 	private int personeelsNR;
 	
 	
@@ -45,7 +45,7 @@ public abstract class Medewerker implements Serializable{
     private String voornaam;
 	@Column(name = "Familienaam")
     private String familienaam;
-	@Column(name = "Email_adres")
+	@Column(name = "Email_adres", unique = true)
     private String emailAdress;
 	@Column(name = "Hashed_paswoord")
     private String hashedPW;

@@ -2,7 +2,7 @@ package domein;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+
 
 @Entity
 @DiscriminatorValue("M")

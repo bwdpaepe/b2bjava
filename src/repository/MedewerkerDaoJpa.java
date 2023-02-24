@@ -14,7 +14,7 @@ public class MedewerkerDaoJpa extends GenericDaoJpa<Medewerker> implements Medew
     @Override
     public Medewerker getMedewerkerByEmailAdress(String emailadress) throws EntityNotFoundException {
         try {
-            return em.createNamedQuery("Medewerker.findByEmailadress", Medewerker.class)
+            return em.createNamedQuery("Medewerker.findByEmailAdress", Medewerker.class)
                  .setParameter("emailAdress", emailadress)
                 .getSingleResult();
         } catch (NoResultException ex) {
