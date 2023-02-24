@@ -4,12 +4,14 @@ import repository.GenericDaoJpa;
 import repository.MedewerkerDao;
 import repository.MedewerkerDaoJpa;
 
-public class DomeinController {
+public class DomeinController
+{
 	private Medewerker m;
 	private MedewerkerDao medewerkerRepo;
 	private MedewerkerService medewerkerService; // service klasse om o.a aanmelden uit te werken
 
-	public DomeinController() {
+	public DomeinController()
+	{
 		setMedewerkerRepo(new MedewerkerDaoJpa());
 		setMedewerkerService(new MedewerkerService(medewerkerRepo));
 	}
@@ -17,51 +19,43 @@ public class DomeinController {
 	private void setMedewerkerService(MedewerkerService medewerkerService)
 	{
 		this.medewerkerService = medewerkerService;
-		
 	}
 
-	public Medewerker getM() {
+	public Medewerker getM()
+	{
 		return m;
 	}
 
-	public void setM(Medewerker m) {
+	public void setM(Medewerker m)
+	{
 		// TODO
 	}
 
-	public MedewerkerDao getMedewerkerRepo() {
+	public MedewerkerDao getMedewerkerRepo()
+	{
 		return medewerkerRepo;
 	}
 
-	public void setMedewerkerRepo(MedewerkerDao medewerkerRepo) {
+	public void setMedewerkerRepo(MedewerkerDao medewerkerRepo)
+	{
 		this.medewerkerRepo = medewerkerRepo;
 	}
 
 	// return een Data Transfer Object van Medewerker naar de GUI
-	public MedewerkerDTO aanmelden(String emailAdress, String password) {
+	public MedewerkerDTO aanmelden(String emailAdress, String password)
+	{
 		return medewerkerService.aanmelden(emailAdress, password);
 	}
 
-	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String paswoord, String rol,
-			int personeelsNR) {
-		MedewerkerDaoJpa.startTransaction();
-
-		switch (rol.toLowerCase()) {
-		case "magazijnier":
-			medewerkerRepo.insert(new Magazijnier(voornaam, familienaam, emailadres, paswoord, personeelsNR));
-
-			break;
-		case "admin":
-			medewerkerRepo.insert(new Admin(voornaam, familienaam, emailadres, paswoord, personeelsNR));
-
-		default:
-			break;
-		}
-
-		MedewerkerDaoJpa.commitTransaction();
+	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String rol,
+			int personeelsNr)
+	{
+		medewerkerService.maakMedewerker(voornaam, familienaam, emailadres, password, rol, personeelsNr);
 
 	}
-	
-	public void close() {
+
+	public void close()
+	{
 		GenericDaoJpa.closePersistency();
 	}
 
