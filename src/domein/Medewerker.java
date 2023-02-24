@@ -1,7 +1,6 @@
 package domein;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -15,6 +14,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 
 @Entity
@@ -50,14 +52,15 @@ public abstract class Medewerker implements Serializable{
 	@Column(name = "Hashed_paswoord")
     private String hashedPW;
 
-
+	@Transient
+	String salt = BCrypt.gensalt(12);
     
-    public Medewerker(String voornaam, String familienaam, String email, String hashedPW, int personeelsNR) {
+    public Medewerker(String voornaam, String familienaam, String email, String password, int personeelsNR) {
 
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
 		this.emailAdress = email;
-		this.hashedPW = hashedPW;
+		this.hashedPW = BCrypt.hashpw(password, salt);
 		this.personeelsNR = personeelsNR;
 	}
 
