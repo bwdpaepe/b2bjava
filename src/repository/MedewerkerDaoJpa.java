@@ -1,10 +1,10 @@
 package repository;
 
 
-import domein.Medewerker;
-
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
+
+import domein.Medewerker;
 
 public class MedewerkerDaoJpa extends GenericDaoJpa<Medewerker> implements MedewerkerDao  {
     public MedewerkerDaoJpa() {
@@ -21,4 +21,5 @@ public class MedewerkerDaoJpa extends GenericDaoJpa<Medewerker> implements Medew
             throw new EntityNotFoundException();
         } 
     }
+    
 }

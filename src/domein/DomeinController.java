@@ -7,9 +7,17 @@ import repository.MedewerkerDaoJpa;
 public class DomeinController {
 	private Medewerker m;
 	private MedewerkerDao medewerkerRepo;
+	private MedewerkerService medewerkerService; // service klasse om o.a aanmelden uit te werken
 
 	public DomeinController() {
 		setMedewerkerRepo(new MedewerkerDaoJpa());
+		setMedewerkerService(new MedewerkerService(medewerkerRepo));
+	}
+
+	private void setMedewerkerService(MedewerkerService medewerkerService)
+	{
+		this.medewerkerService = medewerkerService;
+		
 	}
 
 	public Medewerker getM() {
@@ -28,10 +36,9 @@ public class DomeinController {
 		this.medewerkerRepo = medewerkerRepo;
 	}
 
-	public Medewerker aanmelden(String emailAdress, String paswoord) {
-		// TODO
-		return new Magazijnier("", "", "", "", 0); // NOG AAN TE PAKKEN, dit is placeholder om geen errors te zien
-
+	// return een Data Transfer Object van Medewerker naar de GUI
+	public MedewerkerDTO aanmelden(String emailAdress, String password) {
+		return medewerkerService.aanmelden(emailAdress, password);
 	}
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String paswoord, String rol,
@@ -49,7 +56,6 @@ public class DomeinController {
 		default:
 			break;
 		}
-
 
 		MedewerkerDaoJpa.commitTransaction();
 

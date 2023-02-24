@@ -38,8 +38,8 @@ public abstract class Medewerker implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "personeelsNR", unique = true)
-	private int personeelsNR;
+	@Column(name = "personeelsNr", unique = true)
+	private int personeelsNr;
 	
 	
 
@@ -55,22 +55,22 @@ public abstract class Medewerker implements Serializable{
 	@Transient
 	String salt = BCrypt.gensalt(12);
     
-    public Medewerker(String voornaam, String familienaam, String email, String password, int personeelsNR) {
+    public Medewerker(String voornaam, String familienaam, String email, String password, int personeelsNr) {
 
-		this.voornaam = voornaam;
-		this.familienaam = familienaam;
-		this.emailAdress = email;
-		this.hashedPW = BCrypt.hashpw(password, salt);
-		this.personeelsNR = personeelsNR;
+		setVoornaam(voornaam);
+		setFamilienaam(familienaam);
+		setEmail(email);
+		setHashedPW(password);
+		setPersoneelsNr(personeelsNr);;
 	}
 
 	public Medewerker() {
     	
     }
-    
+	
     @Override
 	public int hashCode() {
-		return Objects.hash(personeelsNR);
+		return Objects.hash(personeelsNr);
 	}
 
 	@Override
@@ -82,22 +82,22 @@ public abstract class Medewerker implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Medewerker other = (Medewerker) obj;
-		return personeelsNR == other.personeelsNR;
+		return personeelsNr == other.personeelsNr;
 	}
 
 	public int getMederwerkersNR() {
-		return personeelsNR;
+		return personeelsNr;
 	}
 
-	public void setMederwerkersNR(int mederwerkersNR) {
-		this.personeelsNR = mederwerkersNR;
+	public final void setMederwerkersNR(int mederwerkersNR) {
+		this.personeelsNr = mederwerkersNR;
 	}
 
 	public String getVoornaam() {
 		return voornaam;
 	}
 
-	public void setVoornaam(String voornaam) {
+	public final void setVoornaam(String voornaam) {
 		this.voornaam = voornaam;
 	}
 
@@ -105,7 +105,7 @@ public abstract class Medewerker implements Serializable{
 		return familienaam;
 	}
 
-	public void setFamilienaam(String familienaam) {
+	public final void setFamilienaam(String familienaam) {
 		this.familienaam = familienaam;
 	}
 
@@ -113,7 +113,8 @@ public abstract class Medewerker implements Serializable{
 		return emailAdress;
 	}
 
-	public void setEmail(String email) {
+	public final void setEmail(String email) {
+		
 		this.emailAdress = email;
 	}
 
@@ -121,22 +122,24 @@ public abstract class Medewerker implements Serializable{
 		return hashedPW;
 	}
 
-	public void setHashedPW(String hashedPW) {
-		this.hashedPW = hashedPW;
+	public final void setHashedPW(String password) {
+		this.hashedPW = BCrypt.hashpw(password, salt);
 	}	
 	
 	
-	public int getPersoneelsNR() {
-		return personeelsNR;
+	public int getPersoneelsNr() {
+		return personeelsNr;
 	}
 
-	public void setPersoneelsNR(int personeelsNR) {
-		this.personeelsNR = personeelsNR;
+	public final void setPersoneelsNr(int personeelsNR) {
+		this.personeelsNr = personeelsNR;
 	}
 
 	public abstract String getRol() ;
 
 	public abstract void setRol() ;
+
+
 	
 	
 	
