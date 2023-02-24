@@ -5,9 +5,9 @@ import gui.ConsoleUi;
 
 //TESTKLASSE STARTUP
 
-public class StartUp {
+public class StartUpCUI {
     public static void main(String [] arg) {
-        new StartUp().run();
+        new StartUpCUI().run();
     }
 
     private void run() {

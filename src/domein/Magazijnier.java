@@ -1,10 +1,11 @@
 package domein;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "medewerkers")
+@DiscriminatorValue("M")
 public class Magazijnier extends Medewerker {
 
 	/**
