@@ -7,8 +7,8 @@
  */
 module B2B_Portal_Delaware {
 	exports domein;
-	exports main;
 	exports util;
+	exports main;
 	
 	opens domein;
 	

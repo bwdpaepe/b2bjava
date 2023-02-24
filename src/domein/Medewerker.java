@@ -9,12 +9,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "medewerkers")
-public class Medewerker implements Serializable{
+@NamedQueries({
+    @NamedQuery(name = "Medewerker.findByName",
+                         query = "select m from Medewerker m where m.email = :emailAdress")            
+})
+public abstract class Medewerker implements Serializable{
 
 	/**
 	 * 
@@ -25,33 +31,38 @@ public class Medewerker implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "mederwerksNR")
-	private int mederwerkersNR;
+	@Column(name = "personeelsNR")
+	private int personeelsNR;
 	
 	
 
-	
+	@Column(name = "Voornaam")
     private String voornaam;
+	@Column(name = "Familienaam")
     private String familienaam;
-    private String email;
+	@Column(name = "E-mail adres")
+    private String emailAdress;
+	@Column(name = "Hashed paswoord")
     private String hashedPW;
 
+
     
-    public Medewerker(String voornaam, String familienaam, String email, String hashedPW) {
+    public Medewerker(String voornaam, String familienaam, String email, String hashedPW, int personeelsNR) {
 
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
-		this.email = email;
+		this.emailAdress = email;
 		this.hashedPW = hashedPW;
+		this.personeelsNR = personeelsNR;
 	}
 
-	protected Medewerker() {
+	public Medewerker() {
     	
     }
     
     @Override
 	public int hashCode() {
-		return Objects.hash(mederwerkersNR);
+		return Objects.hash(personeelsNR);
 	}
 
 	@Override
@@ -63,15 +74,15 @@ public class Medewerker implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Medewerker other = (Medewerker) obj;
-		return mederwerkersNR == other.mederwerkersNR;
+		return personeelsNR == other.personeelsNR;
 	}
 
 	public int getMederwerkersNR() {
-		return mederwerkersNR;
+		return personeelsNR;
 	}
 
 	public void setMederwerkersNR(int mederwerkersNR) {
-		this.mederwerkersNR = mederwerkersNR;
+		this.personeelsNR = mederwerkersNR;
 	}
 
 	public String getVoornaam() {
@@ -91,11 +102,11 @@ public class Medewerker implements Serializable{
 	}
 
 	public String getEmail() {
-		return email;
+		return emailAdress;
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.emailAdress = email;
 	}
 
 	public String getHashedPW() {
@@ -104,7 +115,20 @@ public class Medewerker implements Serializable{
 
 	public void setHashedPW(String hashedPW) {
 		this.hashedPW = hashedPW;
+	}	
+	
+	
+	public int getPersoneelsNR() {
+		return personeelsNR;
 	}
+
+	public void setPersoneelsNR(int personeelsNR) {
+		this.personeelsNR = personeelsNR;
+	}
+
+	public abstract String getRol() ;
+
+	public abstract void setRol() ;
 	
 	
 	
