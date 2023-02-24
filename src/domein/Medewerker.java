@@ -30,7 +30,7 @@ public abstract class Medewerker implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	@Transient
-	private static final int MIN_PW_LENGTH = 0; // TODO afspreken met team
+	public static final int MIN_PW_LENGTH = 0; // TODO afspreken met team
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public abstract class Medewerker implements Serializable
 	private String hashedPW;
 
 	@Transient
-	String salt = BCrypt.gensalt(12);
+	private String salt = BCrypt.gensalt(12);
 
 	public Medewerker(String voornaam, String familienaam, String email, String password, int personeelsNr)
 	{
