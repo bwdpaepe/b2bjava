@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -15,14 +18,16 @@ import javax.persistence.Transient;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import util.AdminFunctie;
 import util.Functie;
+import util.MagazijnierFunctie;
 
 @Entity
 @Table(name = "medewerkers")
 @NamedQueries(
 	{ @NamedQuery(name = "Medewerker.findByEmailAdress", query = "select m from Medewerker m where m.emailAdress = :emailAdress") })
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name = "soort")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "soort")
 public class Medewerker implements Serializable
 {
 
@@ -157,11 +162,21 @@ public class Medewerker implements Serializable
 
 	public Functie getFunctie()
 	{
-		return functie;
+		return this.functie;
 	}
 
 	public final void setFunctie(String functie)
 	{
-		this.functie = Functie.fromString(functie);
+		switch (functie.toLowerCase()) {
+		case "magazijnier": this.functie = new MagazijnierFunctie();
+			
+			break;
+		case "admin": this.functie = new AdminFunctie();
+		
+		break;
+
+		default: throw new IllegalArgumentException("This function is not valid, please choose Admin or Magazijnier");
+			
+		}
 	}
 }

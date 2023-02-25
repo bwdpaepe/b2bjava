@@ -10,6 +10,7 @@ module B2B_Portal_Delaware {
 	exports main;
 	
 	opens domein;
+	opens util;
 	
 	
 	// FX

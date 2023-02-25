@@ -4,6 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
    	<!-- <class>domein.CLASSNAME</class> goes here  -->
    	<class>domein.Medewerker</class>
+   	<class>util.AdminFunctie</class>
+   	<class>util.MagazijnierFunctie</class>
 
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://5.180.182.39:3306/sdp2_test?serverTimezone=UTC"/>
