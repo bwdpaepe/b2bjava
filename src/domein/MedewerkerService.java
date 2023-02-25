@@ -4,6 +4,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import repository.MedewerkerDao;
 import repository.MedewerkerDaoJpa;
+import repository.MedewerkerDTO;
 
 public class MedewerkerService
 {

@@ -3,6 +3,7 @@ package domein;
 import repository.GenericDaoJpa;
 import repository.MedewerkerDao;
 import repository.MedewerkerDaoJpa;
+import repository.MedewerkerDTO;
 
 public class DomeinController
 {

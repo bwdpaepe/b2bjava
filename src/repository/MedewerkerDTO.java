@@ -9,15 +9,15 @@ public class MedewerkerDTO
 	private final String voornaam;
 	private final String familienaam;
 	private final String email;
-	private final String rol;
+	private final String functie;
 	private final int personeelsNr;
 
-	public MedewerkerDTO(String voornaam, String familienaam, String email, String rol, int personeelsNr)
+	public MedewerkerDTO(String voornaam, String familienaam, String email, int personeelsNr, String functie)
 	{
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
 		this.email = email;
-		this.rol = rol;
+		this.functie = functie;
 		this.personeelsNr = personeelsNr;
 	}
 
@@ -38,7 +38,7 @@ public class MedewerkerDTO
 
 	public String getRol()
 	{
-		return rol;
+		return functie;
 	}
 	
 	public int getPersoneelsNr() {

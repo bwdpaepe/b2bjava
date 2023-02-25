@@ -1,7 +1,12 @@
 package util;
 
-public interface Functie
+import java.io.Serializable;
+
+
+
+public interface Functie extends Serializable
 {	
-	public String getFunctie();
+
+	public String toString();
 
 }

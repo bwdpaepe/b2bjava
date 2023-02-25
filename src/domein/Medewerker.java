@@ -26,8 +26,7 @@ import util.MagazijnierFunctie;
 @Table(name = "medewerkers")
 @NamedQueries(
 	{ @NamedQuery(name = "Medewerker.findByEmailAdress", query = "select m from Medewerker m where m.emailAdress = :emailAdress") })
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "soort")
+
 public class Medewerker implements Serializable
 {
 
@@ -51,8 +50,11 @@ public class Medewerker implements Serializable
 	@Column(name = "Hashed_paswoord")
 	private String hashedPW;
 	@Column(name= "Functie")
+	private String functieString;
+	
+	
+	@Transient
 	private Functie functie;
-
 	@Transient
 	private String salt = BCrypt.gensalt(12);
 
@@ -160,15 +162,15 @@ public class Medewerker implements Serializable
 		this.personeelsNr = personeelsNR;
 	}
 
-	public Functie getFunctie()
+	public String getFunctie()
 	{
-		return this.functie;
+		return this.functieString;
 	}
 
 	public final void setFunctie(String functie)
 	{
 		switch (functie.toLowerCase()) {
-		case "magazijnier": this.functie = new MagazijnierFunctie();
+		case "magazijnier": this.functie = new MagazijnierFunctie();			
 			
 			break;
 		case "admin": this.functie = new AdminFunctie();
@@ -178,5 +180,7 @@ public class Medewerker implements Serializable
 		default: throw new IllegalArgumentException("This function is not valid, please choose Admin or Magazijnier");
 			
 		}
+		
+		this.functieString = this.functie.toString();
 	}
 }
