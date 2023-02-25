@@ -1,25 +1,26 @@
 package domein;
 
 import repository.GenericDaoJpa;
-import repository.MedewerkerDao;
-import repository.MedewerkerDaoJpa;
+
+import repository.UserDao;
+import repository.UserDaoJpa;
 import repository.MedewerkerDTO;
 
 public class DomeinController
 {
 	private Medewerker m;
-	private MedewerkerDao medewerkerRepo;
-	private MedewerkerService medewerkerService; // service klasse om o.a aanmelden uit te werken
+	private UserDao userRepo;
+	private UserService userService; // service klasse om o.a aanmelden uit te werken
 
 	public DomeinController()
 	{
-		setMedewerkerRepo(new MedewerkerDaoJpa());
-		setMedewerkerService(new MedewerkerService(medewerkerRepo));
+		setUserRepo(new UserDaoJpa());
+		setMedewerkerService(new UserService(userRepo));
 	}
 
-	private void setMedewerkerService(MedewerkerService medewerkerService)
+	private void setMedewerkerService(UserService medewerkerService)
 	{
-		this.medewerkerService = medewerkerService;
+		this.userService = medewerkerService;
 	}
 
 	public Medewerker getM()
@@ -32,26 +33,26 @@ public class DomeinController
 		// TODO
 	}
 
-	public MedewerkerDao getMedewerkerRepo()
+	public UserDao getMedewerkerRepo()
 	{
-		return medewerkerRepo;
+		return userRepo;
 	}
 
-	public void setMedewerkerRepo(MedewerkerDao medewerkerRepo)
+	public void setUserRepo(UserDao userRepo)
 	{
-		this.medewerkerRepo = medewerkerRepo;
+		this.userRepo = userRepo;
 	}
 
 	// return een Data Transfer Object van Medewerker naar de GUI
 	public MedewerkerDTO aanmelden(String emailAdress, String password)
 	{
-		return medewerkerService.aanmelden(emailAdress, password);
+		return userService.aanmelden(emailAdress, password);
 	}
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, 
 			String functie, int personeelsNr)
 	{
-		medewerkerService.maakMedewerker(voornaam, familienaam, emailadres, password, functie, personeelsNr);
+		userService.maakMedewerker(voornaam, familienaam, emailadres, password, functie, personeelsNr);
 
 	}
 

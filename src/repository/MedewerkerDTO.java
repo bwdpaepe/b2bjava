@@ -1,5 +1,6 @@
 package repository;
 
+import util.Functie;
 
 // Een Data Transfer Object klasse om een immutable object van Medewerker te kunnen 
 // returnen naar de GUI
@@ -9,16 +10,16 @@ public class MedewerkerDTO
 	private final String voornaam;
 	private final String familienaam;
 	private final String email;
-	private final String functie;
 	private final int personeelsNr;
+	private final String functie;
 
 	public MedewerkerDTO(String voornaam, String familienaam, String email, int personeelsNr, String functie)
 	{
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
 		this.email = email;
-		this.functie = functie;
 		this.personeelsNr = personeelsNr;
+		this.functie = functie;
 	}
 
 	public String getVoornaam()
@@ -36,12 +37,21 @@ public class MedewerkerDTO
 		return email;
 	}
 
-	public String getRol()
-	{
-		return functie;
-	}
-	
 	public int getPersoneelsNr() {
 		return personeelsNr;
 	}
+
+	public String getFunctie()
+	{
+		return functie;
+	}
+
+	@Override
+	public String toString() {
+		return "MedewerkerDTO [voornaam=" + voornaam + ", familienaam=" + familienaam + ", email=" + email
+				+ ", personeelsNr=" + personeelsNr + ", functie=" + functie + "]";
+	}
+	
+	
+
 }

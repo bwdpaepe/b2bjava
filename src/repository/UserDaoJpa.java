@@ -5,16 +5,17 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 
 import domein.Medewerker;
+import domein.User;
 
-public class MedewerkerDaoJpa extends GenericDaoJpa<Medewerker> implements MedewerkerDao  {
-    public MedewerkerDaoJpa() {
-        super(Medewerker.class);
+public class UserDaoJpa extends GenericDaoJpa<User> implements UserDao  {
+    public UserDaoJpa() {
+        super(User.class);
     }
 
     @Override
-    public Medewerker getMedewerkerByEmailAdress(String emailadress) throws EntityNotFoundException {
+    public User getMedewerkerByEmailAdress(String emailadress) throws EntityNotFoundException {
         try {
-            return em.createNamedQuery("Medewerker.findByEmailAdress", Medewerker.class)
+            return em.createNamedQuery("User.findByEmailAdress", Medewerker.class)
                  .setParameter("emailAdress", emailadress)
                 .getSingleResult();
         } catch (NoResultException ex) {

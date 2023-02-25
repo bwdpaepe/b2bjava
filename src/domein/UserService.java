@@ -2,22 +2,23 @@ package domein;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import repository.MedewerkerDao;
-import repository.MedewerkerDaoJpa;
+
+import repository.UserDao;
+import repository.UserDaoJpa;
 import repository.MedewerkerDTO;
 
-public class MedewerkerService
+public class UserService
 {
-	private MedewerkerDao medewerkerRepo;
+	private UserDao userRepo;
 
-	public MedewerkerService(MedewerkerDao medewerkerRepo)
+	public UserService(UserDao userRepo)
 	{
-		this.medewerkerRepo = medewerkerRepo;
+		this.userRepo = userRepo;
 	}
 
 	public MedewerkerDTO aanmelden(String emailAdress, String password)
 	{
-		Medewerker mw = medewerkerRepo.getMedewerkerByEmailAdress(emailAdress);
+		Medewerker mw = (Medewerker) userRepo.getMedewerkerByEmailAdress(emailAdress);
 
 		if (!BCrypt.checkpw(password, mw.getHashedPW()))
 		{ // mw == null is niet nodig, geeft al EntityNotFoundException in DAO klasse
@@ -32,11 +33,11 @@ public class MedewerkerService
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String functie,
 			int personeelsNr)
 	{
-		MedewerkerDaoJpa.startTransaction();
+		UserDaoJpa.startTransaction();
 
-		medewerkerRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, personeelsNr, functie));
+		userRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, personeelsNr, functie));
 
-		MedewerkerDaoJpa.commitTransaction();
+		UserDaoJpa.commitTransaction();
 	}
 
 }
