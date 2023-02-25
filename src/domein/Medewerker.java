@@ -4,13 +4,10 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -18,19 +15,21 @@ import javax.persistence.Transient;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import util.Functie;
+
 @Entity
 @Table(name = "medewerkers")
 @NamedQueries(
 	{ @NamedQuery(name = "Medewerker.findByEmailAdress", query = "select m from Medewerker m where m.emailAdress = :emailAdress") })
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "soort")
-public abstract class Medewerker implements Serializable
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "soort")
+public class Medewerker implements Serializable
 {
 
 	private static final long serialVersionUID = 1L;
 
 	@Transient
-	public static final int MIN_PW_LENGTH = 0; // TODO afspreken met team
+	public static final int MIN_PW_LENGTH = 8; // TODO afspreken met team
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,17 +45,20 @@ public abstract class Medewerker implements Serializable
 	private String emailAdress;
 	@Column(name = "Hashed_paswoord")
 	private String hashedPW;
+	@Column(name= "Functie")
+	private Functie functie;
 
 	@Transient
 	private String salt = BCrypt.gensalt(12);
 
-	public Medewerker(String voornaam, String familienaam, String email, String password, int personeelsNr)
+	public Medewerker(String voornaam, String familienaam, String email, String password, int personeelsNr, String functie)
 	{
 		setVoornaam(voornaam);
 		setFamilienaam(familienaam);
 		setEmail(email);
 		setHashedPW(password);
 		setPersoneelsNr(personeelsNr);
+		setFunctie(functie);
 	}
 
 	// Lege constructor nodig voor JPA
@@ -120,12 +122,12 @@ public abstract class Medewerker implements Serializable
 		if (email == null || email.isBlank()) {
             throw new IllegalArgumentException("E-mailadres is verplicht");
 		}
-		if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+		// https://howtodoinjava.com/java/regex/java-regex-validate-email-address/
+		if (!email.matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
             throw new IllegalArgumentException("Ongeldig e-mailadres formaat");
         }
 		this.emailAdress = email;
-	}
-
+	} 
 	public String getHashedPW()
 	{
 		return hashedPW;
@@ -153,8 +155,13 @@ public abstract class Medewerker implements Serializable
 		this.personeelsNr = personeelsNR;
 	}
 
-	public abstract String getRol();
+	public Functie getFunctie()
+	{
+		return functie;
+	}
 
-	public abstract void setRol();
-
+	public final void setFunctie(String functie)
+	{
+		this.functie = Functie.fromString(functie);
+	}
 }

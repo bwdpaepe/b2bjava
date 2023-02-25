@@ -1,5 +1,6 @@
 package domein;
 
+import util.Functie;
 
 // Een Data Transfer Object klasse om een immutable object van Medewerker te kunnen 
 // returnen naar de GUI
@@ -9,16 +10,16 @@ public class MedewerkerDTO
 	private final String voornaam;
 	private final String familienaam;
 	private final String email;
-	private final String rol;
 	private final int personeelsNr;
+	private final String functie;
 
-	public MedewerkerDTO(String voornaam, String familienaam, String email, String rol, int personeelsNr)
+	public MedewerkerDTO(String voornaam, String familienaam, String email, int personeelsNr, Functie functie)
 	{
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
 		this.email = email;
-		this.rol = rol;
 		this.personeelsNr = personeelsNr;
+		this.functie = functie.toString();
 	}
 
 	public String getVoornaam()
@@ -36,12 +37,12 @@ public class MedewerkerDTO
 		return email;
 	}
 
-	public String getRol()
-	{
-		return rol;
-	}
-	
 	public int getPersoneelsNr() {
 		return personeelsNr;
+	}
+
+	public String getFunctie()
+	{
+		return functie;
 	}
 }

@@ -47,10 +47,10 @@ public class DomeinController
 		return medewerkerService.aanmelden(emailAdress, password);
 	}
 
-	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String rol,
-			int personeelsNr)
+	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, 
+			String functie, int personeelsNr)
 	{
-		medewerkerService.maakMedewerker(voornaam, familienaam, emailadres, password, rol, personeelsNr);
+		medewerkerService.maakMedewerker(voornaam, familienaam, emailadres, password, functie, personeelsNr);
 
 	}
 

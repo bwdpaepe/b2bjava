@@ -8,42 +8,34 @@ import repository.MedewerkerDaoJpa;
 public class MedewerkerService
 {
 	private MedewerkerDao medewerkerRepo;
-	
-	public MedewerkerService(MedewerkerDao medewerkerRepo) {
+
+	public MedewerkerService(MedewerkerDao medewerkerRepo)
+	{
 		this.medewerkerRepo = medewerkerRepo;
 	}
-	
-	public MedewerkerDTO aanmelden(String emailAdress, String password) {
+
+	public MedewerkerDTO aanmelden(String emailAdress, String password)
+	{
 		Medewerker mw = medewerkerRepo.getMedewerkerByEmailAdress(emailAdress);
-		
-		if (!BCrypt.checkpw(password, mw.getHashedPW())) { // mw == null is niet nodig, geeft al EntityNotFoundException in DAO klasse
+
+		if (!BCrypt.checkpw(password, mw.getHashedPW()))
+		{ // mw == null is niet nodig, geeft al EntityNotFoundException in DAO klasse
 			throw new IllegalArgumentException("Ongeldige inloggegevens");
 		}
-		
-		return new MedewerkerDTO(mw.getVoornaam(), mw.getFamilienaam(), mw.getEmail(), mw.getRol(), mw.getPersoneelsNr());
-		
+
+		return new MedewerkerDTO(mw.getVoornaam(), mw.getFamilienaam(), mw.getEmail(), mw.getPersoneelsNr(),
+				mw.getFunctie());
+
 	}
 
-	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String rol,
+	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String functie,
 			int personeelsNr)
 	{
 		MedewerkerDaoJpa.startTransaction();
 
-		switch (rol.toLowerCase())
-			{
-			case "magazijnier":
-				medewerkerRepo.insert(new Magazijnier(voornaam, familienaam, emailadres, password, personeelsNr));
-
-				break;
-			case "admin":
-				medewerkerRepo.insert(new Admin(voornaam, familienaam, emailadres, password, personeelsNr));
-
-			default:
-				break;
-			}
+		medewerkerRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, personeelsNr, functie));
 
 		MedewerkerDaoJpa.commitTransaction();
 	}
-	
-	
+
 }
