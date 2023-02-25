@@ -42,10 +42,10 @@ public class Medewerker extends User
 	private Functie functie;
 
 
-	public Medewerker(String voornaam, String familienaam, String email, String password, int personeelsNr, String functie)
+	public Medewerker(String voornaam, String familienaam, String email, String password, String adres, String telefoonnummer, int personeelsNr, String functie)
 	{
 
-		super(voornaam,familienaam,email,password,personeelsNr);
+		super(voornaam,familienaam,email,password, adres, telefoonnummer, personeelsNr);
 		setFunctie(functie);
 	}
 

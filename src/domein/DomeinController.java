@@ -49,11 +49,15 @@ public class DomeinController
 		return userService.aanmelden(emailAdress, password);
 	}
 
-	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, 
+	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres, String telefoonnumer, 
 			String functie, int personeelsNr)
 	{
-		userService.maakMedewerker(voornaam, familienaam, emailadres, password, functie, personeelsNr);
+		userService.maakMedewerker(voornaam, familienaam, emailadres, password, adres, telefoonnumer, functie, personeelsNr);
 
+	}
+	
+	public void updateMedewerker(String e, String r) {
+		userService.updateMedewerker(e, r);
 	}
 
 	public void close()

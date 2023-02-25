@@ -25,19 +25,29 @@ public class UserService
 			throw new IllegalArgumentException("Ongeldige inloggegevens");
 		}
 
-		return new MedewerkerDTO(mw.getVoornaam(), mw.getFamilienaam(), mw.getEmail(), mw.getPersoneelsNr(),
+		return new MedewerkerDTO(mw.getVoornaam(), mw.getFamilienaam(), mw.getEmail(), mw.getAdres(), mw.getTelefoonnummer(), mw.getPersoneelsNr(),
 				mw.getFunctie());
 
 	}
 
-	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String functie,
+	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres, String telefoonnummer, String functie,
 			int personeelsNr)
 	{
 		UserDaoJpa.startTransaction();
 
-		userRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, personeelsNr, functie));
+		userRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, adres, telefoonnummer, personeelsNr, functie));
 
 		UserDaoJpa.commitTransaction();
+	}
+	
+	public void updateMedewerker(String email, String nieuweRol) {
+		Medewerker mw = (Medewerker) userRepo.getMedewerkerByEmailAdress(email);
+		mw.setFunctie(nieuweRol);		
+		UserDaoJpa.startTransaction();
+		userRepo.update(mw);		
+
+		UserDaoJpa.commitTransaction();
+		
 	}
 
 }

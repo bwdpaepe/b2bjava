@@ -47,18 +47,24 @@ public abstract class User implements Serializable {
 	private String emailAdress;
 	@Column(name = "Hashed_paswoord")
 	private String hashedPW;
+	@Column(name = "telefoonnummer")
+	private String telefoonnummer;
+	@Column(name = "adres")
+	private String adres;
 	
 	@Transient
 	private String salt = BCrypt.gensalt(12);
 
 	
-	public User(String voornaam, String familienaam, String email, String password, int personeelsNr) {
+	public User(String voornaam, String familienaam, String email, String password, String telefoonnumer, String adres, int personeelsNr) {
 		
 		setVoornaam(voornaam);
 		setFamilienaam(familienaam);
 		setEmail(email);
 		setHashedPW(password);
 		setPersoneelsNr(personeelsNr);
+		setAdres(adres);
+		setTelefoonnummer(telefoonnumer);
 		
 	}
 	
@@ -155,5 +161,22 @@ public abstract class User implements Serializable {
 		}
 		this.personeelsNr = personeelsNR;
 	}
+
+	public String getTelefoonnummer() {
+		return telefoonnummer;
+	}
+
+	public void setTelefoonnummer(String telefoonnummer) {
+		this.telefoonnummer = telefoonnummer;
+	}
+
+	public String getAdres() {
+		return adres;
+	}
+
+	public void setAdres(String adres) {
+		this.adres = adres;
+	}
+	
 
 }
