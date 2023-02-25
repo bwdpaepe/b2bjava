@@ -65,7 +65,6 @@ public abstract class User implements Serializable {
 		setPersoneelsNr(personeelsNr);
 		setAdres(adres);
 		setTelefoonnummer(telefoonnumer);
-		
 	}
 	
 	//lege Constructor voor JPA
@@ -166,7 +165,11 @@ public abstract class User implements Serializable {
 		return telefoonnummer;
 	}
 
-	public void setTelefoonnummer(String telefoonnummer) {
+	public final void setTelefoonnummer(String telefoonnummer) {
+		// error als geen telefoonnummer, of niet voldoet aan de regex: eventueel beginnen met een '+', en verder enkel cijfers (minstens 6)
+		if(telefoonnummer == null || !telefoonnummer.matches("^\\+?\\d{6,}$")) {
+			throw new IllegalArgumentException("Telefoonnummer is ongeldig");
+		}
 		this.telefoonnummer = telefoonnummer;
 	}
 
@@ -174,7 +177,10 @@ public abstract class User implements Serializable {
 		return adres;
 	}
 
-	public void setAdres(String adres) {
+	public final void setAdres(String adres) {
+		if (adres == null || adres.isBlank()) {
+            throw new IllegalArgumentException("Adres is verplicht");
+		}
 		this.adres = adres;
 	}
 	
