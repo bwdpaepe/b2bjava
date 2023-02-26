@@ -48,7 +48,7 @@ class MedewerkerTest
 	@Test
 	void updateFunctie_medewerker() {
 		mw.setFunctie("Magazijnier");
-		Assertions.assertEquals(mw.getFunctie(), "Magazijnier");
+		Assertions.assertEquals("Magazijnier", mw.getFunctie());
 	}
 
 	@ParameterizedTest
