@@ -8,14 +8,13 @@ import service.UserService;
 
 public class DomeinController
 {
-	private UserDTO userDTO;
-	private UserDao userRepo;
+	private UserDTO ingelogdeUser;
 	private UserService userService; // service klasse om o.a aanmelden uit te werken
 
 	public DomeinController()
 	{
-		setUserRepo(new UserDaoJpa());
-		setUserService(new UserService(userRepo));
+
+		setUserService(new UserService());
 	}
 
 	private final void setUserService(UserService userService)
@@ -23,31 +22,26 @@ public class DomeinController
 		this.userService = userService;
 	}
 
-	public UserDTO getUser()
+	public UserDTO getIngelogdeUser()
 	{
-		return userDTO;
+		return this.ingelogdeUser;
 	}
 
-	private void setUser(UserDTO userDTO)
+	private void setIngelogdeUser(UserDTO userDTO)
 	{
-		this.userDTO = userDTO;
+		this.ingelogdeUser = userDTO;
 	}
 
-	public UserDao getUserRepo()
-	{
-		return userRepo;
-	}
 
-	public final void setUserRepo(UserDao userRepo)
-	{
-		this.userRepo = userRepo;
-	}
 
 	// return een Data Transfer Object van User naar de GUI
 	public UserDTO aanmelden(String emailAdress, String password)
 	{
-		return userService.aanmelden(emailAdress, password);
+		UserDTO user = userService.aanmelden(emailAdress, password);
+		setIngelogdeUser(user);
+		return user;
 	}
+	
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres, String telefoonnumer, 
 			String functie, int personeelsNr)

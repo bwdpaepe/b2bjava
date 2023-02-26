@@ -12,7 +12,12 @@ import repository.UserDaoJpa;
 public class UserService
 {
 	private UserDao userRepo;
+	
+	public UserService() {
+		this.userRepo = new UserDaoJpa();
+	}
 
+	//voor mockito
 	public UserService(UserDao userRepo)
 	{
 		this.userRepo = userRepo;
