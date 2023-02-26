@@ -1,15 +1,22 @@
 package gui;
 
+import java.io.IOException;
+
 import domein.DomeinController;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import repository.UserDTO;
 
 //TESTKLASSE GUI
 
-public class ConsoleUi {
-    private final DomeinController domeinController;
-    public ConsoleUi(DomeinController dc) {
+public class ConsoleUi extends Application {
+    private final DomeinController domeinController = new DomeinController();
+    /*public ConsoleUi(DomeinController dc) {
        domeinController = dc;
-    }
+    }*/
 
     public void run() {
         doStandardJob();
@@ -38,5 +45,27 @@ public class ConsoleUi {
             System.out.println("Operatie mislukt " + ex.getMessage());
         }
     }
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		this.run();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Aanmelden.fxml"));
+			AanmeldenController ac = new AanmeldenController(this.domeinController);
+			loader.setController(ac);
+			Parent root = loader.load();
+			Scene scene = new Scene (root);
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
     
 }
