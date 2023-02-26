@@ -29,4 +29,7 @@ public abstract class UserDTO
 	{
 		return email;
 	}
+	
+	@Override
+	public abstract String toString();
 }

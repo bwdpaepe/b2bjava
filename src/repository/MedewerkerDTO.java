@@ -39,4 +39,13 @@ public class MedewerkerDTO extends UserDTO
 	{
 		return telefoonnumer;
 	}
+
+	@Override
+	public String toString() {
+		return "MedewerkerDTO [personeelsNr=" + personeelsNr + ", functie=" + functie + ", adres=" + adres
+				+ ", telefoonnumer=" + telefoonnumer + ", voornaam=" + voornaam + ", familienaam=" + familienaam
+				+ ", email=" + email + "]";
+	}
+	
+	
 }
