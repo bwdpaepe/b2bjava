@@ -18,7 +18,7 @@ module B2B_Portal_Delaware {
 	opens testen;
 	opens service;
 	opens util;
-	opens repository;
+	opens repository; 
 	
 	// FX
 	requires javafx.base;
@@ -35,5 +35,4 @@ module B2B_Portal_Delaware {
 	requires org.mockito;
 	requires jbcrypt;
 	requires org.junit.jupiter.params;
-	
 }
