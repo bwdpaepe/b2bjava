@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import domein.Medewerker;
 import domein.User;
+import repository.MedewerkerDTO;
 import repository.UserDTO;
 import repository.UserDao;
 import service.UserService;
@@ -42,8 +43,11 @@ class UserServiceTest
         Assertions.assertEquals(user.getEmail(), userDTO.getEmail());
         Assertions.assertEquals(user.getAdres(), userDTO.getAdres());
         Assertions.assertEquals(user.getTelefoonnummer(), userDTO.getTelefoonnummer());
-//        Assertions.assertEquals(user.getPersoneelsNr(), userDTO.getPersoneelsNr());
-//        Assertions.assertEquals(((Medewerker) user).getFunctie(), ((MedewerkerDTO) userDTO).getFunctie());
+        if (user instanceof Medewerker)
+		{
+			Assertions.assertEquals(((Medewerker) user).getPersoneelsNr(), ((MedewerkerDTO) userDTO).getPersoneelsNr());
+			Assertions.assertEquals(((Medewerker) user).getFunctie(), ((MedewerkerDTO) userDTO).getFunctie());
+		}
         
         Mockito.verify(userRepoMock).getMedewerkerByEmailAdress(emailAdress);
 	}
