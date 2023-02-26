@@ -16,6 +16,9 @@ public class Medewerker extends User
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "personeelsNr", unique = true)
+	private int personeelsNr;
+	
 	@Column(name = "Functie")
 	private String functieString;
 
@@ -25,9 +28,9 @@ public class Medewerker extends User
 	public Medewerker(String voornaam, String familienaam, String email, String password, String adres,
 			String telefoonnummer, int personeelsNr, String functie)
 	{
-
-		super(voornaam, familienaam, email, password, telefoonnummer, adres, personeelsNr);
+		super(voornaam, familienaam, email, password, telefoonnummer, adres);
 		setFunctie(functie);
+		setPersoneelsNr(personeelsNr);
 	}
 
 	// Lege constructor nodig voor JPA
@@ -62,6 +65,20 @@ public class Medewerker extends User
 			}
 
 		this.functieString = this.functie.toString();
+	}
+	
+	public int getPersoneelsNr()
+	{
+		return personeelsNr;
+	}
+
+	public final void setPersoneelsNr(int personeelsNR)
+	{
+		if (personeelsNR <= 0)
+		{// eventueel nog andere checks toevoegen
+			throw new IllegalArgumentException("Personeelnummer is ongeldig");
+		}
+		this.personeelsNr = personeelsNR;
 	}
 
 }

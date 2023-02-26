@@ -24,10 +24,9 @@ import org.mindrot.jbcrypt.BCrypt;
 	{ @NamedQuery(name = "User.findByEmailAdress", query = "select u from User u where u.emailAdress = :emailAdress") })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "soort")
-public abstract class User implements Serializable {
+public abstract class User implements Serializable
+{
 
-
-	
 	private static final long serialVersionUID = 1L;
 
 	@Transient
@@ -37,8 +36,6 @@ public abstract class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "personeelsNr", unique = true)
-	private int personeelsNr;
 	@Column(name = "Voornaam")
 	private String voornaam;
 	@Column(name = "Familienaam")
@@ -51,31 +48,30 @@ public abstract class User implements Serializable {
 	private String telefoonnummer;
 	@Column(name = "adres")
 	private String adres;
-	
+
 	@Transient
 	private String salt = BCrypt.gensalt(12);
 
-	
-	public User(String voornaam, String familienaam, String email, String password, String telefoonnumer, String adres, int personeelsNr) {
-		
+	public User(String voornaam, String familienaam, String email, String password, String telefoonnumer, String adres)
+	{
 		setVoornaam(voornaam);
 		setFamilienaam(familienaam);
 		setEmail(email);
 		setHashedPW(password);
-		setPersoneelsNr(personeelsNr);
 		setAdres(adres);
 		setTelefoonnummer(telefoonnumer);
 	}
-	
-	//lege Constructor voor JPA
-	public User() {
-		
+
+	// lege Constructor voor JPA
+	public User()
+	{
+
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(personeelsNr);
+		return Objects.hash(emailAdress);
 	}
 
 	@Override
@@ -88,10 +84,9 @@ public abstract class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Medewerker other = (Medewerker) obj;
-		return personeelsNr == other.getPersoneelsNr();
+		return emailAdress == other.getEmail();
 	}
-	
-	
+
 	public String getVoornaam()
 	{
 		return voornaam;
@@ -99,7 +94,8 @@ public abstract class User implements Serializable {
 
 	public final void setVoornaam(String voornaam)
 	{
-		if(voornaam == null || voornaam.isBlank()) {
+		if (voornaam == null || voornaam.isBlank())
+		{
 			throw new IllegalArgumentException("Voornaam is verplicht");
 		}
 		this.voornaam = voornaam;
@@ -112,7 +108,8 @@ public abstract class User implements Serializable {
 
 	public final void setFamilienaam(String familienaam)
 	{
-		if(familienaam == null || familienaam.isBlank()) {
+		if (familienaam == null || familienaam.isBlank())
+		{
 			throw new IllegalArgumentException("Familienaam is verplicht");
 		}
 		this.familienaam = familienaam;
@@ -125,15 +122,19 @@ public abstract class User implements Serializable {
 
 	public final void setEmail(String email)
 	{
-		if (email == null || email.isBlank()) {
-            throw new IllegalArgumentException("E-mailadres is verplicht");
+		if (email == null || email.isBlank())
+		{
+			throw new IllegalArgumentException("E-mailadres is verplicht");
 		}
 		// https://howtodoinjava.com/java/regex/java-regex-validate-email-address/
-		if (!email.matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
-            throw new IllegalArgumentException("Ongeldig e-mailadres formaat");
-        }
+		if (!email.matches(
+				"^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
+		{
+			throw new IllegalArgumentException("Ongeldig e-mailadres formaat");
+		}
 		this.emailAdress = email;
-	} 
+	}
+
 	public String getHashedPW()
 	{
 		return hashedPW;
@@ -142,47 +143,41 @@ public abstract class User implements Serializable {
 	public final void setHashedPW(String password)
 	{
 		// error als geen wachtwoord, te kort, of bevat spatie
-		if(password == null || password.length() < MIN_PW_LENGTH || password.matches(".*\\s.*")) {
+		if (password == null || password.length() < MIN_PW_LENGTH || password.matches(".*\\s.*"))
+		{
 			throw new IllegalArgumentException("Wachtwoord is ongeldig");
 		}
 		this.hashedPW = BCrypt.hashpw(password, salt);
 	}
 
-	public int getPersoneelsNr()
+	public String getTelefoonnummer()
 	{
-		return personeelsNr;
-	}
-
-	public final void setPersoneelsNr(int personeelsNR)
-	{
-		if(personeelsNR <= 0 ) {// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Personeelnummer is ongeldig");
-		}
-		this.personeelsNr = personeelsNR;
-	}
-
-	public String getTelefoonnummer() {
 		return telefoonnummer;
 	}
 
-	public final void setTelefoonnummer(String telefoonnummer) {
-		// error als geen telefoonnummer, of niet voldoet aan de regex: eventueel beginnen met een '+', en verder enkel cijfers (minstens 6)
-		if(telefoonnummer == null || !telefoonnummer.matches("^\\+?\\d{6,}$")) {
+	public final void setTelefoonnummer(String telefoonnummer)
+	{
+		// error als geen telefoonnummer, of niet voldoet aan de regex: eventueel
+		// beginnen met een '+', en verder enkel cijfers (minstens 6)
+		if (telefoonnummer == null || !telefoonnummer.matches("^\\+?\\d{6,}$"))
+		{
 			throw new IllegalArgumentException("Telefoonnummer is ongeldig");
 		}
 		this.telefoonnummer = telefoonnummer;
 	}
 
-	public String getAdres() {
+	public String getAdres()
+	{
 		return adres;
 	}
 
-	public final void setAdres(String adres) {
-		if (adres == null || adres.isBlank()) {
-            throw new IllegalArgumentException("Adres is verplicht");
+	public final void setAdres(String adres)
+	{
+		if (adres == null || adres.isBlank())
+		{
+			throw new IllegalArgumentException("Adres is verplicht");
 		}
 		this.adres = adres;
 	}
-	
 
 }

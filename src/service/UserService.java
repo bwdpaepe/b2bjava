@@ -30,7 +30,7 @@ public class UserService
 		if (user instanceof Medewerker)
 		{
 			return new MedewerkerDTO(user.getVoornaam(), user.getFamilienaam(), user.getEmail(), user.getAdres(),
-					user.getTelefoonnummer(), user.getPersoneelsNr(), ((Medewerker) user).getFunctie());
+					user.getTelefoonnummer(), ((Medewerker) user).getPersoneelsNr(), ((Medewerker) user).getFunctie());
 		} else
 		{
 			throw new IllegalArgumentException("Ongeldig usertype");
