@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -40,7 +41,7 @@
       </Pane>
       <Pane layoutX="860.0" layoutY="752.0" prefHeight="67.0" prefWidth="789.0" AnchorPane.leftAnchor="565.0" AnchorPane.topAnchor="645.0">
          <children>
-            <Button fx:id="aanmeldenButton" mnemonicParsing="false" prefHeight="67.0" prefWidth="200.0" style="-fx-background-color: EC4842; -fx-background-radius: 15;" text="Aanmelden" textFill="WHITE">
+            <Button fx:id="aanmeldenButton" mnemonicParsing="false" onAction="#aanmelden" prefHeight="67.0" prefWidth="200.0" style="-fx-background-color: EC4842; -fx-background-radius: 15;" text="Aanmelden" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold Italic" size="32.0" />
                </font>
@@ -52,6 +53,10 @@
             </Button>
          </children>
       </Pane>
-      <Text fx:id="errorMessage" layoutX="943.0" layoutY="821.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Label fx:id="errorMessage" layoutX="941.0" layoutY="784.0">
+         <font>
+            <Font name="Calibri Bold Italic" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

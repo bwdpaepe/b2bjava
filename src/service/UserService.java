@@ -25,6 +25,8 @@ public class UserService
 
 	public UserDTO aanmelden(String emailAdress, String password)
 	{
+		
+		
 		User user = userRepo.getMedewerkerByEmailAdress(emailAdress);
 
 		if (!BCrypt.checkpw(password, user.getHashedPW()))

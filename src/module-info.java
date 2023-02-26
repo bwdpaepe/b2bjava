@@ -12,13 +12,17 @@ module B2B_Portal_Delaware {
 	exports service;
 	exports util;
 	exports repository;
+	exports gui;
+	
 	
 	opens domein;
 	opens main;
 	opens testen;
 	opens service;
 	opens util;
-	opens repository; 
+	opens repository;
+	opens gui;
+	
 	
 	// FX
 	requires javafx.base;

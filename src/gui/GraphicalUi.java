@@ -1,26 +1,17 @@
 package gui;
 
-import java.io.IOException;
-
 import domein.DomeinController;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import repository.UserDTO;
 
-//TESTKLASSE GUI
-
-public class ConsoleUi {
-    private final DomeinController domeinController;
-    public ConsoleUi(DomeinController dc) {
+public class GraphicalUi {
+	private final DomeinController domeinController;
+    public GraphicalUi(DomeinController dc) {
        domeinController = dc;
     }
 
     public void run() {
         doStandardJob();
-        domeinController.close();
+       
     }
 
     private void doStandardJob() {
@@ -32,9 +23,9 @@ public class ConsoleUi {
             domeinController.maakMedewerker("Bart", "De Paepe", "emailail4.bart@test.com", "paswoord","Adres adres adres4","047565442854", "admin", 3);;
             domeinController.maakMedewerker("Ian", "Daelman", "emailail5@test.com", "paswoord","Adres adres adres5","047565442854", "admin", 4);;
             
-            UserDTO u = domeinController.aanmelden( "emailail1@test.com", "paswoord");
+            /*UserDTO u = domeinController.aanmelden( "emailail1@test.com", "paswoord");
             
-            System.out.print(u);
+            System.out.print(u);*/
             
             domeinController.updateMedewerker("emailail3@test.be", "magazijnier");
                    

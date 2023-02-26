@@ -4,6 +4,7 @@ import domein.DomeinController;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import repository.UserDTO;
 
 public class HomeController {
 	
@@ -14,8 +15,10 @@ public class HomeController {
 	private Parent root;
 	
 	private final DomeinController dc;
+	private final UserDTO user;
 	
-	public HomeController(DomeinController dc) {
+	public HomeController(DomeinController dc, UserDTO user) {
 		this.dc = dc;
+		this.user = user;
 	}
 }
