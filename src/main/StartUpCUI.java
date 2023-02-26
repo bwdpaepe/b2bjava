@@ -11,7 +11,7 @@ public class StartUpCUI {
     }
 
     private void run() {
-        new ConsoleUi().run();
+        new ConsoleUi(new DomeinController()).run();
         
     }
     
