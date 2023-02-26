@@ -7,12 +7,16 @@ public abstract class UserDTO
 	protected final String voornaam;
 	protected final String familienaam;
 	protected final String email;
+	protected final String telefoonnummer;
+	protected final String adres;
 
-	public UserDTO(String voornaam, String familienaam, String email)
+	public UserDTO(String voornaam, String familienaam, String email, String telefoonnummer, String adres)
 	{
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
 		this.email = email;
+		this.telefoonnummer = telefoonnummer;
+		this.adres = adres;
 	}
 
 	public String getVoornaam()
@@ -29,7 +33,22 @@ public abstract class UserDTO
 	{
 		return email;
 	}
-	
+
+	public String getTelefoonnummer()
+	{
+		return telefoonnummer;
+	}
+
+	public String getAdres()
+	{
+		return adres;
+	}
+
 	@Override
-	public abstract String toString();
+	public String toString()
+	{
+		return "voornaam=" + voornaam + ", familienaam=" + familienaam + ", email=" + email
+				+ ", telefoonnummer=" + telefoonnummer + ", adres=" + adres;
+	}
+
 }

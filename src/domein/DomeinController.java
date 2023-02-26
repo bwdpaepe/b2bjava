@@ -8,7 +8,7 @@ import service.UserService;
 
 public class DomeinController
 {
-	private User user;
+	private UserDTO userDTO;
 	private UserDao userRepo;
 	private UserService userService; // service klasse om o.a aanmelden uit te werken
 
@@ -23,14 +23,14 @@ public class DomeinController
 		this.userService = userService;
 	}
 
-	public User getUser()
+	public UserDTO getUser()
 	{
-		return user;
+		return userDTO;
 	}
 
-	public final void setUser(User user)
+	private void setUser(UserDTO userDTO)
 	{
-		this.user = user;
+		this.userDTO = userDTO;
 	}
 
 	public UserDao getUserRepo()
