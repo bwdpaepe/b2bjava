@@ -8,10 +8,15 @@
 module B2B_Portal_Delaware {
 	exports domein;
 	exports main;
+	exports testen;
+	exports service;
+	exports util;
 	
 	opens domein;
+	opens main;
+	opens testen;
+	opens service;
 	opens util;
-	
 	
 	// FX
 	requires javafx.base;

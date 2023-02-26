@@ -1,5 +1,7 @@
 package testen;
 
+
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,8 +29,6 @@ class UserServiceTest
 	@Test
 	void aanmelden()
 	{
-
-
 		String emailAdress = "test@example.com";
         String password = "password123!!";
         User user = new Medewerker("John", "Doe", emailAdress, password, "adres", "0123456789", 1, "admin");
@@ -40,10 +40,12 @@ class UserServiceTest
         Assertions.assertEquals(user.getVoornaam(), userDTO.getVoornaam());
         Assertions.assertEquals(user.getFamilienaam(), userDTO.getFamilienaam());
         Assertions.assertEquals(user.getEmail(), userDTO.getEmail());
-//        Assertions.assertEquals(user.getAdres(), userDTO.getAdres());
-//        Assertions.assertEquals(user.getTelefoonnummer(), userDTO.getTelefoonnummer());
+        Assertions.assertEquals(user.getAdres(), userDTO.getAdres());
+        Assertions.assertEquals(user.getTelefoonnummer(), userDTO.getTelefoonnummer());
 //        Assertions.assertEquals(user.getPersoneelsNr(), userDTO.getPersoneelsNr());
 //        Assertions.assertEquals(((Medewerker) user).getFunctie(), ((MedewerkerDTO) userDTO).getFunctie());
+        
+        Mockito.verify(userRepoMock).getMedewerkerByEmailAdress(emailAdress);
 	}
 
 }
