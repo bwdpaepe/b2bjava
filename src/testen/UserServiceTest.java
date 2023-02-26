@@ -32,13 +32,13 @@ class UserServiceTest
 	private static final String ADRES = "TestStraat 1, 1234 Demo";
 	private static final String TELEFOONNUMMER = "+1123456";
 	private static final String FUNCTIE = "Admin";
-	private static final String FUNCTIE_NIEUW = "Magazijnier";
+	//private static final String FUNCTIE_NIEUW = "Magazijnier"; eventueel later te gebruiken bij Update
 	private static final int PERSONEELNR = 12345;
 
 	@Test
 	void aanmelden()
 	{
-		User user = new Medewerker("John", "Doe", EMAILADRES, WACHTWOORD, "adres", "0123456789", 1, "admin");
+		User user = new Medewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELNR, FUNCTIE);
 
 		Mockito.when(userRepoMock.getMedewerkerByEmailAdress(EMAILADRES)).thenReturn(user);
 
