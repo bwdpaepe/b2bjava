@@ -44,6 +44,12 @@ class MedewerkerTest
 		Assertions.assertNotNull(mw.getHashedPW());
 		Assertions.assertNotEquals(WACHTWOORD, mw.getHashedPW());
 	}
+	
+	@Test
+	void updateFunctie_medewerker() {
+		mw.setFunctie("Magazijnier");
+		Assertions.assertEquals(mw.getFunctie(), "Magazijnier");
+	}
 
 	@ParameterizedTest
 	@NullAndEmptySource

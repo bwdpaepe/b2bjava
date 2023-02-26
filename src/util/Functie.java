@@ -1,10 +1,10 @@
 package util;
 
-import java.io.Serializable;
 
 
 
-public interface Functie extends Serializable
+
+public interface Functie
 {	
 
 	public String toString();
