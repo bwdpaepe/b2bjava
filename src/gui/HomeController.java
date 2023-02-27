@@ -26,6 +26,6 @@ public class HomeController {
 	public HomeController(DomeinController dc, UserDTO user) {
 		this.dc = dc;
 		this.user = user;
-		
+		this.welkomNaam.setText(String.format("Welkom %s %S", user.getVoornaam(), user.getFamilienaam()));
 	}
 }
