@@ -30,6 +30,6 @@ public class HomeController {
 	}
 	
 	public void setWelkomTekst() {
-		this.welkomNaam.setText(String.format("Welkom %s%s", user.getVoornaam(), user.getFamilienaam()));
+		this.welkomNaam.setText(String.format("Welkom %s %s", user.getVoornaam(), user.getFamilienaam()));
 	}
 }
