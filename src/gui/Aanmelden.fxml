@@ -35,12 +35,12 @@
                   <Font name="Calibri Bold Italic" size="36.0" />
                </font>
             </Text>
-            <TextField fx:id="gebruikersnaamTxtField" alignment="CENTER" layoutX="200.0" layoutY="90.0" prefHeight="43.0" prefWidth="380.0" promptText="Vul je gebruikersnaam in..." style="-fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;">
+            <TextField fx:id="gebruikersnaamTxtField" alignment="CENTER" layoutX="200.0" layoutY="90.0" onAction="#onEnter" prefHeight="43.0" prefWidth="380.0" promptText="Vul je gebruikersnaam in..." style="-fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;">
                <font>
                   <Font name="Calibri Bold Italic" size="20.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="paswoordTxtField" alignment="CENTER" layoutX="200.0" layoutY="160.0" prefHeight="43.0" prefWidth="380.0" promptText="Paswoord..." style="-fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;">
+            <PasswordField fx:id="paswoordTxtField" alignment="CENTER" layoutX="200.0" layoutY="160.0" onAction="#onEnter" prefHeight="43.0" prefWidth="380.0" promptText="Paswoord..." style="-fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;">
                <font>
                   <Font name="Calibri Bold Italic" size="20.0" />
                </font>

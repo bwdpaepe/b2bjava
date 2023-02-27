@@ -43,6 +43,11 @@ public class AanmeldenController {
 		this.dc = dc;
 	}
 	
+	@FXML
+	public void onEnter(ActionEvent ae) throws IOException {
+		this.aanmelden(ae);
+	}
+	
 	public void aanmelden(ActionEvent event) throws IOException {
 		try {
 			UserDTO user = dc.aanmelden(gebruikersnaamTxtField.getText(), paswoordTxtField.getText());
