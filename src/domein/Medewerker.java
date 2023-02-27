@@ -1,8 +1,14 @@
 package domein;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import util.AdminFunctie;
@@ -24,6 +30,9 @@ public class Medewerker extends User
 
 	@Transient
 	private Functie functie;
+	
+	@ManyToOne
+	private List<Dienst> diensten = new ArrayList<>();
 
 	public Medewerker(String voornaam, String familienaam, String email, String password, String adres,
 			String telefoonnummer, int personeelsNr, String functie)
@@ -79,6 +88,10 @@ public class Medewerker extends User
 			throw new IllegalArgumentException("Personeelnummer is ongeldig");
 		}
 		this.personeelsNr = personeelsNR;
+	}
+	
+	public List<Dienst> getDiensten() {
+		return Collections.unmodifiableList(diensten);
 	}
 
 }
