@@ -1,8 +1,10 @@
-package gui;
+package main;
 
 import java.io.IOException;
 
 import domein.DomeinController;
+import gui.AanmeldenController;
+import gui.GraphicalUi;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +19,7 @@ public class StartupGUI extends Application{
 	public void start(Stage primaryStage) throws IOException {
 		try {
 			run();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("Aanmelden.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Aanmelden.fxml"));
 			AanmeldenController ac = new AanmeldenController(dc);
 			loader.setController(ac);
 			Parent root = loader.load();
