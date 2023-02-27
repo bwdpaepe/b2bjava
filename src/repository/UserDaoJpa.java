@@ -19,7 +19,7 @@ public class UserDaoJpa extends GenericDaoJpa<User> implements UserDao  {
                  .setParameter("emailAdress", emailadress)
                 .getSingleResult();
         } catch (NoResultException ex) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("Gebruiker bestaat niet");
         } 
     }
     

@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -17,6 +19,11 @@
                   <Font name="Calibri Bold Italic" size="64.0" />
                </font>
             </Text>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../gui_images/logo_red.jpg" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Pane layoutX="8.0" layoutY="68.0" prefHeight="35.0" prefWidth="1920.0" style="-fx-background-color: E0433E;" AnchorPane.bottomAnchor="944.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />

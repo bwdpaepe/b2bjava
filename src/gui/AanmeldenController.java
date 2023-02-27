@@ -3,6 +3,8 @@ package gui;
 
 import java.io.IOException;
 
+import javax.persistence.EntityNotFoundException;
+
 import domein.DomeinController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,6 +56,9 @@ public class AanmeldenController {
 			stage.setScene(scene);
 			stage.show();
 		} catch (IllegalArgumentException e) {
+			errorMessage.setText(e.getMessage());
+			errorMessage.setTextFill(Color.RED);
+		} catch (EntityNotFoundException e) {
 			errorMessage.setText(e.getMessage());
 			errorMessage.setTextFill(Color.RED);
 		}
