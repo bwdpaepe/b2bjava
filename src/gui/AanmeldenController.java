@@ -48,13 +48,16 @@ public class AanmeldenController {
 			UserDTO user = dc.aanmelden(gebruikersnaamTxtField.getText(), paswoordTxtField.getText());
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
 			HomeController hc = new HomeController(this.dc, user);
+			
 			loader.setController(hc);
+			
 			root = loader.load();
 			
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			stage.setResizable(false);
 			scene = new Scene(root);
 			stage.setScene(scene);
+			hc.setWelkomTekst();
 			stage.show();
 		} catch (IllegalArgumentException e) {
 			errorMessage.setText(e.getMessage());
