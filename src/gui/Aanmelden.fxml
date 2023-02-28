@@ -61,12 +61,24 @@
             </Button>
          </children>
       </Pane>
-      <Label fx:id="errorMessage" layoutX="941.0" layoutY="784.0">
-         <font>
-            <Font name="Calibri Bold Italic" size="20.0" />
-         </font>
-      </Label>
       <Pane layoutX="308.0" layoutY="829.0" prefHeight="20.0" prefWidth="1920.0" style="-fx-background-color: F8FAFB;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1030.0" />
       <Pane layoutX="219.0" layoutY="648.0" prefHeight="30.0" prefWidth="1920.0" style="-fx-background-color: F0F2F3;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1050.0" />
+      <Pane fx:id="errorWindow" layoutX="252.0" layoutY="159.0" prefHeight="57.0" prefWidth="767.0" style="-fx-background-color: EEB2B2; -fx-border-color: FF0000; -fx-border-radius: 25; -fx-background-radius: 25;" AnchorPane.leftAnchor="573.0" AnchorPane.topAnchor="255.0">
+         <children>
+            <Label fx:id="errorMessage" layoutX="55.0" layoutY="10.0" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Bold Italic" size="32.0" />
+               </font>
+            </Label>
+            <Button fx:id="closeButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="706.0" layoutY="3.0" mnemonicParsing="false" onAction="#closeError" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: EEB2B2;">
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="43.0" onMouseClicked="#closeError" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../gui_images/red%20cross.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
