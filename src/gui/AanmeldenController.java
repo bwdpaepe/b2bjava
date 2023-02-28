@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -38,6 +40,11 @@ public class AanmeldenController {
 	private Button paswoordVergetenButton;
 	@FXML
 	private Label errorMessage;
+	@FXML
+	private Pane errorWindow;
+	@FXML
+	private Button closeButton;
+	
 	
 	public AanmeldenController(DomeinController dc) {
 		this.dc = dc;
@@ -46,6 +53,12 @@ public class AanmeldenController {
 	@FXML
 	public void onEnter(ActionEvent ae) throws IOException {
 		this.aanmelden(ae);
+	}
+	
+	@FXML
+	public void closeError(ActionEvent ae) {
+		this.errorWindow.setVisible(false);
+		
 	}
 	
 	public void aanmelden(ActionEvent event) throws IOException {
@@ -66,10 +79,16 @@ public class AanmeldenController {
 			stage.show();
 		} catch (IllegalArgumentException e) {
 			errorMessage.setText(e.getMessage());
-			errorMessage.setTextFill(Color.RED);
+			this.errorWindow.setVisible(true);
+			this.closeButton.setVisible(true);
+			
+			
+			
 		} catch (EntityNotFoundException e) {
 			errorMessage.setText(e.getMessage());
-			errorMessage.setTextFill(Color.RED);
+			this.errorWindow.setVisible(true);
+			this.closeButton.setVisible(true);
+			
 		}
 	}
 	
