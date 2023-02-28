@@ -3,7 +3,10 @@
   <persistence-unit name="b2b_portal" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
    	<!-- <class>domein.CLASSNAME</class> goes here  -->
+   	<class>domein.User</class>
    	<class>domein.Medewerker</class>
+
+
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://5.180.182.39:3306/sdp2_test?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="sdp2"/>

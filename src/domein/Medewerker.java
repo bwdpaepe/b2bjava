@@ -1,124 +1,84 @@
 package domein;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Objects;
-
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import util.AdminFunctie;
+import util.Functie;
+import util.MagazijnierFunctie;
 
 @Entity
-@Table(name = "medewerkers")
-public class Medewerker implements Serializable{
+@DiscriminatorValue("Medewerker")
+public class Medewerker extends User
+{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
+	@Column(name = "personeelsNr", unique = true)
+	private int personeelsNr;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	@Column(name = "mederwerksNR")
-	private int mederwerkersNR;
-	
-	
+	@Column(name = "Functie")
+	private String functieString;
 
-	
-    private String voornaam;
-    private String familienaam;
-    private String email;
-    private String hashedPW;
+	@Transient
+	private Functie functie;
 
-    
-    public Medewerker(String voornaam, String familienaam, String email, String hashedPW) {
-
-		this.voornaam = voornaam;
-		this.familienaam = familienaam;
-		this.email = email;
-		this.hashedPW = hashedPW;
+	public Medewerker(String voornaam, String familienaam, String email, String password, String adres,
+			String telefoonnummer, int personeelsNr, String functie)
+	{
+		super(voornaam, familienaam, email, password, telefoonnummer, adres);
+		setFunctie(functie);
+		setPersoneelsNr(personeelsNr);
 	}
 
-	protected Medewerker() {
-    	
-    }
-    
-    @Override
-	public int hashCode() {
-		return Objects.hash(mederwerkersNR);
+	// Lege constructor nodig voor JPA
+	public Medewerker()
+	{
+		super();
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Medewerker other = (Medewerker) obj;
-		return mederwerkersNR == other.mederwerkersNR;
+	public String getFunctie()
+	{
+		return this.functieString;
 	}
 
-	public int getMederwerkersNR() {
-		return mederwerkersNR;
-	}
+	public final void setFunctie(String functie)
+	{
+		if (functie == null || functie.isBlank())
+		{
+			throw new IllegalArgumentException("This function is not valid, please choose Admin or Magazijnier");
+		}
 
-	public void setMederwerkersNR(int mederwerkersNR) {
-		this.mederwerkersNR = mederwerkersNR;
-	}
+		switch (functie.toLowerCase())
+			{
+			case "magazijnier":
+				this.functie = new MagazijnierFunctie();
+				break;
+			case "admin":
+				this.functie = new AdminFunctie();
+				break;
 
-	public String getVoornaam() {
-		return voornaam;
-	}
+			default:
+				throw new IllegalArgumentException("This function is not valid, please choose Admin or Magazijnier");
+			}
 
-	public void setVoornaam(String voornaam) {
-		this.voornaam = voornaam;
-	}
-
-	public String getFamilienaam() {
-		return familienaam;
-	}
-
-	public void setFamilienaam(String familienaam) {
-		this.familienaam = familienaam;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getHashedPW() {
-		return hashedPW;
-	}
-
-	public void setHashedPW(String hashedPW) {
-		this.hashedPW = hashedPW;
+		this.functieString = this.functie.toString();
 	}
 	
-	
-	
+	public int getPersoneelsNr()
+	{
+		return personeelsNr;
+	}
+
+	public final void setPersoneelsNr(int personeelsNR)
+	{
+		if (personeelsNR <= 0)
+		{// eventueel nog andere checks toevoegen
+			throw new IllegalArgumentException("Personeelnummer is ongeldig");
+		}
+		this.personeelsNr = personeelsNR;
+	}
+
 }
-
-
-    
-
-
-
-
-
-
-
-
-
-
