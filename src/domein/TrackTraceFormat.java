@@ -9,77 +9,96 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import service.ValidationService;
+
 @Entity
 @Table(name = "TrackTraceFormats")
-public class TrackTraceFormat implements Serializable {
-	
-	/**
-	 * 
-	 */
+public class TrackTraceFormat implements Serializable
+{
+
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private int barcodeLengte;
-	private boolean barcodeEnkelCijfers;
+	private boolean isBarcodeEnkelCijfers;
 	private String barcodePrefix;
-	private Verificatiecode verificatieCode;
-	
+	private String verificatieCodeString;
+
 	// lege Constructor voor JPA
-	protected TrackTraceFormat() {
-		
-	}
-	
-	public TrackTraceFormat(int barcodeLengte, boolean barcodeEnkelCijfers, String barcodePrefix, int geselecteerdeVerificatie) {
-		this.barcodeLengte = barcodeLengte;
-		this.barcodeEnkelCijfers = barcodeEnkelCijfers;
-		this.barcodePrefix = barcodePrefix;
-		this.verificatieCode = switch(geselecteerdeVerificatie) {
-			case 0 -> Verificatiecode.ORDERID;
-			case 1 -> Verificatiecode.POSTCODE;
-			default -> throw new IllegalArgumentException("Unexpected value: " + geselecteerdeVerificatie);
-		};
+	protected TrackTraceFormat()
+	{
+
 	}
 
-	public int getBarcodeLengte() {
+	public TrackTraceFormat(int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
+			String verificatieCode)
+	{
+		setBarcodeLengte(barcodeLengte);
+		setIsBarcodeEnkelCijfers(isBarcodeEnkelCijfers);
+		setBarcodePrefix(barcodePrefix);
+		setVerificatieCode(verificatieCode);
+	}
+
+	public int getBarcodeLengte()
+	{
 		return barcodeLengte;
 	}
 
-	private void setBarcodeLengte(int barcodeLengte) {
+	private final void setBarcodeLengte(int barcodeLengte)
+	{
+		ValidationService.controleerBarcodeLengte(barcodeLengte);
 		this.barcodeLengte = barcodeLengte;
 	}
 
-	public boolean isBarcodeEnkelCijfers() {
-		return barcodeEnkelCijfers;
+	public boolean isBarcodeEnkelCijfers()
+	{
+		return isBarcodeEnkelCijfers;
 	}
 
-	private void setBarcodeEnkelCijfers(boolean barcodeEnkelCijfers) {
-		this.barcodeEnkelCijfers = barcodeEnkelCijfers;
+	private final void setIsBarcodeEnkelCijfers(boolean isBarcodeEnkelCijfers)
+	{
+		this.isBarcodeEnkelCijfers = isBarcodeEnkelCijfers;
 	}
 
-	public String getBarcodePrefix() {
+	public String getBarcodePrefix()
+	{
 		return barcodePrefix;
 	}
 
-	private void setBarcodePrefix(String barcodePrefix) {
+	private final void setBarcodePrefix(String barcodePrefix)
+	{
+		ValidationService.controleerBarcodePrefix(barcodePrefix);
 		this.barcodePrefix = barcodePrefix;
 	}
-	
-	public Verificatiecode getVerificatieCode() {
-		return verificatieCode;
+
+	public String getVerificatieCode()
+	{
+		return verificatieCodeString;
 	}
 
-	private void setVerificatieCode(Verificatiecode verificatieCode) {
-		this.verificatieCode = verificatieCode;
+	private final void setVerificatieCode(String verificatieCode)
+	{
+
+		ValidationService.controleerTrackVerificatiecode(verificatieCode);
+
+		this.verificatieCodeString = switch (verificatieCode.toLowerCase())
+			{
+			case "postcode" -> Verificatiecode.ORDERID.toString();
+			case "orderid" -> Verificatiecode.POSTCODE.toString();
+			default -> throw new IllegalArgumentException("Verificatiecode is ongeldig: " + verificatieCode);
+			};
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(barcodeEnkelCijfers, barcodeLengte, barcodePrefix, verificatieCode);
+	public int hashCode()
+	{
+		return Objects.hash(isBarcodeEnkelCijfers, barcodeLengte, barcodePrefix, verificatieCodeString);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -87,8 +106,9 @@ public class TrackTraceFormat implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		TrackTraceFormat other = (TrackTraceFormat) obj;
-		return barcodeEnkelCijfers == other.barcodeEnkelCijfers && barcodeLengte == other.barcodeLengte
-				&& Objects.equals(barcodePrefix, other.barcodePrefix) && verificatieCode == other.verificatieCode;
+		return isBarcodeEnkelCijfers == other.isBarcodeEnkelCijfers && barcodeLengte == other.barcodeLengte
+				&& Objects.equals(barcodePrefix, other.barcodePrefix)
+				&& verificatieCodeString == other.verificatieCodeString;
 	}
-	
+
 }

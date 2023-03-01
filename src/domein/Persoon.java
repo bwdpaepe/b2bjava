@@ -13,17 +13,18 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import service.ValidationService;
+
 @Entity
 @Table(name = "Personen")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "soort")
-public abstract class Persoon implements Serializable {
-	/**
-	 * 
-	 */
+public abstract class Persoon implements Serializable
+{
+
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(name = "Voornaam")
 	private String voornaam;
@@ -33,26 +34,30 @@ public abstract class Persoon implements Serializable {
 	private String emailAdress;
 	@Column(name = "telefoonnummer")
 	private String telefoonnummer;
-	
+
 	// lege Constructor voor JPA
-	protected Persoon() {
-		
+	protected Persoon()
+	{
+
 	}
-	
-	public Persoon(String voornaam, String familienaam, String email, String telefoonnummer) {
-		this.voornaam = voornaam;
-		this.familienaam =  familienaam;
-		this.emailAdress = email;
-		this.telefoonnummer = telefoonnummer;
+
+	public Persoon(String voornaam, String familienaam, String email, String telefoonnummer)
+	{
+		setVoornaam(voornaam);
+		setFamilienaam(familienaam);
+		setEmailAdress(email);
+		setTelefoonnummer(telefoonnummer);
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		return Objects.hash(emailAdress);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -63,8 +68,53 @@ public abstract class Persoon implements Serializable {
 		return Objects.equals(emailAdress, other.emailAdress);
 	}
 
-	
-	
-	
+	public long getId()
+	{
+		return id;
+	}
+
+	public String getVoornaam()
+	{
+		return voornaam;
+	}
+
+	public final void setVoornaam(String voornaam)
+	{
+		ValidationService.controleerNaam(voornaam);
+		this.voornaam = voornaam;
+	}
+
+	public String getFamilienaam()
+	{
+		return familienaam;
+	}
+
+	public final void setFamilienaam(String familienaam)
+	{
+		ValidationService.controleerNaam(familienaam);
+		this.familienaam = familienaam;
+	}
+
+	public String getEmailAdress()
+	{
+		return emailAdress;
+	}
+
+	public final void setEmailAdress(String emailAdress)
+	{
+		ValidationService.controleerEmail(emailAdress);
+		this.emailAdress = emailAdress;
+	}
+
+	public String getTelefoonnummer()
+	{
+		return telefoonnummer;
+	}
+
+	public void setTelefoonnummer(String telefoonnummer)
+	{
+		ValidationService.controleerEmail(telefoonnummer);
+		this.telefoonnummer = telefoonnummer;
+	}
 
 }

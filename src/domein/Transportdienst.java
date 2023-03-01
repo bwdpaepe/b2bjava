@@ -6,28 +6,27 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @DiscriminatorValue("Transportdienst")
-public class Transportdienst extends Dienst {
-	
-	/**
-	 * 
-	 */
+public class Transportdienst extends Dienst
+{
+
 	private static final long serialVersionUID = 1L;
 	@ManyToOne
 	private TrackTraceFormat barcodeFormaat;
-	
+
 	// lege Constructor voor JPA
-	protected Transportdienst() {
+	protected Transportdienst()
+	{
 		super();
 	}
-	
-	protected Transportdienst(String naam, boolean isActief) {
+
+	protected Transportdienst(String naam, boolean isActief)
+	{
 		super(naam, isActief);
 	}
 
-	public TrackTraceFormat getBarcodeFormaat() {
+	public TrackTraceFormat getBarcodeFormaat()
+	{
 		return barcodeFormaat;
 	}
-	
-	
 
 }

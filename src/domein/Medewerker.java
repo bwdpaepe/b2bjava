@@ -1,7 +1,6 @@
 package domein;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import service.ValidationService;
 import util.AdminFunctie;
 import util.Functie;
 import util.MagazijnierFunctie;
@@ -24,13 +24,13 @@ public class Medewerker extends User
 
 	@Column(name = "personeelsNr", unique = true)
 	private int personeelsNr;
-	
+
 	@Column(name = "Functie")
 	private String functieString;
 
 	@Transient
 	private Functie functie;
-	
+
 	@ManyToOne
 	private List<Dienst> diensten = new ArrayList<>();
 
@@ -55,27 +55,19 @@ public class Medewerker extends User
 
 	public final void setFunctie(String functie)
 	{
-		if (functie == null || functie.isBlank())
-		{
-			throw new IllegalArgumentException("This function is not valid, please choose Admin or Magazijnier");
-		}
+		ValidationService.controleerFunctieString(functie);
 
-		switch (functie.toLowerCase())
+		this.functie = switch (functie.toLowerCase())
 			{
-			case "magazijnier":
-				this.functie = new MagazijnierFunctie();
-				break;
-			case "admin":
-				this.functie = new AdminFunctie();
-				break;
+			case "magazijnier" -> new MagazijnierFunctie();
+			case "admin" -> new AdminFunctie();
+			default -> throw new IllegalArgumentException("Unexpected value: " + functie.toLowerCase());
 
-			default:
-				throw new IllegalArgumentException("This function is not valid, please choose Admin or Magazijnier");
-			}
+			};
 
 		this.functieString = this.functie.toString();
 	}
-	
+
 	public int getPersoneelsNr()
 	{
 		return personeelsNr;
@@ -83,14 +75,12 @@ public class Medewerker extends User
 
 	public final void setPersoneelsNr(int personeelsNR)
 	{
-		if (personeelsNR <= 0)
-		{// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Personeelnummer is ongeldig");
-		}
+		ValidationService.controleerPersoneelsnr(personeelsNR);
 		this.personeelsNr = personeelsNR;
 	}
-	
-	public List<Dienst> getDiensten() {
+
+	public List<Dienst> getDiensten()
+	{
 		return Collections.unmodifiableList(diensten);
 	}
 

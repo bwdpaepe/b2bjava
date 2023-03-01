@@ -18,6 +18,8 @@ import javax.persistence.Transient;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import service.ValidationService;
+
 @Entity
 @Table(name = "Gebruikers")
 @NamedQueries(
@@ -94,10 +96,7 @@ public abstract class User implements Serializable
 
 	public final void setVoornaam(String voornaam)
 	{
-		if (voornaam == null || voornaam.isBlank())
-		{
-			throw new IllegalArgumentException("Voornaam is verplicht");
-		}
+		ValidationService.controleerNaam(voornaam);
 		this.voornaam = voornaam;
 	}
 
@@ -108,10 +107,7 @@ public abstract class User implements Serializable
 
 	public final void setFamilienaam(String familienaam)
 	{
-		if (familienaam == null || familienaam.isBlank())
-		{
-			throw new IllegalArgumentException("Familienaam is verplicht");
-		}
+		ValidationService.controleerNaam(familienaam);
 		this.familienaam = familienaam;
 	}
 
@@ -122,16 +118,7 @@ public abstract class User implements Serializable
 
 	public final void setEmail(String email)
 	{
-		if (email == null || email.isBlank())
-		{
-			throw new IllegalArgumentException("E-mailadres is verplicht");
-		}
-		// https://howtodoinjava.com/java/regex/java-regex-validate-email-address/
-		if (!email.matches(
-				"^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
-		{
-			throw new IllegalArgumentException("Ongeldig e-mailadres formaat");
-		}
+		ValidationService.controleerEmail(email);
 		this.emailAdress = email;
 	}
 
@@ -142,11 +129,7 @@ public abstract class User implements Serializable
 
 	public final void setHashedPW(String password)
 	{
-		// error als geen wachtwoord, te kort, of bevat spatie
-		if (password == null || password.length() < MIN_PW_LENGTH || password.matches(".*\\s.*"))
-		{
-			throw new IllegalArgumentException("Wachtwoord is ongeldig");
-		}
+		ValidationService.controleerWachtwoord(password);
 		this.hashedPW = BCrypt.hashpw(password, salt);
 	}
 
@@ -157,12 +140,7 @@ public abstract class User implements Serializable
 
 	public final void setTelefoonnummer(String telefoonnummer)
 	{
-		// error als geen telefoonnummer, of niet voldoet aan de regex: eventueel
-		// beginnen met een '+', en verder enkel cijfers (minstens 6)
-		if (telefoonnummer == null || !telefoonnummer.matches("^\\+?\\d{6,}$"))
-		{
-			throw new IllegalArgumentException("Telefoonnummer is ongeldig");
-		}
+		ValidationService.controleerTelefoonnummer(telefoonnummer);
 		this.telefoonnummer = telefoonnummer;
 	}
 
@@ -173,10 +151,7 @@ public abstract class User implements Serializable
 
 	public final void setAdres(String adres)
 	{
-		if (adres == null || adres.isBlank())
-		{
-			throw new IllegalArgumentException("Adres is verplicht");
-		}
+		ValidationService.controleerAdres(adres);
 		this.adres = adres;
 	}
 
