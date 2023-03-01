@@ -2,12 +2,13 @@ package domein;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("Transportdienst")
 public class Transportdienst extends Dienst
 {
-
+	@Transient
 	private static final long serialVersionUID = 1L;
 	
 //	@ManyToOne

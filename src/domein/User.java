@@ -89,6 +89,11 @@ public abstract class User implements Serializable
 		return emailAdress == other.getEmail();
 	}
 
+	public long getId()
+	{
+		return id;
+	}
+	
 	public String getVoornaam()
 	{
 		return voornaam;
