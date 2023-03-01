@@ -31,7 +31,7 @@ public class ConsoleUi {
             
             domeinController.updateMedewerker("emailail3@test.be", "magazijnier");
             
-
+            
 
             
         } catch (IllegalArgumentException ex) {

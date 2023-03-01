@@ -1,8 +1,12 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -11,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import service.ValidationService;
@@ -23,6 +28,9 @@ public abstract class Dienst implements Serializable
 {
 
 	private static final long serialVersionUID = 1L;
+	
+	@OneToMany(mappedBy = "dienst", cascade = CascadeType.ALL)
+	private Set<Persoon> personen = new HashSet<>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,4 +93,7 @@ public abstract class Dienst implements Serializable
 		return Objects.equals(naam, other.naam);
 	}
 
+	public Set<Persoon> getPersonen() {
+		return Collections.unmodifiableSet(personen);
+	}
 }

@@ -11,6 +11,9 @@
 		<class>domein.Medewerker</class>
 		<class>domein.Dienst</class>
 		<class>domein.Transportdienst</class>
+		<class>domein.Persoon</class>
+		<class>domein.Contactpersoon</class>
+		<class>domein.TrackTraceFormat</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"

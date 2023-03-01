@@ -2,18 +2,18 @@ package domein;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Transportdienst")
 public class Transportdienst extends Dienst
 {
-	@Transient
+
 	private static final long serialVersionUID = 1L;
 	
-//	@ManyToOne
-//	private TrackTraceFormat barcodeFormaat;
-
+	@OneToOne
+	private TrackTraceFormat tractTraceFormaat;
+	
 	// lege Constructor voor JPA
 	protected Transportdienst()
 	{

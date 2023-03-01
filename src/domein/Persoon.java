@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import service.ValidationService;
@@ -21,8 +22,12 @@ import service.ValidationService;
 @DiscriminatorColumn(name = "soort")
 public abstract class Persoon implements Serializable
 {
-
+	
 	private static final long serialVersionUID = 1L;
+	
+	@ManyToOne
+	private Dienst dienst;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
