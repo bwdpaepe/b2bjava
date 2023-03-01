@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import service.ValidationService;
@@ -31,7 +31,7 @@ public class Medewerker extends User
 	@Transient
 	private Functie functie;
 
-	@ManyToOne
+	@OneToMany
 	private List<Dienst> diensten = new ArrayList<>();
 
 	public Medewerker(String voornaam, String familienaam, String email, String password, String adres,

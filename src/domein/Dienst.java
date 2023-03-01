@@ -13,56 +13,68 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import service.ValidationService;
+
 @Entity
 @Table(name = "Diensten")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "soort")
-public abstract class Dienst implements Serializable {
-	
-	/**
-	 * 
-	 */
+public abstract class Dienst implements Serializable
+{
+
 	private static final long serialVersionUID = 1L;
+	
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
+	@Column(name = "naam", unique = true)
 	private String naam;
-	@Column(name = "Is_actief")
+	@Column(name = "is_actief")
 	private boolean isActief;
-	
+
 	// lege Constructor voor JPA
-	protected Dienst() {
-		
-	}
-	
-	protected Dienst(String naam, boolean isActief) {
-		this.naam = naam;
-		this.isActief = isActief;
+	protected Dienst()
+	{
+
 	}
 
-	public String getNaam() {
+	protected Dienst(String naam, boolean isActief)
+	{
+		setNaam(naam);
+		setActief(isActief);
+	}
+
+	public String getNaam()
+	{
 		return naam;
 	}
 
-	protected void setNaam(String naam) {
+	protected final void setNaam(String naam)
+	{
+		ValidationService.controleerNaam(naam);
 		this.naam = naam;
 	}
 
-	public boolean isActief() {
+	public boolean isActief()
+	{
 		return isActief;
 	}
 
-	protected void setActief(boolean isActief) {
+	protected void setActief(boolean isActief)
+	{
 		this.isActief = isActief;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		return Objects.hash(naam);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -72,9 +84,5 @@ public abstract class Dienst implements Serializable {
 		Dienst other = (Dienst) obj;
 		return Objects.equals(naam, other.naam);
 	}
-	
-	
-	
-	
 
 }
