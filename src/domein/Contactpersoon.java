@@ -14,4 +14,11 @@ public class Contactpersoon extends Persoon {
 		protected Contactpersoon() {
 			
 		}
+
+		public Contactpersoon(String voornaam, String familienaam, String email, String telefoonnummer)
+		{
+			super(voornaam, familienaam, email, telefoonnummer);
+		}
+		
+		
 }

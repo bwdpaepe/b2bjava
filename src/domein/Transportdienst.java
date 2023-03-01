@@ -20,11 +20,23 @@ public class Transportdienst extends Dienst
 		super();
 	}
 
-	protected Transportdienst(String naam)
+	public Transportdienst(String naam)
 	{
 		super(naam, true);  // By default: transportdienst is actief bij aanmaak (zie UC)
 	}
 
+	public TrackTraceFormat getTractTraceFormaat()
+	{
+		return tractTraceFormaat;
+	}
+
+	public final void setTractTraceFormaat(TrackTraceFormat tractTraceFormaat)
+	{
+		this.tractTraceFormaat = tractTraceFormaat;
+	}
+
+	
+	
 //	public TrackTraceFormat getBarcodeFormaat()
 //	{
 //		return barcodeFormaat;

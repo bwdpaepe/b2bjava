@@ -2,19 +2,20 @@ package domein;
 
 import repository.GenericDaoJpa;
 import repository.UserDTO;
-import repository.UserDao;
-import repository.UserDaoJpa;
+import service.DienstService;
 import service.UserService;
 
 public class DomeinController
 {
 	private UserDTO ingelogdeUser;
 	private UserService userService; // service klasse om o.a aanmelden uit te werken
+	private DienstService dienstService;
 
 	public DomeinController()
 	{
 
 		setUserService(new UserService());
+		setDienstService(new DienstService());
 	}
 
 	private final void setUserService(UserService userService)
@@ -32,6 +33,9 @@ public class DomeinController
 		this.ingelogdeUser = userDTO;
 	}
 
+	private final void setDienstService(DienstService dienstService) {
+		this.dienstService = dienstService;
+	}
 
 
 	// return een Data Transfer Object van User naar de GUI
@@ -52,6 +56,10 @@ public class DomeinController
 	
 	public void updateMedewerker(String e, String r) {
 		userService.updateMedewerker(e, r);
+	}
+	
+	public void maakTransportdienst (String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix, String verificatiecode, String contactVoornaam, String contactFamilienaam, String contactTelefoon, String contactEmailadres) {
+		dienstService.maakTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres);
 	}
 
 	public void close()

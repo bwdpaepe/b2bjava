@@ -31,7 +31,7 @@ public class ConsoleUi {
             
             domeinController.updateMedewerker("emailail3@test.be", "magazijnier");
             
-            
+            domeinController.maakTransportdienst("trans1", 5, false, "trans1_prefix", "postcode", "cVN", "cFN", "01234567", "contact1@test.com");
 
             
         } catch (IllegalArgumentException ex) {

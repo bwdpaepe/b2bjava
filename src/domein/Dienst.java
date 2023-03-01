@@ -96,4 +96,10 @@ public abstract class Dienst implements Serializable
 	public Set<Persoon> getPersonen() {
 		return Collections.unmodifiableSet(personen);
 	}
+
+	public abstract void setTractTraceFormaat(TrackTraceFormat ttf);
+	
+	public void addPerson(Persoon persoon) {
+		personen.add(persoon);
+	}
 }
