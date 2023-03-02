@@ -7,7 +7,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import domein.TrackTraceFormat;
 import domein.Transportdienst;
 
 class TransportdienstTest {
@@ -26,10 +25,11 @@ class TransportdienstTest {
 		Assertions.assertEquals(true, td.isActief());
 	}
 
-	@Test
-	void maakTransportdienstMetBestaandeNaam() {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> new Transportdienst(NAAM));
-	}
+	/* DEZE FOUT KOMT VIA DE DATABANK WANT UNIQUE CONSTRAINT, NIET TE TESTEN IN DEZE KLASSE ZELF
+	 * @Test void maakTransportdienstMetBestaandeNaam() {
+	 * Assertions.assertThrows(IllegalArgumentException.class, () -> new
+	 * Transportdienst(NAAM)); }
+	 */
 
 	/*
 	 * @Test void updateStatus_transportdienst() { //setActief nu nog protected dus

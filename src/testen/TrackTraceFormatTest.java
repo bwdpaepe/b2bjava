@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -30,7 +29,7 @@ class TrackTraceFormatTest {
 		Assertions.assertEquals(BARCODE_LENGTE, ttf.getBarcodeLengte());
 		Assertions.assertEquals(IS_BARCODE_ENKEL_CIJFERS, ttf.isBarcodeEnkelCijfers());
 		Assertions.assertEquals(BARCODE_PREFIX, ttf.getBarcodePrefix());
-		Assertions.assertEquals(VERIFICATIE_CODE, ttf.getVerificatieCode());
+		Assertions.assertEquals(VERIFICATIE_CODE.toLowerCase(), ttf.getVerificatieCode().toLowerCase());
 	}
 	
 	
@@ -52,6 +51,14 @@ class TrackTraceFormatTest {
 	@ValueSource(strings = { "", " ", "\n", "post code", "order id" })
 	void ongeldigeVerificatieCodeString_throwError(String verificatieCode) {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new TrackTraceFormat(BARCODE_LENGTE, IS_BARCODE_ENKEL_CIJFERS, BARCODE_PREFIX, verificatieCode));
+	}
+	
+	@Test
+	void wijzigenIsBarcodeEnkelCijfers_correcteAanpassing() {
+		ttf.setIsBarcodeEnkelCijfers(false);
+		Assertions.assertEquals(false, ttf.isBarcodeEnkelCijfers());
+		ttf.setIsBarcodeEnkelCijfers(true);
+		Assertions.assertEquals(true, ttf.isBarcodeEnkelCijfers());
 	}
 
 }

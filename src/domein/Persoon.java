@@ -118,7 +118,7 @@ public abstract class Persoon implements Serializable
 
 	public void setTelefoonnummer(String telefoonnummer)
 	{
-		ValidationService.controleerEmail(telefoonnummer);
+		ValidationService.controleerTelefoonnummer(telefoonnummer);
 		this.telefoonnummer = telefoonnummer;
 	}
 

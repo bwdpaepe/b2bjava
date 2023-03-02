@@ -11,8 +11,8 @@ class ContactpersoonTest {
 	private Contactpersoon cp;
 	private static final String VOORNAAM = "Jan";
 	private static final String ACHTERNAAM = "Test";
-	private static final String EMAIL = "test@test.com";
-	private static final String TELEFOONNUMMER = "0412358975";
+	private static final String EMAIL = "mw1test@test.co";
+	private static final String TELEFOONNUMMER = "0412358975"; 
 
 	@BeforeEach
 	void before() {
@@ -26,6 +26,7 @@ class ContactpersoonTest {
 		Assertions.assertEquals(VOORNAAM, cp.getVoornaam());
 		Assertions.assertEquals(ACHTERNAAM, cp.getFamilienaam());
 		Assertions.assertEquals(EMAIL, cp.getEmailAdress());
+		Assertions.assertEquals(TELEFOONNUMMER, cp.getTelefoonnummer());
 		
 	}
 	

@@ -45,7 +45,7 @@ public class TrackTraceFormat implements Serializable
 		return barcodeLengte;
 	}
 
-	private final void setBarcodeLengte(int barcodeLengte)
+	public final void setBarcodeLengte(int barcodeLengte)
 	{
 		ValidationService.controleerBarcodeLengte(barcodeLengte);
 		this.barcodeLengte = barcodeLengte;
@@ -56,7 +56,7 @@ public class TrackTraceFormat implements Serializable
 		return isBarcodeEnkelCijfers;
 	}
 
-	private final void setIsBarcodeEnkelCijfers(boolean isBarcodeEnkelCijfers)
+	public final void setIsBarcodeEnkelCijfers(boolean isBarcodeEnkelCijfers)
 	{
 		this.isBarcodeEnkelCijfers = isBarcodeEnkelCijfers;
 	}
@@ -66,7 +66,7 @@ public class TrackTraceFormat implements Serializable
 		return barcodePrefix;
 	}
 
-	private final void setBarcodePrefix(String barcodePrefix)
+	public final void setBarcodePrefix(String barcodePrefix)
 	{
 		ValidationService.controleerBarcodePrefix(barcodePrefix);
 		this.barcodePrefix = barcodePrefix;
@@ -77,15 +77,15 @@ public class TrackTraceFormat implements Serializable
 		return verificatieCodeString;
 	}
 
-	private final void setVerificatieCode(String verificatieCode)
+	public final void setVerificatieCode(String verificatieCode)
 	{
 
 		ValidationService.controleerTrackVerificatiecode(verificatieCode);
 
 		this.verificatieCodeString = switch (verificatieCode.toLowerCase())
 			{
-			case "postcode" -> Verificatiecode.ORDERID.toString();
-			case "orderid" -> Verificatiecode.POSTCODE.toString();
+			case "postcode" -> Verificatiecode.POSTCODE.toString();
+			case "orderid" -> Verificatiecode.ORDERID.toString();
 			default -> throw new IllegalArgumentException("Verificatiecode is ongeldig: " + verificatieCode);
 			};
 	}
