@@ -66,7 +66,7 @@ public class DomeinController
 	}
 	
 	public void maakTransportdienst (String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix, String verificatiecode, String contactVoornaam, String contactFamilienaam, String contactTelefoon, String contactEmailadres) {
-		dienstService.maakTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres);
+		dienstService.maakTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres, this.ttfService);
 	}
 
 	public void close()
