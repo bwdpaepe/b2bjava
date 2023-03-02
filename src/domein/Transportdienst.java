@@ -12,12 +12,12 @@ public class Transportdienst extends Dienst
 	private static final long serialVersionUID = 1L;
 	
 	@OneToOne
-	private TrackTraceFormat tractTraceFormaat;
+	private TrackTraceFormat trackTraceFormaat;
 	
 	// lege Constructor voor JPA
 	protected Transportdienst()
 	{
-		super();
+		
 	}
 
 	public Transportdienst(String naam)
@@ -27,12 +27,12 @@ public class Transportdienst extends Dienst
 
 	public TrackTraceFormat getTractTraceFormaat()
 	{
-		return tractTraceFormaat;
+		return trackTraceFormaat;
 	}
 
-	public final void setTractTraceFormaat(TrackTraceFormat tractTraceFormaat)
+	public final void setTractTraceFormaat(TrackTraceFormat trackTraceFormaat)
 	{
-		this.tractTraceFormaat = tractTraceFormaat;
+		this.trackTraceFormaat = trackTraceFormaat;
 	}
 
 	

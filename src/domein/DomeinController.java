@@ -3,6 +3,7 @@ package domein;
 import repository.GenericDaoJpa;
 import repository.UserDTO;
 import service.DienstService;
+import service.TrackTraceFormatService;
 import service.UserService;
 
 public class DomeinController
@@ -10,12 +11,14 @@ public class DomeinController
 	private UserDTO ingelogdeUser;
 	private UserService userService; // service klasse om o.a aanmelden uit te werken
 	private DienstService dienstService;
+	private TrackTraceFormatService ttfService;
 
 	public DomeinController()
 	{
 
 		setUserService(new UserService());
 		setDienstService(new DienstService());
+		setTtfService(new TrackTraceFormatService());
 	}
 
 	private final void setUserService(UserService userService)
@@ -35,6 +38,10 @@ public class DomeinController
 
 	private final void setDienstService(DienstService dienstService) {
 		this.dienstService = dienstService;
+	}
+	
+	private final void setTtfService(TrackTraceFormatService ttfService) {
+		this.ttfService = ttfService;
 	}
 
 
