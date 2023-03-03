@@ -17,12 +17,12 @@
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://5.180.182.39:3306/sdp2_test?serverTimezone=UTC" />
-			<property name="javax.persistence.jdbc.user" value="sdp2" />
+				value="jdbc:mysql://localhost:3306/sdp2_test?serverTimezone=UTC" />
+			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.password"
-				value="cs&amp;b*&amp;4ZlcSXtVX%^579vs$" />
+				value="root" />
 			<property
 				name="javax.persistence.schema-generation.database.action"
 				value="drop-and-create" />
