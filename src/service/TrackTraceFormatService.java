@@ -1,7 +1,8 @@
 package service;
 
+import javax.persistence.EntityNotFoundException;
+
 import domein.TrackTraceFormat;
-import repository.GenericDao;
 import repository.GenericDaoJpa;
 import repository.TrackTraceFormatDoaJpa;
 
@@ -26,10 +27,33 @@ public class TrackTraceFormatService {
 		GenericDaoJpa.commitTransaction();
 	}
 	
+	public void updateTrackTraceFormat(int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
+			String verificatieCode) throws IllegalArgumentException {
+		try {
+			TrackTraceFormat ttf = findTtfByAll(barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
+				verificatieCode);
+			ttf.setBarcodeLengte(barcodeLengte);
+			ttf.setIsBarcodeEnkelCijfers(isBarcodeEnkelCijfers);
+			ttf.setBarcodePrefix(barcodePrefix);
+			ttf.setVerificatieCode(verificatieCode);
+			GenericDaoJpa.startTransaction();
+			ttfRepo.update(ttf);
+			GenericDaoJpa.commitTransaction();
+		}
+		catch(EntityNotFoundException e) {
+			throw new IllegalArgumentException("Er is geen Tracktraceformaat met de gevraagde parameters.");
+		}
+	}
+	
 	public TrackTraceFormat findTtfByAll(int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
-			String verificatieCode) {
+			String verificatieCode) throws EntityNotFoundException {
+		try {
 		return ttfRepo.getTtfByAll(barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
 				verificatieCode);
+		}
+		catch(EntityNotFoundException e) {
+			throw e;
+		}
 	}
 	
 	

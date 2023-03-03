@@ -58,7 +58,7 @@ public abstract class Dienst implements Serializable
 		return naam;
 	}
 
-	protected final void setNaam(String naam)
+	public final void setNaam(String naam)
 	{
 		ValidationService.controleerNaam(naam);
 		this.naam = naam;
@@ -69,7 +69,7 @@ public abstract class Dienst implements Serializable
 		return isActief;
 	}
 
-	protected void setActief(boolean isActief)
+	public void setActief(boolean isActief)
 	{
 		this.isActief = isActief;
 	}
@@ -97,9 +97,13 @@ public abstract class Dienst implements Serializable
 		return Collections.unmodifiableSet(personen);
 	}
 
-	public abstract void setTractTraceFormaat(TrackTraceFormat ttf);
+	public abstract void setTrackTraceFormat(TrackTraceFormat ttf);
 	
 	public void addPerson(Persoon persoon) {
 		personen.add(persoon);
+	}
+	
+	public void removePerson(Persoon persoon) {
+		personen.remove(persoon);
 	}
 }

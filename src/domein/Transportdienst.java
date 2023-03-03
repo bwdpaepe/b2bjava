@@ -25,12 +25,12 @@ public class Transportdienst extends Dienst
 		super(naam, true);  // By default: transportdienst is actief bij aanmaak (zie UC)
 	}
 
-	public TrackTraceFormat getTractTraceFormaat()
+	public TrackTraceFormat getTrackTraceFormaat()
 	{
 		return trackTraceFormaat;
 	}
 
-	public final void setTractTraceFormaat(TrackTraceFormat trackTraceFormaat)
+	public final void setTrackTraceFormat(TrackTraceFormat trackTraceFormaat)
 	{
 		this.trackTraceFormaat = trackTraceFormaat;
 	}
