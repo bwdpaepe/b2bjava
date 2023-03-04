@@ -2,6 +2,7 @@ package service;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import domein.Bedrijf;
 import domein.Medewerker;
 import domein.User;
 import repository.MedewerkerDTO;
@@ -45,12 +46,12 @@ public class UserService
 	}
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres,
-			String telefoonnummer, String functie, int personeelsNr, int bedrijfsId)
+			String telefoonnummer, String functie, int personeelsNr, Bedrijf bedrijf)
 	{
 		UserDaoJpa.startTransaction();
 
 		userRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, adres, telefoonnummer, personeelsNr,
-				functie, bedrijfsId));
+				functie, bedrijf));
 
 		UserDaoJpa.commitTransaction();
 	}

@@ -58,7 +58,7 @@ public abstract class User implements Serializable
 	@Transient
 	private String salt = BCrypt.gensalt(12);
 
-	public User(String voornaam, String familienaam, String email, String password, String telefoonnumer, String adres, int bedrijfsId)
+	public User(String voornaam, String familienaam, String email, String password, String telefoonnumer, String adres, Bedrijf bedrijf)
 	{
 		setVoornaam(voornaam);
 		setFamilienaam(familienaam);
@@ -66,12 +66,8 @@ public abstract class User implements Serializable
 		setHashedPW(password);
 		setAdres(adres);
 		setTelefoonnummer(telefoonnumer);
-		setBedrijf(bedrijfsId);
+		setBedrijf(bedrijf);
 	}
-
-	public void setBedrijf(int bedrijfsId) {
-		
-	};
 
 	// lege Constructor voor JPA
 	public User()
@@ -168,5 +164,14 @@ public abstract class User implements Serializable
 		ValidationService.controleerAdres(adres);
 		this.adres = adres;
 	}
+	
+	public Bedrijf getBedrijf() {
+		return this.bedrijf;
+	}
+	
+	public void setBedrijf(Bedrijf bedrijf) {
+		ValidationService.controleerNietNull(bedrijf);
+		this.bedrijf = bedrijf;
+	};
 
 }
