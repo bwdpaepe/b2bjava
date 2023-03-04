@@ -1,13 +1,8 @@
 package gui;
 
-import java.io.IOException;
+import java.util.Arrays;
 
 import domein.DomeinController;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import repository.UserDTO;
 
 //TESTKLASSE GUI
@@ -38,6 +33,10 @@ public class ConsoleUi {
             
             domeinController.updateMedewerker("emailail3@test.be", "magazijnier");
                    
+            
+            domeinController.maakTransportdienst("trans1", 5, false, "trans1_prefix", "postcode", Arrays.asList("cVN"), Arrays.asList("cFN"), Arrays.asList("01234567"), Arrays.asList("contact1@test.com"));
+
+            
         } catch (IllegalArgumentException ex) {
             System.out.println("Operatie mislukt " + ex.getMessage());
         }

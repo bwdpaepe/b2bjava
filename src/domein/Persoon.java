@@ -11,63 +11,47 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.mindrot.jbcrypt.BCrypt;
 
 import service.ValidationService;
 
 @Entity
-@Table(name = "Gebruikers")
-@NamedQueries(
-	{ @NamedQuery(name = "User.findByEmailAdress", query = "select u from User u where u.emailAdress = :emailAdress") })
+@Table(name = "Personen")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "soort")
-public abstract class User implements Serializable
+public abstract class Persoon implements Serializable
 {
-
+	
 	private static final long serialVersionUID = 1L;
 	
-	@Transient
-	public static final int MIN_PW_LENGTH = 8; // TODO afspreken met team
-
+	@ManyToOne
+	private Dienst dienst;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
 	@Column(name = "Voornaam")
 	private String voornaam;
 	@Column(name = "Familienaam")
 	private String familienaam;
 	@Column(name = "Email_adres", unique = true)
 	private String emailAdress;
-	@Column(name = "Hashed_paswoord")
-	private String hashedPW;
 	@Column(name = "telefoonnummer")
 	private String telefoonnummer;
-	@Column(name = "adres")
-	private String adres;
 
-	@Transient
-	private String salt = BCrypt.gensalt(12);
+	// lege Constructor voor JPA
+	protected Persoon()
+	{
 
-	public User(String voornaam, String familienaam, String email, String password, String telefoonnumer, String adres)
+	}
+
+	public Persoon(String voornaam, String familienaam, String email, String telefoonnummer)
 	{
 		setVoornaam(voornaam);
 		setFamilienaam(familienaam);
-		setEmail(email);
-		setHashedPW(password);
-		setAdres(adres);
-		setTelefoonnummer(telefoonnumer);
-	}
-
-	// lege Constructor voor JPA
-	public User()
-	{
-
+		setEmailAdress(email);
+		setTelefoonnummer(telefoonnummer);
 	}
 
 	@Override
@@ -85,15 +69,15 @@ public abstract class User implements Serializable
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Medewerker other = (Medewerker) obj;
-		return emailAdress == other.getEmail();
+		Persoon other = (Persoon) obj;
+		return Objects.equals(emailAdress, other.emailAdress);
 	}
 
 	public long getId()
 	{
 		return id;
 	}
-	
+
 	public String getVoornaam()
 	{
 		return voornaam;
@@ -116,26 +100,15 @@ public abstract class User implements Serializable
 		this.familienaam = familienaam;
 	}
 
-	public String getEmail()
+	public String getEmailAdress()
 	{
 		return emailAdress;
 	}
 
-	public final void setEmail(String email)
+	public final void setEmailAdress(String emailAdress)
 	{
-		ValidationService.controleerEmail(email);
-		this.emailAdress = email;
-	}
-
-	public String getHashedPW()
-	{
-		return hashedPW;
-	}
-
-	public final void setHashedPW(String password)
-	{
-		ValidationService.controleerWachtwoord(password);
-		this.hashedPW = BCrypt.hashpw(password, salt);
+		ValidationService.controleerEmail(emailAdress);
+		this.emailAdress = emailAdress;
 	}
 
 	public String getTelefoonnummer()
@@ -143,21 +116,10 @@ public abstract class User implements Serializable
 		return telefoonnummer;
 	}
 
-	public final void setTelefoonnummer(String telefoonnummer)
+	public void setTelefoonnummer(String telefoonnummer)
 	{
 		ValidationService.controleerTelefoonnummer(telefoonnummer);
 		this.telefoonnummer = telefoonnummer;
-	}
-
-	public String getAdres()
-	{
-		return adres;
-	}
-
-	public final void setAdres(String adres)
-	{
-		ValidationService.controleerAdres(adres);
-		this.adres = adres;
 	}
 
 }
