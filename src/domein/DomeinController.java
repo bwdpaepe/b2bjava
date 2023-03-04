@@ -5,6 +5,7 @@ import java.util.List;
 import repository.DienstDTO;
 import repository.GenericDaoJpa;
 import repository.UserDTO;
+import service.BedrijfService;
 import service.DienstService;
 import service.PersoonService;
 import service.TrackTraceFormatService;
@@ -17,6 +18,7 @@ public class DomeinController
 	private DienstService dienstService;
 	private TrackTraceFormatService ttfService;
 	private PersoonService persoonService;
+	private BedrijfService bedrijfService;
 
 	public DomeinController()
 	{
@@ -25,6 +27,7 @@ public class DomeinController
 		setDienstService(new DienstService());
 		setTtfService(new TrackTraceFormatService());
 		setPersoonService(new PersoonService());
+		setBedrijfService(new BedrijfService());
 	}
 
 	public UserDTO getIngelogdeUser()
@@ -64,6 +67,9 @@ public class DomeinController
 		this.persoonService = persoonService;
 	}
 
+	private final void setBedrijfService(BedrijfService bedrijfService) {
+		this.bedrijfService = bedrijfService;
+	}
 
 	// return een Data Transfer Object van User naar de GUI
 	public UserDTO aanmelden(String emailAdress, String password)
@@ -92,6 +98,11 @@ public class DomeinController
 	// ? What to do if the email of a contactpersoon is updated, currently we use the email to select the person to be updated
 	public void updateTransportdienst(long dienstId, String naam, boolean isActief, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix, String verificatiecode, List<String> contactVoornaamLijst, List<String> contactFamilienaamLijst, List<String> contactTelefoonLijst, List<String> contactEmailadresLijst) {
 		dienstService.updateTransportdienst(dienstId, naam, isActief, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode, contactVoornaamLijst, contactFamilienaamLijst, contactTelefoonLijst, contactEmailadresLijst, this.ttfService, this.persoonService);		
+	}
+	
+	public void maakBedrijf(String naam, String straat, String huisnummer, String postcode, String stad, String land,
+			String telefoonnummer, String logo_filename) {
+		bedrijfService.maakBedrijf(naam, straat, huisnummer, postcode, stad, land, telefoonnummer, logo_filename);
 	}
 
 	public void close()
