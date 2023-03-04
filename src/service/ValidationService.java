@@ -2,6 +2,8 @@ package service;
 
 import javax.persistence.Transient;
 
+import domein.Bedrijf;
+
 public class ValidationService
 {
 	@Transient
@@ -94,6 +96,15 @@ public class ValidationService
 		{
 			throw new IllegalArgumentException("De Track&Trace verificatiecode is ongeldig");
 		}
+	}
+
+	public static void controleerNietNull(Bedrijf bedrijf)
+	{
+		if (bedrijf == null )
+		{
+			throw new IllegalArgumentException("Waarde mag niet null zijn");
+		}
+		
 	}
 
 }

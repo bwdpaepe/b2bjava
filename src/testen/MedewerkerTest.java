@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import domein.Bedrijf;
 import domein.Medewerker;
 
 class MedewerkerTest
@@ -20,27 +21,28 @@ class MedewerkerTest
 	private static final String ADRES = "testDorp 9875 testStraat 55";
 	private static final int PERSONEELSNR = 1;
 	private static final String FUNCTIE = "aDmin"; // bewust afwisseling hoofdletter en kleine letters
-	private static final int BEDRIJF_ID = 1;
-
-	// TODO aanvullen test ongeldig bedrijf_id
+	// TODO nog aanpassen naar Mock Object !!!
+	private static final Bedrijf BEDRIJF = new Bedrijf("Bedrijf A", "Straat A", "A1", "1234A", "stad A", "land A", "0123456789", "logo_bedrijf_A");
 	
 	@BeforeEach
 	void before()
 	{
-		mw = new Medewerker(VOORNAAM, ACHTERNAAM, EMAIL, WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF_ID);
+		mw = new Medewerker(VOORNAAM, ACHTERNAAM, EMAIL, WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF);
 	}
 
 	@Test
 	void maakMedewerker_geldigeWaardes()
 	{
 		Assertions.assertDoesNotThrow(() -> new Medewerker(VOORNAAM, ACHTERNAAM, EMAIL, WACHTWOORD, ADRES,
-				TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF_ID));
+				TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF));
 		Assertions.assertEquals(VOORNAAM, mw.getVoornaam());
 		Assertions.assertEquals(ACHTERNAAM, mw.getFamilienaam());
 		Assertions.assertEquals(EMAIL, mw.getEmail());
 		Assertions.assertEquals(PERSONEELSNR, mw.getPersoneelsNr());
 
 		Assertions.assertEquals(FUNCTIE.toString().toLowerCase(), mw.getFunctie().toString().toLowerCase());
+		
+		Assertions.assertEquals("Bedrijf A", mw.getBedrijf().getNaam());
 
 		// test dat hashedPw NIET(!) overeenkomt met origineel wachtwoord.
 		// Bcrypt genereert telkens verschillende hash, dus niet mogelijk exacte waarde te testen
@@ -61,9 +63,9 @@ class MedewerkerTest
 	void ongeldigeNaam_throwtError(String naam)
 	{
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Medewerker(naam, ACHTERNAAM, EMAIL,
-				WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF_ID));
+				WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF));
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> new Medewerker(VOORNAAM, naam, EMAIL, WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF_ID));
+				() -> new Medewerker(VOORNAAM, naam, EMAIL, WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF));
 	}
 
 	@ParameterizedTest
@@ -74,7 +76,7 @@ class MedewerkerTest
 	void ongeldigeEmail_throwtError(String email)
 	{
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Medewerker(VOORNAAM, ACHTERNAAM, email,
-				WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF_ID));
+				WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF));
 	}
 
 	@ParameterizedTest
@@ -84,7 +86,7 @@ class MedewerkerTest
 	void ongeldigWachtwoord_throwtError(String wachtwoord)
 	{
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Medewerker(VOORNAAM, ACHTERNAAM, EMAIL,
-				wachtwoord, ADRES, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF_ID));
+				wachtwoord, ADRES, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF));
 	}
 
 	@ParameterizedTest
@@ -93,7 +95,7 @@ class MedewerkerTest
 	void ongeldigPersoneelsnr_throwtError(int nr)
 	{
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> new Medewerker(VOORNAAM, ACHTERNAAM, EMAIL, WACHTWOORD, ADRES, TELEFOONNUMMER, nr, FUNCTIE, BEDRIJF_ID));
+				() -> new Medewerker(VOORNAAM, ACHTERNAAM, EMAIL, WACHTWOORD, ADRES, TELEFOONNUMMER, nr, FUNCTIE, BEDRIJF));
 	}
 
 	@ParameterizedTest
@@ -103,7 +105,7 @@ class MedewerkerTest
 	void ongeldigeFunctie_throwtError(String functie)
 	{
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Medewerker(VOORNAAM, ACHTERNAAM, EMAIL,
-				WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELSNR, functie, BEDRIJF_ID));
+				WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELSNR, functie, BEDRIJF));
 	}
 
 	@ParameterizedTest
@@ -113,7 +115,7 @@ class MedewerkerTest
 	void ongeldigAdres_throwtError(String adres)
 	{
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Medewerker(VOORNAAM, ACHTERNAAM, EMAIL,
-				WACHTWOORD, adres, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF_ID));
+				WACHTWOORD, adres, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF));
 	}
 
 }

@@ -83,8 +83,8 @@ public class DomeinController
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres, String telefoonnumer, 
 			String functie, int personeelsNr, int bedrijfsId)
 	{
-		userService.maakMedewerker(voornaam, familienaam, emailadres, password, adres, telefoonnumer, functie, personeelsNr, bedrijfsId);
-
+		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
+		userService.maakMedewerker(voornaam, familienaam, emailadres, password, adres, telefoonnumer, functie, personeelsNr, bedrijf);
 	}
 	
 	public void updateMedewerker(String e, String r) {

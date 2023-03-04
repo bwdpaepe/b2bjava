@@ -36,4 +36,10 @@ public class BedrijfService
 		GenericDaoJpa.commitTransaction();
 
 	}
+
+	public Bedrijf getBedrijfById(int bedrijfsId)
+	{
+		return bedrijfRepo.get(Long.valueOf(bedrijfsId));
+		
+	}
 }
