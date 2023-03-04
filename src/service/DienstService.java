@@ -1,27 +1,19 @@
 package service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
-
+import domein.Contactpersoon;
 import domein.Dienst;
 import domein.Persoon;
 import domein.TrackTraceFormat;
 import domein.Transportdienst;
-import repository.ContactpersoonDTO;
 import repository.DienstDTO;
 import repository.GenericDao;
 import repository.GenericDaoJpa;
-import repository.PersoonDTO;
-import repository.TrackTraceFormatDTO;
-import repository.TrackTraceFormatDoaJpa;
 import repository.TransportdienstDTO;
 
 public class DienstService
@@ -39,70 +31,29 @@ public class DienstService
 
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
 			String verificatiecode, List<String> contactVoornaamLijst, List<String> contactFamilienaamLijst, List<String> contactTelefoonLijst,
-			List<String> contactEmailadresLijst, TrackTraceFormatService ttfService, PersoonService persoonService)
+			List<String> contactEmailadresLijst)
 	{
-		// maken van nieuwe TrackTraceFormat, om te linken aan dienst
-		TrackTraceFormatDoaJpa.startTransaction();
-		ttfService.maakTrackTraceFormat(barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
-				verificatiecode);
-		TrackTraceFormatDoaJpa.commitTransaction();
-		
-		// maken van nieuwe ContactPersonen, om te linken aan dienst
-		GenericDaoJpa.startTransaction();
-		
-		//ToDo: check all list have the same size
-		//ToDo: use streams
-		
-		Iterator<String> voornaamIterator = contactVoornaamLijst.iterator();
-		Iterator<String> familienaamIterator = contactFamilienaamLijst.iterator();
-		Iterator<String> telefoonIterator = contactTelefoonLijst.iterator();
-		Iterator<String> emailIterator = contactEmailadresLijst.iterator();
-		
-		while (voornaamIterator.hasNext() && familienaamIterator.hasNext() && telefoonIterator.hasNext() && emailIterator.hasNext()) {
-			persoonService.maakPersoon(voornaamIterator.next(), familienaamIterator.next(), telefoonIterator.next(), emailIterator.next());
-		}
-		
-		/*StreamUtils.zip(
-				contactVoornaamLijst.stream(), 
-				contactFamilienaamLijst.stream(),
-				contactTelefoonLijst.stream(), 
-				contactEmailadresLijst.stream(),
-				  (String contactVoornaam, String contactFamilienaam, String contactTelefoon, String contactEmailadres) -> persoonService.maakPersoon(contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres));*/
-				
-		GenericDaoJpa.commitTransaction();
-					
-		// maak de transportdienst
-		// link ttf
-		// link contact
 		GenericDaoJpa.startTransaction();
 		try {
 		
 			// maak de transportdienst
 			Dienst dienst = new Transportdienst(naam);
-			dienstRepo.insert(dienst);
-
-			try {
-				TrackTraceFormat ttf = ttfService.findTtfByAll(barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
-						verificatiecode);
-				dienst.setTrackTraceFormat(ttf);
+			// new ttf
+			TrackTraceFormat ttf = new TrackTraceFormat(barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
+					verificatiecode);
+			dienst.setTrackTraceFormat(ttf);
+			
+			Iterator<String> voornaamIterator = contactVoornaamLijst.iterator();
+			Iterator<String> familienaamIterator = contactFamilienaamLijst.iterator();
+			Iterator<String> telefoonIterator = contactTelefoonLijst.iterator();
+			Iterator<String> emailIterator = contactEmailadresLijst.iterator();
+			
+			// new contactpersoon
+			while (voornaamIterator.hasNext() && familienaamIterator.hasNext() && telefoonIterator.hasNext() && emailIterator.hasNext()) {
+				dienst.addPerson(new Contactpersoon(voornaamIterator.next(), familienaamIterator.next(), telefoonIterator.next(), emailIterator.next()));
 			}
-			catch(EntityNotFoundException e) {
-				throw e;
-			}
 			
-			contactEmailadresLijst.forEach(email -> {
-				Optional<Persoon> contact = persoonService.getPersoonList().stream()
-		                .filter( p -> p.getEmailAdress().equalsIgnoreCase(email))
-		                .findFirst();
-		        if (!contact.isPresent()) {
-		                throw new IllegalArgumentException("contactpersoon " + email + " komt niet voor");
-		        }
-				
-				dienst.addPerson(contact.get());
-			});
-			
-			
-			dienstRepo.update(dienst);			
+			dienstRepo.insert(dienst);			
 			
 		} catch (Exception e) {
 			GenericDaoJpa.rollbackTransaction();
@@ -112,104 +63,47 @@ public class DienstService
 		
 	}
 	
-	public void updateTransportdienst(long dienstId, String naam, boolean isActief, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
-			String verificatiecode, List<String> contactVoornaamLijst, List<String> contactFamilienaamLijst, List<String> contactTelefoonLijst,
-			List<String> contactEmailadresLijst, TrackTraceFormatService ttfService, PersoonService persoonService) throws IllegalArgumentException
-	{
-		// get TrackTraceFormat and update
-		ttfService.updateTrackTraceFormat( barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
-				verificatiecode);
-		
-		
-		// get all Contactpersonen and update
-		/*persoonService.updatePersonen(contactVoornaamLijst, contactFamilienaamLijst, contactTelefoonLijst,
-				contactEmailadresLijst);*/
-		
-		
-		// get Transportdienst and update
-		Dienst dienst = dienstRepo.get(dienstId);
-		dienst.setNaam(naam);
-		dienst.setActief(isActief);
-		
-		// we moeten de ttf niet opnieuw linken, in geval van update blijft de link behouden, enkel de waarden van de ttf kunnen wijzigen
-		/*try {
-			TrackTraceFormat ttf = ttfService.findTtfByAll(barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
-					verificatiecode);
-			dienst.setTrackTraceFormat(ttf);
-		}
-		catch(EntityNotFoundException e) {
-			throw e;
-		}*/
-		
-		// we moeten de contactpersonen well opnieuw linken, er kunnen contacten bijgekomen zijn of verdwenen zijn
-		//dienst.
-		// verwijder contacpersonen
-		Set<Persoon> verwijderSet = dienst.getPersonen().stream()
-														.filter(p -> (!contactEmailadresLijst.contains(p.getEmailAdress())))
-														.collect(Collectors.toSet());
-		
-		verwijderSet.forEach(p -> dienst.removePerson(p));
-		// moeten we ze ook verwijderen in de repo, of zorgt JPA daarvoor?
-		//verwijderSet.forEach(p -> persoonService.verwijderPersoon(p.getEmailAdress()));
-		
-		
-		
-		// update or add contacpersonen		
-		
-		//ToDo: check all list have the same size
-		//ToDo: use streams
+	public void wijzigActivatieDienst(long dienstId, boolean isActief) throws IllegalArgumentException {
+		try {
+			Dienst d = this.dienstRepo.get(dienstId);
+			if(d instanceof Transportdienst) {
 				
-		Iterator<String> voornaamIterator = contactVoornaamLijst.iterator();
-		Iterator<String> familienaamIterator = contactFamilienaamLijst.iterator();
-		Iterator<String> telefoonIterator = contactTelefoonLijst.iterator();
-		Iterator<String> emailIterator = contactEmailadresLijst.iterator();
-		
-		List<String> addedPersonen = new ArrayList<>();
-		while (voornaamIterator.hasNext() && familienaamIterator.hasNext() && telefoonIterator.hasNext() && emailIterator.hasNext()) {
-			String email = emailIterator.next();
-			Optional<Persoon> contact = persoonService.getPersoonList().stream()
-	                .filter( p -> p.getEmailAdress().equalsIgnoreCase(email))
-	                .findFirst();
-	        if (!contact.isPresent()) {
-	        	// add new contactpersonen
-	        	persoonService.maakPersoon(voornaamIterator.next(), familienaamIterator.next(), telefoonIterator.next(), email);
-	        	addedPersonen.add(email);
-	        }
-	        else {
-	        	// update contactpersonen
-	        	persoonService.updatePersoon(voornaamIterator.next(), familienaamIterator.next(), telefoonIterator.next(), email);
-	        }
+				d.setActief(isActief);
+				GenericDaoJpa.startTransaction();
+				this.dienstRepo.update(d);
+				GenericDaoJpa.commitTransaction();
+				
+			}
+			else
+			{
+				throw new IllegalArgumentException("Ongeldig diensttype");
+			}
 		}
-		
-		addedPersonen.forEach(email -> {
-			Optional<Persoon> contact = persoonService.getPersoonList().stream()
-	                .filter( p -> p.getEmailAdress().equalsIgnoreCase(email))
-	                .findFirst();
-	        if (!contact.isPresent()) {
-	                throw new IllegalArgumentException("contactpersoon " + email + " komt niet voor");
-	        }
-			
-			dienst.addPerson(contact.get());
-		});
-		
-		dienstRepo.update(dienst);
-		
-		
-		
+		catch(EntityNotFoundException ex) {
+			throw new IllegalArgumentException("De gevraagde dienst bestaat niet");
+		}
 		
 	}
 	
 	public DienstDTO getDienst(long dienstId) throws IllegalArgumentException {
 		try {
-			Dienst dienst = this.dienstRepo.get(dienstId);
-			if(dienst instanceof Transportdienst) {
-				TrackTraceFormatDTO ttfDTO = new TrackTraceFormatDTO(((Transportdienst) dienst).getTrackTraceFormaat().getBarcodeLengte(),((Transportdienst) dienst).getTrackTraceFormaat().isBarcodeEnkelCijfers(),((Transportdienst) dienst).getTrackTraceFormaat().getBarcodePrefix(), ((Transportdienst) dienst).getTrackTraceFormaat().getVerificatieCode());
-				Set<PersoonDTO> contacpersoonDTOSet = new HashSet<>();
-				for(Persoon p: dienst.getPersonen()) {
-					contacpersoonDTOSet.add(new ContactpersoonDTO(p.getVoornaam(), p.getFamilienaam(), p.getEmailAdress(), p.getTelefoonnummer()));
+			Dienst d = this.dienstRepo.get(dienstId);
+			if(d instanceof Transportdienst) {
+				
+				List<String> voornaamLijst = new ArrayList<>();
+				List<String> familienaamLijst = new ArrayList<>();
+				List<String> emailAdressLijst = new ArrayList<>();
+				List<String> telefoonnummerLijst = new ArrayList<>();
+				for(Persoon p: d.getPersonen()) {
+					voornaamLijst.add(p.getVoornaam());
+					familienaamLijst.add(p.getFamilienaam());
+					emailAdressLijst.add(p.getEmailAdress());
+					telefoonnummerLijst.add(p.getTelefoonnummer());
 				}
 				
-				return new TransportdienstDTO(dienst.getNaam(), dienst.isActief(), contacpersoonDTOSet, ttfDTO);
+				return new TransportdienstDTO(d.getId(), d.getNaam(), d.isActief(), voornaamLijst, familienaamLijst, emailAdressLijst, telefoonnummerLijst, 
+						((Transportdienst)d).getBarcodeLengte(), ((Transportdienst)d).isBarcodeEnkelCijfers(), ((Transportdienst)d).getBarcodePrefix(), ((Transportdienst)d).getVerificatieCode());
+				
 			}
 			else
 			{
@@ -227,15 +121,21 @@ public class DienstService
 		List<DienstDTO> dienstDTOList = new ArrayList<>();
 		List<Dienst> dienstList = getDienstList();
 		for(Dienst d: dienstList) {
-			Set<PersoonDTO> contacpersoonDTOSet = new HashSet<>();
+			List<String> voornaamLijst = new ArrayList<>();
+			List<String> familienaamLijst = new ArrayList<>();
+			List<String> emailAdressLijst = new ArrayList<>();
+			List<String> telefoonnummerLijst = new ArrayList<>();
 			for(Persoon p: d.getPersonen()) {
-				contacpersoonDTOSet.add(new ContactpersoonDTO(p.getVoornaam(), p.getFamilienaam(), p.getEmailAdress(), p.getTelefoonnummer()));
+				voornaamLijst.add(p.getVoornaam());
+				familienaamLijst.add(p.getFamilienaam());
+				emailAdressLijst.add(p.getEmailAdress());
+				telefoonnummerLijst.add(p.getTelefoonnummer());
 			}
-			TrackTraceFormatDTO ttfDTO = new TrackTraceFormatDTO(((Transportdienst)d).getTrackTraceFormaat().getBarcodeLengte(),
-					((Transportdienst)d).getTrackTraceFormaat().isBarcodeEnkelCijfers(),
-					((Transportdienst)d).getTrackTraceFormaat().getBarcodePrefix(),
-					((Transportdienst)d).getTrackTraceFormaat().getVerificatieCode());
-			dienstDTOList.add(new TransportdienstDTO(d.getNaam(), d.isActief(), contacpersoonDTOSet, ttfDTO));
+			
+			dienstDTOList.add(new TransportdienstDTO(d.getId(), d.getNaam(), d.isActief(), voornaamLijst, familienaamLijst, emailAdressLijst, telefoonnummerLijst, 
+					((Transportdienst)d).getBarcodeLengte(), ((Transportdienst)d).isBarcodeEnkelCijfers(), ((Transportdienst)d).getBarcodePrefix(), ((Transportdienst)d).getVerificatieCode()));
+			
+			
 		}
 		
 		return dienstDTOList;

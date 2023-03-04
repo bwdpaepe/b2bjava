@@ -7,8 +7,6 @@ import repository.GenericDaoJpa;
 import repository.UserDTO;
 import service.BedrijfService;
 import service.DienstService;
-import service.PersoonService;
-import service.TrackTraceFormatService;
 import service.UserService;
 
 public class DomeinController
@@ -16,8 +14,6 @@ public class DomeinController
 	private UserDTO ingelogdeUser;
 	private UserService userService; // service klasse om o.a aanmelden uit te werken
 	private DienstService dienstService;
-	private TrackTraceFormatService ttfService;
-	private PersoonService persoonService;
 	private BedrijfService bedrijfService;
 
 	public DomeinController()
@@ -25,8 +21,6 @@ public class DomeinController
 
 		setUserService(new UserService());
 		setDienstService(new DienstService());
-		setTtfService(new TrackTraceFormatService());
-		setPersoonService(new PersoonService());
 		setBedrijfService(new BedrijfService());
 	}
 
@@ -35,7 +29,6 @@ public class DomeinController
 		return this.ingelogdeUser;
 	}
 	
-	// todo hoe kent de gui het dienstId
 	public DienstDTO getDienst(long dienstId) {
 		return(dienstService.getDienst(dienstId));
 		
@@ -59,14 +52,6 @@ public class DomeinController
 		this.dienstService = dienstService;
 	}
 	
-	private final void setTtfService(TrackTraceFormatService ttfService) {
-		this.ttfService = ttfService;
-	}
-	
-	private final void setPersoonService(PersoonService persoonService) {
-		this.persoonService = persoonService;
-	}
-
 	private final void setBedrijfService(BedrijfService bedrijfService) {
 		this.bedrijfService = bedrijfService;
 	}
@@ -92,12 +77,11 @@ public class DomeinController
 	}
 	
 	public void maakTransportdienst (String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix, String verificatiecode, List<String> contactVoornaamLijst, List<String> contactFamilienaamLijst, List<String> contactTelefoonLijst, List<String> contactEmailadresLijst) {
-		dienstService.maakTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode, contactVoornaamLijst, contactFamilienaamLijst, contactTelefoonLijst, contactEmailadresLijst, this.ttfService, this.persoonService);
+		dienstService.maakTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode, contactVoornaamLijst, contactFamilienaamLijst, contactTelefoonLijst, contactEmailadresLijst);
 	}
 	
-	// ? What to do if the email of a contactpersoon is updated, currently we use the email to select the person to be updated
-	public void updateTransportdienst(long dienstId, String naam, boolean isActief, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix, String verificatiecode, List<String> contactVoornaamLijst, List<String> contactFamilienaamLijst, List<String> contactTelefoonLijst, List<String> contactEmailadresLijst) {
-		dienstService.updateTransportdienst(dienstId, naam, isActief, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode, contactVoornaamLijst, contactFamilienaamLijst, contactTelefoonLijst, contactEmailadresLijst, this.ttfService, this.persoonService);		
+	public void wijzigActivatieDienst(long dienstId, boolean isActief) {
+		dienstService.wijzigActivatieDienst(dienstId, isActief);
 	}
 	
 	public void maakBedrijf(String naam, String straat, String huisnummer, String postcode, String stad, String land,

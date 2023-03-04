@@ -29,7 +29,7 @@ public abstract class Dienst implements Serializable
 
 	private static final long serialVersionUID = 1L;
 	
-	@OneToMany(mappedBy = "dienst", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Persoon> personen = new HashSet<>();
 	
 	@Id
@@ -51,6 +51,10 @@ public abstract class Dienst implements Serializable
 	{
 		setNaam(naam);
 		setActief(isActief);
+	}
+
+	public long getId() {
+		return id;
 	}
 
 	public String getNaam()

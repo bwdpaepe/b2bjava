@@ -1,6 +1,9 @@
 package gui;
 
+import java.util.Arrays;
+
 import domein.DomeinController;
+import repository.DienstDTO;
 import repository.UserDTO;
 
 //TESTKLASSE GUI
@@ -38,7 +41,12 @@ public class ConsoleUi {
             domeinController.updateMedewerker("emailail3@test.be", "magazijnier");
                    
             
-            // domeinController.maakTransportdienst("trans1", 5, false, "trans1_prefix", "postcode", Arrays.asList("cVN"), Arrays.asList("cFN"), Arrays.asList("01234567"), Arrays.asList("contact1@test.com"));
+            domeinController.maakTransportdienst("trans1", 5, false, "trans1_prefix", "postcode", Arrays.asList("cVN"), Arrays.asList("cFN"), Arrays.asList("01234567"), Arrays.asList("contact1@test.com"));
+            domeinController.wijzigActivatieDienst(1, false);
+            
+            DienstDTO d = domeinController.getDienst(1);
+            
+            System.out.println(d);
             
         } catch (IllegalArgumentException ex) {
             System.out.println("Operatie mislukt " + ex.getMessage());
