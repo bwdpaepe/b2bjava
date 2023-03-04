@@ -12,21 +12,18 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import repository.DienstDTO;
+import repository.TransportdienstDTO;
 
 public class BeheerTransportdienstSchermController extends Pane {
 
 	@FXML
-	private TableView<DienstDTO> tableViewTransportdienst = new TableView<DienstDTO>();
-
-	@FXML
-	private TableColumn<DienstDTO, String> naamKolom = new TableColumn<DienstDTO, String>("Naam");
-
-	@FXML
-	private TableColumn<DienstDTO, String> statusKolom = new TableColumn<DienstDTO, String>("Status");
+	private TableView<TransportdienstDTO> tableViewTransportdienst = new TableView<TransportdienstDTO>();
 	
+	private TableColumn<TransportdienstDTO, String> naamKolom = new TableColumn<TransportdienstDTO, String>("Naam");
 	
+	private TableColumn<TransportdienstDTO, String> statusKolom = new TableColumn<TransportdienstDTO, String>("Status");
 
-	public BeheerTransportdienstSchermController(List<DienstDTO> diensten) {
+	public BeheerTransportdienstSchermController(List<TransportdienstDTO> diensten) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerTransportdienstScherm.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
@@ -40,17 +37,17 @@ public class BeheerTransportdienstSchermController extends Pane {
 		}
 	}
 
-	private void buildGuid(List<DienstDTO> diensten) {
+	private void buildGuid(List<TransportdienstDTO> diensten) {
 
-		naamKolom.setCellValueFactory(new PropertyValueFactory<DienstDTO, String>("naam"));
+		naamKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, String>("naam"));
 
 		tableViewTransportdienst.getColumns().add(naamKolom);
-		
-		tableViewTransportdienst.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-		for (DienstDTO dienst : diensten) {
-			tableViewTransportdienst.getItems().add(dienst);
-		}
+		// tableViewTransportdienst.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+		
+		TransportdienstDTO td = diensten.get(0);
+		tableViewTransportdienst.getItems().add(td);
 
 	}
 

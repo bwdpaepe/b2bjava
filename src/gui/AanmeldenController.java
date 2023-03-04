@@ -93,7 +93,7 @@ public class AanmeldenController extends Pane {
 			personen.add(new ContactpersoonDTO("Jan", "test", "test@test.com", "+12345678"));
 			TrackTraceFormatDTO ttfDTO = new TrackTraceFormatDTO(12, true,"TEST", "postcode");
 			TransportdienstDTO transportdienst = new TransportdienstDTO("Transportdienst 1", true, personen, ttfDTO );
-			List<DienstDTO> diensten = new ArrayList<>();
+			List<TransportdienstDTO> diensten = new ArrayList<>();
 			diensten.add(transportdienst);
 			
 			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(diensten);
