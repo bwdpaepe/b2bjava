@@ -25,8 +25,8 @@ public abstract class Persoon implements Serializable
 	
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne
-	private Dienst dienst;
+	//@ManyToOne
+	//private Dienst dienst;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +46,7 @@ public abstract class Persoon implements Serializable
 
 	}
 
-	public Persoon(String voornaam, String familienaam, String email, String telefoonnummer)
+	public Persoon(String voornaam, String familienaam, String telefoonnummer, String email)
 	{
 		setVoornaam(voornaam);
 		setFamilienaam(familienaam);

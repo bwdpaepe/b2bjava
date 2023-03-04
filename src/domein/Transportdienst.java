@@ -1,5 +1,6 @@
 package domein;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -11,8 +12,8 @@ public class Transportdienst extends Dienst
 
 	private static final long serialVersionUID = 1L;
 	
-	@OneToOne
-	private TrackTraceFormat trackTraceFormaat;
+	@OneToOne(cascade = CascadeType.ALL)
+	private TrackTraceFormat trackTraceFormat;
 	
 	// lege Constructor voor JPA
 	protected Transportdienst()
@@ -25,21 +26,36 @@ public class Transportdienst extends Dienst
 		super(naam, true);  // By default: transportdienst is actief bij aanmaak (zie UC)
 	}
 
-	public TrackTraceFormat getTrackTraceFormaat()
+	public TrackTraceFormat getTrackTraceFormat()
 	{
-		return trackTraceFormaat;
+		return trackTraceFormat;
 	}
 
-	public final void setTrackTraceFormat(TrackTraceFormat trackTraceFormaat)
+	public final void setTrackTraceFormat(TrackTraceFormat trackTraceFormat)
 	{
-		this.trackTraceFormaat = trackTraceFormaat;
+		this.trackTraceFormat = trackTraceFormat;
 	}
 
 	
 	
-//	public TrackTraceFormat getBarcodeFormaat()
-//	{
-//		return barcodeFormaat;
-//	}
+	public int getBarcodeLengte()
+	{
+		return trackTraceFormat.getBarcodeLengte();
+	}
+	
+	public boolean isBarcodeEnkelCijfers()
+	{
+		return trackTraceFormat.isBarcodeEnkelCijfers();
+	}
+	
+	public String getBarcodePrefix()
+	{
+		return trackTraceFormat.getBarcodePrefix();
+	}
+
+	public String getVerificatieCode()
+	{
+		return trackTraceFormat.getVerificatieCode();
+	}
 
 }

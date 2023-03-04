@@ -1,23 +1,31 @@
 package repository;
 
-import java.util.Set;
+import java.util.List;
 
 //Data Transfer Object PATTERN (DTO PATTERN)
 //ENKEL FINAL ATTRIBUTEN EN NOOIT LOGICA OPNEMEN
 public abstract class DienstDTO {
 	
-	private final Set<PersoonDTO> personen;
+	private final long id;
 	private final String naam;
 	private final boolean isActief;
+	private final List<String> voornaamLijst;
+	private final List<String> familienaamLijst;
+	private final List<String> emailAdressLijst;
+	private final List<String> telefoonnummerLijst;
 	
-	public DienstDTO(String naam, boolean isActief, Set<PersoonDTO> personen) {
+	public DienstDTO(long id, String naam, boolean isActief, List<String> voornaamLijst, List<String> familienaamLijst, List<String> emailAdressLijst, List<String> telefoonnummerLijst) {
+		this.id = id;
 		this.naam = naam;
 		this.isActief = isActief;
-		this.personen = personen;
+		this.voornaamLijst = voornaamLijst;
+		this.familienaamLijst = familienaamLijst;
+		this.emailAdressLijst = emailAdressLijst;
+		this.telefoonnummerLijst = telefoonnummerLijst;
 	}
 
-	public Set<PersoonDTO> getPersonen() {
-		return personen;
+	public long getId() {
+		return id;
 	}
 
 	public String getNaam() {
@@ -28,9 +36,31 @@ public abstract class DienstDTO {
 		return isActief;
 	}
 
+	public List<String> getVoornaamLijst() {
+		return voornaamLijst;
+	}
+
+	public List<String> getFamilienaamLijst() {
+		return familienaamLijst;
+	}
+
+	public List<String> getEmailAdressLijst() {
+		return emailAdressLijst;
+	}
+
+	public List<String> getTelefoonnummerLijst() {
+		return telefoonnummerLijst;
+	}
+
 	@Override
 	public String toString() {
-		return "personen=" + personen + ", naam=" + naam + ", isActief=" + isActief;
+		return "naam=" + naam + ", isActief=" + isActief + ", voornaamLijst=" + voornaamLijst
+				+ ", familienaamLijst=" + familienaamLijst + ", emailAdressLijst=" + emailAdressLijst
+				+ ", telefoonnummerLijst=" + telefoonnummerLijst;
 	}
+	
+	
+
+	
 
 }
