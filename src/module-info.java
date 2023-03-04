@@ -13,7 +13,7 @@ module B2B_Portal_Delaware {
 	exports util;
 	exports repository;
 	exports gui;
-	
+
 	opens domein;
 	opens main;
 	opens testen;
@@ -21,7 +21,7 @@ module B2B_Portal_Delaware {
 	opens util;
 	opens repository;
 	opens gui;
-	
+
 	// FX
 	requires javafx.base;
 	requires javafx.controls;
@@ -37,4 +37,5 @@ module B2B_Portal_Delaware {
 	requires org.mockito;
 	requires jbcrypt;
 	requires org.junit.jupiter.params;
+
 }

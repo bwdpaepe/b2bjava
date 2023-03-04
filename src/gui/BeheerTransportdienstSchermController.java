@@ -18,9 +18,9 @@ public class BeheerTransportdienstSchermController extends Pane {
 
 	@FXML
 	private TableView<TransportdienstDTO> tableViewTransportdienst = new TableView<TransportdienstDTO>();
-	
+
 	private TableColumn<TransportdienstDTO, String> naamKolom = new TableColumn<TransportdienstDTO, String>("Naam");
-	
+
 	private TableColumn<TransportdienstDTO, String> statusKolom = new TableColumn<TransportdienstDTO, String>("Status");
 
 	public BeheerTransportdienstSchermController(List<TransportdienstDTO> diensten) {
@@ -29,7 +29,7 @@ public class BeheerTransportdienstSchermController extends Pane {
 		loader.setRoot(this);
 
 		buildGuid(diensten);
-
+//
 		try {
 			loader.load();
 		} catch (IOException e) {
@@ -45,7 +45,6 @@ public class BeheerTransportdienstSchermController extends Pane {
 
 		// tableViewTransportdienst.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-		
 		TransportdienstDTO td = diensten.get(0);
 		tableViewTransportdienst.getItems().add(td);
 
