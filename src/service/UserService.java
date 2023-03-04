@@ -45,12 +45,12 @@ public class UserService
 	}
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres,
-			String telefoonnummer, String functie, int personeelsNr)
+			String telefoonnummer, String functie, int personeelsNr, int bedrijfsId)
 	{
 		UserDaoJpa.startTransaction();
 
 		userRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, adres, telefoonnummer, personeelsNr,
-				functie));
+				functie, bedrijfsId));
 
 		UserDaoJpa.commitTransaction();
 	}

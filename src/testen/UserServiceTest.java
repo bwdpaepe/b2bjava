@@ -34,11 +34,12 @@ class UserServiceTest
 	private static final String FUNCTIE = "Admin";
 	//private static final String FUNCTIE_NIEUW = "Magazijnier"; eventueel later te gebruiken bij Update
 	private static final int PERSONEELNR = 12345;
+	private static final int BEDRIJF_ID = 1;
 
 	@Test
 	void aanmelden()
 	{
-		User user = new Medewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELNR, FUNCTIE);
+		User user = new Medewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELNR, FUNCTIE, BEDRIJF_ID);
 
 		Mockito.when(userRepoMock.getMedewerkerByEmailAdress(EMAILADRES)).thenReturn(user);
 
