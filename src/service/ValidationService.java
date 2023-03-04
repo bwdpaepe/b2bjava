@@ -7,11 +7,11 @@ public class ValidationService
 	@Transient
 	public static final int MIN_PW_LENGTH = 8; // TODO afspreken met team
 
-	public static final void controleerNaam(String naam)
+	public static final void controleerNietBlanco(String waarde)
 	{
-		if (naam == null || naam.isBlank())
+		if (waarde == null || waarde.isBlank())
 		{
-			throw new IllegalArgumentException("Voornaam is verplicht");
+			throw new IllegalArgumentException("Veld is verplicht");
 		}
 	}
 

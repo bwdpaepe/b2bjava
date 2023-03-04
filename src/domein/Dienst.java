@@ -60,7 +60,7 @@ public abstract class Dienst implements Serializable
 
 	public final void setNaam(String naam)
 	{
-		ValidationService.controleerNaam(naam);
+		ValidationService.controleerNietBlanco(naam);
 		this.naam = naam;
 	}
 

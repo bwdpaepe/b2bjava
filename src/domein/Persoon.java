@@ -85,7 +85,7 @@ public abstract class Persoon implements Serializable
 
 	public final void setVoornaam(String voornaam)
 	{
-		ValidationService.controleerNaam(voornaam);
+		ValidationService.controleerNietBlanco(voornaam);
 		this.voornaam = voornaam;
 	}
 
@@ -96,7 +96,7 @@ public abstract class Persoon implements Serializable
 
 	public final void setFamilienaam(String familienaam)
 	{
-		ValidationService.controleerNaam(familienaam);
+		ValidationService.controleerNietBlanco(familienaam);
 		this.familienaam = familienaam;
 	}
 
