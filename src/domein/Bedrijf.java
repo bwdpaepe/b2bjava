@@ -1,13 +1,16 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import service.ValidationService;
 
@@ -16,6 +19,9 @@ public class Bedrijf implements Serializable
 {
 
 	private static final long serialVersionUID = 1L;
+	
+	@OneToMany(mappedBy = "bedrijf")
+	private Set<User> users = new HashSet<>();
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -160,7 +166,7 @@ public class Bedrijf implements Serializable
 
 	public final void setLogo_filename(String logo_filename)
 	{
-		ValidationService.controleerNietBlanco(logo_filename);
+		//ValidationService.controleerNietBlanco(logo_filename);
 		this.logo_filename = logo_filename;
 	}
 

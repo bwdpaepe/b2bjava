@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -30,6 +31,9 @@ public abstract class User implements Serializable
 {
 
 	private static final long serialVersionUID = 1L;
+	
+	@ManyToOne
+	private Bedrijf bedrijf;
 	
 	@Transient
 	public static final int MIN_PW_LENGTH = 8; // TODO afspreken met team
@@ -54,7 +58,7 @@ public abstract class User implements Serializable
 	@Transient
 	private String salt = BCrypt.gensalt(12);
 
-	public User(String voornaam, String familienaam, String email, String password, String telefoonnumer, String adres)
+	public User(String voornaam, String familienaam, String email, String password, String telefoonnumer, String adres, int bedrijfsId)
 	{
 		setVoornaam(voornaam);
 		setFamilienaam(familienaam);
@@ -62,7 +66,12 @@ public abstract class User implements Serializable
 		setHashedPW(password);
 		setAdres(adres);
 		setTelefoonnummer(telefoonnumer);
+		setBedrijf(bedrijfsId);
 	}
+
+	public void setBedrijf(int bedrijfsId) {
+		
+	};
 
 	// lege Constructor voor JPA
 	public User()

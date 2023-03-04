@@ -27,9 +27,9 @@ public class Medewerker extends User
 	private Functie functie;
 
 	public Medewerker(String voornaam, String familienaam, String email, String password, String adres,
-			String telefoonnummer, int personeelsNr, String functie)
+			String telefoonnummer, int personeelsNr, String functie, int bedrijfsId)
 	{
-		super(voornaam, familienaam, email, password, telefoonnummer, adres);
+		super(voornaam, familienaam, email, password, telefoonnummer, adres, bedrijfsId);
 		setFunctie(functie);
 		setPersoneelsNr(personeelsNr);
 	}
