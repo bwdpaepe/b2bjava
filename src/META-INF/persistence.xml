@@ -7,6 +7,7 @@
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<!-- <class>domein.CLASSNAME</class> goes here -->
+		<class>domein.Bedrijf</class>
 		<class>domein.User</class>
 		<class>domein.Medewerker</class>
 		<class>domein.Dienst</class>

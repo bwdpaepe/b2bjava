@@ -1,7 +1,5 @@
 package gui;
 
-import java.util.Arrays;
-
 import domein.DomeinController;
 import repository.UserDTO;
 
@@ -29,12 +27,12 @@ public class ConsoleUi {
             
             UserDTO u = domeinController.aanmelden( "emailail1@test.com", "paswoord");
             
-            System.out.print(u);
+            System.out.println(u);
             
             domeinController.updateMedewerker("emailail3@test.be", "magazijnier");
                    
             
-            domeinController.maakTransportdienst("trans1", 5, false, "trans1_prefix", "postcode", Arrays.asList("cVN"), Arrays.asList("cFN"), Arrays.asList("01234567"), Arrays.asList("contact1@test.com"));
+            // domeinController.maakTransportdienst("trans1", 5, false, "trans1_prefix", "postcode", Arrays.asList("cVN"), Arrays.asList("cFN"), Arrays.asList("01234567"), Arrays.asList("contact1@test.com"));
 
             
         } catch (IllegalArgumentException ex) {
