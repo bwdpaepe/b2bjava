@@ -17,7 +17,7 @@ public class Contactpersoon extends Persoon {
 
 		public Contactpersoon(String voornaam, String familienaam, String email, String telefoonnummer)
 		{
-			super(voornaam, familienaam, email, telefoonnummer);
+			super(voornaam, familienaam, telefoonnummer, email);
 		}
 		
 		
