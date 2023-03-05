@@ -37,9 +37,9 @@ public class BedrijfService
 
 	}
 
-	public Bedrijf getBedrijfById(int bedrijfsId)
+	public Bedrijf getBedrijfById(long bedrijfsId)
 	{
-		return bedrijfRepo.get(Long.valueOf(bedrijfsId));
+		return bedrijfRepo.get(bedrijfsId);
 		
 	}
 }

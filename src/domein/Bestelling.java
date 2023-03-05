@@ -19,7 +19,7 @@ public class Bestelling {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	private long orderID;
+	private String orderID;
 	private Date datumGeplaatst;
 	private String status;
 
@@ -38,9 +38,9 @@ public class Bestelling {
 	private Transportdienst transportdienst;
 	
 	
-	public Bestelling(long orderID, Date datum, String status, Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst) {
+	public Bestelling(String orderID, Date datum_geplaatst,  String status, Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst) {
 		setOrderID(orderID);
-		setDatumGeplaatst();
+		setDatumGeplaatst(datum_geplaatst);
 		setLeverancier(leverancier);
 		setKlant(klant);
 		setTransportdienst(transportdienst);
@@ -51,12 +51,12 @@ public class Bestelling {
 		return id;
 	}
 
-	public long getOrderID() {
+	public String getOrderID() {
 		return orderID;
 	}
 
-	public void setOrderID(long orderID) {
-		ValidationService.controleerGroterDanNul(orderID);
+	public void setOrderID(String orderID) {
+		ValidationService.controleerNietBlanco(orderID);
 		this.orderID = orderID;
 	}
 
@@ -64,10 +64,10 @@ public class Bestelling {
 		return datumGeplaatst;
 	}
 
-	public void setDatumGeplaatst() {
+	public void setDatumGeplaatst(Date datum) {
 		
-		//set op moment van aanmaken
-		this.datumGeplaatst = new Date();
+
+		this.datumGeplaatst = datum;
 	}
 
 	public String getStatus() {
@@ -93,9 +93,6 @@ public class Bestelling {
 		return klant;
 	}
 
-	public void setLeverancier(Bedrijf leverancier) {
-		ValidationService.controleerNietBlanco(leverancier);
-		this.leverancier = leverancier;
 		
 	public void setKlant(Bedrijf klant) {
 		ValidationService.controleerNietBlanco(klant);

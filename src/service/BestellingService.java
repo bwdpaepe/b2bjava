@@ -1,8 +1,11 @@
 package service;
 
+import java.util.Date;
+
 import domein.Bedrijf;
 import domein.Bestelling;
 import domein.Transportdienst;
+import repository.GenericDao;
 import repository.GenericDaoJpa;
 
 
@@ -11,18 +14,35 @@ public class BestellingService {
 	
 	BedrijfService bedrijfService = new BedrijfService();
 	DienstService dienstService = new DienstService();
-	GenericDaoJpa<Bestelling> = new GenericDAO();
+	GenericDao<Bestelling> bestellingRepo;
 	
 
 	public BestellingService() {
-		// TODO Auto-generated constructor stub
+		this.bestellingRepo = new GenericDaoJpa<>(Bestelling.class);
 	}
 	
-	public void maakBestelling(long orderID, String Status, int bedrijfID, int transportdienstID) {
-		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfID);
-		Transportdienst td = dienstService.getTransportdienstByID(transportdienstID);
+	public void maakBestelling(String orderID, String status , Date datum,  long leverancierID, long klantID,  long transportdienstID) {
+		try {
+			Bedrijf leverancier = bedrijfService.getBedrijfById(leverancierID);
+			Bedrijf klant = bedrijfService.getBedrijfById(klantID);
+			Transportdienst td = dienstService.getTransportdienstByID(transportdienstID);
+			Bestelling bestelling = new Bestelling(orderID, datum, status,  leverancier, klant, td);
+			
+			GenericDaoJpa.startTransaction();
+			
+			bestellingRepo.insert(bestelling);
+			
+			GenericDaoJpa.commitTransaction();
+			
+		} catch (Exception e) {
+			GenericDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException("Something went wrong");
+		}
 		
-		GenericDaoJpa.startTransaction();
+
+		
+		
+		
 		
 	}
 	
