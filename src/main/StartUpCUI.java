@@ -12,6 +12,8 @@ public class StartUpCUI {
 
     private void run() {
         new ConsoleUi(new DomeinController()).run();
+        //bin removal force
+        
         
     }
     
