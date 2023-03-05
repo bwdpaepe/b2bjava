@@ -31,7 +31,7 @@ public class GraphicalUi {
             
             //System.out.println(u);
             
-            domeinController.updateMedewerker("emailail3@test.be", "magazijnier");
+            domeinController.updateMedewerker(3, "magazijnier");
                        
         } catch (IllegalArgumentException ex) {
             System.out.println("Operatie mislukt " + ex.getMessage());

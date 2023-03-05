@@ -56,9 +56,9 @@ public class UserService
 		UserDaoJpa.commitTransaction();
 	}
 
-	public void updateMedewerker(String email, String nieuweRol)
+	public void updateMedewerker(int id, String nieuweRol)
 	{
-		User user = userRepo.getMedewerkerByEmailAdress(email);
+		User user = userRepo.get(Long.valueOf(id));
 
 		if (user instanceof Medewerker)
 		{

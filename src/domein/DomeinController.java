@@ -50,8 +50,8 @@ public class DomeinController {
 				functie, bedrijf);
 	}
 
-	public void updateMedewerker(String e, String r) {
-		userService.updateMedewerker(e, r);
+	public void updateMedewerker(int id, String rol) {
+		userService.updateMedewerker(id, rol);
 	}
 
 	// TRANSPORTDIENST OPERATIONS

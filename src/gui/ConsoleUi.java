@@ -38,7 +38,7 @@ public class ConsoleUi {
             
             System.out.println(u);
             
-            domeinController.updateMedewerker("emailail3@test.be", "magazijnier");
+            domeinController.updateMedewerker(3, "magazijnier");
                    
             
             domeinController.maakTransportdienst("trans1", 5, false, "trans1_prefix", "postcode", Arrays.asList("cVN"), Arrays.asList("cFN"), Arrays.asList("01234567"), Arrays.asList("contact1@test.com"));

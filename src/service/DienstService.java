@@ -50,16 +50,17 @@ public class DienstService
 			
 			// new contactpersoon
 			while (voornaamIterator.hasNext() && familienaamIterator.hasNext() && telefoonIterator.hasNext() && emailIterator.hasNext()) {
-				dienst.addPerson(new Contactpersoon(voornaamIterator.next(), familienaamIterator.next(), telefoonIterator.next(), emailIterator.next()));
+				dienst.addPerson(new Contactpersoon(voornaamIterator.next(), familienaamIterator.next(), emailIterator.next(), telefoonIterator.next()));
 			}
 			
 			dienstRepo.insert(dienst);			
-			
+			GenericDaoJpa.commitTransaction();
 		} catch (Exception e) {
+			System.err.println(e);
 			GenericDaoJpa.rollbackTransaction();
 		}
 		
-		GenericDaoJpa.commitTransaction();
+
 		
 	}
 	
