@@ -26,17 +26,22 @@ public class Bestelling {
 	// RELATIES
 
 	@ManyToOne
-	@Column(name = "Bedrijf", nullable = false)
-	private Bedrijf bedrijf;
+	@Column(name = "Leverancier", nullable = false)
+	private Bedrijf leverancier;
+	
+	@ManyToOne
+	@Column(name = "Klant", nullable = false)
+	private Bedrijf klant;
 	
 	@OneToOne
 	@Column(name = "Transportdienst", nullable = false)
 	private Transportdienst transportdienst;
 	
-	public Bestelling(long orderID, Date datum, String status, Bedrijf bedrijf, Transportdienst transportdienst) {
+	public Bestelling(long orderID, Date datum, String status, Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst) {
 		setOrderID(orderID);
 		setDatumGeplaatst();
-		setBedrijf(bedrijf);
+		setLeverancier(leverancier);
+		setKlant(klant);
 		setTransportdienst(transportdienst);
 		setStatus(status);
 	}
@@ -73,13 +78,22 @@ public class Bestelling {
 		this.status = status;
 	}
 
-	public Bedrijf getBedrijf() {
-		return bedrijf;
+	public Bedrijf getLeverancier() {
+		return leverancier;
 	}
 
-	public void setBedrijf(Bedrijf bedrijf) {
-		ValidationService.controleerNietBlanco(bedrijf);
-		this.bedrijf = bedrijf;
+	public void setLeverancier(Bedrijf leverancier) {
+		ValidationService.controleerNietBlanco(leverancier);
+		this.leverancier = leverancier;
+	}
+	
+	public Bedrijf getKlant() {
+		return klant;
+	}
+
+	public void setKlant(Bedrijf klant) {
+		ValidationService.controleerNietBlanco(klant);
+		this.klant = klant;
 	}
 
 	public Transportdienst getTransportdienst() {
