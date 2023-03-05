@@ -104,6 +104,16 @@ public class BedrijfDTO {
 		}
 		return transportdiensten;
 	}
+
+	@Override
+	public String toString() {
+		return "BedrijfDTO [users=" + users + ", transportdiensten=" + transportdiensten + ", id=" + id + ", naam="
+				+ naam + ", straat=" + straat + ", huisnummer=" + huisnummer + ", postcode=" + postcode + ", stad="
+				+ stad + ", land=" + land + ", telefoonnummer=" + telefoonnummer + ", logo_filename=" + logo_filename
+				+ "]";
+	}
+	
+	
 	
 	
 	

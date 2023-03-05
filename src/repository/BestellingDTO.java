@@ -44,6 +44,12 @@ public class BestellingDTO {
 	public TransportdienstDTO getTransportdienst() {
 		return transportdienst;
 	}
+	@Override
+	public String toString() {
+		return "BestellingDTO [id=" + id + ", orderID=" + orderID + ", datumGeplaatst=" + datumGeplaatst + ", status="
+				+ status + ", leverancier=" + leverancier + ", klant=" + klant + ", transportdienst=" + transportdienst
+				+ "]";
+	}
 	
 	
 	

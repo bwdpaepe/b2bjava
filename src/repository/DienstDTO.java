@@ -54,6 +54,12 @@ public abstract class DienstDTO {
 		return contactpersonen;
 	}
 
+	@Override
+	public String toString() {
+		return "DienstDTO [id=" + id + ", naam=" + naam + ", isActief=" + isActief + ", contactpersonen="
+				+ contactpersonen + "]";
+	}
+
 
 
 	

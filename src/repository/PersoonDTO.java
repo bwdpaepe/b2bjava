@@ -51,6 +51,15 @@ public abstract class PersoonDTO {
 	public String getTelefoonnummer() {
 		return telefoonnummer;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "PersoonDTO [id=" + id + ", voornaam=" + voornaam + ", familienaam=" + familienaam + ", emailAdres="
+				+ emailAdres + ", telefoonnummer=" + telefoonnummer + "]";
+	}
+	
 	
 
 }
