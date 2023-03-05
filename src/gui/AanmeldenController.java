@@ -102,7 +102,7 @@ public class AanmeldenController extends Pane {
 			List<TransportdienstDTO> diensten = new ArrayList<>();
 			diensten.add(transportdienst);
 
-			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten);
+			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten, user);
 			Scene scene = new Scene(root);
 			Stage stage = (Stage) this.getScene().getWindow();
 			stage.setScene(scene);
@@ -142,7 +142,7 @@ public class AanmeldenController extends Pane {
 			List<TransportdienstDTO> diensten = new ArrayList<>();
 			diensten.add(transportdienst);
 
-			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten);
+			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten, user);
 			Scene scene = new Scene(root);
 			Stage stage = (Stage) this.getScene().getWindow();
 			stage.setScene(scene);

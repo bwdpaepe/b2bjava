@@ -14,11 +14,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import repository.TransportdienstDTO;
+import repository.UserDTO;
 
 public class BeheerTransportdienstSchermController extends Pane {
 
 	@FXML
 	private Label welkomNaam;
+	
 
 	private TableView<TransportdienstDTO> tableViewTransportdienst;
 	private TableColumn<TransportdienstDTO, String> naamKolom;
@@ -27,16 +29,16 @@ public class BeheerTransportdienstSchermController extends Pane {
 	private DomeinController dc;
 
 	public BeheerTransportdienstSchermController(DomeinController dc,
-			List<TransportdienstDTO> transportdienstDTOLijst) {
+			List<TransportdienstDTO> transportdienstDTOLijst, UserDTO user) {
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerTransportdienstScherm.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
 		this.dc = dc;
 
-		buildGuid(transportdienstDTOLijst);
+		buildGuid(transportdienstDTOLijst, user);
 		
-		this.getChildren().add(tableViewTransportdienst);
+		this.getChildren().addAll(tableViewTransportdienst);
 
 		try {
 			loader.load();
@@ -45,13 +47,21 @@ public class BeheerTransportdienstSchermController extends Pane {
 		}
 	}
 
-	private void buildGuid(List<TransportdienstDTO> transportdienstDTOLijst) {
+	//TODO welkomnaam implementeren
+	private void buildGuid(List<TransportdienstDTO> transportdienstDTOLijst, UserDTO user) {
+		
+		welkomNaam = new Label();
+		
+		welkomNaam.setText(String.format("Welkom %s %s", user.getVoornaam(), user.getFamilienaam()));
 
 		ObservableList<TransportdienstDTO> list = FXCollections.observableArrayList(transportdienstDTOLijst);
 
 		tableViewTransportdienst = new TableView<TransportdienstDTO>();
-		tableViewTransportdienst.setLayoutX(500);
-		tableViewTransportdienst.setLayoutY(500);
+		tableViewTransportdienst.setLayoutX(85);
+		tableViewTransportdienst.setLayoutY(170);
+		
+		tableViewTransportdienst.scaleYProperty();
+		
 		naamKolom = new TableColumn<TransportdienstDTO, String>("Naam");
 		naamKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, String>("naam"));
 		statusKolom = new TableColumn<TransportdienstDTO, Boolean>("Status");
@@ -60,7 +70,7 @@ public class BeheerTransportdienstSchermController extends Pane {
 		tableViewTransportdienst.getColumns().add(naamKolom);
 		tableViewTransportdienst.getColumns().add(statusKolom);
 
-		
+		tableViewTransportdienst.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 		tableViewTransportdienst.setItems(list);
 
