@@ -46,6 +46,10 @@ public class AanmeldenController extends Pane {
 	private Pane errorWindow;
 	@FXML
 	private Button closeButton;
+	
+	//TODO verwijderen na ontwikkeling
+	@FXML
+	private Button aanmeldenZonderInlogButton;
 
 	public AanmeldenController(DomeinController dc) {
 
@@ -75,31 +79,36 @@ public class AanmeldenController extends Pane {
 	public void aanmelden(ActionEvent event) throws IOException {
 		try {
 			UserDTO user = dc.aanmelden(gebruikersnaamTxtField.getText(), paswoordTxtField.getText());
-			
-			//FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
-			//HomeController hc = new HomeController(this.dc, user);
-			//loader.setController(hc);
-			//root = loader.load();
-			//stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			
-			//stage.setResizable(false);
-			
-			
-			//Mock data om gui te testen
-			/*Set<PersoonDTO> personen = new HashSet<>();
-			//personen.add(new ContactpersoonDTO("Jan", "test", "test@test.com", "+12345678"));
-			//TrackTraceFormatDTO ttfDTO = new TrackTraceFormatDTO(12, true,"TEST", "postcode");
-			TransportdienstDTO transportdienst = new TransportdienstDTO("Transportdienst 1", true, personen, ttfDTO );
+
+			// FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
+			// HomeController hc = new HomeController(this.dc, user);
+			// loader.setController(hc);
+			// root = loader.load();
+			// stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+			// stage.setResizable(false);
+
+			// Mock data om gui te testen
+			List<String> voornaamLijst = new ArrayList<>();
+			voornaamLijst.add("voornaam1");
+			List<String> familienaamLijst = new ArrayList<>();
+			familienaamLijst.add("achternaam1");
+			List<String> emailLijst = new ArrayList<>();
+			emailLijst.add("email1");
+			List<String> telefoonnummerLijst = new ArrayList<>();
+			telefoonnummerLijst.add("+123456789");
+			TransportdienstDTO transportdienst = new TransportdienstDTO(1, "Transportdienst 1", true, voornaamLijst,
+					familienaamLijst, emailLijst, telefoonnummerLijst, 5, true, "TEST", "postcode");
 			List<TransportdienstDTO> diensten = new ArrayList<>();
 			diensten.add(transportdienst);
-			*/
-			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc);
+
+			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten);
 			Scene scene = new Scene(root);
 			Stage stage = (Stage) this.getScene().getWindow();
 			stage.setScene(scene);
-			
-			//hc.setWelkomTekst();
-			//stage.show();
+
+			// hc.setWelkomTekst();
+			// stage.show();
 		} catch (IllegalArgumentException e) {
 			errorMessage.setText(e.getMessage());
 			this.errorWindow.setVisible(true);
@@ -111,6 +120,46 @@ public class AanmeldenController extends Pane {
 			this.closeButton.setVisible(true);
 
 		}
+	}
+	
+	public void aanmeldenZonderLoginGegevens(ActionEvent event) {
+		try {
+			UserDTO user = dc.aanmelden("emailail1@test.com", "paswoord");
+
+			// stage.setResizable(false);
+
+			// Mock data om gui te testen
+			List<String> voornaamLijst = new ArrayList<>();
+			voornaamLijst.add("voornaam1");
+			List<String> familienaamLijst = new ArrayList<>();
+			familienaamLijst.add("achternaam1");
+			List<String> emailLijst = new ArrayList<>();
+			emailLijst.add("email1");
+			List<String> telefoonnummerLijst = new ArrayList<>();
+			telefoonnummerLijst.add("+123456789");
+			TransportdienstDTO transportdienst = new TransportdienstDTO(1, "Transportdienst 1", true, voornaamLijst,
+					familienaamLijst, emailLijst, telefoonnummerLijst, 5, true, "TEST", "postcode");
+			List<TransportdienstDTO> diensten = new ArrayList<>();
+			diensten.add(transportdienst);
+
+			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten);
+			Scene scene = new Scene(root);
+			Stage stage = (Stage) this.getScene().getWindow();
+			stage.setScene(scene);
+			
+		}catch (IllegalArgumentException e) {
+			errorMessage.setText(e.getMessage());
+			this.errorWindow.setVisible(true);
+			this.closeButton.setVisible(true);
+
+		} catch (EntityNotFoundException e) {
+			errorMessage.setText(e.getMessage());
+			this.errorWindow.setVisible(true);
+			this.closeButton.setVisible(true);
+
+		}
+		
+
 	}
 
 }

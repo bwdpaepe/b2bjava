@@ -17,7 +17,7 @@ public class TransportdienstDTO extends DienstDTO {
 		this.barcodePrefix = barcodePrefix;
 		this.verificatieCodeString = verificatieCode;
 	}
-
+	
 	public int getBarcodeLengte() {
 		return barcodeLengte;
 	}

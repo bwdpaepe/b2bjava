@@ -32,7 +32,7 @@ public abstract class DienstDTO {
 		return naam;
 	}
 
-	public boolean isActief() {
+	public boolean getIsActief() { //de get is nodig om de data in de tableView te krijgen
 		return isActief;
 	}
 
