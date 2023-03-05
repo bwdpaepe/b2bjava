@@ -1,5 +1,7 @@
 package repository;
 
+import domein.User;
+
 // Data Transfer Object PATTERN (DTO PATTERN)
 // ENKEL FINAL ATTRIBUTEN EN NOOIT LOGICA OPNEMEN
 public abstract class UserDTO
@@ -10,13 +12,13 @@ public abstract class UserDTO
 	protected final String telefoonnummer;
 	protected final String adres;
 
-	public UserDTO(String voornaam, String familienaam, String email, String telefoonnummer, String adres)
+	public UserDTO(User user)
 	{
-		this.voornaam = voornaam;
-		this.familienaam = familienaam;
-		this.email = email;
-		this.telefoonnummer = telefoonnummer;
-		this.adres = adres;
+		this.voornaam = user.getVoornaam();
+		this.familienaam = user.getFamilienaam();
+		this.email = user.getEmail();
+		this.telefoonnummer = user.getTelefoonnummer();
+		this.adres = user.getAdres();
 	}
 
 	public String getVoornaam()

@@ -3,6 +3,8 @@ package repository;
 import java.util.List;
 import java.util.Set;
 
+import domein.Transportdienst;
+
 public class TransportdienstDTO extends DienstDTO {
 	
 	private final int barcodeLengte;
@@ -10,13 +12,12 @@ public class TransportdienstDTO extends DienstDTO {
 	private final String barcodePrefix;
 	private final String verificatieCodeString;
 	
-	public TransportdienstDTO(long id, String naam, boolean isActief , Set<ContactpersoonDTO> contactpersonen, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
-			String verificatieCode) {
-		super(id, naam, isActief, contactpersonen);
-		this.barcodeLengte = barcodeLengte;
-		this.isBarcodeEnkelCijfers = isBarcodeEnkelCijfers;
-		this.barcodePrefix = barcodePrefix;
-		this.verificatieCodeString = verificatieCode;
+	public TransportdienstDTO(Transportdienst td) {
+		super(td);
+		this.barcodeLengte = td.getBarcodeLengte();
+		this.isBarcodeEnkelCijfers = td.isBarcodeEnkelCijfers();
+		this.barcodePrefix = td.getBarcodePrefix();
+		this.verificatieCodeString = td.getVerificatieCode();
 	}
 	
 	public int getBarcodeLengte() {
@@ -33,6 +34,13 @@ public class TransportdienstDTO extends DienstDTO {
 
 	public String getVerificatieCodeString() {
 		return verificatieCodeString;
+	}
+
+	@Override
+	public String toString() {
+		return "TransportdienstDTO [barcodeLengte=" + barcodeLengte + ", isBarcodeEnkelCijfers=" + isBarcodeEnkelCijfers
+				+ ", barcodePrefix=" + barcodePrefix + ", verificatieCodeString=" + verificatieCodeString + ", id=" + id
+				+ ", naam=" + naam + ", isActief=" + isActief + ", contactpersonen=" + contactpersonen + "]";
 	}
 
 

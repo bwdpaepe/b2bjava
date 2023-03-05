@@ -1,5 +1,7 @@
 package repository;
 
+import domein.Persoon;
+
 public abstract class PersoonDTO {
 
 	protected final long id;
@@ -10,14 +12,14 @@ public abstract class PersoonDTO {
 	
 	
 
-	public PersoonDTO(long id, String voornaam, String familienaam, String emailadres, String telefoonnummer) {
+	public PersoonDTO(Persoon persoon) {
 		
-		this.id = id;
-		this.voornaam = voornaam;
-		this.familienaam = familienaam;
-		this.emailAdres = emailadres;
-		this.telefoonnummer = telefoonnummer;
-		// TODO Auto-generated constructor stub
+		this.id = persoon.getId();
+		this.voornaam = persoon.getVoornaam();
+		this.familienaam = persoon.getFamilienaam();
+		this.emailAdres = persoon.getEmailAdress();
+		this.telefoonnummer = persoon.getTelefoonnummer();
+		
 	}
 
 

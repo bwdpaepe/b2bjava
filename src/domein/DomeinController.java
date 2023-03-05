@@ -68,15 +68,8 @@ public class DomeinController {
 
 	public TransportdienstDTO getTransportdienst(long dienstId) {
 		Transportdienst td = dienstService.getTransportdienstByID(dienstId);
-		Set<Contactpersoon> contactpersonen = td.getContactpersonen();
-		Set<ContactpersoonDTO> contactpersoonDTOs = new HashSet<>();
-		for (Contactpersoon cp : contactpersonen) {
-			contactpersoonDTOs.add(new ContactpersoonDTO(cp.getId(), cp.getVoornaam(), cp.getFamilienaam(),
-					cp.getEmailAdress(), cp.getTelefoonnummer()));
-		}
+		TransportdienstDTO tdDTO = new TransportdienstDTO(td);
 
-		TransportdienstDTO tdDTO = new TransportdienstDTO(td.getId(), td.getNaam(), td.isActief(), contactpersoonDTOs,
-				td.getBarcodeLengte(), td.isBarcodeEnkelCijfers(), td.getBarcodePrefix(), td.getVerificatieCode());
 
 		return tdDTO;
 

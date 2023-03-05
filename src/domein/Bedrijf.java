@@ -161,6 +161,18 @@ public class Bedrijf implements Serializable
 		ValidationService.controleerTelefoonnummer(telefoonnummer);
 		this.telefoonnummer = telefoonnummer;
 	}
+	
+	public Set<User> getUsers() {
+		return this.users;
+	}
+	
+	public Set<Dienst> getTransportdiensten(){
+		return this.diensten;
+	}
+	
+	public long getID() {
+		return this.id;
+	}
 
 	public String getLogo_filename()
 	{
