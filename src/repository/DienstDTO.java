@@ -6,13 +6,13 @@ import java.util.List;
 //ENKEL FINAL ATTRIBUTEN EN NOOIT LOGICA OPNEMEN
 public abstract class DienstDTO {
 	
-	private final long id;
-	private final String naam;
-	private final boolean isActief;
-	private final List<String> voornaamLijst;
-	private final List<String> familienaamLijst;
-	private final List<String> emailAdressLijst;
-	private final List<String> telefoonnummerLijst;
+	protected final long id;
+	protected final String naam;
+	protected final boolean isActief;
+	protected final List<String> voornaamLijst;
+	protected final List<String> familienaamLijst;
+	protected final List<String> emailAdressLijst;
+	protected final List<String> telefoonnummerLijst;
 	
 	public DienstDTO(long id, String naam, boolean isActief, List<String> voornaamLijst, List<String> familienaamLijst, List<String> emailAdressLijst, List<String> telefoonnummerLijst) {
 		this.id = id;
@@ -54,11 +54,13 @@ public abstract class DienstDTO {
 
 	@Override
 	public String toString() {
-		return "naam=" + naam + ", isActief=" + isActief + ", voornaamLijst=" + voornaamLijst
+		return "DienstDTO [id=" + id + ", naam=" + naam + ", isActief=" + isActief + ", voornaamLijst=" + voornaamLijst
 				+ ", familienaamLijst=" + familienaamLijst + ", emailAdressLijst=" + emailAdressLijst
-				+ ", telefoonnummerLijst=" + telefoonnummerLijst;
+				+ ", telefoonnummerLijst=" + telefoonnummerLijst + "]";
 	}
+
 	
+
 	
 
 	

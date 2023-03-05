@@ -27,8 +27,13 @@ public class MedewerkerDTO extends UserDTO
 	}
 
 	@Override
-	public final String toString()
-	{
-		return "MedewerkerDTO [personeelsNr=" + personeelsNr + ", functie=" + functie + ", " + super.toString() + "]";
+	public String toString() {
+		return "MedewerkerDTO [personeelsNr=" + personeelsNr + ", functie=" + functie + ", voornaam=" + voornaam
+				+ ", familienaam=" + familienaam + ", email=" + email + ", telefoonnummer=" + telefoonnummer
+				+ ", adres=" + adres + "]";
 	}
+	
+	
+
+
 }

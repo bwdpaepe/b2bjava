@@ -45,10 +45,12 @@ public abstract class UserDTO
 	}
 
 	@Override
-	public String toString()
-	{
-		return "voornaam=" + voornaam + ", familienaam=" + familienaam + ", email=" + email
-				+ ", telefoonnummer=" + telefoonnummer + ", adres=" + adres;
+	public String toString() {
+		return "UserDTO [voornaam=" + voornaam + ", familienaam=" + familienaam + ", email=" + email
+				+ ", telefoonnummer=" + telefoonnummer + ", adres=" + adres + "]";
 	}
+
+	
+
 
 }

@@ -36,9 +36,21 @@ public class TransportdienstDTO extends DienstDTO {
 
 	@Override
 	public String toString() {
-		return super.toString() + " barcodeLengte=" + barcodeLengte + ", isBarcodeEnkelCijfers=" + isBarcodeEnkelCijfers
-				+ ", barcodePrefix=" + barcodePrefix + ", verificatieCodeString=" + verificatieCodeString;
+		return "TransportdienstDTO [id=" + id + ", naam=" + naam + ", isActief=" + isActief + ", voornaamLijst="
+				+ voornaamLijst + ", familienaamLijst=" + familienaamLijst + ", emailAdressLijst=" + emailAdressLijst
+				+ ", telefoonnummerLijst=" + telefoonnummerLijst + ", barcodeLengte=" + barcodeLengte
+				+ ", isBarcodeEnkelCijfers=" + isBarcodeEnkelCijfers + ", barcodePrefix=" + barcodePrefix
+				+ ", verificatieCodeString=" + verificatieCodeString + "]";
 	}
+
+
+	
+	
+
+
+
+	
+
 	
 		
 	
