@@ -61,18 +61,20 @@ class UserServiceTest
 	}
 
 	// TODO nog uitzoeken hoe connectie met databank kan voorkomen worden door UserDaoJpa.startTransaction()
-//	@Test
-//	public void testMaakMedewerker()
-//	{
-//
-//		Medewerker mw = new Medewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER,
-//				PERSONEELNR, FUNCTIE);
-//
-//		userService.maakMedewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER, FUNCTIE,
-//				PERSONEELNR);
-//
-//		Mockito.verify(userRepoMock, Mockito.times(1)).insert(mw);
-//	}
+	@Test
+	public void testMaakMedewerker()
+	{
+
+		Medewerker mw = new Medewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER,PERSONEELNR,
+				FUNCTIE, BEDRIJF);
+		
+		Mockito.doNothing().when(userRepoMock).insert(mw);
+
+		userService.maakMedewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER,PERSONEELNR,
+				FUNCTIE, BEDRIJF);
+
+		Mockito.verify(userRepoMock, Mockito.times(1)).insert(mw);
+	}
 
 	// TODO nog uitzoeken hoe connectie met databank kan voorkomen worden door UserDaoJpa.startTransaction()
 //	@Test

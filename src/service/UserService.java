@@ -46,7 +46,7 @@ public class UserService
 	}
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres,
-			String telefoonnummer, String functie, int personeelsNr, Bedrijf bedrijf)
+			String telefoonnummer, int personeelsNr, String functie, Bedrijf bedrijf)
 	{
 		UserDaoJpa.startTransaction();
 

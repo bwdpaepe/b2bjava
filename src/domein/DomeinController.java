@@ -69,7 +69,7 @@ public class DomeinController
 			String functie, int personeelsNr, int bedrijfsId)
 	{
 		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
-		userService.maakMedewerker(voornaam, familienaam, emailadres, password, adres, telefoonnumer, functie, personeelsNr, bedrijf);
+		userService.maakMedewerker(voornaam, familienaam, emailadres, password, adres, telefoonnumer,  personeelsNr, functie, bedrijf);
 	}
 	
 	public void updateMedewerker(String e, String r) {
