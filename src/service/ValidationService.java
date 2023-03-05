@@ -9,21 +9,24 @@ public class ValidationService
 	@Transient
 	public static final int MIN_PW_LENGTH = 8; // TODO afspreken met team
 
-	public static final void controleerNietBlanco(String waarde)
+	public static final void controleerNietBlanco(Object waarde)
 	{
-		if (waarde == null || waarde.isBlank())
+		if (waarde == null)
 		{
 			throw new IllegalArgumentException("Veld is verplicht");
 		}
-	}
-
-	public static final void controleerAdres(String adres)
-	{
-		if (adres == null || adres.isBlank())
-		{
-			throw new IllegalArgumentException("Adres is verplicht");
+		if(waarde instanceof String && ((String) waarde).isBlank()) {
+			throw new IllegalArgumentException("Veld is verplicht");
 		}
 	}
+	
+	public static final void controleerGroterDanNul(int waarde) {
+		if (waarde <= 0)
+		{// eventueel nog andere checks toevoegen
+			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
+		}
+	}
+
 
 	public static final void controleerEmail(String email)
 	{
@@ -58,53 +61,11 @@ public class ValidationService
 		}
 	}
 
-	public static final void controleerFunctieString(String functie) {
-		if (functie == null || functie.isBlank())
-		{
-			throw new IllegalArgumentException("De functie van de Medewerker is ongeldig");
-		}
-	}
+
 	
-	public static final void controleerPersoneelsnr(int personeelsNr)
-	{
-		if (personeelsNr <= 0)
-		{// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Personeelnummer is ongeldig");
-		}
-	}
 
 
-	public static final void controleerBarcodeLengte(int aantal)
-	{
-		if (aantal <= 0)
-		{
-			throw new IllegalArgumentException("TractTraceFormat aantal karakters is ongeldig");
-		}
-	}
 
-	public static final void controleerBarcodePrefix(String prefix)
-	{
-		if (prefix == null || prefix.isBlank())
-		{
-			throw new IllegalArgumentException("TractTraceFormat Prefix is ongeldig");
-		}
-	}
 
-	public static final void controleerTrackVerificatiecode(String code)
-	{
-		if (code == null || code.isBlank())
-		{
-			throw new IllegalArgumentException("De Track&Trace verificatiecode is ongeldig");
-		}
-	}
-
-	public static void controleerNietNull(Bedrijf bedrijf)
-	{
-		if (bedrijf == null )
-		{
-			throw new IllegalArgumentException("Waarde mag niet null zijn");
-		}
-		
-	}
 
 }

@@ -47,7 +47,7 @@ public class Medewerker extends User
 
 	public final void setFunctie(String functie)
 	{
-		ValidationService.controleerFunctieString(functie);
+		ValidationService.controleerNietBlanco(functie);
 
 		this.functie = switch (functie.toLowerCase())
 			{
@@ -67,7 +67,7 @@ public class Medewerker extends User
 
 	public final void setPersoneelsNr(int personeelsNR)
 	{
-		ValidationService.controleerPersoneelsnr(personeelsNR);
+		ValidationService.controleerGroterDanNul(personeelsNR);
 		this.personeelsNr = personeelsNR;
 	}
 

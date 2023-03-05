@@ -51,7 +51,7 @@ public class TrackTraceFormat implements Serializable
 
 	public final void setBarcodeLengte(int barcodeLengte)
 	{
-		ValidationService.controleerBarcodeLengte(barcodeLengte);
+		ValidationService.controleerGroterDanNul(barcodeLengte);
 		this.barcodeLengte = barcodeLengte;
 	}
 
@@ -72,7 +72,7 @@ public class TrackTraceFormat implements Serializable
 
 	public final void setBarcodePrefix(String barcodePrefix)
 	{
-		ValidationService.controleerBarcodePrefix(barcodePrefix);
+		ValidationService.controleerNietBlanco(barcodePrefix);
 		this.barcodePrefix = barcodePrefix;
 	}
 
@@ -84,7 +84,7 @@ public class TrackTraceFormat implements Serializable
 	public final void setVerificatieCode(String verificatieCode)
 	{
 
-		ValidationService.controleerTrackVerificatiecode(verificatieCode);
+		ValidationService.controleerNietBlanco(verificatieCode);
 
 		this.verificatieCodeString = switch (verificatieCode.toLowerCase())
 			{

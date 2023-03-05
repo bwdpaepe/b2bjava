@@ -117,5 +117,12 @@ class MedewerkerTest
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Medewerker(VOORNAAM, ACHTERNAAM, EMAIL,
 				WACHTWOORD, adres, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, BEDRIJF));
 	}
+	
+	@Test
+	void ongeldig_bedrijf() {
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Medewerker(VOORNAAM, ACHTERNAAM, EMAIL,
+				WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELSNR, FUNCTIE, null));
+
+	}
 
 }

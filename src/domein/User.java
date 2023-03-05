@@ -163,7 +163,7 @@ public abstract class User implements Serializable
 
 	public final void setAdres(String adres)
 	{
-		ValidationService.controleerAdres(adres);
+		ValidationService.controleerNietBlanco(adres);
 		this.adres = adres;
 	}
 	
@@ -172,7 +172,7 @@ public abstract class User implements Serializable
 	}
 	
 	public void setBedrijf(Bedrijf bedrijf) {
-		ValidationService.controleerNietNull(bedrijf);
+		ValidationService.controleerNietBlanco(bedrijf);
 		this.bedrijf = bedrijf;
 	};
 
