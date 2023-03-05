@@ -15,6 +15,7 @@
 		<class>domein.Persoon</class>
 		<class>domein.Contactpersoon</class>
 		<class>domein.TrackTraceFormat</class>
+		<class>domein.Bestelling</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"

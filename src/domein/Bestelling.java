@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -26,17 +27,20 @@ public class Bestelling {
 	// RELATIES
 
 	@ManyToOne
-	@Column(name = "Bedrijf", nullable = false)
+	@JoinColumn(name = "Bedrijf", nullable = false)
 	private Bedrijf leverancier;
 	
 	@ManyToOne
-	@Column(name = "Klant", nullable = false)
+	@JoinColumn(name = "Klant", nullable = false)
 	private Bedrijf klant;
 	
 	@OneToOne
-	@Column(name = "Transportdienst", nullable = false)
+	@JoinColumn(name = "Transportdienst", nullable = false)
 	private Transportdienst transportdienst;
 	
+	protected Bestelling() {
+		
+	};
 	
 	public Bestelling(String orderID, Date datum_geplaatst,  String status, Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst) {
 		setOrderID(orderID);

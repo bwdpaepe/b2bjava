@@ -1,9 +1,12 @@
 package gui;
 
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import domein.DomeinController;
 import domein.Transportdienst;
+import repository.BestellingDTO;
 import repository.DienstDTO;
 import repository.TransportdienstDTO;
 import repository.UserDTO;
@@ -46,9 +49,14 @@ public class ConsoleUi {
             //transportdienst
             domeinController.maakTransportdienst("TD1", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874", "email@test.fr", 1);            
             TransportdienstDTO tdDTO = domeinController.getTransportdienst(1);
-            System.out.print(tdDTO);
+            System.out.println(tdDTO);
             
             //Bestellingen
+            domeinController.maakBestelling("ORder1", "OPEN", new Date(), 1, 2, 1);
+            List<BestellingDTO> bestellingen = domeinController.getBestellingen();
+            System.out.println(bestellingen.get(0));
+            
+            
             
 
             

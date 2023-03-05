@@ -33,7 +33,7 @@ public class BestellingService {
 
 		} catch (Exception e) {
 			GenericDaoJpa.rollbackTransaction();
-			throw new IllegalArgumentException("Er ging iets mis bij het aanmaken van je Bestelling");
+			throw new IllegalArgumentException(e.getMessage());
 		}
 
 	}

@@ -10,18 +10,18 @@ public class BestellingDTO {
 	protected final String orderID;
 	protected final Date datumGeplaatst;
 	protected final String status;
-	protected final BedrijfDTO leverancier;
-	protected final BedrijfDTO klant;
-	protected final TransportdienstDTO transportdienst;
+	protected final long leverancierID;
+	protected final long klantID;
+	protected final long transportdienstID;
 	public BestellingDTO(Bestelling bestelling) {
 
 		this.id = bestelling.getId();
 		this.orderID = bestelling.getOrderID();
 		this.datumGeplaatst = bestelling.getDatumGeplaatst();
 		this.status = bestelling.getStatus();
-		this.leverancier = new BedrijfDTO(bestelling.getLeverancier());
-		this.klant = new BedrijfDTO(bestelling.getKlant());
-		this.transportdienst = new TransportdienstDTO(bestelling.getTransportdienst());
+		this.leverancierID = bestelling.getLeverancier().getID();
+		this.klantID = bestelling.getKlant().getID();
+		this.transportdienstID = bestelling.getTransportdienst().getId();
 	}
 	public long getId() {
 		return id;
@@ -35,21 +35,22 @@ public class BestellingDTO {
 	public String getStatus() {
 		return status;
 	}
-	public BedrijfDTO getLeverancier() {
-		return leverancier;
+	public long getLeverancier() {
+		return leverancierID;
 	}
-	public BedrijfDTO getKlant() {
-		return klant;
+	public long getKlant() {
+		return klantID;
 	}
-	public TransportdienstDTO getTransportdienst() {
-		return transportdienst;
+	public long getTransportdienst() {
+		return transportdienstID;
 	}
 	@Override
 	public String toString() {
 		return "BestellingDTO [id=" + id + ", orderID=" + orderID + ", datumGeplaatst=" + datumGeplaatst + ", status="
-				+ status + ", leverancier=" + leverancier + ", klant=" + klant + ", transportdienst=" + transportdienst
-				+ "]";
+				+ status + ", leverancierID=" + leverancierID + ", klantID=" + klantID + ", transportdienstID="
+				+ transportdienstID + "]";
 	}
+
 	
 	
 	
