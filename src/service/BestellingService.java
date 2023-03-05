@@ -17,7 +17,7 @@ public class BestellingService {
 	
 	public void maakBestelling(long orderID, String Status, int bedrijfID, int transportdienstID) {
 		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfID);
-		Transportdienst td = dienstService.getDienst(transportdienstID);
+		//Transportdienst td = dienstService.getDienst(transportdienstID); geeft nog DTO terug, aan te passen
 		
 	}
 	
