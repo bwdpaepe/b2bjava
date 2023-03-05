@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import domein.DomeinController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -16,17 +17,20 @@ import repository.TransportdienstDTO;
 
 public class BeheerTransportdienstSchermController extends Pane {
 
-	@FXML
 	private TableView<TransportdienstDTO> tableViewTransportdienst = new TableView<TransportdienstDTO>();
 
 	private TableColumn<TransportdienstDTO, String> naamKolom = new TableColumn<TransportdienstDTO, String>("Naam");
 
 	private TableColumn<TransportdienstDTO, String> statusKolom = new TableColumn<TransportdienstDTO, String>("Status");
+	
+	private DomeinController dc;
 
-	public BeheerTransportdienstSchermController() {
+	public BeheerTransportdienstSchermController(DomeinController dc) {
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerTransportdienstScherm.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
+		this.dc = dc;
 
 		buildGuid();
 //

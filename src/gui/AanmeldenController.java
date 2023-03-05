@@ -93,7 +93,7 @@ public class AanmeldenController extends Pane {
 			List<TransportdienstDTO> diensten = new ArrayList<>();
 			diensten.add(transportdienst);
 			*/
-			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController();
+			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc);
 			Scene scene = new Scene(root);
 			Stage stage = (Stage) this.getScene().getWindow();
 			stage.setScene(scene);
