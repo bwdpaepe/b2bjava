@@ -88,22 +88,12 @@ public class AanmeldenController extends Pane {
 
 			// stage.setResizable(false);
 
-			// Mock data om gui te testen
-			List<String> voornaamLijst = new ArrayList<>();
-			voornaamLijst.add("voornaam1");
-			List<String> familienaamLijst = new ArrayList<>();
-			familienaamLijst.add("achternaam1");
-			List<String> emailLijst = new ArrayList<>();
-			emailLijst.add("email1");
-			List<String> telefoonnummerLijst = new ArrayList<>();
-			telefoonnummerLijst.add("+123456789");
-			TransportdienstDTO transportdienst = new TransportdienstDTO(1, "Transportdienst 1", true, voornaamLijst,
-					familienaamLijst, emailLijst, telefoonnummerLijst, 5, true, "TEST", "postcode");
-			TransportdienstDTO transportdienst2 = new TransportdienstDTO(1, "Transportdienst 1", true, voornaamLijst,
-					familienaamLijst, emailLijst, telefoonnummerLijst, 5, true, "TEST", "postcode");
+			// Mock data om gui te testen   <<=== maken in GraphicalUI en ophalen via DC
+
 			List<TransportdienstDTO> diensten = new ArrayList<>();
-			diensten.add(transportdienst);
-			diensten.add(transportdienst2);
+			
+			
+
 			
 			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten, user);
 			Scene scene = new Scene(root);
@@ -131,22 +121,10 @@ public class AanmeldenController extends Pane {
 
 			// stage.setResizable(false);
 
-			// Mock data om gui te testen
-			List<String> voornaamLijst = new ArrayList<>();
-			voornaamLijst.add("voornaam1");
-			List<String> familienaamLijst = new ArrayList<>();
-			familienaamLijst.add("achternaam1");
-			List<String> emailLijst = new ArrayList<>();
-			emailLijst.add("email1");
-			List<String> telefoonnummerLijst = new ArrayList<>();
-			telefoonnummerLijst.add("+123456789");
-			TransportdienstDTO transportdienst = new TransportdienstDTO(1, "Transportdienst 1", true, voornaamLijst,
-					familienaamLijst, emailLijst, telefoonnummerLijst, 5, true, "TEST", "postcode");
-			TransportdienstDTO transportdienst2 = new TransportdienstDTO(1, "Transportdienst 1", true, voornaamLijst,
-					familienaamLijst, emailLijst, telefoonnummerLijst, 5, true, "TEST", "postcode");
+			// Mock data om gui te testen <<=== SAME HERE
+
 			List<TransportdienstDTO> diensten = new ArrayList<>();
-			diensten.add(transportdienst);
-			diensten.add(transportdienst2);
+
 			
 			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten, user);
 			Scene scene = new Scene(root);

@@ -30,7 +30,7 @@ public class TrackTraceFormat implements Serializable
 	private String verificatieCodeString;
 
 	// lege Constructor voor JPA
-	protected TrackTraceFormat()
+	public TrackTraceFormat()
 	{
 
 	}

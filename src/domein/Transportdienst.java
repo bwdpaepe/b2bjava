@@ -1,5 +1,8 @@
 package domein;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -21,9 +24,10 @@ public class Transportdienst extends Dienst
 		
 	}
 
-	public Transportdienst(String naam, Bedrijf bedrijf)
+	public Transportdienst(String naam, Bedrijf bedrijf, Persoon persoon, TrackTraceFormat ttf)
 	{
-		super(naam, bedrijf, true);  // By default: transportdienst is actief bij aanmaak (zie UC)
+		super(naam, bedrijf, true, persoon);
+		setTrackTraceFormat(ttf);// By default: transportdienst is actief bij aanmaak (zie UC)
 	}
 
 	public TrackTraceFormat getTrackTraceFormat()
@@ -31,8 +35,8 @@ public class Transportdienst extends Dienst
 		return trackTraceFormat;
 	}
 
-	@Override
-	public final void setTrackTraceFormat(TrackTraceFormat trackTraceFormat)
+
+	public void setTrackTraceFormat(TrackTraceFormat trackTraceFormat)
 	{
 		this.trackTraceFormat = trackTraceFormat;
 	}
@@ -58,5 +62,18 @@ public class Transportdienst extends Dienst
 	{
 		return trackTraceFormat.getVerificatieCode();
 	}
+	
+
+	public Set<Contactpersoon> getContactpersonen(){
+		Set<Contactpersoon> contactpersonen = new HashSet<>();
+		for (Persoon p : this.personen) {
+			if (p instanceof Contactpersoon) {
+				contactpersonen.add((Contactpersoon)p);
+			}
+		}
+		return contactpersonen;
+	}
+
+
 
 }

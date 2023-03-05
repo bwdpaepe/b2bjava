@@ -8,6 +8,9 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import domein.Bedrijf;
+import domein.Contactpersoon;
+import domein.Persoon;
+import domein.TrackTraceFormat;
 import domein.Transportdienst;
 
 class TransportdienstTest {
@@ -15,10 +18,12 @@ class TransportdienstTest {
 	private Transportdienst td;
 	private static final String NAAM = "Dienst1";
 	private static final Bedrijf BEDRIJF = new Bedrijf();
+	private static final Persoon PERSOON = new Contactpersoon();
+	private static final TrackTraceFormat TTF = new TrackTraceFormat();
 
 	@BeforeEach
 	void before() {
-		td = new Transportdienst(NAAM, BEDRIJF);
+		td = new Transportdienst(NAAM, BEDRIJF, PERSOON,TTF);
 	}
 
 	@Test
@@ -43,7 +48,7 @@ class TransportdienstTest {
 	@NullAndEmptySource
 	@ValueSource(strings = { "", " ", "\n" })
 	void ongeldigeTransportdienstNaam_throwError(String transportdienstNaam) {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> new Transportdienst(transportdienstNaam, BEDRIJF));
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Transportdienst(transportdienstNaam, BEDRIJF, PERSOON, TTF));
 	}
 
 }

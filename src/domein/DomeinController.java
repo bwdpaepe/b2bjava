@@ -1,9 +1,14 @@
 package domein;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import repository.ContactpersoonDTO;
 import repository.DienstDTO;
 import repository.GenericDaoJpa;
+import repository.TransportdienstDTO;
 import repository.UserDTO;
 import service.BedrijfService;
 import service.DienstService;
@@ -61,21 +66,33 @@ public class DomeinController {
 		this.dienstService = dienstService;
 	}
 
-	public DienstDTO getDienst(long dienstId) {
-		return (dienstService.getDienst(dienstId));
+	public TransportdienstDTO getTransportdienst(long dienstId) {
+		Transportdienst td = dienstService.getTransportdienstByID(dienstId);
+		Set<Contactpersoon> contactpersonen = td.getContactpersonen();
+		Set<ContactpersoonDTO> contactpersoonDTOs = new HashSet<>();
+		for (Contactpersoon cp : contactpersonen) {
+			contactpersoonDTOs.add(new ContactpersoonDTO(cp.getId(), cp.getVoornaam(), cp.getFamilienaam(),
+					cp.getEmailAdress(), cp.getTelefoonnummer()));
+		}
+
+		TransportdienstDTO tdDTO = new TransportdienstDTO(td.getId(), td.getNaam(), td.isActief(), contactpersoonDTOs,
+				td.getBarcodeLengte(), td.isBarcodeEnkelCijfers(), td.getBarcodePrefix(), td.getVerificatieCode());
+
+		return tdDTO;
 
 	}
 
-	public List<DienstDTO> getDiensten() {
-		return (dienstService.getDiensten());
+	// dit geeft ruwe transportdiensten terug, MAG NIET
+	public List<Transportdienst> getTransportdiensten() {
+		return (dienstService.getTransportdiensten());
 	}
 
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
-			String verificatiecode, List<String> contactVoornaamLijst, List<String> contactFamilienaamLijst,
-			List<String> contactTelefoonLijst, List<String> contactEmailadresLijst, int bedrijfsId) {
+			String verificatiecode, String contactVoornaam, String contactFamilienaam,
+			String contactTelefoon, String contactEmailadres, int bedrijfsId) {
 		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
 		dienstService.maakTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode,
-				contactVoornaamLijst, contactFamilienaamLijst, contactTelefoonLijst, contactEmailadresLijst, bedrijf);
+				contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres, bedrijf);
 	}
 
 	public void wijzigActivatieDienst(long dienstId, boolean isActief) {

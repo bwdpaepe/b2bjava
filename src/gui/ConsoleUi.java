@@ -38,17 +38,12 @@ public class ConsoleUi {
             
             System.out.println(u);
             
-            domeinController.updateMedewerker(3, "magazijnier");
-                   
+            domeinController.updateMedewerker(3, "magazijnier");                  
             
-            domeinController.maakTransportdienst("trans1", 5, false, "trans1_prefix", "postcode", Arrays.asList("cVN"), Arrays.asList("cFN"), Arrays.asList("01234567"), Arrays.asList("contact1@test.com"), 1);
-            domeinController.wijzigActivatieDienst(1, false);
+           
+        
             
-            domeinController.maakTransportdienst("trans2", 8, true, "trans2_prefix", "postcode", Arrays.asList("cVN"), Arrays.asList("cFN"), Arrays.asList("01234567"), Arrays.asList("contact2@test.com"), 2);
-            
-            DienstDTO d = domeinController.getDienst(1);
-            
-            System.out.println(d);
+   
             
         } catch (IllegalArgumentException ex) {
             System.out.println("Operatie mislukt " + ex.getMessage());

@@ -31,7 +31,7 @@ public abstract class Dienst implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	private Set<Persoon> personen = new HashSet<>();
+	protected Set<Persoon> personen = new HashSet<>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,11 +50,12 @@ public abstract class Dienst implements Serializable
 
 	}
 
-	protected Dienst(String naam, Bedrijf bedrijf, boolean isActief)
+	protected Dienst(String naam, Bedrijf bedrijf, boolean isActief, Persoon persoon)
 	{
 		setNaam(naam);
 		setActief(isActief);
 		setBedrijf(bedrijf);
+		setPersonen(persoon);
 	}
 
 	public final void setBedrijf(Bedrijf bedrijf)
@@ -111,8 +112,6 @@ public abstract class Dienst implements Serializable
 	public Set<Persoon> getPersonen() {
 		return Collections.unmodifiableSet(personen);
 	}
-
-	public abstract void setTrackTraceFormat(TrackTraceFormat ttf);
 	
 	public void addPerson(Persoon persoon) {
 		personen.add(persoon);
@@ -121,4 +120,9 @@ public abstract class Dienst implements Serializable
 	public void removePerson(Persoon persoon) {
 		personen.remove(persoon);
 	}
+	
+	private void setPersonen(Persoon persoon) {
+		this.personen.add(persoon);
+		
+	};
 }
