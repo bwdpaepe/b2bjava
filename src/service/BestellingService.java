@@ -1,6 +1,7 @@
 package service;
 
 import java.util.Date;
+import java.util.List;
 
 import domein.Bedrijf;
 import domein.Bestelling;
@@ -35,6 +36,12 @@ public class BestellingService {
 			throw new IllegalArgumentException("Er ging iets mis bij het aanmaken van je Bestelling");
 		}
 
+	}
+	
+	public List<Bestelling> getBestellingen(){
+		
+		List<Bestelling> bestellingen = bestellingRepo.findAll();
+		return bestellingen;
 	}
 
 }

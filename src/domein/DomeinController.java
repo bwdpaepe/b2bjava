@@ -1,16 +1,21 @@
 package domein;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
+import repository.BestellingDTO;
 import repository.ContactpersoonDTO;
 import repository.DienstDTO;
 import repository.GenericDaoJpa;
 import repository.TransportdienstDTO;
 import repository.UserDTO;
 import service.BedrijfService;
+import service.BestellingService;
 import service.DienstService;
 import service.UserService;
 
@@ -19,12 +24,14 @@ public class DomeinController {
 	private UserService userService; // service klasse om o.a aanmelden uit te werken
 	private DienstService dienstService;
 	private BedrijfService bedrijfService;
+	private BestellingService bestellingService;
 
 	public DomeinController() {
 
 		setUserService(new UserService());
 		setDienstService(new DienstService());
 		setBedrijfService(new BedrijfService());
+		setBestellingService(new BestellingService());
 	}
 
 	// USER OPERATIONS
@@ -102,6 +109,26 @@ public class DomeinController {
 
 	private final void setBedrijfService(BedrijfService bedrijfService) {
 		this.bedrijfService = bedrijfService;
+	}
+	
+	//BESTELLING OPERATIONS
+	// --------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	public void setBestellingService(BestellingService bs) {
+		this.bestellingService = bs;
+	}
+	
+	public void maakBestelling(String OrderId, String status, Date datum, long leverancierID, long klantID, long transportdienstID) {
+		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID);
+	}
+	
+	//dit moet nog gefixed worden om enkel de bestellingen te krijgen van het bedrijf van de aanvrager
+	public List<BestellingDTO> getBestellingen(){
+		List<Bestelling> bestellingen = bestellingService.getBestellingen();
+		List<BestellingDTO> bestellingenDTO = bestellingen.stream().map(b -> new BestellingDTO(b)).toList();
+		
+		return Collections.unmodifiableList(bestellingenDTO);		
+		
 	}
 
 	// GLOBAL OPERATIONS
