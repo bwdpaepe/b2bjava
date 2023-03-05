@@ -1,8 +1,8 @@
 package service;
 
-import javax.persistence.Transient;
+import java.util.Date;
 
-import domein.Bedrijf;
+import javax.persistence.Transient;
 
 public class ValidationService
 {
@@ -21,6 +21,12 @@ public class ValidationService
 	}
 	
 	public static final void controleerGroterDanNul(int waarde) {
+		if (waarde <= 0)
+		{// eventueel nog andere checks toevoegen
+			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
+		}
+	}
+	public static final void controleerGroterDanNul(long waarde) {
 		if (waarde <= 0)
 		{// eventueel nog andere checks toevoegen
 			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
@@ -58,6 +64,13 @@ public class ValidationService
 		if (telefoonnummer == null || !telefoonnummer.matches("^\\+?\\d{6,}$"))
 		{
 			throw new IllegalArgumentException("Telefoonnummer is ongeldig");
+		}
+	}
+	
+	//uiteindelijk nog niet nodig, maar laat het staan voor eventueel later gebruik
+	public static final void controleerDatumNietInVerleden(Date datum) {
+		if (new Date().compareTo(datum) > 0) {
+			throw new IllegalArgumentException("datum kan niet in het verleden liggen");
 		}
 	}
 
