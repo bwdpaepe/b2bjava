@@ -99,9 +99,12 @@ public class AanmeldenController extends Pane {
 			telefoonnummerLijst.add("+123456789");
 			TransportdienstDTO transportdienst = new TransportdienstDTO(1, "Transportdienst 1", true, voornaamLijst,
 					familienaamLijst, emailLijst, telefoonnummerLijst, 5, true, "TEST", "postcode");
+			TransportdienstDTO transportdienst2 = new TransportdienstDTO(1, "Transportdienst 1", true, voornaamLijst,
+					familienaamLijst, emailLijst, telefoonnummerLijst, 5, true, "TEST", "postcode");
 			List<TransportdienstDTO> diensten = new ArrayList<>();
 			diensten.add(transportdienst);
-
+			diensten.add(transportdienst2);
+			
 			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten, user);
 			Scene scene = new Scene(root);
 			Stage stage = (Stage) this.getScene().getWindow();
@@ -139,9 +142,12 @@ public class AanmeldenController extends Pane {
 			telefoonnummerLijst.add("+123456789");
 			TransportdienstDTO transportdienst = new TransportdienstDTO(1, "Transportdienst 1", true, voornaamLijst,
 					familienaamLijst, emailLijst, telefoonnummerLijst, 5, true, "TEST", "postcode");
+			TransportdienstDTO transportdienst2 = new TransportdienstDTO(1, "Transportdienst 1", true, voornaamLijst,
+					familienaamLijst, emailLijst, telefoonnummerLijst, 5, true, "TEST", "postcode");
 			List<TransportdienstDTO> diensten = new ArrayList<>();
 			diensten.add(transportdienst);
-
+			diensten.add(transportdienst2);
+			
 			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten, user);
 			Scene scene = new Scene(root);
 			Stage stage = (Stage) this.getScene().getWindow();
