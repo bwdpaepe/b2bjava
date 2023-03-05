@@ -32,12 +32,10 @@ public abstract class User implements Serializable
 
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne
-	private Bedrijf bedrijf;
-	
-	@Transient
-	public static final int MIN_PW_LENGTH = 8; // TODO afspreken met team
 
+
+
+	//in database
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -54,9 +52,13 @@ public abstract class User implements Serializable
 	private String telefoonnummer;
 	@Column(name = "adres")
 	private String adres;
+	@ManyToOne
+	private Bedrijf bedrijf;
 
+	//niet in database
 	@Transient
-	private String salt = BCrypt.gensalt(12);
+	private String salt = BCrypt.gensalt(12);	
+
 
 	public User(String voornaam, String familienaam, String email, String password, String telefoonnumer, String adres, Bedrijf bedrijf)
 	{
