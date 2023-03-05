@@ -21,9 +21,9 @@ public class Transportdienst extends Dienst
 		
 	}
 
-	public Transportdienst(String naam)
+	public Transportdienst(String naam, Bedrijf bedrijf)
 	{
-		super(naam, true);  // By default: transportdienst is actief bij aanmaak (zie UC)
+		super(naam, bedrijf, true);  // By default: transportdienst is actief bij aanmaak (zie UC)
 	}
 
 	public TrackTraceFormat getTrackTraceFormat()
@@ -31,6 +31,7 @@ public class Transportdienst extends Dienst
 		return trackTraceFormat;
 	}
 
+	@Override
 	public final void setTrackTraceFormat(TrackTraceFormat trackTraceFormat)
 	{
 		this.trackTraceFormat = trackTraceFormat;

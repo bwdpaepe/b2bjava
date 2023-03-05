@@ -22,6 +22,9 @@ public class Bedrijf implements Serializable
 	
 	@OneToMany(mappedBy = "bedrijf")
 	private Set<User> users = new HashSet<>();
+	
+	@OneToMany(mappedBy = "bedrijf")
+	private Set<Dienst> diensten = new HashSet<>();
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

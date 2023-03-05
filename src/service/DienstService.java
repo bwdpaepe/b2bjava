@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import domein.Bedrijf;
 import domein.Contactpersoon;
 import domein.Dienst;
 import domein.Persoon;
@@ -31,13 +32,13 @@ public class DienstService
 
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
 			String verificatiecode, List<String> contactVoornaamLijst, List<String> contactFamilienaamLijst, List<String> contactTelefoonLijst,
-			List<String> contactEmailadresLijst)
+			List<String> contactEmailadresLijst, Bedrijf bedrijf)
 	{
 		GenericDaoJpa.startTransaction();
 		try {
 		
 			// maak de transportdienst
-			Dienst dienst = new Transportdienst(naam);
+			Dienst dienst = new Transportdienst(naam, bedrijf);
 			// new ttf
 			TrackTraceFormat ttf = new TrackTraceFormat(barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
 					verificatiecode);

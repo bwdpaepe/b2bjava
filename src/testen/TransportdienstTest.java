@@ -7,16 +7,18 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import domein.Bedrijf;
 import domein.Transportdienst;
 
 class TransportdienstTest {
 
 	private Transportdienst td;
 	private static final String NAAM = "Dienst1";
+	private static final Bedrijf BEDRIJF = new Bedrijf();
 
 	@BeforeEach
 	void before() {
-		td = new Transportdienst(NAAM);
+		td = new Transportdienst(NAAM, BEDRIJF);
 	}
 
 	@Test
@@ -41,7 +43,7 @@ class TransportdienstTest {
 	@NullAndEmptySource
 	@ValueSource(strings = { "", " ", "\n" })
 	void ongeldigeTransportdienstNaam_throwError(String transportdienstNaam) {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> new Transportdienst(transportdienstNaam));
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Transportdienst(transportdienstNaam, BEDRIJF));
 	}
 
 }

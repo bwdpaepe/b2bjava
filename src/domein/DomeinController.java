@@ -72,9 +72,10 @@ public class DomeinController {
 
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
 			String verificatiecode, List<String> contactVoornaamLijst, List<String> contactFamilienaamLijst,
-			List<String> contactTelefoonLijst, List<String> contactEmailadresLijst) {
+			List<String> contactTelefoonLijst, List<String> contactEmailadresLijst, int bedrijfsId) {
+		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
 		dienstService.maakTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode,
-				contactVoornaamLijst, contactFamilienaamLijst, contactTelefoonLijst, contactEmailadresLijst);
+				contactVoornaamLijst, contactFamilienaamLijst, contactTelefoonLijst, contactEmailadresLijst, bedrijf);
 	}
 
 	public void wijzigActivatieDienst(long dienstId, boolean isActief) {

@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -40,6 +41,8 @@ public abstract class Dienst implements Serializable
 	private String naam;
 	@Column(name = "is_actief")
 	private boolean isActief;
+	@ManyToOne
+	private Bedrijf bedrijf;
 
 	// lege Constructor voor JPA
 	protected Dienst()
@@ -47,10 +50,18 @@ public abstract class Dienst implements Serializable
 
 	}
 
-	protected Dienst(String naam, boolean isActief)
+	protected Dienst(String naam, Bedrijf bedrijf, boolean isActief)
 	{
 		setNaam(naam);
 		setActief(isActief);
+		setBedrijf(bedrijf);
+	}
+
+	public final void setBedrijf(Bedrijf bedrijf)
+	{
+		ValidationService.controleerNietBlanco(bedrijf);
+		this.bedrijf = bedrijf;
+		
 	}
 
 	public long getId() {
