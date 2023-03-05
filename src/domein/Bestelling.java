@@ -27,16 +27,16 @@ public class Bestelling {
 
 	@ManyToOne
 	@Column(name = "Bedrijf", nullable = false)
-	private Bedrijf bedrijf;
+	private Bedrijf leverancier;
 	
 	@OneToOne
 	@Column(name = "Transportdienst", nullable = false)
 	private Transportdienst transportdienst;
 	
-	public Bestelling(long orderID, Date datum, String status, Bedrijf bedrijf, Transportdienst transportdienst) {
+	public Bestelling(long orderID, Date datum, String status, Bedrijf leverancier, Transportdienst transportdienst) {
 		setOrderID(orderID);
 		setDatumGeplaatst();
-		setBedrijf(bedrijf);
+		setLeverancier(leverancier);
 		setTransportdienst(transportdienst);
 		setStatus(status);
 	}
@@ -74,12 +74,12 @@ public class Bestelling {
 	}
 
 	public Bedrijf getBedrijf() {
-		return bedrijf;
+		return leverancier;
 	}
 
-	public void setBedrijf(Bedrijf bedrijf) {
-		ValidationService.controleerNietBlanco(bedrijf);
-		this.bedrijf = bedrijf;
+	public void setLeverancier(Bedrijf leverancier) {
+		ValidationService.controleerNietBlanco(leverancier);
+		this.leverancier = leverancier;
 	}
 
 	public Transportdienst getTransportdienst() {
