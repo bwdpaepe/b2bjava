@@ -21,10 +21,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import repository.ContactpersoonDTO;
 import repository.DienstDTO;
-import repository.PersoonDTO;
-import repository.TrackTraceFormatDTO;
 import repository.TransportdienstDTO;
 import repository.UserDTO;
 
@@ -89,14 +86,14 @@ public class AanmeldenController extends Pane {
 			
 			
 			//Mock data om gui te testen
-			Set<PersoonDTO> personen = new HashSet<>();
-			personen.add(new ContactpersoonDTO("Jan", "test", "test@test.com", "+12345678"));
-			TrackTraceFormatDTO ttfDTO = new TrackTraceFormatDTO(12, true,"TEST", "postcode");
+			/*Set<PersoonDTO> personen = new HashSet<>();
+			//personen.add(new ContactpersoonDTO("Jan", "test", "test@test.com", "+12345678"));
+			//TrackTraceFormatDTO ttfDTO = new TrackTraceFormatDTO(12, true,"TEST", "postcode");
 			TransportdienstDTO transportdienst = new TransportdienstDTO("Transportdienst 1", true, personen, ttfDTO );
 			List<TransportdienstDTO> diensten = new ArrayList<>();
 			diensten.add(transportdienst);
-			
-			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(diensten);
+			*/
+			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController();
 			Scene scene = new Scene(root);
 			Stage stage = (Stage) this.getScene().getWindow();
 			stage.setScene(scene);

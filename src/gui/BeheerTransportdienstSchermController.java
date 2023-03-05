@@ -23,12 +23,12 @@ public class BeheerTransportdienstSchermController extends Pane {
 
 	private TableColumn<TransportdienstDTO, String> statusKolom = new TableColumn<TransportdienstDTO, String>("Status");
 
-	public BeheerTransportdienstSchermController(List<TransportdienstDTO> diensten) {
+	public BeheerTransportdienstSchermController() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerTransportdienstScherm.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
 
-		buildGuid(diensten);
+		buildGuid();
 //
 		try {
 			loader.load();
@@ -37,8 +37,8 @@ public class BeheerTransportdienstSchermController extends Pane {
 		}
 	}
 
-	private void buildGuid(List<TransportdienstDTO> diensten) {
-
+	private void buildGuid() {
+/*
 		naamKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, String>("naam"));
 
 		tableViewTransportdienst.getColumns().add(naamKolom);
@@ -47,7 +47,7 @@ public class BeheerTransportdienstSchermController extends Pane {
 
 		TransportdienstDTO td = diensten.get(0);
 		tableViewTransportdienst.getItems().add(td);
-
+*/
 	}
 
 }
