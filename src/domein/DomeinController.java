@@ -86,7 +86,13 @@ public class DomeinController {
 	}
 	//Zelfde methode als hierboven maar geeft DTO objecten
 	public List<TransportdienstDTO> getTransportdienstenDTO(){
-		return dienstService.getTransportdienstenDTO();
+		List<Transportdienst> tdList =  dienstService.getTransportdiensten();
+		List<TransportdienstDTO> tdListDTO = new ArrayList<>();
+		for(Transportdienst td : tdList) {
+			TransportdienstDTO tdDTO = new TransportdienstDTO(td);
+			tdListDTO.add(tdDTO);
+		}
+		return tdListDTO;
 	}
 
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
