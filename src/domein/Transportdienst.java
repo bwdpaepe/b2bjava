@@ -19,7 +19,7 @@ public class Transportdienst extends Dienst
 	private TrackTraceFormat trackTraceFormat;
 	
 	// lege Constructor voor JPA
-	protected Transportdienst()
+	public Transportdienst()
 	{
 		
 	}

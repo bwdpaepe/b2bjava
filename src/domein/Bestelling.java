@@ -72,7 +72,7 @@ public class Bestelling {
 	}
 
 	public void setDatumGeplaatst(Date datum) {
-		
+		ValidationService.controleerNietBlanco(datum);
 
 		this.datumGeplaatst = datum;
 	}
