@@ -132,7 +132,7 @@ public class DomeinController {
 	
 	//dit moet nog gefixed worden om enkel de bestellingen te krijgen van het bedrijf van de aanvrager
 	public List<BestellingDTO> getBestellingen(){
-		List<Bestelling> bestellingen = bestellingService.getBestellingen();
+		List<Bestelling> bestellingen = bestellingService.getBestellingen(ingelogdeUser.getBedrijf().getId());
 		List<BestellingDTO> bestellingenDTO = bestellingen.stream().map(b -> new BestellingDTO(b)).toList();
 		
 		return Collections.unmodifiableList(bestellingenDTO);		

@@ -9,11 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import service.ValidationService;
 
 @Entity
+@NamedQueries(
+		{ @NamedQuery(name = "Bestelling.getBestellingenByLeverancierID", query = "select b from Bestelling b where b.leverancier = :leverancier") })
 public class Bestelling {
 
 	@Id
@@ -27,7 +31,7 @@ public class Bestelling {
 	// RELATIES
 
 	@ManyToOne
-	@JoinColumn(name = "Bedrijf", nullable = false)
+	@JoinColumn(name = "Leverancier", nullable = false)
 	private Bedrijf leverancier;
 	
 	@ManyToOne

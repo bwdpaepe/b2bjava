@@ -1,5 +1,6 @@
 package repository;
 
+import domein.Bedrijf;
 import domein.User;
 
 // Data Transfer Object PATTERN (DTO PATTERN)
@@ -11,6 +12,7 @@ public abstract class UserDTO
 	protected final String email;
 	protected final String telefoonnummer;
 	protected final String adres;
+	protected final BedrijfDTO bedrijf;
 
 	public UserDTO(User user)
 	{
@@ -19,6 +21,7 @@ public abstract class UserDTO
 		this.email = user.getEmail();
 		this.telefoonnummer = user.getTelefoonnummer();
 		this.adres = user.getAdres();
+		this.bedrijf = new BedrijfDTO(user.getBedrijf());
 	}
 
 	public String getVoornaam()
@@ -44,6 +47,10 @@ public abstract class UserDTO
 	public String getAdres()
 	{
 		return adres;
+	}
+	
+	public BedrijfDTO getBedrijf() {
+		return bedrijf;
 	}
 
 	@Override
