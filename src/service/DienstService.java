@@ -91,7 +91,7 @@ public class DienstService {
 
 	}
 	
-	//Zelfde methode als hierboven enkel een lijst van DTO's in plaats van domeinobjecten
+	//Zelfde methode als hierboven enkel een DTO in plaats van domeinobjecten
 	public TransportdienstDTO getTransportdienstDTOByID(long dienstId) throws IllegalArgumentException {
 		try {
 
