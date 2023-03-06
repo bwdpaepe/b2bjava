@@ -2,7 +2,6 @@ package domein;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +26,7 @@ public class Bestelling {
 	// RELATIES
 
 	@ManyToOne
-	@JoinColumn(name = "Bedrijf", nullable = false)
+	@JoinColumn(name = "Leverancier", nullable = false)
 	private Bedrijf leverancier;
 	
 	@ManyToOne
