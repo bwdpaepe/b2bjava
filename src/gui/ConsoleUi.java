@@ -49,11 +49,11 @@ public class ConsoleUi {
             System.out.println(tdDTO);
             
             //Bestellingen
-            domeinController.maakBestelling("ORder1", "OPEN", new Date(), 1, 2, 1);
-            domeinController.maakBestelling("ORder2", "OPEN", new Date(), 1, 3, 1);
+            domeinController.maakBestelling("ORder1", "OPEN", new Date(), 2, 2, 1);
+            domeinController.maakBestelling("ORder2", "OPEN", new Date(), 2, 3, 1);
             domeinController.maakBestelling("ORder3", "OPEN", new Date(), 3, 2, 1);
             domeinController.maakBestelling("ORder4", "OPEN", new Date(), 2, 3, 1);
-            domeinController.maakBestelling("ORder5", "OPEN", new Date(), 1, 2, 1);
+            domeinController.maakBestelling("ORder5", "OPEN", new Date(), 2, 2, 1);
             List<BestellingDTO> bestellingen = domeinController.getBestellingen();
             System.out.println(bestellingen);
             
