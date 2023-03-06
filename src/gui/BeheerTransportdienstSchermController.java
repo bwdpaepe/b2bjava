@@ -40,7 +40,6 @@ public class BeheerTransportdienstSchermController extends Pane {
 	private TableColumn<TransportdienstDTO, Boolean> statusKolom;
 	private TabPane tabPane;
 	private GridPane gridPane;
-
 	private DomeinController dc;
 	private ObservableList<TransportdienstDTO> list;
 
@@ -67,16 +66,51 @@ public class BeheerTransportdienstSchermController extends Pane {
 	// TODO welkomnaam implementeren
 	private void buildGuid(List<TransportdienstDTO> transportdienstDTOLijst, UserDTO user) {
 
-		// Initialisatie van de verschillende elementen op het scherm
 		welkomNaam = new Label();
+
+		// Linkerdeel scherm tableview met naam transportdienst en status
+		// TODO status true/false naar actief/non-actief
 		tableViewTransportdienst = new TableView<TransportdienstDTO>();
 		naamKolom = new TableColumn<TransportdienstDTO, String>("Naam");
 		statusKolom = new TableColumn<TransportdienstDTO, Boolean>("Status");
-		tabPane = new TabPane();
-		gridPane = new GridPane();
-		Tab toevoegenTab = new Tab("Toevoegen");
-		Tab raadpleegTab = new Tab("Raadplegen");
 
+		tableViewTransportdienst.setLayoutX(85);
+		tableViewTransportdienst.setLayoutY(170);
+
+		tableViewTransportdienst.prefHeightProperty().set(900);
+
+		// welkomNaam.setText(String.format("Welkom %s %s", user.getVoornaam(),
+		// user.getFamilienaam()));
+
+		list = FXCollections.observableArrayList(transportdienstDTOLijst);
+
+		naamKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, String>("naam"));
+		statusKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, Boolean>("isActief"));
+
+		tableViewTransportdienst.getColumns().add(naamKolom);
+		tableViewTransportdienst.getColumns().add(statusKolom);
+
+		tableViewTransportdienst.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+		tableViewTransportdienst.setItems(list);
+
+		// Rechterdeel met tabpane
+		tabPane = new TabPane();
+
+		// Dimensies en styling instellen van de veschillende tabs
+		tabPane.setLayoutX(400);
+		tabPane.setLayoutY(170);
+
+		tabPane.prefHeightProperty().set(900);
+		tabPane.prefWidthProperty().set(1500);
+
+		tabPane.setStyle("-fx-border-style:solid; -fx-padding: 1;");
+
+		// Tab om transportdiensten toe te voegen
+		Tab toevoegenTab = new Tab("Toevoegen");
+
+		// Opbouw tabblad toevoegen
+		gridPane = new GridPane();
 		Label lblTitel = new Label("TOEVOEGEN TRANSPORTDIENST");
 		Label lblNaamTransportdienst = new Label("Naam transportdienst:");
 		Label lblContactpersoonVoornaam = new Label("Contactpersoon voornaam:");
@@ -112,51 +146,7 @@ public class BeheerTransportdienstSchermController extends Pane {
 			cbBarcodeLengte.getItems().add(i);
 		}
 
-		// gridPane action events
-
-		btnToevoegen.setOnAction(evt -> {
-			
-			try {
-				String naamTransportdienst = txtNaamTransportdienst.getText();
-				int barcodeLengte = (Integer) cbBarcodeLengte.getValue();
-				boolean isBarcodeEnkelCijfers = cbIsBarcodeEnkelCijfers.isSelected();
-				String barcodePrefix = txtBarcodePrefix.getText();
-				String verificatiecode = (String) cbVerificatiecode.getValue();
-				String contactVoornaam = txtContactpersoonVoornaam.getText();
-				String contactFamilienaam = txtContactpersoonFamilienaam.getText();
-				String contactTelefoon = txtTelefoonnummer.getText();
-				String contactEmailadres = txtEmailadres.getText();
-				
-				
-				//TODO implementeren bedrijfsId
-				int bedrijfsId = 1;
-				
-				
-				//Validatie input formulier
-				ValidationService.controleerNietBlanco(naamTransportdienst);
-				ValidationService.controleerGroterDanNul(barcodeLengte);
-				ValidationService.controleerNietBlanco(barcodePrefix);
-				ValidationService.controleerNietBlanco(contactVoornaam);
-				ValidationService.controleerNietBlanco(contactFamilienaam);
-				ValidationService.controleerTelefoonnummer(contactTelefoon);
-				ValidationService.controleerEmail(contactEmailadres);
-				
-				//Aanmaken van een transportdienst
-				dc.maakTransportdienst(naamTransportdienst, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
-						verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres,
-						bedrijfsId);
-				
-				
-			} catch (IllegalArgumentException e) {
-				// TODO degelijk errorbericht aanmaken
-				System.out.println(e);
-			}
-
-			list = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
-			tableViewTransportdienst.setItems(list);
-		});
-
-		// Opbouw gridPane
+		// Opbouw gridPane tabblad Toevoegen
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);
 		gridPane.setPadding(new Insets(10, 10, 10, 10));
@@ -183,44 +173,55 @@ public class BeheerTransportdienstSchermController extends Pane {
 		gridPane.add(cbIsBarcodeEnkelCijfers, 1, 10, 1, 1);
 		gridPane.add(btnToevoegen, 0, 11, 2, 2);
 
-		// Events gridpane
+		// Events tabblad toevoegen
+		btnToevoegen.setOnAction(evt -> {
+
+			try {
+				String naamTransportdienst = txtNaamTransportdienst.getText();
+				int barcodeLengte = (Integer) cbBarcodeLengte.getValue();
+				boolean isBarcodeEnkelCijfers = cbIsBarcodeEnkelCijfers.isSelected();
+				String barcodePrefix = txtBarcodePrefix.getText();
+				String verificatiecode = (String) cbVerificatiecode.getValue();
+				String contactVoornaam = txtContactpersoonVoornaam.getText();
+				String contactFamilienaam = txtContactpersoonFamilienaam.getText();
+				String contactTelefoon = txtTelefoonnummer.getText();
+				String contactEmailadres = txtEmailadres.getText();
+
+				// TODO implementeren bedrijfsId
+				int bedrijfsId = 1;
+
+				// Validatie input formulier
+				ValidationService.controleerNietBlanco(naamTransportdienst);
+				ValidationService.controleerGroterDanNul(barcodeLengte);
+				ValidationService.controleerNietBlanco(barcodePrefix);
+				ValidationService.controleerNietBlanco(contactVoornaam);
+				ValidationService.controleerNietBlanco(contactFamilienaam);
+				ValidationService.controleerTelefoonnummer(contactTelefoon);
+				ValidationService.controleerEmail(contactEmailadres);
+
+				// Aanmaken van een transportdienst
+				dc.maakTransportdienst(naamTransportdienst, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
+						verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres,
+						bedrijfsId);
+
+			} catch (IllegalArgumentException e) {
+				// TODO degelijk errorbericht aanmaken
+				System.out.println(e);
+			}
+
+			list = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
+			tableViewTransportdienst.setItems(list);
+		});
 
 		toevoegenTab.setClosable(false);
-		raadpleegTab.setClosable(false);
-
 		toevoegenTab.setContent(gridPane);
 
+		// Tab om transportdiensten te raadplegen en aan te passen
+		Tab raadpleegTab = new Tab("Raadplegen");
+
+		raadpleegTab.setClosable(false);
+
 		tabPane.getTabs().addAll(toevoegenTab, raadpleegTab);
-
-		// Dimensies en styling instellen van de veschillende tabs
-		tabPane.setLayoutX(400);
-		tabPane.setLayoutY(170);
-
-		tabPane.prefHeightProperty().set(900);
-		tabPane.prefWidthProperty().set(1500);
-
-		tabPane.setStyle("-fx-border-style:solid; -fx-padding: 1;");
-
-		tableViewTransportdienst.setLayoutX(85);
-		tableViewTransportdienst.setLayoutY(170);
-
-		tableViewTransportdienst.prefHeightProperty().set(900);
-
-		//
-
-		welkomNaam.setText(String.format("Welkom %s %s", user.getVoornaam(), user.getFamilienaam()));
-
-		list = FXCollections.observableArrayList(transportdienstDTOLijst);
-
-		naamKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, String>("naam"));
-		statusKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, Boolean>("isActief"));
-
-		tableViewTransportdienst.getColumns().add(naamKolom);
-		tableViewTransportdienst.getColumns().add(statusKolom);
-
-		tableViewTransportdienst.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-		tableViewTransportdienst.setItems(list);
 
 	}
 
