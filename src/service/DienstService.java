@@ -90,6 +90,25 @@ public class DienstService {
 		}
 
 	}
+	
+	//Zelfde methode als hierboven enkel een lijst van DTO's in plaats van domeinobjecten
+	public TransportdienstDTO getTransportdienstDTOByID(long dienstId) throws IllegalArgumentException {
+		try {
+
+			Dienst d = this.dienstRepo.get(dienstId);
+			if (d instanceof Transportdienst) {
+
+				TransportdienstDTO tdDTO = new TransportdienstDTO((Transportdienst)d);
+				return tdDTO;
+
+			} else {
+				throw new IllegalArgumentException("Ongeldig diensttype");
+			}
+		} catch (EntityNotFoundException ex) {
+			throw new IllegalArgumentException("De gevraagde dienst bestaat niet");
+		}
+
+	}
 
 	public List<Transportdienst> getTransportdiensten() {
 		List<Dienst> dienstList = dienstRepo.findAll();
@@ -101,6 +120,20 @@ public class DienstService {
 			}
 		}
 		return tdList;
+	}
+	
+	//Zelfde methode als hierboven enkel een lijst van DTO's in plaats van domeinobjecten
+	public List<TransportdienstDTO> getTransportdienstenDTO() {
+		List<Dienst> dienstList = dienstRepo.findAll();
+		List<TransportdienstDTO> tdDTOList = new ArrayList<TransportdienstDTO>();
+
+		for (Dienst dienst : dienstList) {
+			if (dienst instanceof Transportdienst) {
+				TransportdienstDTO tdDTO = new TransportdienstDTO((Transportdienst)dienst);
+				tdDTOList.add(tdDTO);
+			}
+		}
+		return tdDTOList;
 	}
 
 }

@@ -76,15 +76,17 @@ public class DomeinController {
 	public TransportdienstDTO getTransportdienst(long dienstId) {
 		Transportdienst td = dienstService.getTransportdienstByID(dienstId);
 		TransportdienstDTO tdDTO = new TransportdienstDTO(td);
-
-
 		return tdDTO;
 
 	}
 
 	// dit geeft ruwe transportdiensten terug, MAG NIET
 	public List<Transportdienst> getTransportdiensten() {
-		return (dienstService.getTransportdiensten());
+		return dienstService.getTransportdiensten();
+	}
+	//Zelfde methode als hierboven maar geeft DTO objecten
+	public List<TransportdienstDTO> getTransportdienstenDTO(){
+		return dienstService.getTransportdienstenDTO();
 	}
 
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,

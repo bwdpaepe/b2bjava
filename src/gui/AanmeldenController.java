@@ -90,7 +90,9 @@ public class AanmeldenController extends Pane {
 
 			// Mock data om gui te testen   <<=== maken in GraphicalUI en ophalen via DC
 
-			List<TransportdienstDTO> diensten = new ArrayList<>();
+			List<TransportdienstDTO> diensten = dc.getTransportdienstenDTO();
+			
+			
 			
 			
 
@@ -123,7 +125,7 @@ public class AanmeldenController extends Pane {
 
 			// Mock data om gui te testen <<=== SAME HERE
 
-			List<TransportdienstDTO> diensten = new ArrayList<>();
+			List<TransportdienstDTO> diensten = dc.getTransportdienstenDTO();
 
 			
 			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten, user);

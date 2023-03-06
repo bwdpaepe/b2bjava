@@ -29,6 +29,9 @@ public class GraphicalUi {
             
             //UserDTO u = domeinController.aanmelden( "emailail1@test.com", "paswoord");
             
+            domeinController.maakTransportdienst("TD1", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874", "email@test.fr", 1);
+            domeinController.maakTransportdienst("TD2", 4, true, "2", "POSTCODE", "Jan", "josinsona", "0478559874", "email1@test.fr", 1);
+            
             //System.out.println(u);
             
             domeinController.updateMedewerker(3, "magazijnier");
