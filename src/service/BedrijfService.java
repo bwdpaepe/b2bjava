@@ -50,8 +50,10 @@ public class BedrijfService
 	public List<String[]> getListOfClientNamesWithNumberOfOpenOrders(long bedrijfsId) {
 		List<Object[]> lijst = bedrijfRepo.findCustomersWithOrdersWithSpecificStatus(bedrijfsId, "open");
 				
+		// return a unmodifiable List of String-arrays.
+		// In the array: klantName at index 0, klantID at index1, number of open Orders at index 2
 		return lijst.stream()
-		        .map(obj -> new String[]{((Bedrijf) obj[0]).getNaam(), obj[1].toString()})
+		        .map(obj -> new String[]{((Bedrijf) obj[0]).getNaam(), String. valueOf(((Bedrijf) obj[0]).getID()) , obj[1].toString()})
 		        .collect(Collectors.toUnmodifiableList());
 	}
 }
