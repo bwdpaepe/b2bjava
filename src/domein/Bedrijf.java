@@ -21,7 +21,7 @@ import service.ValidationService;
 @NamedQueries(
 		{
 			@NamedQuery(
-				    name = "Bedrijf.findCustomersWithOrdersWithSpecificStatus",
+				    name = "Bedrijf.findKlantenWithOpenOrdersByLeverancier",
 				    query = "SELECT o.klant, COUNT(o) " +
 				            "FROM Bestelling o " +
 				            "WHERE o.leverancier.id = :bedrijfId AND o.status = :status " +

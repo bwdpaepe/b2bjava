@@ -1,13 +1,10 @@
 package gui;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import domein.DomeinController;
-import domein.Transportdienst;
 import repository.BestellingDTO;
-import repository.DienstDTO;
 import repository.TransportdienstDTO;
 import repository.UserDTO;
 
@@ -61,8 +58,12 @@ public class ConsoleUi {
             System.out.println(bestellingen);
             
             
-            
-
+            List<String[]> klantenVanLeverancier =  domeinController.geefLijstVanKlantenMetAantalOpenstaandeBestellingen();
+            System.out.println("klanten van leverancier " + domeinController.getIngelogdeUser().getBedrijf().getNaam() + " met Id: " + String.valueOf(domeinController.getIngelogdeUser().getBedrijf().getId()));
+            for (String[] strings : klantenVanLeverancier)
+			{
+				System.out.printf("Id klant: %s, Naam klant: %s, aantal open bestellingen, %s%n", strings[1], strings[0], strings[2]);
+			}
             
             domeinController.updateMedewerker(3, "magazijnier");                  
             
