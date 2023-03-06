@@ -114,8 +114,8 @@ public class DomeinController {
 		this.bedrijfService = bedrijfService;
 	}
 	
-	private final List<String[]> geefLijstVanKlantenMetAantalOpenstaandeBestellingen(long bedrijfsId) {
-		return bedrijfService.getListOfClientNamesWithNumberOfOpenOrders(bedrijfsId);
+	private final List<String[]> geefLijstVanKlantenMetAantalOpenstaandeBestellingen() {
+		return bedrijfService.getListOfClientNamesWithNumberOfOpenOrders(ingelogdeUser.getBedrijf().getId());
 	}
 	
 	//BESTELLING OPERATIONS
