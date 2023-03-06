@@ -45,6 +45,7 @@ public class BestellingService {
 		Bedrijf leverancier = bedrijfService.getBedrijfById(leverancierID);
 		
 		List<Bestelling> bestellingen = bestellingRepo.getBestellingenByLeverancierID(leverancier);
+		bestellingen.sort((b1,b2) -> {return b1.getDatumGeplaatst().compareTo(b2.getDatumGeplaatst());});
 		return bestellingen;
 	}
 
