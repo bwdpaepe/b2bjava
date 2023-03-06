@@ -3,14 +3,9 @@ package domein;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 
 import repository.BestellingDTO;
-import repository.ContactpersoonDTO;
-import repository.DienstDTO;
 import repository.GenericDaoJpa;
 import repository.TransportdienstDTO;
 import repository.UserDTO;
@@ -117,6 +112,10 @@ public class DomeinController {
 
 	private final void setBedrijfService(BedrijfService bedrijfService) {
 		this.bedrijfService = bedrijfService;
+	}
+	
+	private final List<String[]> geefLijstVanKlantenMetAantalOpenstaandeBestellingen(long bedrijfsId) {
+		return bedrijfService.getListOfClientNamesWithNumberOfOpenOrders(bedrijfsId);
 	}
 	
 	//BESTELLING OPERATIONS

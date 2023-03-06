@@ -2,6 +2,7 @@ package domein;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,21 +11,39 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import service.ValidationService;
 
 @Entity
+@NamedQueries(
+		{
+			@NamedQuery(
+				    name = "Bedrijf.findCustomersWithOrdersWithSpecificStatus",
+				    query = "SELECT o.klant, COUNT(o) " +
+				            "FROM Bestelling o " +
+				            "WHERE o.leverancier.id = :bedrijfId AND o.status = :status " +
+				            "GROUP BY o.klant"
+				)
+})
 public class Bedrijf implements Serializable
 {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@OneToMany(mappedBy = "bedrijf")
 	private Set<User> users = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "bedrijf")
 	private Set<Dienst> diensten = new HashSet<>();
+
+	@OneToMany(mappedBy = "klant")
+	private List<Bestelling> outgoingOrders;
+
+	@OneToMany(mappedBy = "leverancier")
+	private List<Bestelling> incomingOrders;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -161,16 +180,19 @@ public class Bedrijf implements Serializable
 		ValidationService.controleerTelefoonnummer(telefoonnummer);
 		this.telefoonnummer = telefoonnummer;
 	}
-	
-	public Set<User> getUsers() {
+
+	public Set<User> getUsers()
+	{
 		return this.users;
 	}
-	
-	public Set<Dienst> getTransportdiensten(){
+
+	public Set<Dienst> getTransportdiensten()
+	{
 		return this.diensten;
 	}
-	
-	public long getID() {
+
+	public long getID()
+	{
 		return this.id;
 	}
 
@@ -181,7 +203,7 @@ public class Bedrijf implements Serializable
 
 	public final void setLogo_filename(String logo_filename)
 	{
-		//ValidationService.controleerNietBlanco(logo_filename);
+		// ValidationService.controleerNietBlanco(logo_filename);
 		this.logo_filename = logo_filename;
 	}
 

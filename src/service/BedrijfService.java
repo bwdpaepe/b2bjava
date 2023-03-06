@@ -1,20 +1,24 @@
 package service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import domein.Bedrijf;
-import repository.GenericDao;
+import repository.BedrijfDao;
+import repository.BedrijfDaoJpa;
 import repository.GenericDaoJpa;
 
 public class BedrijfService
 {
-	private GenericDao<Bedrijf> bedrijfRepo;
+	private BedrijfDao bedrijfRepo;
 
 	public BedrijfService()
 	{
-		this.bedrijfRepo = new GenericDaoJpa<>(Bedrijf.class);
+		this.bedrijfRepo = new BedrijfDaoJpa();
 	}
 
 	// nodig voor mockito
-	public BedrijfService(GenericDao<Bedrijf> bedrijfRepo)
+	public BedrijfService(BedrijfDao bedrijfRepo)
 	{
 		this.bedrijfRepo = bedrijfRepo;
 	}
@@ -41,5 +45,15 @@ public class BedrijfService
 	{
 		return bedrijfRepo.get(bedrijfsId);
 		
+	}
+	
+	public List<String[]> getListOfClientNamesWithNumberOfOpenOrders(long bedrijfsId) {
+		List<Object[]> lijst = bedrijfRepo.findCustomersWithOrdersWithSpecificStatus(bedrijfsId, "open");
+				
+		// return a unmodifiable List of String-arrays.
+		// In the array: klantName at index 0, klantID at index1, number of open Orders at index 2
+		return lijst.stream()
+		        .map(obj -> new String[]{((Bedrijf) obj[0]).getNaam(), String. valueOf(((Bedrijf) obj[0]).getID()) , obj[1].toString()})
+		        .collect(Collectors.toUnmodifiableList());
 	}
 }
