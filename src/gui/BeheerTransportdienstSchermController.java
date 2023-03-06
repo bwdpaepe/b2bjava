@@ -28,6 +28,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import repository.TransportdienstDTO;
 import repository.UserDTO;
+import service.ValidationService;
 
 public class BeheerTransportdienstSchermController extends Pane {
 
@@ -41,6 +42,7 @@ public class BeheerTransportdienstSchermController extends Pane {
 	private GridPane gridPane;
 
 	private DomeinController dc;
+	private ObservableList<TransportdienstDTO> list;
 
 	public BeheerTransportdienstSchermController(DomeinController dc, List<TransportdienstDTO> transportdienstDTOLijst,
 			UserDTO user) {
@@ -48,6 +50,7 @@ public class BeheerTransportdienstSchermController extends Pane {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerTransportdienstScherm.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);
+
 		this.dc = dc;
 
 		buildGuid(transportdienstDTOLijst, user);
@@ -63,6 +66,7 @@ public class BeheerTransportdienstSchermController extends Pane {
 
 	// TODO welkomnaam implementeren
 	private void buildGuid(List<TransportdienstDTO> transportdienstDTOLijst, UserDTO user) {
+
 		// Initialisatie van de verschillende elementen op het scherm
 		welkomNaam = new Label();
 		tableViewTransportdienst = new TableView<TransportdienstDTO>();
@@ -75,22 +79,24 @@ public class BeheerTransportdienstSchermController extends Pane {
 
 		Label lblTitel = new Label("TOEVOEGEN TRANSPORTDIENST");
 		Label lblNaamTransportdienst = new Label("Naam transportdienst:");
-		Label lblContactpersoon = new Label("Contactpersoon:");
+		Label lblContactpersoonVoornaam = new Label("Contactpersoon voornaam:");
+		Label lblContactpersoonFamilienaam = new Label("Contactpersoon familienaam:");
 		Label lblTelefoonnummer = new Label("Telefoonnummer:");
 		Label lblEmailadres = new Label("Emailadres: ");
 		Label lblTrackAndTrace = new Label("TRACK AND TRACE CODE");
 		Label lblVerificatiecode = new Label("Verificatiecode:");
-		Label lblLengteCode = new Label("Aantal karakters van de code:");
-		Label lblPrefix = new Label("Track and Trace prefix: ");
-		Label lblEnkelCijfers = new Label("Bestaat de code enkel uit cijfers:");
+		Label lblBarcodeLengteCode = new Label("Aantal karakters van de code:");
+		Label lblBarcodePrefix = new Label("Track and Trace prefix: ");
+		Label lblIsBarcodeEnkelCijfers = new Label("Bestaat de code enkel uit cijfers:");
 		TextField txtNaamTransportdienst = new TextField();
-		TextField txtContactpersoon = new TextField();
+		TextField txtContactpersoonVoornaam = new TextField();
+		TextField txtContactpersoonFamilienaam = new TextField();
 		TextField txtTelefoonnummer = new TextField();
 		TextField txtEmailadres = new TextField();
+		TextField txtBarcodePrefix = new TextField();
 		ChoiceBox<String> cbVerificatiecode = new ChoiceBox<>();
-		ChoiceBox<Integer> cbLengteCode = new ChoiceBox<>();
-		TextField txtPrefix = new TextField();
-		CheckBox cbEnkelCijfers = new CheckBox();
+		ChoiceBox<Integer> cbBarcodeLengte = new ChoiceBox<>();
+		CheckBox cbIsBarcodeEnkelCijfers = new CheckBox();
 		Button btnToevoegen = new Button("TOEVOEGEN TRANSPORTDIENST");
 
 		// Styling gripane elementen
@@ -103,15 +109,51 @@ public class BeheerTransportdienstSchermController extends Pane {
 		cbVerificatiecode.getItems().add("Orderid");
 
 		for (int i = 1; i < 21; i++) {
-			cbLengteCode.getItems().add(i);
+			cbBarcodeLengte.getItems().add(i);
 		}
-		
-		//gridPane action events
-		
-		btnToevoegen.setOnAction(evt ->{
-			System.out.println("Button test");
+
+		// gridPane action events
+
+		btnToevoegen.setOnAction(evt -> {
 			
-			//TODO verder dit event afhandelen
+			try {
+				String naamTransportdienst = txtNaamTransportdienst.getText();
+				int barcodeLengte = (Integer) cbBarcodeLengte.getValue();
+				boolean isBarcodeEnkelCijfers = cbIsBarcodeEnkelCijfers.isSelected();
+				String barcodePrefix = txtBarcodePrefix.getText();
+				String verificatiecode = (String) cbVerificatiecode.getValue();
+				String contactVoornaam = txtContactpersoonVoornaam.getText();
+				String contactFamilienaam = txtContactpersoonFamilienaam.getText();
+				String contactTelefoon = txtTelefoonnummer.getText();
+				String contactEmailadres = txtEmailadres.getText();
+				
+				
+				//TODO implementeren bedrijfsId
+				int bedrijfsId = 1;
+				
+				
+				//Validatie input formulier
+				ValidationService.controleerNietBlanco(naamTransportdienst);
+				ValidationService.controleerGroterDanNul(barcodeLengte);
+				ValidationService.controleerNietBlanco(barcodePrefix);
+				ValidationService.controleerNietBlanco(contactVoornaam);
+				ValidationService.controleerNietBlanco(contactFamilienaam);
+				ValidationService.controleerTelefoonnummer(contactTelefoon);
+				ValidationService.controleerEmail(contactEmailadres);
+				
+				//Aanmaken van een transportdienst
+				dc.maakTransportdienst(naamTransportdienst, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
+						verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres,
+						bedrijfsId);
+				
+				
+			} catch (IllegalArgumentException e) {
+				// TODO degelijk errorbericht aanmaken
+				System.out.println(e);
+			}
+
+			list = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
+			tableViewTransportdienst.setItems(list);
 		});
 
 		// Opbouw gridPane
@@ -122,24 +164,26 @@ public class BeheerTransportdienstSchermController extends Pane {
 		gridPane.add(lblTitel, 0, 0, 2, 1);
 		gridPane.add(lblNaamTransportdienst, 0, 1, 1, 1);
 		gridPane.add(txtNaamTransportdienst, 1, 1, 1, 1);
-		gridPane.add(lblContactpersoon, 0, 2, 1, 1);
-		gridPane.add(txtContactpersoon, 1, 2, 1, 1);
-		gridPane.add(lblTelefoonnummer, 0, 3, 1, 1);
-		gridPane.add(txtTelefoonnummer, 1, 3, 1, 1);
-		gridPane.add(lblEmailadres, 0, 4, 1, 1);
-		gridPane.add(txtEmailadres, 1, 4, 1, 1);
-		gridPane.add(lblTrackAndTrace, 0, 5, 2, 1);
-		gridPane.add(lblVerificatiecode, 0, 6, 1, 1);
-		gridPane.add(cbVerificatiecode, 1, 6, 1, 1);
-		gridPane.add(lblLengteCode, 0, 7, 1, 1);
-		gridPane.add(cbLengteCode, 1, 7, 1, 1);
-		gridPane.add(lblPrefix, 0, 8, 1, 1);
-		gridPane.add(txtPrefix, 1, 8, 1, 1);
-		gridPane.add(lblEnkelCijfers, 0, 9, 1, 1);
-		gridPane.add(cbEnkelCijfers, 1, 9, 1, 1);
-		gridPane.add(btnToevoegen, 0, 10, 2, 2);
-		
-		//Events gridpane
+		gridPane.add(lblContactpersoonVoornaam, 0, 2, 1, 1);
+		gridPane.add(txtContactpersoonVoornaam, 1, 2, 1, 1);
+		gridPane.add(lblContactpersoonFamilienaam, 0, 3, 1, 1);
+		gridPane.add(txtContactpersoonFamilienaam, 1, 3, 1, 1);
+		gridPane.add(lblTelefoonnummer, 0, 4, 1, 1);
+		gridPane.add(txtTelefoonnummer, 1, 4, 1, 1);
+		gridPane.add(lblEmailadres, 0, 5, 1, 1);
+		gridPane.add(txtEmailadres, 1, 5, 1, 1);
+		gridPane.add(lblTrackAndTrace, 0, 6, 2, 1);
+		gridPane.add(lblVerificatiecode, 0, 7, 1, 1);
+		gridPane.add(cbVerificatiecode, 1, 7, 1, 1);
+		gridPane.add(lblBarcodeLengteCode, 0, 8, 1, 1);
+		gridPane.add(cbBarcodeLengte, 1, 8, 1, 1);
+		gridPane.add(lblBarcodePrefix, 0, 9, 1, 1);
+		gridPane.add(txtBarcodePrefix, 1, 9, 1, 1);
+		gridPane.add(lblIsBarcodeEnkelCijfers, 0, 10, 1, 1);
+		gridPane.add(cbIsBarcodeEnkelCijfers, 1, 10, 1, 1);
+		gridPane.add(btnToevoegen, 0, 11, 2, 2);
+
+		// Events gridpane
 
 		toevoegenTab.setClosable(false);
 		raadpleegTab.setClosable(false);
@@ -166,7 +210,7 @@ public class BeheerTransportdienstSchermController extends Pane {
 
 		welkomNaam.setText(String.format("Welkom %s %s", user.getVoornaam(), user.getFamilienaam()));
 
-		ObservableList<TransportdienstDTO> list = FXCollections.observableArrayList(transportdienstDTOLijst);
+		list = FXCollections.observableArrayList(transportdienstDTOLijst);
 
 		naamKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, String>("naam"));
 		statusKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, Boolean>("isActief"));

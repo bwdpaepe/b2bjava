@@ -28,6 +28,15 @@ public abstract class DienstDTO {
 
 	}
 
+	public DienstDTO(long id, String naam, boolean isActief, Set<ContactpersoonDTO> contactpersonen) {
+		this.id = id;
+		this.naam = naam;
+		this.isActief = isActief;
+		this.contactpersonen = contactpersonen;
+	}
+
+
+
 	public long getId() {
 		return id;
 	}
