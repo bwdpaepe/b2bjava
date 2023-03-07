@@ -1,8 +1,9 @@
 package service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -12,10 +13,8 @@ import domein.Dienst;
 import domein.Persoon;
 import domein.TrackTraceFormat;
 import domein.Transportdienst;
-import repository.DienstDTO;
 import repository.GenericDao;
 import repository.GenericDaoJpa;
-import repository.TransportdienstDTO;
 
 public class DienstService {
 	private GenericDao<Dienst> dienstRepo;
@@ -101,6 +100,87 @@ public class DienstService {
 			}
 		}
 		return tdList;
+	}
+	
+	public void addContactpersoon(String contactVoornaam, String contactFamilienaam,
+			String contactTelefoon, String contactEmailadres, long dienstId) {
+		try {
+			Dienst d = this.dienstRepo.get(dienstId);
+			if (d instanceof Transportdienst) {
+				//maak Contactpersoon
+				Contactpersoon contactpersoon = new Contactpersoon(contactVoornaam, contactFamilienaam, contactEmailadres, contactTelefoon);
+
+				d.addPerson(contactpersoon);
+				GenericDaoJpa.startTransaction();
+				this.dienstRepo.update(d);
+				GenericDaoJpa.commitTransaction();
+
+			} else {
+				throw new IllegalArgumentException("Ongeldig diensttype");
+			}
+		} catch (EntityNotFoundException ex) {
+			throw new IllegalArgumentException("De gevraagde dienst bestaat niet");
+		}
+		
+	}
+	
+	public void removeContactpersoon(long persoonId, long dienstId) {
+		try {
+			Dienst d = this.dienstRepo.get(dienstId);
+			if (d instanceof Transportdienst) {
+				Set<Persoon> cpSet = d.getPersonen();
+				//get Contactpersoon
+				Persoon cp = cpSet.stream()
+										 .filter(p -> persoonId == p.getId())
+										 .findFirst()
+										 .get();
+				if(Objects.isNull(cp)) {
+					throw new IllegalArgumentException("De gevraagde contactpersoon bestaat niet");
+				}
+				
+				if(cp instanceof Contactpersoon) {
+					//remove Contactpersoon
+					d.removePerson(cp);
+					GenericDaoJpa.startTransaction();
+					this.dienstRepo.update(d);
+					GenericDaoJpa.commitTransaction();
+					
+				}
+				else {
+					throw new IllegalArgumentException("Ongeldig persoontype");
+				}
+				
+			} else {
+				throw new IllegalArgumentException("Ongeldig diensttype");
+			}
+		} catch (EntityNotFoundException ex) {
+			throw new IllegalArgumentException("De gevraagde dienst bestaat niet");
+		}
+		
+	}
+	
+	public void updateTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
+			String verificatiecode, long dienstId) {
+		try {
+			Dienst d = this.dienstRepo.get(dienstId);
+			if (d instanceof Transportdienst) {
+				d.setNaam(naam);
+				TrackTraceFormat ttf = ((Transportdienst)d).getTrackTraceFormat();
+				ttf.setBarcodeLengte(barcodeLengte);
+				ttf.setIsBarcodeEnkelCijfers(isBarcodeEnkelCijfers);
+				ttf.setBarcodePrefix(barcodePrefix);
+				ttf.setVerificatieCode(verificatiecode);
+				((Transportdienst)d).setTrackTraceFormat(ttf);
+				GenericDaoJpa.startTransaction();
+				this.dienstRepo.update(d);
+				GenericDaoJpa.commitTransaction();
+				
+			} else {
+				throw new IllegalArgumentException("Ongeldig diensttype");
+			}
+		} catch (EntityNotFoundException ex) {
+			throw new IllegalArgumentException("De gevraagde dienst bestaat niet");
+		}
 	}
 
 }

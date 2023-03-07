@@ -1,7 +1,7 @@
 package testen;
 
 import org.junit.jupiter.api.Assertions;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -52,10 +52,17 @@ class DienstServiceTest {
 	private static final String TELEFOONNUMMER = "0123456789";
 	private static final String LOGO_FILENAME = "logog_bedrijf_A";
 	private final Bedrijf BEDRIJF = new Bedrijf(NAAMBEDRIJF, STRAAT, HUISNUMMER,POSTCODE,STAD,LAND,TELEFOONNUMMER,LOGO_FILENAME);
+	
+	private Transportdienst td;
 
+	@BeforeEach
+	void maakTransportdienst() {
+		td  = new Transportdienst(NAAMTRANSPORTDIENT, BEDRIJF, CONTACTPERSOON, TTF);
+	}
+	
 	@Test
 	void testMaakTransportdienst() {
-		Transportdienst td  = new Transportdienst(NAAMTRANSPORTDIENT, BEDRIJF, CONTACTPERSOON, TTF);
+		
 		Mockito.doNothing().when(dienstRepoMock).insert(td);
 		
 		dienstService.maakTransportdienst(NAAMTRANSPORTDIENT, BARCODELENGTE, ISBARCODEENKELCIJFERS, BARCODEPREFIX, VERIFICATIECODE, CONTACTVOORNAAM, CONTACTFAMILIENAAM, CONTACTTELEFOON, CONTACTEMAILADRES, BEDRIJF);
@@ -65,22 +72,20 @@ class DienstServiceTest {
 
 	@Test
 	void testWijzigActivatieDienst() {
-		Transportdienst td_actief  = new Transportdienst(NAAMTRANSPORTDIENT, BEDRIJF, CONTACTPERSOON, TTF);
 		Transportdienst td_nietActief  = new Transportdienst(NAAMTRANSPORTDIENT, BEDRIJF, CONTACTPERSOON, TTF);
 		td_nietActief.setActief(false);
-		Mockito.when(dienstRepoMock.get(Long.valueOf(0))).thenReturn(td_actief);
-		Mockito.when(dienstRepoMock.update(td_actief)).thenReturn(td_nietActief);
+		Mockito.when(dienstRepoMock.get(Long.valueOf(0))).thenReturn(td);
+		Mockito.when(dienstRepoMock.update(td)).thenReturn(td_nietActief);
 		
 		dienstService.wijzigActivatieDienst(0, false);
 		Assertions.assertFalse(dienstService.getTransportdienstByID(0).isActief());
 		
 		Mockito.verify(dienstRepoMock, Mockito.times(2)).get(Long.valueOf(0));
-		Mockito.verify(dienstRepoMock).update(td_actief);
+		Mockito.verify(dienstRepoMock).update(td);
 	}
 
 	@Test
 	void testGetTransportdienstByID() {
-		Transportdienst td  = new Transportdienst(NAAMTRANSPORTDIENT, BEDRIJF, CONTACTPERSOON, TTF);
 		Mockito.when(dienstRepoMock.get(Long.valueOf(0))).thenReturn(td);
 		
 		Transportdienst td2 = dienstService.getTransportdienstByID(0);
@@ -92,6 +97,32 @@ class DienstServiceTest {
 		
 		Mockito.verify(dienstRepoMock).get(Long.valueOf(0));
 		
+	}
+	
+	@Test
+	void testAddContactpersoon() {
+		final String CONTACTVOORNAAM2 = "TRANS2";
+		final String CONTACTFAMILIENAAM2 = "PORT2";
+		final String CONTACTTELEFOON2 = "2345678901";
+		final String CONTACTEMAILADRES2 = "trans2.port2@example.com";
+		Contactpersoon CONTACTPERSOON2 = new Contactpersoon(CONTACTVOORNAAM2, CONTACTFAMILIENAAM2, CONTACTEMAILADRES2, CONTACTTELEFOON2);
+		Transportdienst td2  = new Transportdienst(NAAMTRANSPORTDIENT, BEDRIJF, CONTACTPERSOON, TTF);
+		td2.addPerson(CONTACTPERSOON2);
+		
+		Mockito.when(dienstRepoMock.get(Long.valueOf(0))).thenReturn(td);
+		Mockito.when(dienstRepoMock.update(td)).thenReturn(td2);
+		
+		Assertions.assertDoesNotThrow(() -> dienstService.addContactpersoon(CONTACTVOORNAAM2, CONTACTFAMILIENAAM2, CONTACTTELEFOON2, CONTACTEMAILADRES2, 0));
+	}
+	
+	@Test
+	void testRemoveContactpersoon() {
+		Transportdienst td2  = new Transportdienst(NAAMTRANSPORTDIENT, BEDRIJF, CONTACTPERSOON, TTF);
+		td2.removePerson(CONTACTPERSOON);
+		Mockito.when(dienstRepoMock.get(Long.valueOf(0))).thenReturn(td);
+		Mockito.when(dienstRepoMock.update(td)).thenReturn(td2);
+		
+		Assertions.assertDoesNotThrow(() -> dienstService.removeContactpersoon(0, 0));
 	}
 
 	

@@ -102,6 +102,22 @@ public class DomeinController {
 	public void wijzigActivatieDienst(long dienstId, boolean isActief) {
 		dienstService.wijzigActivatieDienst(dienstId, isActief);
 	}
+	
+	public void addContactpersoon(String contactVoornaam, String contactFamilienaam,
+			String contactTelefoon, String contactEmailadres, long transportdienstId) {
+		dienstService.addContactpersoon(contactVoornaam, contactFamilienaam,
+				contactTelefoon, contactEmailadres, transportdienstId);
+	}
+	
+	public void removeContactpersoon(long contactpersoonId, long transportdienstId) {
+		dienstService.removeContactpersoon( contactpersoonId, transportdienstId);
+	}
+	
+	public void updateTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
+			String verificatiecode, long transportdienstId) {
+		dienstService.updateTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
+				verificatiecode, transportdienstId);
+	}
 
 	// BEDRIJF OPERATIONS
 	// ------------------------------------------------------------------------------------------------------------------------------------------
