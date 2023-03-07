@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import repository.BestellingDTO;
+import repository.DatabaseSeeding;
 import repository.GenericDaoJpa;
 import repository.KlantLijstEntryDTO;
 import repository.TransportdienstDTO;
@@ -28,6 +29,14 @@ public class DomeinController {
 		setDienstService(new DienstService());
 		setBedrijfService(new BedrijfService());
 		setBestellingService(new BestellingService());
+	}
+	
+	public DomeinController(Boolean doSeeding) {
+
+		super();
+		if(doSeeding) {
+			DatabaseSeeding.startDatabaseSeed(new DomeinController());
+		}
 	}
 
 	// USER OPERATIONS

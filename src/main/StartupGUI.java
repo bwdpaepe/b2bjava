@@ -1,13 +1,8 @@
 package main;
 
-import java.io.IOException;
-
 import domein.DomeinController;
 import gui.AanmeldenController;
-import gui.GraphicalUi;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -41,7 +36,6 @@ public class StartupGUI extends Application {
 	}
 
 	private void run() {	
-		 new GraphicalUi(dc).run();
-
+		new DomeinController(true); // boolean om al dan niet database te seeden
 	}
 }

@@ -1,9 +1,6 @@
 package main;
 
 import domein.DomeinController;
-import gui.ConsoleUi;
-
-//TESTKLASSE STARTUP
 
 public class StartUpCUI {
     public static void main(String [] arg) {
@@ -11,10 +8,7 @@ public class StartUpCUI {
     }
 
     private void run() {
-        new ConsoleUi(new DomeinController()).run();
-        //bin removal force
-        
-        
+    	DomeinController domeinController = new DomeinController(true);  // boolean om al dan niet database te seeden
+    	domeinController.close();
     }
-    
 }
