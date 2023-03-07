@@ -1,3 +1,9 @@
-.menuButton::hover {
-	-fx-background-color: "#E0433E";
+.menuButton{
+	-fx-background-color: #EC4842;
 }
+
+
+.menuButton:hover {
+	-fx-background-color: #E0433E;
+}
+

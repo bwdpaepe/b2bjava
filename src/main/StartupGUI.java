@@ -2,6 +2,7 @@ package main;
 
 import domein.DomeinController;
 import gui.AanmeldenController;
+import gui.MasterController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -14,8 +15,8 @@ public class StartupGUI extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			run();
-			AanmeldenController ac = new AanmeldenController(dc);
-			Scene scene = new Scene(ac);
+			MasterController mc = new MasterController();
+			Scene scene = new Scene(mc);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
