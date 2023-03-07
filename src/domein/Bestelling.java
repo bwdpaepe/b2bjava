@@ -37,8 +37,8 @@ public class Bestelling {
 	@JoinColumn(name = "Klant", nullable = false)
 	private Bedrijf klant;
 	
-	@OneToOne
-	@JoinColumn(name = "Transportdienst", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "Transportdienst", nullable = true)
 	private Transportdienst transportdienst;
 	
 	protected Bestelling() {

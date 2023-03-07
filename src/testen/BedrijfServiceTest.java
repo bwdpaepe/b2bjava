@@ -1,27 +1,36 @@
 package testen;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import domein.Bedrijf;
-import repository.GenericDao;
+import domein.BestellingStatus;
+import repository.BedrijfDao;
+import repository.KlantLijstEntryDTO;
 import service.BedrijfService;
 
 @ExtendWith(MockitoExtension.class)
-public class BedrijfServiceTest {
-	
+public class BedrijfServiceTest
+{
+
 	@Mock
-	private GenericDao<Bedrijf> bedrijfRepoMock;
-	
+	private BedrijfDao bedrijfRepoMock;
+
 	@InjectMocks
 	private BedrijfService bedrijfService;
-	
+
 	private static final String NAAM = "Bedrijf A";
 	private static final String STRAAT = "Straat A";
 	private static final String HUISNUMMER = "A1";
@@ -30,25 +39,29 @@ public class BedrijfServiceTest {
 	private static final String LAND = "land A";
 	private static final String TELEFOONNUMMER = "0123456789";
 	private static final String LOGO_FILENAME = "logog_bedrijf_A";
-	
+
+	private static final Long BEDRIJFSID = 1l;
+
 	@Test
-	void maakBedrijfTest() {
-		Bedrijf bedrijf  = new Bedrijf(NAAM, STRAAT, HUISNUMMER,POSTCODE,STAD,LAND,TELEFOONNUMMER,LOGO_FILENAME);
+	void maakBedrijfTest()
+	{
+		Bedrijf bedrijf = new Bedrijf(NAAM, STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME);
 		Mockito.doNothing().when(bedrijfRepoMock).insert(bedrijf);
-		
+
 		bedrijfService.maakBedrijf(NAAM, STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME);
-		
+
 		Mockito.verify(bedrijfRepoMock).insert(bedrijf);
 	}
-	
+
 	@Test
-	void getBedrijfByIdTest() {
-		Bedrijf bedrijf  = new Bedrijf(NAAM, STRAAT, HUISNUMMER,POSTCODE,STAD,LAND,TELEFOONNUMMER,LOGO_FILENAME);
-		
+	void getBedrijfByIdTest()
+	{
+		Bedrijf bedrijf = new Bedrijf(NAAM, STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME);
+
 		Mockito.when(bedrijfRepoMock.get(Long.valueOf(0))).thenReturn(bedrijf);
-		
+
 		Bedrijf bedrijf2 = bedrijfService.getBedrijfById(0);
-		
+
 		Assertions.assertEquals(bedrijf.getNaam(), bedrijf2.getNaam());
 		Assertions.assertEquals(bedrijf.getStraat(), bedrijf2.getStraat());
 		Assertions.assertEquals(bedrijf.getHuisnummer(), bedrijf2.getHuisnummer());
@@ -57,8 +70,52 @@ public class BedrijfServiceTest {
 		Assertions.assertEquals(bedrijf.getLand(), bedrijf2.getLand());
 		Assertions.assertEquals(bedrijf.getTelefoonnummer(), bedrijf2.getTelefoonnummer());
 		Assertions.assertEquals(bedrijf.getLogo_filename(), bedrijf2.getLogo_filename());
-		
+
 		Mockito.verify(bedrijfRepoMock).get(Long.valueOf(0));
+	}
+
+	private static Stream<Arguments> provideListOfObjectArrays()
+	{
+		return Stream.of(Arguments.of(new Object[]
+			{ new Bedrijf("Bedrijf 1", STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME), 2 },
+				new Object[]
+				{ new Bedrijf("Bedrijf 2", STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME),
+						5 },
+				new Object[]
+				{ new Bedrijf("Bedrijf 3", STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME),
+						1 }));
+	}
+
+	@ParameterizedTest
+	@MethodSource("provideListOfObjectArrays")
+	public void testGetListOfClientNamesWithNumberOfOpenOrders(Object[] obj1, Object[] obj2, Object[] obj3)
+	{
+		List<Object[]> objectList = new ArrayList<>();
+		objectList.add(obj1);
+		objectList.add(obj2);
+		objectList.add(obj3);
+
+		// mock bedrijfRepo.findCustomersWithOrdersWithSpecificStatus()
+		Mockito.when(bedrijfRepoMock.findCustomersWithOrdersWithSpecificStatus(BEDRIJFSID, BestellingStatus.GEPLAATST))
+				.thenReturn(objectList);
+
+		// expected results
+		KlantLijstEntryDTO dto1 = new KlantLijstEntryDTO(obj1);
+		KlantLijstEntryDTO dto2 = new KlantLijstEntryDTO(obj2);
+		KlantLijstEntryDTO dto3 = new KlantLijstEntryDTO(obj3);
+		List<KlantLijstEntryDTO> expectedList = List.of(dto1, dto2, dto3);
+
+		// act
+		List<KlantLijstEntryDTO> actualList = bedrijfService.getListOfClientNamesWithNumberOfOpenOrders(BEDRIJFSID);
+
+		// assert
+		for(int i = 0; i < expectedList.size(); i++) {
+			Assertions.assertEquals(expectedList.get(i).getKlantId(), actualList.get(i).getKlantId());
+			Assertions.assertEquals(expectedList.get(i).getKlantNaam(), actualList.get(i).getKlantNaam());
+			Assertions.assertEquals(expectedList.get(i).getAantalOpenBestellingen(), actualList.get(i).getAantalOpenBestellingen());
+		}
+		
+		Mockito.verify(bedrijfRepoMock).findCustomersWithOrdersWithSpecificStatus(BEDRIJFSID, BestellingStatus.GEPLAATST);
 	}
 
 }

@@ -34,7 +34,6 @@ public class ConsoleUi {
         	domeinController.maakBedrijf("Bedrijf E", "Straat E", "E5", "9876E", "stad E", "land E", "1234567", "logo_bedrijf_E");
         	
         	
-        	
         	// Medewerkers worden aangemaakt voor 1 van de bovenstaande bedrijven
             domeinController.maakMedewerker("Joachim2", "Dauchot", "emailail1@test.com", "paswoord","Adres adres adres1", "047563541854", "admin",5, 1);
             domeinController.maakMedewerker("Dimitri_2", "Valckenier", "emailail2@test.test.com", "paswoord","Adres adres adres2","+47565442854", "admin", 1, 1);
@@ -48,7 +47,9 @@ public class ConsoleUi {
             domeinController.updateMedewerker(3, "magazijnier"); 
             
             //transportdienst
-            domeinController.maakTransportdienst("TD1", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874", "email@test.fr", 1);            
+            domeinController.maakTransportdienst("TD1", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874", "email@test.fr", 1);
+            domeinController.maakTransportdienst("TD2", 2, true, "1", "POSTCODE", "jos", "josinson", "0478559874", "email@test.hk", 3);  
+            domeinController.maakTransportdienst("TD3", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874", "email@test.uk", 2);  
             TransportdienstDTO tdDTO = domeinController.getTransportdienst(1);
             System.out.println(tdDTO);
             
@@ -60,6 +61,7 @@ public class ConsoleUi {
             domeinController.maakBestelling("ORder5", "GEPLAATST", new Date(2018,5,12), 1, 2, 1);
             domeinController.maakBestelling("ORder6", "VErweRkT", new Date(2018,5,12), 1, 5, 1);
             domeinController.maakBestelling("ORder6", "geplaatst", new Date(2018,5,12), 2, 4, 1);
+
             List<BestellingDTO> bestellingen = domeinController.getBestellingen();
             for (BestellingDTO bestellingDTO : bestellingen) {
             	System.out.println(bestellingDTO + "/n");
