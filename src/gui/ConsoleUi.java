@@ -49,11 +49,11 @@ public class ConsoleUi {
             System.out.println(tdDTO);
             
             //Bestellingen
-            domeinController.maakBestelling("ORder1", "OPEN", new Date(2022,10,10), 1, 2, 1);
-            domeinController.maakBestelling("ORder2", "OPEN", new Date(2021,10,10), 1, 3, 1);
-            domeinController.maakBestelling("ORder3", "OPEN", new Date(2020,10,10), 1, 2, 1);
-            domeinController.maakBestelling("ORder4", "OPEN", new Date(2023,10,10), 1, 3, 1);
-            domeinController.maakBestelling("ORder5", "OPEN", new Date(2018,5,12), 1, 2, 1);
+            domeinController.maakBestelling("ORder1", "GEPLAATST", new Date(2022,10,10), 1, 2, 1);
+            domeinController.maakBestelling("ORder2", "geplaatst", new Date(2021,10,10), 1, 3, 1);
+            domeinController.maakBestelling("ORder3", "GEPLAATST", new Date(2020,10,10), 1, 2, 1);
+            domeinController.maakBestelling("ORder4", "gePlAatSt", new Date(2023,10,10), 1, 3, 1);
+            domeinController.maakBestelling("ORder5", "GEPLAATST", new Date(2018,5,12), 1, 2, 1);
             List<BestellingDTO> bestellingen = domeinController.getBestellingen();
             for (BestellingDTO bestellingDTO : bestellingen) {
             	System.out.println(bestellingDTO + "/n");
@@ -62,10 +62,10 @@ public class ConsoleUi {
             
             
             List<String[]> klantenVanLeverancier =  domeinController.geefLijstVanKlantenMetAantalOpenstaandeBestellingen();
-            System.out.println("klanten van leverancier " + domeinController.getIngelogdeUser().getBedrijf().getNaam() + " met Id: " + String.valueOf(domeinController.getIngelogdeUser().getBedrijf().getId()));
+            System.out.println("\nklanten van leverancier " + domeinController.getIngelogdeUser().getBedrijf().getNaam() + " met bedrijfsId " + String.valueOf(domeinController.getIngelogdeUser().getBedrijf().getId()));
             for (String[] strings : klantenVanLeverancier)
 			{
-				System.out.printf("Id klant: %s, Naam klant: %s, aantal open bestellingen, %s%n", strings[1], strings[0], strings[2]);
+				System.out.printf("  - Id klant: %s, Naam klant: %s, aantal open bestellingen, %s%n", strings[1], strings[0], strings[2]);
 			}
             
             domeinController.updateMedewerker(3, "magazijnier");                  

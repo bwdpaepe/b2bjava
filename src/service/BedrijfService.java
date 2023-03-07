@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import domein.Bedrijf;
+import domein.BestellingStatus;
 import repository.BedrijfDao;
 import repository.BedrijfDaoJpa;
 import repository.GenericDaoJpa;
@@ -48,7 +49,7 @@ public class BedrijfService
 	}
 	
 	public List<String[]> getListOfClientNamesWithNumberOfOpenOrders(long bedrijfsId) {
-		List<Object[]> lijst = bedrijfRepo.findCustomersWithOrdersWithSpecificStatus(bedrijfsId, "open");
+		List<Object[]> lijst = bedrijfRepo.findCustomersWithOrdersWithSpecificStatus(bedrijfsId, BestellingStatus.GEPLAATST);
 				
 		// return a unmodifiable List of String-arrays.
 		// In the array: klantName at index 0, klantID at index1, number of open Orders at index 2

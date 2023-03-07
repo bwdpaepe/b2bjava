@@ -25,7 +25,7 @@ public class Bestelling {
 
 	private String orderID;
 	private Date datumGeplaatst;
-	private String status;
+	private BestellingStatus status;
 
 	// RELATIES
 
@@ -78,12 +78,12 @@ public class Bestelling {
 	}
 
 	public String getStatus() {
-		return status;
+		return status.toString().toLowerCase();
 	}
 
-	public void setStatus(String status) {
-		ValidationService.controleerNietBlanco(status);
-		this.status = status;
+	public void setStatus(String statusString) {
+		ValidationService.controleerNietBlanco(statusString);
+		this.status = BestellingStatus.GEPLAATST;
 	}
 
 

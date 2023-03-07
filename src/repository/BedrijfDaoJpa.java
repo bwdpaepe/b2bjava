@@ -7,6 +7,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 
 import domein.Bedrijf;
+import domein.BestellingStatus;
 
 public class BedrijfDaoJpa extends GenericDaoJpa<Bedrijf> implements BedrijfDao  {
     public BedrijfDaoJpa() {
@@ -14,7 +15,7 @@ public class BedrijfDaoJpa extends GenericDaoJpa<Bedrijf> implements BedrijfDao 
     }
 
 	@Override
-	public List<Object[]> findCustomersWithOrdersWithSpecificStatus(Long leverancierId, String status) throws EntityNotFoundException
+	public List<Object[]> findCustomersWithOrdersWithSpecificStatus(Long leverancierId, BestellingStatus status) throws EntityNotFoundException
 	{
 		try {
             return em.createNamedQuery("Bedrijf.findKlantenWithOpenOrdersByLeverancier", Object[].class)
