@@ -5,6 +5,7 @@ import java.util.List;
 
 import domein.DomeinController;
 import repository.BestellingDTO;
+import repository.KlantLijstEntryDTO;
 import repository.TransportdienstDTO;
 import repository.UserDTO;
 
@@ -44,6 +45,7 @@ public class ConsoleUi {
             UserDTO u = domeinController.aanmelden( "emailail1@test.com", "paswoord");            
             System.out.println(u);
             
+            domeinController.updateMedewerker(3, "magazijnier"); 
             
             //transportdienst
             domeinController.maakTransportdienst("TD1", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874", "email@test.fr", 1);            
@@ -64,16 +66,13 @@ public class ConsoleUi {
 				
 			}
             
-            
-            List<String[]> klantenVanLeverancier =  domeinController.geefLijstVanKlantenMetAantalOpenstaandeBestellingen();
-            System.out.println("\nklanten van leverancier " + domeinController.getIngelogdeUser().getBedrijf().getNaam() + " met bedrijfsId " + String.valueOf(domeinController.getIngelogdeUser().getBedrijf().getId()));
-            for (String[] strings : klantenVanLeverancier)
-			{
-				System.out.printf("  - Id klant: %s, Naam klant: %s, aantal open bestellingen, %s%n", strings[1], strings[0], strings[2]);
-			}
-            
-            domeinController.updateMedewerker(3, "magazijnier");                  
-            
+            // Toon klanten en aantal openstaande bestellingen van het bedrijf van de ingelogde user
+            List<KlantLijstEntryDTO> klantenVanLeverancier =  domeinController.geefLijstVanKlantenMetAantalOpenstaandeBestellingen();
+            System.out.println("\nklanten van leverancier '" + domeinController.getIngelogdeUser().getBedrijf().getNaam() + "' met bedrijfsId " + String.valueOf(domeinController.getIngelogdeUser().getBedrijf().getId()));
+            for (KlantLijstEntryDTO item : klantenVanLeverancier)
+			{System.out.printf("   - " + item.toString() + "\n");}
+            System.out.println();
+
             
         } catch (IllegalArgumentException ex) {
             System.out.println("Operatie mislukt " + ex.getMessage());

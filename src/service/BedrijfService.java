@@ -8,6 +8,7 @@ import domein.BestellingStatus;
 import repository.BedrijfDao;
 import repository.BedrijfDaoJpa;
 import repository.GenericDaoJpa;
+import repository.KlantLijstEntryDTO;
 
 public class BedrijfService
 {
@@ -48,13 +49,12 @@ public class BedrijfService
 		
 	}
 	
-	public List<String[]> getListOfClientNamesWithNumberOfOpenOrders(long bedrijfsId) {
+	public List<KlantLijstEntryDTO> getListOfClientNamesWithNumberOfOpenOrders(long bedrijfsId) {
 		List<Object[]> lijst = bedrijfRepo.findCustomersWithOrdersWithSpecificStatus(bedrijfsId, BestellingStatus.GEPLAATST);
 		
-		// return a unmodifiable List of String-arrays.
-		// In the array: klantName at index 0, klantID at index1, number of open Orders at index 2
+		// return a unmodifiable List of KlantLijstEntryDTO objects
 		return lijst.stream()
-		        .map(obj -> new String[]{((Bedrijf) obj[0]).getNaam(), String. valueOf(((Bedrijf) obj[0]).getID()) , obj[1].toString()})
+		        .map(obj -> new KlantLijstEntryDTO(obj))
 		        .collect(Collectors.toUnmodifiableList());
 	}
 }
