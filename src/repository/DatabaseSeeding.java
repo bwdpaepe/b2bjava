@@ -57,6 +57,10 @@ public class DatabaseSeeding
 			domeinController.addContactpersoon("john", "doe", "1234567890", "john.doe@foo.bar", tdDTO.getId());
 			tdDTO = domeinController.getTransportdienst(1);
 			System.out.println(tdDTO);
+			domeinController.editContactpersoon("tom", "tomson", "9999887766",
+					"tomail@test.se",1, 1);
+			tdDTO = domeinController.getTransportdienst(1);
+			System.out.println(tdDTO);
 			domeinController.removeContactpersoon(1, 1);
 			tdDTO = domeinController.getTransportdienst(1);
 			System.out.println(tdDTO);

@@ -118,6 +118,12 @@ public class DomeinController {
 				contactTelefoon, contactEmailadres, transportdienstId);
 	}
 	
+	public void editContactpersoon(String contactVoornaam, String contactFamilienaam,
+			String contactTelefoon, String contactEmailadres, long contactpersoonId, long transportdienstId) {
+		dienstService.editContactpersoon( contactVoornaam, contactFamilienaam,
+				contactTelefoon, contactEmailadres, contactpersoonId, transportdienstId);
+	}
+	
 	public void removeContactpersoon(long contactpersoonId, long transportdienstId) {
 		dienstService.removeContactpersoon( contactpersoonId, transportdienstId);
 	}

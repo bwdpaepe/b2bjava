@@ -124,6 +124,45 @@ public class DienstService {
 		
 	}
 	
+	public void editContactpersoon(String contactVoornaam, String contactFamilienaam,
+			String contactTelefoon, String contactEmailadres, long persoonId, long dienstId) {
+		try {
+			Dienst d = this.dienstRepo.get(dienstId);
+			if (d instanceof Transportdienst) {
+				Set<Persoon> cpSet = d.getPersonen();
+				//get Contactpersoon
+				Persoon cp = cpSet.stream()
+										 .filter(p -> persoonId == p.getId())
+										 .findFirst()
+										 .get();
+				if(Objects.isNull(cp)) {
+					throw new IllegalArgumentException("De gevraagde contactpersoon bestaat niet");
+				}
+				
+				if(cp instanceof Contactpersoon) {
+					//edit Contactpersoon
+					cp.setVoornaam(contactVoornaam);
+					cp.setFamilienaam(contactFamilienaam);
+					cp.setTelefoonnummer(contactTelefoon);
+					cp.setEmailAdress(contactEmailadres);
+					GenericDaoJpa.startTransaction();
+					this.dienstRepo.update(d);
+					GenericDaoJpa.commitTransaction();
+					
+				}
+				else {
+					throw new IllegalArgumentException("Ongeldig persoontype");
+				}
+				
+			} else {
+				throw new IllegalArgumentException("Ongeldig diensttype");
+			}
+		} catch (EntityNotFoundException ex) {
+			throw new IllegalArgumentException("De gevraagde dienst bestaat niet");
+		}
+		
+	}
+	
 	public void removeContactpersoon(long persoonId, long dienstId) {
 		try {
 			Dienst d = this.dienstRepo.get(dienstId);
