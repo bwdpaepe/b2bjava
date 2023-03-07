@@ -1,15 +1,16 @@
 package testen;
 
-import domein.Bedrijf;
-import domein.Bestelling;
-import domein.Transportdienst;
 import java.util.Date;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
+
+import domein.Bedrijf;
+import domein.Bestelling;
+import domein.Transportdienst;
 
 class BestellingTest {
 
@@ -17,7 +18,7 @@ class BestellingTest {
 
 	private static final String ORDERID = "ORDER_111";
 	private static final Date DATUMGEPLAATST = new Date(2022,10,10);
-	private static final String STATUS = "OPEN";
+	private static final String STATUS = "geplaatst";
 	private static final Bedrijf LEVERANCIER = new Bedrijf();
 	private static final Bedrijf KLANT = new Bedrijf();
 	private static final Transportdienst TRANSPORTDIENST = new Transportdienst();

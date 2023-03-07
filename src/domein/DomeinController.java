@@ -76,9 +76,9 @@ public class DomeinController {
 	}
 
 	// dit geeft ruwe transportdiensten terug, MAG NIET
-	public List<Transportdienst> getTransportdiensten() {
-		return dienstService.getTransportdiensten();
-	}
+//	public List<Transportdienst> getTransportdiensten() {
+//		return dienstService.getTransportdiensten();
+//	}
 	//Zelfde methode als hierboven maar geeft DTO objecten
 	public List<TransportdienstDTO> getTransportdienstenDTO(){
 		List<Transportdienst> tdList =  dienstService.getTransportdiensten();
