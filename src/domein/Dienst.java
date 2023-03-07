@@ -58,6 +58,12 @@ public abstract class Dienst implements Serializable
 		setPersonen(persoon);
 	}
 
+	
+	
+	public Bedrijf getBedrijf() {
+		return bedrijf;
+	}
+
 	public final void setBedrijf(Bedrijf bedrijf)
 	{
 		ValidationService.controleerNietBlanco(bedrijf);
