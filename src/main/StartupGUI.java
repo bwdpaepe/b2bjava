@@ -19,14 +19,9 @@ public class StartupGUI extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			run();
-			// FXMLLoader loader = new
-			// FXMLLoader(getClass().getResource("/gui/Aanmelden.fxml"));
 			AanmeldenController ac = new AanmeldenController(dc);
-			// loader.setController(ac);
-			// Parent root = loader.load();
 			Scene scene = new Scene(ac);
 			primaryStage.setScene(scene);
-			//primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
