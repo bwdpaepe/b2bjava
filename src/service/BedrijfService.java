@@ -50,7 +50,7 @@ public class BedrijfService
 	
 	public List<String[]> getListOfClientNamesWithNumberOfOpenOrders(long bedrijfsId) {
 		List<Object[]> lijst = bedrijfRepo.findCustomersWithOrdersWithSpecificStatus(bedrijfsId, BestellingStatus.GEPLAATST);
-				
+		
 		// return a unmodifiable List of String-arrays.
 		// In the array: klantName at index 0, klantID at index1, number of open Orders at index 2
 		return lijst.stream()

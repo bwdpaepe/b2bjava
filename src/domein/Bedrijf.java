@@ -22,10 +22,13 @@ import service.ValidationService;
 		{
 			@NamedQuery(
 				    name = "Bedrijf.findKlantenWithOpenOrdersByLeverancier",
-				    query = "SELECT o.klant, COUNT(o) " +
-				            "FROM Bestelling o " +
-				            "WHERE o.leverancier.id = :bedrijfId AND o.status = :status " +
-				            "GROUP BY o.klant"
+				    query = "SELECT klant, COUNT(CASE WHEN o.status = :status THEN 1 ELSE null END) as aantal " +
+				            "FROM Bedrijf lev " +
+				            "LEFT JOIN lev.incomingOrders o " +
+				            "LEFT JOIN o.klant klant " +
+				            "WHERE lev.id = :bedrijfId " +
+				            "GROUP BY klant " +
+				            "ORDER BY aantal DESC, klant.naam ASC"
 				)
 })
 public class Bedrijf implements Serializable

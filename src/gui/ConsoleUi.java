@@ -57,6 +57,7 @@ public class ConsoleUi {
             domeinController.maakBestelling("ORder4", "verwerkt", new Date(2023,10,10), 1, 3, 1);
             domeinController.maakBestelling("ORder5", "GEPLAATST", new Date(2018,5,12), 1, 2, 1);
             domeinController.maakBestelling("ORder6", "VErweRkT", new Date(2018,5,12), 1, 5, 1);
+            domeinController.maakBestelling("ORder6", "geplaatst", new Date(2018,5,12), 2, 4, 1);
             List<BestellingDTO> bestellingen = domeinController.getBestellingen();
             for (BestellingDTO bestellingDTO : bestellingen) {
             	System.out.println(bestellingDTO + "/n");
