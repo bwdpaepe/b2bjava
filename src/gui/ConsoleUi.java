@@ -29,6 +29,8 @@ public class ConsoleUi {
         	domeinController.maakBedrijf("Bedrijf A", "Straat A", "A1", "1234A", "stad A", "land A", "0123456789", "logo_bedrijf_A");
         	domeinController.maakBedrijf("Bedrijf B", "Straat B", "B2", "4321B", "stad B", "land B", "9876543210", "logo_bedrijf_B");
         	domeinController.maakBedrijf("Bedrijf C", "Straat C", "C3", "9876C", "stad C", "land C", "1234567", "logo_bedrijf_C");
+        	domeinController.maakBedrijf("Bedrijf D", "Straat D", "D4", "9876D", "stad D", "land D", "1234567", "logo_bedrijf_D");
+        	domeinController.maakBedrijf("Bedrijf E", "Straat E", "E5", "9876E", "stad E", "land E", "1234567", "logo_bedrijf_E");
         	
         	
         	
@@ -49,11 +51,12 @@ public class ConsoleUi {
             System.out.println(tdDTO);
             
             //Bestellingen
-            domeinController.maakBestelling("ORder1", "GEPLAATST", new Date(2022,10,10), 1, 2, 1);
+            domeinController.maakBestelling("ORder1", "VErweRkT", new Date(2022,10,10), 1, 2, 1);
             domeinController.maakBestelling("ORder2", "geplaatst", new Date(2021,10,10), 1, 3, 1);
             domeinController.maakBestelling("ORder3", "GEPLAATST", new Date(2020,10,10), 1, 2, 1);
-            domeinController.maakBestelling("ORder4", "gePlAatSt", new Date(2023,10,10), 1, 3, 1);
+            domeinController.maakBestelling("ORder4", "verwerkt", new Date(2023,10,10), 1, 3, 1);
             domeinController.maakBestelling("ORder5", "GEPLAATST", new Date(2018,5,12), 1, 2, 1);
+            domeinController.maakBestelling("ORder6", "VErweRkT", new Date(2018,5,12), 1, 5, 1);
             List<BestellingDTO> bestellingen = domeinController.getBestellingen();
             for (BestellingDTO bestellingDTO : bestellingen) {
             	System.out.println(bestellingDTO + "/n");
@@ -70,10 +73,6 @@ public class ConsoleUi {
             
             domeinController.updateMedewerker(3, "magazijnier");                  
             
-           
-        
-            
-   
             
         } catch (IllegalArgumentException ex) {
             System.out.println("Operatie mislukt " + ex.getMessage());
