@@ -1,9 +1,11 @@
 package repository;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 import domein.DomeinController;
+import domein.Persoon;
 
 public class DatabaseSeeding
 {
@@ -52,6 +54,17 @@ public class DatabaseSeeding
 					"email@test.uk", 2);
 			TransportdienstDTO tdDTO = domeinController.getTransportdienst(1);
 			System.out.println(tdDTO);
+			domeinController.addContactpersoon("john", "doe", "1234567890", "john.doe@foo.bar", tdDTO.getId());
+			tdDTO = domeinController.getTransportdienst(1);
+			System.out.println(tdDTO);
+			domeinController.removeContactpersoon(1, 1);
+			tdDTO = domeinController.getTransportdienst(1);
+			System.out.println(tdDTO);
+			domeinController.updateTransportdienst("TD2_updated", 6, false, "7", "ORDERID", 1);
+			tdDTO = domeinController.getTransportdienst(1);
+			System.out.println(tdDTO);
+			
+			
 
 			// Bestellingen
 			domeinController.maakBestelling("ORder1", "VErweRkT", new Date(2022, 10, 10), 1, 2, 1);
