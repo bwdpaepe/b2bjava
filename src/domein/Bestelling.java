@@ -45,13 +45,13 @@ public class Bestelling {
 		
 	};
 	
-	public Bestelling(String orderID, Date datum_geplaatst,  String status, Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst) {
+	public Bestelling(String orderID, Date datum_geplaatst,  String statusString, Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst) {
 		setOrderID(orderID);
 		setDatumGeplaatst(datum_geplaatst);
 		setLeverancier(leverancier);
 		setKlant(klant);
 		setTransportdienst(transportdienst);
-		setStatus(status);
+		setStatus(statusString);
 	}
 
 	public long getId() {
@@ -83,7 +83,12 @@ public class Bestelling {
 
 	public void setStatus(String statusString) {
 		ValidationService.controleerNietBlanco(statusString);
-		this.status = BestellingStatus.GEPLAATST;
+		this.status = switch (statusString.toLowerCase())
+			{
+			case "geplaatst" -> BestellingStatus.GEPLAATST;
+			case "verwerkt" -> BestellingStatus.VERWERKT;
+			default -> throw new IllegalArgumentException("Ongeldige status van Bestelling: " + statusString);
+			};
 	}
 
 
