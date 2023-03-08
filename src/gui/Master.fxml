@@ -25,25 +25,25 @@
                               <Image url="@../gui_images/logo_red.jpg" />
                            </image>
                         </ImageView>
-                        <Button id="medewerkerButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="menuButton" translateX="200.0">
+                        <Button id="medewerkerButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" styleClass="menuButton" translateX="200.0">
                            <graphic>
-                              <ImageView fitHeight="104.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../gui_images/team.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button id="transportdienstButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="menuButton" translateX="320.0">
+                        <Button id="transportdienstButton" mnemonicParsing="false" styleClass="menuButton" translateX="320.0">
                            <graphic>
-                              <ImageView fitHeight="80.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../gui_images/truck.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button id="doosButton" mnemonicParsing="false" prefWidth="80.0" styleClass="menuButton" translateX="440.0">
+                        <Button id="doosButton" mnemonicParsing="false" styleClass="menuButton" translateX="440.0">
                            <graphic>
                               <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -52,9 +52,9 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button id="klantenButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="menuButton" translateX="560.0">
+                        <Button id="klantenButton" mnemonicParsing="false" styleClass="menuButton" translateX="560.0">
                            <graphic>
-                              <ImageView fitHeight="80.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../gui_images/2409728-200.png" />
                                  </image>
@@ -66,14 +66,14 @@
                         </Button>
                         <Button id="bestellingButton" mnemonicParsing="false" styleClass="menuButton" translateX="680.0">
                            <graphic>
-                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../gui_images/order.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button id="profielButton" mnemonicParsing="false" styleClass="menuButton" StackPane.alignment="CENTER_RIGHT">
+                        <Button id="profielButton" mnemonicParsing="false" styleClass="profileButton" StackPane.alignment="CENTER_RIGHT">
                            <graphic>
                               <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
