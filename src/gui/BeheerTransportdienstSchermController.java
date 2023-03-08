@@ -39,9 +39,9 @@ public class BeheerTransportdienstSchermController extends Pane {
 	@FXML
 	private Label welkomNaam;
 
-	private TableView<TransportdienstDTO> tableViewTransportdienst;
-	private TableColumn<TransportdienstDTO, String> naamKolom;
-	private TableColumn<TransportdienstDTO, Boolean> statusKolom;
+	private final BeheerTransportdienstTableView tableViewTransportdienst;
+	//private TableColumn<TransportdienstDTO, String> naamKolom;
+	//private TableColumn<TransportdienstDTO, Boolean> statusKolom;
 	private TabPane tabPane;
 	private GridPane gridPaneToevoegen;
 	private GridPane gridPaneRaadplegen;
@@ -84,6 +84,8 @@ public class BeheerTransportdienstSchermController extends Pane {
 
 	public BeheerTransportdienstSchermController(DomeinController dc, List<TransportdienstDTO> transportdienstDTOLijst,
 			UserDTO user) {
+		
+		tableViewTransportdienst = new BeheerTransportdienstTableView(transportdienstDTOLijst);
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerTransportdienstScherm.fxml"));
 		loader.setController(this);
@@ -106,26 +108,26 @@ public class BeheerTransportdienstSchermController extends Pane {
 	private void buildGuid(List<TransportdienstDTO> transportdienstDTOLijst, UserDTO user) {
 		// Linkerdeel scherm tableview met naam transportdienst en status
 		// TODO status true/false naar actief/non-actief
-		tableViewTransportdienst = new TableView<TransportdienstDTO>();
-		naamKolom = new TableColumn<TransportdienstDTO, String>("Naam");
-		statusKolom = new TableColumn<TransportdienstDTO, Boolean>("Status");
+		
+		//naamKolom = new TableColumn<TransportdienstDTO, String>("Naam");
+		//statusKolom = new TableColumn<TransportdienstDTO, Boolean>("Status");
 
-		tableViewTransportdienst.setLayoutX(85);
-		tableViewTransportdienst.setLayoutY(170);
+		//tableViewTransportdienst.setLayoutX(85);
+		//tableViewTransportdienst.setLayoutY(170);
 
-		tableViewTransportdienst.prefHeightProperty().set(900);
+		//tableViewTransportdienst.prefHeightProperty().set(900);
 
-		list = FXCollections.observableArrayList(transportdienstDTOLijst);
+		//list = FXCollections.observableArrayList(transportdienstDTOLijst);
 
-		naamKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, String>("naam"));
-		statusKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, Boolean>("isActief"));
+		//naamKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, String>("naam"));
+		//statusKolom.setCellValueFactory(new PropertyValueFactory<TransportdienstDTO, Boolean>("isActief"));
 
-		tableViewTransportdienst.getColumns().add(naamKolom);
-		tableViewTransportdienst.getColumns().add(statusKolom);
+		//tableViewTransportdienst.getColumns().add(tableViewTransportdienst.getNaamKolom());
+		//tableViewTransportdienst.getColumns().add(tableViewTransportdienst.getStatusKolom());
 
-		tableViewTransportdienst.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		//tableViewTransportdienst.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-		tableViewTransportdienst.setItems(list);
+		//tableViewTransportdienst.setItems(list);
 
 		// Rechterdeel met tabpane
 		tabPane = new TabPane();
