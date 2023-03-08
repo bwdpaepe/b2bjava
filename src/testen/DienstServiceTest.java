@@ -11,17 +11,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import domein.Bedrijf;
 import domein.Contactpersoon;
-import domein.Dienst;
 import domein.TrackTraceFormat;
 import domein.Transportdienst;
-import repository.GenericDao;
+import repository.DienstDaoJpa;
 import service.DienstService;
 
 @ExtendWith(MockitoExtension.class)
 class DienstServiceTest {
 	
 	@Mock
-	private GenericDao<Dienst> dienstRepoMock;
+	private DienstDaoJpa dienstRepoMock;
 	
 	@Mock
 	private Bedrijf bedrijf;

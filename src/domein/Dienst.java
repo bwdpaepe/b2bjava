@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,6 +25,10 @@ import service.ValidationService;
 
 @Entity
 @Table(name = "Diensten")
+@NamedQueries({
+    @NamedQuery(name = "Dienst.findDienstenWithBedrijf",
+                         query = "select d from Dienst d where d.bedrijf = :bedrijf")            
+})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "soort")
 public abstract class Dienst implements Serializable

@@ -52,6 +52,13 @@ public class DatabaseSeeding
 					"email@test.hk", 3);
 			domeinController.maakTransportdienst("TD3", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.uk", 2);
+			// get transportdiensten van actueel ingelogde gebruiker:
+			System.out.println("********************************************");
+			System.out.println("transportdiensten van actueel ingelogde gebruiker:");
+			List<TransportdienstDTO> ltdDTOLijst = domeinController.getTransportdienstenDTO();
+			ltdDTOLijst.forEach(System.out::println);
+			
+			System.out.println("********************************************");
 			TransportdienstDTO tdDTO = domeinController.getTransportdienst(1);
 			System.out.println(tdDTO);
 			domeinController.addContactpersoon("john", "doe", "1234567890", "john.doe@foo.bar", tdDTO.getId());

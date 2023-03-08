@@ -13,24 +13,25 @@ import domein.Dienst;
 import domein.Persoon;
 import domein.TrackTraceFormat;
 import domein.Transportdienst;
-import repository.GenericDao;
-import repository.GenericDaoJpa;
+import repository.DienstDao;
+import repository.DienstDaoJpa;
 
 public class DienstService {
-	private GenericDao<Dienst> dienstRepo;
+	private BedrijfService bedrijfService = new BedrijfService();
+	private DienstDao dienstRepo;
 
 	public DienstService() {
-		this.dienstRepo = new GenericDaoJpa<>(Dienst.class);
+		this.dienstRepo = new DienstDaoJpa();
 	}
 
-	public DienstService(GenericDao<Dienst> dienstRepo) {
+	public DienstService(DienstDao dienstRepo) {
 		this.dienstRepo = dienstRepo;
 	}
 
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
 			String verificatiecode, String contactVoornaam, String contactFamilienaam,
 			String contactTelefoon, String contactEmailadres, Bedrijf bedrijf) {
-		GenericDaoJpa.startTransaction();
+		DienstDaoJpa.startTransaction();
 		try {
 			
 			//maak Contactpersoon
@@ -46,10 +47,10 @@ public class DienstService {
 
 
 			dienstRepo.insert(transportdienst);
-			GenericDaoJpa.commitTransaction();
+			DienstDaoJpa.commitTransaction();
 		} catch (Exception e) {
 			System.err.println(e);
-			GenericDaoJpa.rollbackTransaction();
+			DienstDaoJpa.rollbackTransaction();
 		}
 
 	}
@@ -60,14 +61,15 @@ public class DienstService {
 			if (d instanceof Transportdienst) {
 
 				d.setActief(isActief);
-				GenericDaoJpa.startTransaction();
+				DienstDaoJpa.startTransaction();
 				this.dienstRepo.update(d);
-				GenericDaoJpa.commitTransaction();
+				DienstDaoJpa.commitTransaction();
 
 			} else {
 				throw new IllegalArgumentException("Ongeldig diensttype");
 			}
 		} catch (EntityNotFoundException ex) {
+			DienstDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException("De gevraagde dienst bestaat niet");
 		}
 
@@ -91,14 +93,13 @@ public class DienstService {
 	}
 
 	public List<Transportdienst> getTransportdiensten(long bedrijfsId) {
-		List<Dienst> dienstList = dienstRepo.findAll();
+		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
+		List<Dienst> dienstList = dienstRepo.findDienstenWithBedrijf(bedrijf);
 		List<Transportdienst> tdList = new ArrayList<Transportdienst>();
 
 		for (Dienst dienst : dienstList) {
 			if (dienst instanceof Transportdienst) {
-				if(dienst.getBedrijf().getID() == bedrijfsId) {
-					tdList.add((Transportdienst) dienst);
-				}
+				tdList.add((Transportdienst) dienst);				
 			}
 		}
 		return tdList;
@@ -113,14 +114,15 @@ public class DienstService {
 				Contactpersoon contactpersoon = new Contactpersoon(contactVoornaam, contactFamilienaam, contactEmailadres, contactTelefoon);
 
 				d.addPerson(contactpersoon);
-				GenericDaoJpa.startTransaction();
+				DienstDaoJpa.startTransaction();
 				this.dienstRepo.update(d);
-				GenericDaoJpa.commitTransaction();
+				DienstDaoJpa.commitTransaction();
 
 			} else {
 				throw new IllegalArgumentException("Ongeldig diensttype");
 			}
 		} catch (EntityNotFoundException ex) {
+			DienstDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException("De gevraagde dienst bestaat niet");
 		}
 		
@@ -147,9 +149,9 @@ public class DienstService {
 					cp.setFamilienaam(contactFamilienaam);
 					cp.setTelefoonnummer(contactTelefoon);
 					cp.setEmailAdress(contactEmailadres);
-					GenericDaoJpa.startTransaction();
+					DienstDaoJpa.startTransaction();
 					this.dienstRepo.update(d);
-					GenericDaoJpa.commitTransaction();
+					DienstDaoJpa.commitTransaction();
 					
 				}
 				else {
@@ -160,6 +162,7 @@ public class DienstService {
 				throw new IllegalArgumentException("Ongeldig diensttype");
 			}
 		} catch (EntityNotFoundException ex) {
+			DienstDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException("De gevraagde dienst bestaat niet");
 		}
 		
@@ -182,9 +185,9 @@ public class DienstService {
 				if(cp instanceof Contactpersoon) {
 					//remove Contactpersoon
 					d.removePerson(cp);
-					GenericDaoJpa.startTransaction();
+					DienstDaoJpa.startTransaction();
 					this.dienstRepo.update(d);
-					GenericDaoJpa.commitTransaction();
+					DienstDaoJpa.commitTransaction();
 					
 				}
 				else {
@@ -195,6 +198,7 @@ public class DienstService {
 				throw new IllegalArgumentException("Ongeldig diensttype");
 			}
 		} catch (EntityNotFoundException ex) {
+			DienstDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException("De gevraagde dienst bestaat niet");
 		}
 		
@@ -212,14 +216,15 @@ public class DienstService {
 				ttf.setBarcodePrefix(barcodePrefix);
 				ttf.setVerificatieCode(verificatiecode);
 				((Transportdienst)d).setTrackTraceFormat(ttf);
-				GenericDaoJpa.startTransaction();
+				DienstDaoJpa.startTransaction();
 				this.dienstRepo.update(d);
-				GenericDaoJpa.commitTransaction();
+				DienstDaoJpa.commitTransaction();
 				
 			} else {
 				throw new IllegalArgumentException("Ongeldig diensttype");
 			}
 		} catch (EntityNotFoundException ex) {
+			DienstDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException("De gevraagde dienst bestaat niet");
 		}
 	}
