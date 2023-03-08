@@ -113,6 +113,26 @@ class DienstServiceTest {
 		Mockito.when(dienstRepoMock.update(td)).thenReturn(td2);
 		
 		Assertions.assertDoesNotThrow(() -> dienstService.addContactpersoon(CONTACTVOORNAAM2, CONTACTFAMILIENAAM2, CONTACTTELEFOON2, CONTACTEMAILADRES2, 0));
+		
+		Mockito.verify(dienstRepoMock).get(Long.valueOf(0));
+		Mockito.verify(dienstRepoMock).update(td);
+	}
+	
+	@Test
+	void testEditContactpersoon() {
+		final String CONTACTVOORNAAM2 = "TRANS2";
+		final String CONTACTFAMILIENAAM2 = "PORT2";
+		final String CONTACTTELEFOON2 = "2345678901";
+		final String CONTACTEMAILADRES2 = "trans2.port2@example.com";
+		Contactpersoon CONTACTPERSOON2 = new Contactpersoon(CONTACTVOORNAAM2, CONTACTFAMILIENAAM2, CONTACTEMAILADRES2, CONTACTTELEFOON2);
+		Transportdienst td2  = new Transportdienst(NAAMTRANSPORTDIENT, BEDRIJF, CONTACTPERSOON2, TTF);
+		Mockito.when(dienstRepoMock.get(Long.valueOf(0))).thenReturn(td);
+		Mockito.when(dienstRepoMock.update(td)).thenReturn(td2);
+		
+		Assertions.assertDoesNotThrow(() -> dienstService.editContactpersoon(CONTACTVOORNAAM2, CONTACTFAMILIENAAM2, CONTACTTELEFOON2, CONTACTEMAILADRES2, 0, 0));
+		
+		Mockito.verify(dienstRepoMock).get(Long.valueOf(0));
+		Mockito.verify(dienstRepoMock).update(td);
 	}
 	
 	@Test
@@ -123,6 +143,28 @@ class DienstServiceTest {
 		Mockito.when(dienstRepoMock.update(td)).thenReturn(td2);
 		
 		Assertions.assertDoesNotThrow(() -> dienstService.removeContactpersoon(0, 0));
+		
+		Mockito.verify(dienstRepoMock).get(Long.valueOf(0));
+		Mockito.verify(dienstRepoMock).update(td);
+	}
+	
+	@Test
+	void updateTransportdienst() {
+		final String NAAMTRANSPORTDIENT2 = "UPDATE_TRANSPORTDIENST";
+		final int BARCODELENGTE2 = 11;
+		final boolean ISBARCODEENKELCIJFERS2 = false;
+		final String BARCODEPREFIX2 = "456";
+		final String VERIFICATIECODE2 = "ORDERID";
+		final TrackTraceFormat TTF2 = new TrackTraceFormat(BARCODELENGTE2, ISBARCODEENKELCIJFERS2, BARCODEPREFIX2, VERIFICATIECODE2);
+		
+		Transportdienst td_updated  = new Transportdienst(NAAMTRANSPORTDIENT2, BEDRIJF, CONTACTPERSOON, TTF2);
+		Mockito.when(dienstRepoMock.get(Long.valueOf(0))).thenReturn(td);
+		Mockito.when(dienstRepoMock.update(td)).thenReturn(td_updated);
+		
+		Assertions.assertDoesNotThrow(() -> dienstService.updateTransportdienst(NAAMTRANSPORTDIENT2, BARCODELENGTE2, ISBARCODEENKELCIJFERS2, BARCODEPREFIX2, VERIFICATIECODE2, 0));
+		
+		Mockito.verify(dienstRepoMock).get(Long.valueOf(0));
+		Mockito.verify(dienstRepoMock).update(td);
 	}
 
 	
