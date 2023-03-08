@@ -91,7 +91,7 @@ public class DomeinController {
 //	}
 	//Zelfde methode als hierboven maar geeft DTO objecten
 	public List<TransportdienstDTO> getTransportdienstenDTO(){
-		List<Transportdienst> tdList =  dienstService.getTransportdiensten();
+		List<Transportdienst> tdList =  dienstService.getTransportdiensten(ingelogdeUser.getBedrijf().getId());
 		List<TransportdienstDTO> tdListDTO = new ArrayList<>();
 		for(Transportdienst td : tdList) {
 			TransportdienstDTO tdDTO = new TransportdienstDTO(td);

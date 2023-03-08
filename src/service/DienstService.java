@@ -90,13 +90,15 @@ public class DienstService {
 
 	}
 
-	public List<Transportdienst> getTransportdiensten() {
+	public List<Transportdienst> getTransportdiensten(long bedrijfsId) {
 		List<Dienst> dienstList = dienstRepo.findAll();
 		List<Transportdienst> tdList = new ArrayList<Transportdienst>();
 
 		for (Dienst dienst : dienstList) {
 			if (dienst instanceof Transportdienst) {
-				tdList.add((Transportdienst) dienst);
+				if(dienst.getBedrijf().getID() == bedrijfsId) {
+					tdList.add((Transportdienst) dienst);
+				}
 			}
 		}
 		return tdList;
