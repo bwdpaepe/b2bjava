@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KlantenController">
+   <children>
+      <AnchorPane layoutY="-7.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <CheckBox layoutX="48.0" layoutY="83.0" mnemonicParsing="false" text="CheckBox" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

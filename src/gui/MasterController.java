@@ -1,6 +1,7 @@
 package gui;
 
 import java.io.IOException;
+
 import domein.DomeinController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,7 +54,22 @@ public class MasterController extends Pane {
 	}
 	
 	public void loadKlanten() {
+		Parent root = null;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Klanten.fxml"));
+			root = loader.load();
+			KlantenController kc = loader.getController();
+			kc.setParams(dc);
+			bp.setCenter(root);
+
+			
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
 		
+
 	}
 	
 	public void loadBestellingen() {

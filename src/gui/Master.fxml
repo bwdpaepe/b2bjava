@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane id="borderPane" fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MasterController">
+<BorderPane id="borderPane" fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MasterController">
    <top>
          <AnchorPane id="menuPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="1920.0" stylesheets="@../guiStyling/menuStyle.css" BorderPane.alignment="CENTER">
             <children>
@@ -50,7 +50,7 @@
                            </ImageView>
                         </graphic>
                      </Button>
-                     <Button id="klantenButton" mnemonicParsing="false" styleClass="menuButton" translateX="560.0">
+                     <Button id="klantenButton" mnemonicParsing="false" onMouseClicked="#loadKlanten" styleClass="menuButton" translateX="560.0">
                         <graphic>
                            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                               <image>
