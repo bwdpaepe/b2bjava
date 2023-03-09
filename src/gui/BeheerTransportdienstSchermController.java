@@ -18,12 +18,9 @@ public class BeheerTransportdienstSchermController extends Pane {
 	@FXML
 	private Label welkomNaam;
 
-<<<<<<< HEAD
 	private BeheerTransportdienstTableView tableViewTransportdienst;
-=======
-	private final BeheerTransportdienstTableView tableViewTransportdienst;
 	private TransportdienstDTO selectedTransportdienstDTO;
->>>>>>> refs/heads/beheren_transportdienst_v2
+
 	private BeheerTransportdienstTabPane tabPane;
 	private DomeinController dc;
 
