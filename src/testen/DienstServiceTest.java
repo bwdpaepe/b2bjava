@@ -126,7 +126,6 @@ class DienstServiceTest {
 			at B2B_Portal_Delaware/testen.DienstServiceTest.testGetTransportdiensten(DienstServiceTest.java:115)
 
 	 */
-	/*
 	@Test
 	void testGetTransportdiensten() {
 		Bedrijf BEDRIJF2 = new Bedrijf(NAAMBEDRIJF, STRAAT, HUISNUMMER,POSTCODE,STAD,LAND,TELEFOONNUMMER,LOGO_FILENAME);
@@ -142,7 +141,7 @@ class DienstServiceTest {
 		Mockito.verify(dienstRepoMock).findDienstenWithBedrijf(BEDRIJF2);
 		
 	}
-	*/
+	
 	
 	
 	@Test

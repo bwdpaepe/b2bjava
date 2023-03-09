@@ -17,17 +17,19 @@ import repository.DienstDao;
 import repository.DienstDaoJpa;
 
 public class DienstService {
-	private BedrijfService bedrijfService = new BedrijfService();
+	private BedrijfService bedrijfService;
 	private DienstDao dienstRepo;
 
 	public DienstService() {
 		this.dienstRepo = new DienstDaoJpa();
+		this.bedrijfService = new BedrijfService();
 	}
 
-	public DienstService(DienstDao dienstRepo) {
+	public DienstService(DienstDao dienstRepo, BedrijfService bedrijfsService) {
 		this.dienstRepo = dienstRepo;
+		this.bedrijfService = bedrijfsService;
 	}
-
+	
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
 			String verificatiecode, String contactVoornaam, String contactFamilienaam,
 			String contactTelefoon, String contactEmailadres, Bedrijf bedrijf) {
