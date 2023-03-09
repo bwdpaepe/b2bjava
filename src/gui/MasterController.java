@@ -41,7 +41,7 @@ public class MasterController extends Pane {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Transportdiensten.fxml"));
 			root = loader.load();
 			TransportdienstenController tc = loader.getController();
-				
+			tc.setParams(dc);
 			bp.setCenter(root);
 
 			
@@ -68,8 +68,7 @@ public class MasterController extends Pane {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Bestellingen.fxml"));
 			root = loader.load();
 			BestellingenController bc = loader.getController();
-			bc.setParams(dc);
-				
+			bc.setParams(dc);				
 			bp.setCenter(root);
 
 			
