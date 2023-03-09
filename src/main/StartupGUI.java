@@ -4,7 +4,9 @@ import domein.DomeinController;
 import gui.AanmeldenController;
 import gui.MasterController;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class StartupGUI extends Application {
@@ -15,10 +17,17 @@ public class StartupGUI extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			run();
-			MasterController mc = new MasterController();
-			Scene scene = new Scene(mc);
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Master.fxml"));
+			BorderPane bp = loader.<BorderPane>load();
+			MasterController mc = loader.getController();
+			mc.setParams(dc);
+			Scene scene = new Scene(bp);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+
+			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -32,6 +41,6 @@ public class StartupGUI extends Application {
 	}
 
 	private void run() {	
-		new DomeinController(true); // boolean om al dan niet database te seeden
+		new DomeinController(false); // boolean om al dan niet database te seeden
 	}
 }

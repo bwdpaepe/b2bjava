@@ -81,13 +81,12 @@ public class BeheerTransportdienstSchermController extends Pane {
 	private ChoiceBox<Integer> cbBarcodeLengteRaadpleegTab = new ChoiceBox<>();
 	private CheckBox cbIsBarcodeEnkelCijfersRaadpleegTab = new CheckBox();
 	private Button btnAanpassen = new Button("AANPASSEN TRANSPORTDIENST");
+	
+	public BeheerTransportdienstSchermController() {};
 
 	public BeheerTransportdienstSchermController(DomeinController dc, List<TransportdienstDTO> transportdienstDTOLijst,
 			UserDTO user) {
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerTransportdienstScherm.fxml"));
-		loader.setController(this);
-		loader.setRoot(this);
 
 		this.dc = dc;
 
@@ -95,11 +94,7 @@ public class BeheerTransportdienstSchermController extends Pane {
 
 		this.getChildren().addAll(tableViewTransportdienst, tabPane);
 
-		try {
-			loader.load();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+
 	}
 
 	// TODO welkomnaam implementeren
