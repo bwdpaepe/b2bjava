@@ -1,5 +1,10 @@
 package testen;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,20 +16,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import domein.Bedrijf;
 import domein.Contactpersoon;
-import domein.Dienst;
 import domein.TrackTraceFormat;
 import domein.Transportdienst;
-import repository.GenericDao;
+import repository.DienstDaoJpa;
+import service.BedrijfService;
 import service.DienstService;
 
 @ExtendWith(MockitoExtension.class)
 class DienstServiceTest {
 	
 	@Mock
-	private GenericDao<Dienst> dienstRepoMock;
+	private DienstDaoJpa dienstRepoMock;
 	
 	@Mock
-	private Bedrijf bedrijf;
+	private BedrijfService bedrijfServiceMock;
 	
 	@InjectMocks
 	private DienstService dienstService;
@@ -98,6 +103,47 @@ class DienstServiceTest {
 		Mockito.verify(dienstRepoMock).get(Long.valueOf(0));
 		
 	}
+	
+	/*org.mockito.exceptions.misusing.PotentialStubbingProblem: 
+		Strict stubbing argument mismatch. Please check:
+		 - this invocation of 'findDienstenWithBedrijf' method:
+		    dienstRepoMock.findDienstenWithBedrijf(null);
+		    -> at B2B_Portal_Delaware/service.DienstService.getTransportdiensten(DienstService.java:97)
+		 - has following stubbing(s) with different arguments:
+		    1. dienstRepoMock.findDienstenWithBedrijf(
+		    domein.Bedrijf@a7ec44d4
+		);
+		      -> at B2B_Portal_Delaware/testen.DienstServiceTest.testGetTransportdiensten(DienstServiceTest.java:113)
+		Typically, stubbing argument mismatch indicates user mistake when writing tests.
+		Mockito fails early so that you can debug potential problem easily.
+		However, there are legit scenarios when this exception generates false negative signal:
+		  - stubbing the same method multiple times using 'given().will()' or 'when().then()' API
+		    Please use 'will().given()' or 'doReturn().when()' API for stubbing.
+		  - stubbed method is intentionally invoked with different arguments by code under test
+		    Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).
+		For more information see javadoc for PotentialStubbingProblem class.
+			at B2B_Portal_Delaware/service.DienstService.getTransportdiensten(DienstService.java:97)
+			at B2B_Portal_Delaware/testen.DienstServiceTest.testGetTransportdiensten(DienstServiceTest.java:115)
+
+	 */
+	/*
+	@Test
+	void testGetTransportdiensten() {
+		Bedrijf BEDRIJF2 = new Bedrijf(NAAMBEDRIJF, STRAAT, HUISNUMMER,POSTCODE,STAD,LAND,TELEFOONNUMMER,LOGO_FILENAME);
+		Mockito.when(bedrijfServiceMock.getBedrijfById(Long.valueOf(0))).thenReturn(BEDRIJF2);
+		Mockito.when(dienstRepoMock.findDienstenWithBedrijf(BEDRIJF2)).thenReturn(Stream.of(td).collect(Collectors.toCollection(ArrayList::new)));
+		
+		List<Transportdienst> tdList = dienstService.getTransportdiensten(Long.valueOf(0));
+		
+		Assertions.assertTrue(tdList.size() == 1);
+		Assertions.assertEquals(td, tdList.get(0));
+		
+		Mockito.verify(bedrijfServiceMock).getBedrijfById(Long.valueOf(0));
+		Mockito.verify(dienstRepoMock).findDienstenWithBedrijf(BEDRIJF2);
+		
+	}
+	*/
+	
 	
 	@Test
 	void testAddContactpersoon() {

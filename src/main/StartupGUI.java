@@ -17,12 +17,17 @@ public class StartupGUI extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			run();
+<<<<<<< HEAD
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Master.fxml"));
 			BorderPane bp = loader.<BorderPane>load();
 			MasterController mc = loader.getController();
 			mc.setParams(dc);
 			Scene scene = new Scene(bp);
+=======
+			AanmeldenController ac = new AanmeldenController(dc);
+			Scene scene = new Scene(ac);
+>>>>>>> refs/heads/beheren_transportdienst_v2
 			primaryStage.setScene(scene);
 			primaryStage.show();
 

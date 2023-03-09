@@ -2,6 +2,7 @@ package gui;
 
 import domein.DomeinController;
 import javafx.scene.control.TabPane;
+import repository.TransportdienstDTO;
 
 public class BeheerTransportdienstTabPane extends TabPane {
 
@@ -37,5 +38,14 @@ public class BeheerTransportdienstTabPane extends TabPane {
 	public BeheerTransportdienstRaadpleegTab getRaadpleegTab() {
 		return raadpleegTab;
 	}
+
+	public void raadpleegTabGui(TransportdienstDTO selectedTransportdienstDTO) {
+		this.getSelectionModel().select(raadpleegTab);
+		raadpleegTab.raadpleegTabGui(selectedTransportdienstDTO);
+		
+		
+	}
+	
+	
 
 }
