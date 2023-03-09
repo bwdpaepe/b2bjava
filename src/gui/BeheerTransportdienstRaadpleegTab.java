@@ -1,5 +1,8 @@
 package gui;
 
+import java.util.Set;
+
+import domein.Contactpersoon;
 import domein.DomeinController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -7,15 +10,23 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import repository.ContactpersoonDTO;
 import repository.TransportdienstDTO;
 
 public class BeheerTransportdienstRaadpleegTab extends Tab {
 
 	private DomeinController dc;
+	private Label lblNaamTransportdienstRaadpleegTabtd = new Label();
+	private Label lblVerificatiecodeRaadpleegTabtd = new Label();
+	private Label lblBarcodeLengteRaadpleegTabtd = new Label();
+	private Label lblBarcodePrefixRaadpleegTabtd = new Label();
+	private Label lblIsBarcodeEnkelCijfersRaadpleegTabtd = new Label();
+	private TransportdienstDTO selectedTransportdienstDTO;
+	private GridPane gridPaneRaadplegen = new GridPane();
+	private Button btnAanpassen = new Button("AANPASSEN TRANSPORTDIENST");
 
 	public BeheerTransportdienstRaadpleegTab(DomeinController dc) {
 		super("Raadplegen");
@@ -24,30 +35,18 @@ public class BeheerTransportdienstRaadpleegTab extends Tab {
 	}
 
 	private void buildGui() {
-		GridPane gridPaneRaadplegen = new GridPane();
+
 		Label lblTitelRaadpleegTab = new Label("RAADPLEGEN TRANSPORTDIENST");
 
 		Label lblNaamTransportdienstRaadpleegTab = new Label("Naam transportdienst:");
-		Label lblContactpersoonVoornaamRaadpleegTab = new Label("Contactpersoon voornaam:");
-		Label lblContactpersoonFamilienaamRaadpleegTab = new Label("Contactpersoon familienaam:");
-		Label lblTelefoonnummerRaadpleegTab = new Label("Telefoonnummer:");
-		Label lblEmailadresRaadpleegTab = new Label("Emailadres: ");
-		Label lblTrackAndTraceRaadpleegTab = new Label("TRACK AND TRACE CODE");
+		Label lblTrackAndTraceRaadpleegTab = new Label("Contactpersonen");
 		Label lblVerificatiecodeRaadpleegTab = new Label("Verificatiecode:");
 		Label lblBarcodeLengteCodeRaadpleegTab = new Label("Aantal karakters van de code:");
 		Label lblBarcodePrefixRaadpleegTab = new Label("Track and Trace prefix: ");
 		Label lblIsBarcodeEnkelCijfersRaadpleegTab = new Label("Bestaat de code enkel uit cijfers:");
-
-		TextField txtNaamTransportdienstRaadpleegTab = new TextField();
-		TextField txtContactpersoonVoornaamRaadpleegTab = new TextField();
-		TextField txtContactpersoonFamilienaamRaadpleegTab = new TextField();
-		TextField txtTelefoonnummerRaadpleegTab = new TextField();
-		TextField txtEmailadresRaadpleegTab = new TextField();
-		TextField txtBarcodePrefixRaadpleegTab = new TextField();
 		ChoiceBox<String> cbVerificatiecodeRaadpleegTab = new ChoiceBox<>();
 		ChoiceBox<Integer> cbBarcodeLengteRaadpleegTab = new ChoiceBox<>();
 		CheckBox cbIsBarcodeEnkelCijfersRaadpleegTab = new CheckBox();
-		Button btnAanpassen = new Button("AANPASSEN TRANSPORTDIENST");
 
 		// Styling gripane elementen
 		btnAanpassen.setFont(Font.font("Arial", FontWeight.BOLD, 24));
@@ -69,37 +68,17 @@ public class BeheerTransportdienstRaadpleegTab extends Tab {
 
 		gridPaneRaadplegen.add(lblTitelRaadpleegTab, 0, 0, 2, 1);
 		gridPaneRaadplegen.add(lblNaamTransportdienstRaadpleegTab, 0, 1, 1, 1);
-		gridPaneRaadplegen.add(txtNaamTransportdienstRaadpleegTab, 1, 1, 1, 1);
-		gridPaneRaadplegen.add(lblContactpersoonVoornaamRaadpleegTab, 0, 2, 1, 1);
-		gridPaneRaadplegen.add(txtContactpersoonVoornaamRaadpleegTab, 1, 2, 1, 1);
-		gridPaneRaadplegen.add(lblContactpersoonFamilienaamRaadpleegTab, 0, 3, 1, 1);
-		gridPaneRaadplegen.add(txtContactpersoonFamilienaamRaadpleegTab, 1, 3, 1, 1);
-		gridPaneRaadplegen.add(lblTelefoonnummerRaadpleegTab, 0, 4, 1, 1);
-		gridPaneRaadplegen.add(txtTelefoonnummerRaadpleegTab, 1, 4, 1, 1);
-		gridPaneRaadplegen.add(lblEmailadresRaadpleegTab, 0, 5, 1, 1);
-		gridPaneRaadplegen.add(txtEmailadresRaadpleegTab, 1, 5, 1, 1);
-		gridPaneRaadplegen.add(lblTrackAndTraceRaadpleegTab, 0, 6, 2, 1);
-		gridPaneRaadplegen.add(lblVerificatiecodeRaadpleegTab, 0, 7, 1, 1);
-		gridPaneRaadplegen.add(cbVerificatiecodeRaadpleegTab, 1, 7, 1, 1);
-		gridPaneRaadplegen.add(lblBarcodeLengteCodeRaadpleegTab, 0, 8, 1, 1);
-		gridPaneRaadplegen.add(cbBarcodeLengteRaadpleegTab, 1, 8, 1, 1);
-		gridPaneRaadplegen.add(lblBarcodePrefixRaadpleegTab, 0, 9, 1, 1);
-		gridPaneRaadplegen.add(txtBarcodePrefixRaadpleegTab, 1, 9, 1, 1);
-		gridPaneRaadplegen.add(lblIsBarcodeEnkelCijfersRaadpleegTab, 0, 10, 1, 1);
-		gridPaneRaadplegen.add(cbIsBarcodeEnkelCijfersRaadpleegTab, 1, 10, 1, 1);
-		gridPaneRaadplegen.add(btnAanpassen, 0, 11, 2, 2);
+		gridPaneRaadplegen.add(lblNaamTransportdienstRaadpleegTabtd, 1, 1, 1, 1);
+		gridPaneRaadplegen.add(lblVerificatiecodeRaadpleegTab, 0, 2, 1, 1);
+		gridPaneRaadplegen.add(lblVerificatiecodeRaadpleegTabtd, 1, 2, 1, 1);
+		gridPaneRaadplegen.add(lblBarcodeLengteCodeRaadpleegTab, 0, 3, 1, 1);
+		gridPaneRaadplegen.add(lblBarcodeLengteRaadpleegTabtd, 1, 3, 1, 1);
+		gridPaneRaadplegen.add(lblBarcodePrefixRaadpleegTab, 0, 4, 1, 1);
+		gridPaneRaadplegen.add(lblBarcodePrefixRaadpleegTabtd, 1, 4, 1, 1);
+		gridPaneRaadplegen.add(lblIsBarcodeEnkelCijfersRaadpleegTab, 0, 5, 1, 1);
+		gridPaneRaadplegen.add(lblIsBarcodeEnkelCijfersRaadpleegTabtd, 1, 5, 1, 1);
 
-		// TODO deze 4 velden een label toevoegen met de waarde van de geselecteerde td,
-		// bij drukken button aanpassen kan je deze zaken terug visible zetten
-		txtNaamTransportdienstRaadpleegTab.setVisible(false);
-		txtContactpersoonVoornaamRaadpleegTab.setVisible(false);
-		txtContactpersoonFamilienaamRaadpleegTab.setVisible(false);
-		txtTelefoonnummerRaadpleegTab.setVisible(false);
-		txtEmailadresRaadpleegTab.setVisible(false);
-		cbVerificatiecodeRaadpleegTab.setVisible(false);
-		txtBarcodePrefixRaadpleegTab.setVisible(false);
-		cbBarcodeLengteRaadpleegTab.setVisible(false);
-		cbIsBarcodeEnkelCijfersRaadpleegTab.setVisible(false);
+		gridPaneRaadplegen.add(lblTrackAndTraceRaadpleegTab, 0, 6, 2, 1);
 
 		this.setContent(gridPaneRaadplegen);
 
@@ -109,27 +88,15 @@ public class BeheerTransportdienstRaadpleegTab extends Tab {
 			// Event van tablview moet nog gemaakt worden
 			// Aanpassen in een aparte tab met op basis van de geselecteerde DTO
 		});
-
-		// Dubbel klik op rij om het item te selecteren en in de tabpane recths te zien
-		// Dit moet in de tableview en daar een methode aanroepen die je hier
-		// implementeert
-
 	}
 
-	// TODO verder uitwerken
-	private void raadpleegTabOpbouwen(TransportdienstDTO selectedTransportdienstDTO, Tab raadpleegTab) {
-		// tabPane.getSelectionModel().select(raadpleegTab);
-		// lblNaamTransportdienstRaadpleegTabtd.setText(selectedTransportdienstDTO.getNaam());
-		// TODO kijken hoe te doen via streams
-		// lblContactpersoonVoornaamRaadpleegTabtd.setText(selectedTransportdienstDTO.get);;
-		// lblContactpersoonFamilienaamRaadpleegTabtd
-		// lblTelefoonnummerRaadpleegTabtd.setText(selectedTransportdienstDTO.get);
-		// lblEmailadresRaadpleegTabtd.setText(selectedTransportdienstDTO);
-//		lblVerificatiecodeRaadpleegTabtd.setText(selectedTransportdienstDTO.getVerificatieCodeString());
-//		lblBarcodePrefixRaadpleegTabtd.setText(selectedTransportdienstDTO.getBarcodePrefix());
-//		lblBarcodeLengteRaadpleegTabtd.setText(String.valueOf(selectedTransportdienstDTO.getBarcodeLengte()));
-//		lblIsBarcodeEnkelCijfersRaadpleegTabtd
-//				.setText(String.valueOf(selectedTransportdienstDTO.isBarcodeEnkelCijfers()));
+	public void raadpleegTabGui(TransportdienstDTO selectedTransportdienstDTO) {
+		Set<ContactpersoonDTO> contactpersonen = selectedTransportdienstDTO.getContactpersonen();
+		contactpersonen.add(new ContactpersoonDTO(new Contactpersoon("Ian", "daelman", "test@test.com", "+12414241")));
+
+		ContactpersonenTableView grid = new ContactpersonenTableView(contactpersonen);
+		gridPaneRaadplegen.add(grid, 0, gridPaneRaadplegen.getRowCount(), 2, 2);
+		gridPaneRaadplegen.add(btnAanpassen, 0, gridPaneRaadplegen.getRowCount(), 2, 2);
 
 	}
 
