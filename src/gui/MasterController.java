@@ -1,15 +1,10 @@
 package gui;
 
 import java.io.IOException;
-import java.security.DomainCombiner;
-
 import domein.DomeinController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -21,7 +16,6 @@ public class MasterController extends Pane {
 	@FXML
 	private BorderPane bp;
 	
-	private Label label;
 	
 	
 	public MasterController() {
@@ -47,7 +41,7 @@ public class MasterController extends Pane {
 			
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		
@@ -74,7 +68,7 @@ public class MasterController extends Pane {
 			
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}

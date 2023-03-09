@@ -8,7 +8,7 @@ public class BestellingenController extends Pane {
 	
 	
 	public BestellingenController() {
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	
