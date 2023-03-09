@@ -13,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import repository.ContactpersoonDTO;
 import repository.TransportdienstDTO;
 
-public class ContactpersonenTableView extends TableView<ContactpersoonDTO> {
+public class BeheerTransportdienstContactpersonenTableView extends TableView<ContactpersoonDTO> {
 
 	private Set<ContactpersoonDTO> contactpersonen;
 	private TableColumn<ContactpersoonDTO, String> voornaamKolom;
@@ -22,7 +22,7 @@ public class ContactpersonenTableView extends TableView<ContactpersoonDTO> {
 	private TableColumn<ContactpersoonDTO, String> emailadresKolom;
 	private ObservableList<ContactpersoonDTO> list;
 
-	public ContactpersonenTableView(Set<ContactpersoonDTO> contactpersonen) {
+	public BeheerTransportdienstContactpersonenTableView(Set<ContactpersoonDTO> contactpersonen) {
 		super();
 		this.contactpersonen = contactpersonen;
 		voornaamKolom = new TableColumn<ContactpersoonDTO, String>("Voornaam");

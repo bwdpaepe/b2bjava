@@ -94,7 +94,7 @@ public class BeheerTransportdienstRaadpleegTab extends Tab {
 		Set<ContactpersoonDTO> contactpersonen = selectedTransportdienstDTO.getContactpersonen();
 		contactpersonen.add(new ContactpersoonDTO(new Contactpersoon("Ian", "daelman", "test@test.com", "+12414241")));
 
-		ContactpersonenTableView grid = new ContactpersonenTableView(contactpersonen);
+		BeheerTransportdienstContactpersonenTableView grid = new BeheerTransportdienstContactpersonenTableView(contactpersonen);
 		gridPaneRaadplegen.add(grid, 0, gridPaneRaadplegen.getRowCount(), 2, 2);
 		gridPaneRaadplegen.add(btnAanpassen, 0, gridPaneRaadplegen.getRowCount(), 2, 2);
 
