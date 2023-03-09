@@ -39,28 +39,19 @@ public class BeheerTransportdienstSchermController extends Pane {
 	@FXML
 	private Label welkomNaam;
 
-	private final BeheerTransportdienstTableView tableViewTransportdienst;
+	private BeheerTransportdienstTableView tableViewTransportdienst;
 	private BeheerTransportdienstTabPane tabPane;
 	private DomeinController dc;
+
 
 	public BeheerTransportdienstSchermController(DomeinController dc, List<TransportdienstDTO> transportdienstDTOLijst,
 			UserDTO user) {
 
-		this.dc = dc;
-		tableViewTransportdienst = new BeheerTransportdienstTableView(dc, transportdienstDTOLijst);
-		tabPane = new BeheerTransportdienstTabPane(dc);
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerTransportdienstScherm.fxml"));
-		loader.setController(this);
-		loader.setRoot(this);
 
 		this.getChildren().add(tableViewTransportdienst);
 		this.getChildren().add(tabPane);
 
-		try {
-			loader.load();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+
 	}
 }
