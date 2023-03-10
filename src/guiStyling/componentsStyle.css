@@ -59,6 +59,16 @@
     -fx-pref-height: 25px; 
 }
 
+.table-view .scroll-bar:vertical {
+    -fx-background-color: #FFB0B0;
+}
+
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #EC4842;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5px;
+}
+
 #tvKlantenLijst .column-header, #tvKlantenLijst .column-header-background {
     -fx-pref-width: 385px; 
 }
