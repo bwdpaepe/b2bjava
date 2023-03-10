@@ -23,7 +23,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="33.0" layoutY="312.0" prefHeight="316.0" prefWidth="620.0">
+                        <TableView fx:id="tvContactpersonen" layoutX="33.0" layoutY="312.0" prefHeight="316.0" prefWidth="620.0">
                           <columns>
                             <TableColumn fx:id="contactpersoonVoornaamKolom" prefWidth="75.0" text="Voornaam" />
                             <TableColumn fx:id="contactpersoonFamilienaamKolom" prefWidth="75.0" text="Familienaam" />

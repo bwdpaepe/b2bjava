@@ -41,6 +41,6 @@ public class StartupGUI extends Application {
 	}
 
 	private void run() {	
-		new DomeinController(false); // boolean om al dan niet database te seeden
+		new DomeinController(true); // boolean om al dan niet database te seeden
 	}
 }
