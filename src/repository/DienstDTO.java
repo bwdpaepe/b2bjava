@@ -16,9 +16,7 @@ import javafx.beans.property.StringProperty;
 public abstract class DienstDTO {
 
 	protected final long id;
-	// protected final String naam;
 	protected final SimpleStringProperty naam = new SimpleStringProperty();
-	// protected final boolean isActief;
 	protected final SimpleBooleanProperty isActief = new SimpleBooleanProperty();
 	protected final Set<ContactpersoonDTO> contactpersonen;
 

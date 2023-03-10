@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="915.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TransportdienstenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="915.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TransportdienstenController">
 	<children>
       <TableView fx:id="tvTransportdiensten" layoutX="25.0" layoutY="31.0" prefHeight="701.0" prefWidth="289.0">
         <columns>
@@ -25,10 +25,10 @@
                      <children>
                         <TableView layoutX="33.0" layoutY="312.0" prefHeight="316.0" prefWidth="620.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Voornaam" />
-                            <TableColumn prefWidth="75.0" text="Familienaam" />
-                              <TableColumn prefWidth="75.0" text="Emailadres" />
-                              <TableColumn prefWidth="75.0" text="Telefoonnummer" />
+                            <TableColumn fx:id="contactpersoonVoornaamKolom" prefWidth="75.0" text="Voornaam" />
+                            <TableColumn fx:id="contactpersoonFamilienaamKolom" prefWidth="75.0" text="Familienaam" />
+                              <TableColumn fx:id="contactpersoonEmailadresKolom" prefWidth="75.0" text="Emailadres" />
+                              <TableColumn fx:id="contactpersoonTelefoonnummerKolom" prefWidth="75.0" text="Telefoonnummer" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
