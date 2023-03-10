@@ -3,11 +3,18 @@ package gui;
 import domein.DomeinController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import repository.ContactpersoonDTO;
@@ -61,6 +68,35 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	private Label lblStatus;
+	@FXML
+	private Button btnToevoegen;
+
+	@FXML
+	private TextField txtNaamTransportdienst;
+
+	@FXML
+	private TextField txtTelefoonnummer;
+
+	@FXML
+	private TextField txtEmailadres;
+
+	@FXML
+	private TextField txtFamilienaam;
+
+	@FXML
+	private TextField txtVoornaam;
+
+	@FXML
+	private Spinner<Integer> spinnerLengteBarcode;
+
+	@FXML
+	private CheckBox cbCijfers;
+
+	@FXML
+	private ChoiceBox<String> cbVerificatie;
+
+	@FXML
+	private TextField txtPrefix;
 
 	public TransportdienstenController() {
 
@@ -76,6 +112,7 @@ public class TransportdienstenController extends Pane {
 
 	private void buildGui() {
 		buidGuiTableViewTransportdiensten();
+		buildGuiToevoegTab();
 
 	}
 
@@ -114,6 +151,19 @@ public class TransportdienstenController extends Pane {
 				.setCellValueFactory(cellData -> cellData.getValue().getTelefoonnummerProperty());
 
 		this.tvContactpersonen.setItems(contactpersonen);
+	}
+
+	private void buildGuiToevoegTab() {
+		SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100);
+		spinnerLengteBarcode.setValueFactory(factory);
+		cbVerificatie.getItems().add("Order id");
+		cbVerificatie.getItems().add("Postcode");
+
+	}
+
+	@FXML
+	void addTransportdienst(ActionEvent event) {
+
 	}
 
 }
