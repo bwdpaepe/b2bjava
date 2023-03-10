@@ -5,6 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -27,6 +29,7 @@ public class TransportdienstenController extends Pane {
 	private ObservableList<TransportdienstDTO> transportdiensten;
 	private ObservableList<ContactpersoonDTO> contactpersonen;
 	private TransportdienstDTO selectedTransportdienstDTO;
+	private Alert melding = new Alert(AlertType.NONE);
 
 	@FXML
 	private TableView<TransportdienstDTO> tvTransportdiensten;
@@ -123,6 +126,7 @@ public class TransportdienstenController extends Pane {
 		transportdienstStatusKolom.setCellValueFactory(cellData -> cellData.getValue().getIsActiefProperty());
 		tvTransportdiensten.setItems(transportdiensten);
 		buildGuiRaadpleegTab();
+		buildGuiAanpasTab();
 
 		tvTransportdiensten.setRowFactory(tv -> {
 			TableRow<TransportdienstDTO> row = new TableRow<>();
@@ -132,6 +136,7 @@ public class TransportdienstenController extends Pane {
 					this.selectedTransportdienstDTO = row.getItem();
 					// TODO methode toevoegen om deze in de raadpleeg of aanpas tab te zetten
 					buildGuiRaadpleegTab();
+					buildGuiAanpasTab();
 
 				}
 			});
@@ -158,8 +163,13 @@ public class TransportdienstenController extends Pane {
 	private void buildGuiToevoegTab() {
 		SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100);
 		spinnerLengteBarcode.setValueFactory(factory);
-		cbVerificatie.getItems().add("Order id");
+		cbVerificatie.getItems().add("Orderid");
 		cbVerificatie.getItems().add("Postcode");
+
+	}
+
+	private void buildGuiAanpasTab() {
+		// TODO Auto-generated method stub
 
 	}
 
@@ -185,19 +195,21 @@ public class TransportdienstenController extends Pane {
 			ValidationService.controleerNietBlanco(barcodePrefix);
 			ValidationService.controleerNietBlanco(contactVoornaam);
 			ValidationService.controleerNietBlanco(contactFamilienaam);
-			ValidationService.controleerTelefoonnummer(contactTelefoon);
 			ValidationService.controleerEmail(contactEmailadres);
+			ValidationService.controleerTelefoonnummer(contactTelefoon);
 
 			// Aanmaken van een transportdienst
 			dc.maakTransportdienst(naamTransportdienst, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
 					verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres,
 					bedrijfsId);
-			
+
 		} catch (IllegalArgumentException e) {
 			// TODO degelijk errorbericht aanmaken
-			System.out.println(e);
+			melding.setAlertType(AlertType.ERROR);
+			melding.setContentText(e.getMessage());
+			melding.show();
 		}
-		
+
 		transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
 		tvTransportdiensten.setItems(transportdiensten);
 	}
