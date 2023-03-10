@@ -55,23 +55,26 @@ public class TransportdienstenController extends Pane {
 	@FXML
 	private TableColumn<ContactpersoonDTO, String> contactpersoonTelefoonnummerKolom;
 
-	@FXML
-	private Label lblNaam;
+	// @FXML
+	// private Label lblVerificatiecode;
 
 	@FXML
-	private Label lblPrefix;
+	private TextField txtNaamRaadpleegTab;
 
 	@FXML
-	private Label lblBarcodeLengte;
+	private TextField txtPrefixRaadpleegTab;
 
 	@FXML
-	private Label lblBarcodeEnkelCijfers;
+	private TextField txtBarCodeLengteRaadpleegTab;
 
 	@FXML
-	private Label lblVerificatiecode;
+	private CheckBox cbEnkelCijfersRaadpleegTab;
 
 	@FXML
-	private Label lblStatus;
+	private CheckBox cbStatusRaadpleegTab;
+
+	@FXML
+	private ChoiceBox<String> cbVerificatiecodeRaadpleegTab;
 
 	@FXML
 	private Button btnToevoegen;
@@ -126,7 +129,6 @@ public class TransportdienstenController extends Pane {
 		transportdienstStatusKolom.setCellValueFactory(cellData -> cellData.getValue().getIsActiefProperty());
 		tvTransportdiensten.setItems(transportdiensten);
 		buildGuiRaadpleegTab();
-		buildGuiAanpasTab();
 
 		tvTransportdiensten.setRowFactory(tv -> {
 			TableRow<TransportdienstDTO> row = new TableRow<>();
@@ -136,7 +138,6 @@ public class TransportdienstenController extends Pane {
 					this.selectedTransportdienstDTO = row.getItem();
 					// TODO methode toevoegen om deze in de raadpleeg of aanpas tab te zetten
 					buildGuiRaadpleegTab();
-					buildGuiAanpasTab();
 
 				}
 			});
@@ -145,12 +146,12 @@ public class TransportdienstenController extends Pane {
 	}
 
 	private void buildGuiRaadpleegTab() {
-		lblNaam.setText(selectedTransportdienstDTO.getNaam());
-		lblBarcodeLengte.setText(String.valueOf(selectedTransportdienstDTO.getBarcodeLengte()));
-		lblPrefix.setText(selectedTransportdienstDTO.getBarcodePrefix());
-		lblVerificatiecode.setText(selectedTransportdienstDTO.getVerificatieCodeString());
-		lblBarcodeEnkelCijfers.setText(String.valueOf(selectedTransportdienstDTO.isBarcodeEnkelCijfers()));
-		lblStatus.setText(String.valueOf(selectedTransportdienstDTO.getIsActief()));
+		txtNaamRaadpleegTab.setText(selectedTransportdienstDTO.getNaam());
+		txtBarCodeLengteRaadpleegTab.setText(String.valueOf(selectedTransportdienstDTO.getBarcodeLengte()));
+		txtPrefixRaadpleegTab.setText(selectedTransportdienstDTO.getBarcodePrefix());
+		cbEnkelCijfersRaadpleegTab.setSelected(selectedTransportdienstDTO.isBarcodeEnkelCijfers());
+		// lblVerificatiecode.setText(selectedTransportdienstDTO.getVerificatieCodeString());
+		cbStatusRaadpleegTab.setSelected(selectedTransportdienstDTO.getIsActief());
 		contactpersoonVoornaamKolom.setCellValueFactory(cellData -> cellData.getValue().getVoornaamProperty());
 		contactpersoonFamilienaamKolom.setCellValueFactory(cellData -> cellData.getValue().getFamilienaamProperty());
 		contactpersoonEmailadresKolom.setCellValueFactory(cellData -> cellData.getValue().getEmailadresProperty());
@@ -165,11 +166,6 @@ public class TransportdienstenController extends Pane {
 		spinnerLengteBarcode.setValueFactory(factory);
 		cbVerificatie.getItems().add("Orderid");
 		cbVerificatie.getItems().add("Postcode");
-
-	}
-
-	private void buildGuiAanpasTab() {
-		// TODO Auto-generated method stub
 
 	}
 
