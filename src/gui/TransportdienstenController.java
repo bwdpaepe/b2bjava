@@ -13,6 +13,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -39,6 +41,15 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	private TableColumn<TransportdienstDTO, Boolean> transportdienstStatusKolom;
+
+	@FXML
+	private TabPane tabPane;
+
+	@FXML
+	private Tab raadpleegTab;
+
+	@FXML
+	private Tab toevoegTab;
 
 	@FXML
 	private TableView<ContactpersoonDTO> tvContactpersonen;
@@ -78,7 +89,7 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	private Button btnToevoegen;
-	
+
 	@FXML
 	private Button btnUpdateTransportdienst;
 
@@ -147,6 +158,7 @@ public class TransportdienstenController extends Pane {
 					this.selectedTransportdienstDTO = row.getItem();
 					// TODO methode toevoegen om deze in de raadpleeg of aanpas tab te zetten
 					buildGuiRaadpleegTab();
+					tabPane.getSelectionModel().select(raadpleegTab);
 
 				}
 			});
@@ -168,9 +180,9 @@ public class TransportdienstenController extends Pane {
 				.setCellValueFactory(cellData -> cellData.getValue().getTelefoonnummerProperty());
 
 		this.tvContactpersonen.setItems(contactpersonen);
-		
+
 		btnAbortUpdate.setVisible(false);
-    	btnSaveTransportdienst.setVisible(false);
+		btnSaveTransportdienst.setVisible(false);
 	}
 
 	private void buildGuiToevoegTab() {
@@ -212,7 +224,6 @@ public class TransportdienstenController extends Pane {
 					bedrijfsId);
 
 		} catch (IllegalArgumentException e) {
-			// TODO degelijk errorbericht aanmaken
 			melding.setAlertType(AlertType.ERROR);
 			melding.setContentText(e.getMessage());
 			melding.show();
@@ -221,24 +232,23 @@ public class TransportdienstenController extends Pane {
 		transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
 		tvTransportdiensten.setItems(transportdiensten);
 	}
-	
-	
+
 	@FXML
-    void abortUpdateTransportdienst(ActionEvent event) {
+	void abortUpdateTransportdienst(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void saveTransportdienst(ActionEvent event) {
+	@FXML
+	void saveTransportdienst(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void updateTransportdienst(ActionEvent event) {
+	@FXML
+	void updateTransportdienst(ActionEvent event) {
 
-    	btnAbortUpdate.setVisible(true);
-    	btnSaveTransportdienst.setVisible(true);
-    	
-    }
+		btnAbortUpdate.setVisible(true);
+		btnSaveTransportdienst.setVisible(true);
+
+	}
 
 }
