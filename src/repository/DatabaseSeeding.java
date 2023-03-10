@@ -78,13 +78,13 @@ public class DatabaseSeeding
 			
 
 			// Bestellingen
-			domeinController.maakBestelling("ORder1", "VErweRkT", new Date(2022, 10, 10), 1, 2, 1);
-			domeinController.maakBestelling("ORder2", "geplaatst", new Date(2021, 10, 10), 1, 3, 1);
-			domeinController.maakBestelling("ORder3", "GEPLAATST", new Date(2020, 10, 10), 1, 2, 1);
-			domeinController.maakBestelling("ORder4", "verwerkt", new Date(2023, 10, 10), 1, 3, 1);
-			domeinController.maakBestelling("ORder5", "GEPLAATST", new Date(2018, 5, 12), 1, 2, 1);
-			domeinController.maakBestelling("ORder6", "VErweRkT", new Date(2018, 5, 12), 1, 5, 1);
-			domeinController.maakBestelling("ORder6", "geplaatst", new Date(2018, 5, 12), 2, 4, 1);
+			domeinController.maakBestelling("ORder1", "VErweRkT", new Date(), 1, 2, 1);
+			domeinController.maakBestelling("ORder2", "geplaatst", new Date(), 1, 3, 1);
+			domeinController.maakBestelling("ORder3", "GEPLAATST", new Date(), 1, 2, 1);
+			domeinController.maakBestelling("ORder4", "verwerkt", new Date(), 1, 3, 1);
+			domeinController.maakBestelling("ORder5", "GEPLAATST", new Date(), 1, 2, 1);
+			domeinController.maakBestelling("ORder6", "VErweRkT", new Date(), 1, 5, 1);
+			domeinController.maakBestelling("ORder6", "geplaatst", new Date(), 2, 4, 1);
 
 			List<BestellingDTO> bestellingen = domeinController.getBestellingen();
 			for (BestellingDTO bestellingDTO : bestellingen)

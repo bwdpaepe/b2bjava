@@ -1,5 +1,6 @@
 package gui;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,11 +28,11 @@ public class BestellingenController extends Pane {
 	@FXML 
 	TableColumn<BestellingDTO, String> statusColumn;
 	@FXML 
-	TableColumn<BestellingDTO, Number> klantColumn;
+	TableColumn<BestellingDTO, String> klantColumn;
 	@FXML 
-	TableColumn<BestellingDTO, Number> transportdienstColumn;
+	TableColumn<BestellingDTO, String> transportdienstColumn;
 	@FXML 
-	TableColumn<BestellingDTO, Date> datumColumn;
+	TableColumn<BestellingDTO, String> datumColumn;
 	
 
 	
@@ -44,12 +45,11 @@ public class BestellingenController extends Pane {
 	public void loadBestellingen() {
 		System.out.println("Bestellingen");
 		ObservableList<BestellingDTO> bestellingList = FXCollections.observableList(dc.getBestellingen());
-		System.out.print("lijst" + bestellingList);
 		orderColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderID()));
 		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
-		klantColumn.setCellValueFactory(cellData -> new SimpleLongProperty(cellData.getValue().getKlant()));
-		transportdienstColumn.setCellValueFactory(cellData -> new SimpleLongProperty(cellData.getValue().getTransportdienst()));
-		datumColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<Date>(cellData.getValue().getDatumGeplaatst()));
+		klantColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKlantNaam()));
+		transportdienstColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTransportdienstNaam()));
+		datumColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateFormat.getDateInstance().format(cellData.getValue().getDatumGeplaatst())));
 		tvBestellingen.setItems(bestellingList);
 
 		

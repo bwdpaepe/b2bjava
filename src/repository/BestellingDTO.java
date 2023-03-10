@@ -13,6 +13,8 @@ public class BestellingDTO {
 	protected final long leverancierID;
 	protected final long klantID;
 	protected final long transportdienstID;
+	protected final String transportdienstNaam;
+	protected final String klantNaam;
 	public BestellingDTO(Bestelling bestelling) {
 
 		this.id = bestelling.getId();
@@ -20,8 +22,10 @@ public class BestellingDTO {
 		this.datumGeplaatst = bestelling.getDatumGeplaatst();
 		this.status = bestelling.getStatus();
 		this.leverancierID = bestelling.getLeverancier().getID();
-		this.klantID = bestelling.getKlant().getID();
+		this.klantNaam = bestelling.getKlant().getNaam();
+		this.transportdienstNaam = bestelling.getTransportdienst().getNaam();
 		this.transportdienstID = bestelling.getTransportdienst().getId();
+		this.klantID = bestelling.getKlant().getID();
 	}
 	public long getId() {
 		return id;
@@ -35,14 +39,21 @@ public class BestellingDTO {
 	public String getStatus() {
 		return status;
 	}
-	public long getLeverancier() {
+	
+	public long getLeverancierID() {
 		return leverancierID;
 	}
-	public long getKlant() {
+	public long getKlantID() {
 		return klantID;
 	}
-	public long getTransportdienst() {
+	public long getTransportdienstID() {
 		return transportdienstID;
+	}
+	public String getTransportdienstNaam() {
+		return transportdienstNaam;
+	}
+	public String getKlantNaam() {
+		return klantNaam;
 	}
 	@Override
 	public String toString() {
