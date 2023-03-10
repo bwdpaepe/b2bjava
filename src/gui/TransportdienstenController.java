@@ -78,6 +78,15 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	private Button btnToevoegen;
+	
+	@FXML
+	private Button btnUpdateTransportdienst;
+
+	@FXML
+	private Button btnSaveTransportdienst;
+
+	@FXML
+	private Button btnAbortUpdate;
 
 	@FXML
 	private TextField txtNaamTransportdienst;
@@ -159,6 +168,9 @@ public class TransportdienstenController extends Pane {
 				.setCellValueFactory(cellData -> cellData.getValue().getTelefoonnummerProperty());
 
 		this.tvContactpersonen.setItems(contactpersonen);
+		
+		btnAbortUpdate.setVisible(false);
+    	btnSaveTransportdienst.setVisible(false);
 	}
 
 	private void buildGuiToevoegTab() {
@@ -209,5 +221,24 @@ public class TransportdienstenController extends Pane {
 		transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
 		tvTransportdiensten.setItems(transportdiensten);
 	}
+	
+	
+	@FXML
+    void abortUpdateTransportdienst(ActionEvent event) {
+
+    }
+
+    @FXML
+    void saveTransportdienst(ActionEvent event) {
+
+    }
+
+    @FXML
+    void updateTransportdienst(ActionEvent event) {
+
+    	btnAbortUpdate.setVisible(true);
+    	btnSaveTransportdienst.setVisible(true);
+    	
+    }
 
 }
