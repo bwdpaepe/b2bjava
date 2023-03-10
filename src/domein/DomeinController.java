@@ -30,11 +30,11 @@ public class DomeinController {
 		setBedrijfService(new BedrijfService());
 		setBestellingService(new BestellingService());
 	}
-	
+
 	public DomeinController(Boolean doSeeding) {
 
 		super();
-		if(doSeeding) {
+		if (doSeeding) {
 			DatabaseSeeding.startDatabaseSeed(new DomeinController());
 		}
 	}
@@ -89,11 +89,15 @@ public class DomeinController {
 //	public List<Transportdienst> getTransportdiensten() {
 //		return dienstService.getTransportdiensten();
 //	}
-	//Zelfde methode als hierboven maar geeft DTO objecten
-	public List<TransportdienstDTO> getTransportdienstenDTO(){
-		List<Transportdienst> tdList =  dienstService.getTransportdiensten(ingelogdeUser.getBedrijf().getId());
+	// Zelfde methode als hierboven maar geeft DTO objecten
+	public List<TransportdienstDTO> getTransportdienstenDTO() {
+		//TODO eens aanmelden gelinkt is moet dit weg
+		UserDTO user = userService.aanmelden("emailail1@test.com", "paswoord");
+		setIngelogdeUser(user);
+		
+		List<Transportdienst> tdList = dienstService.getTransportdiensten(ingelogdeUser.getBedrijf().getId());
 		List<TransportdienstDTO> tdListDTO = new ArrayList<>();
-		for(Transportdienst td : tdList) {
+		for (Transportdienst td : tdList) {
 			TransportdienstDTO tdDTO = new TransportdienstDTO(td);
 			tdListDTO.add(tdDTO);
 		}
@@ -101,8 +105,8 @@ public class DomeinController {
 	}
 
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
-			String verificatiecode, String contactVoornaam, String contactFamilienaam,
-			String contactTelefoon, String contactEmailadres, int bedrijfsId) {
+			String verificatiecode, String contactVoornaam, String contactFamilienaam, String contactTelefoon,
+			String contactEmailadres, int bedrijfsId) {
 		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
 		dienstService.maakTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode,
 				contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres, bedrijf);
@@ -111,27 +115,27 @@ public class DomeinController {
 	public void wijzigActivatieDienst(long dienstId, boolean isActief) {
 		dienstService.wijzigActivatieDienst(dienstId, isActief);
 	}
-	
-	public void addContactpersoon(String contactVoornaam, String contactFamilienaam,
-			String contactTelefoon, String contactEmailadres, long transportdienstId) {
-		dienstService.addContactpersoon(contactVoornaam, contactFamilienaam,
-				contactTelefoon, contactEmailadres, transportdienstId);
+
+	public void addContactpersoon(String contactVoornaam, String contactFamilienaam, String contactTelefoon,
+			String contactEmailadres, long transportdienstId) {
+		dienstService.addContactpersoon(contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres,
+				transportdienstId);
 	}
-	
-	public void editContactpersoon(String contactVoornaam, String contactFamilienaam,
-			String contactTelefoon, String contactEmailadres, long contactpersoonId, long transportdienstId) {
-		dienstService.editContactpersoon( contactVoornaam, contactFamilienaam,
-				contactTelefoon, contactEmailadres, contactpersoonId, transportdienstId);
+
+	public void editContactpersoon(String contactVoornaam, String contactFamilienaam, String contactTelefoon,
+			String contactEmailadres, long contactpersoonId, long transportdienstId) {
+		dienstService.editContactpersoon(contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres,
+				contactpersoonId, transportdienstId);
 	}
-	
+
 	public void removeContactpersoon(long contactpersoonId, long transportdienstId) {
-		dienstService.removeContactpersoon( contactpersoonId, transportdienstId);
+		dienstService.removeContactpersoon(contactpersoonId, transportdienstId);
 	}
-	
-	public void updateTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
-			String verificatiecode, long transportdienstId) {
-		dienstService.updateTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
-				verificatiecode, transportdienstId);
+
+	public void updateTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers,
+			String barcodePrefix, String verificatiecode, long transportdienstId) {
+		dienstService.updateTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode,
+				transportdienstId);
 	}
 
 	// BEDRIJF OPERATIONS
@@ -145,29 +149,31 @@ public class DomeinController {
 	private final void setBedrijfService(BedrijfService bedrijfService) {
 		this.bedrijfService = bedrijfService;
 	}
-	
+
 	public final List<KlantLijstEntryDTO> geefLijstVanKlantenMetAantalOpenstaandeBestellingen() {
 		return bedrijfService.getListOfClientNamesWithNumberOfOpenOrders(ingelogdeUser.getBedrijf().getId());
 	}
-	
-	//BESTELLING OPERATIONS
+
+	// BESTELLING OPERATIONS
 	// --------------------------------------------------------------------------------------------------------------------------------------------------
-	
+
 	public void setBestellingService(BestellingService bs) {
 		this.bestellingService = bs;
 	}
-	
-	public void maakBestelling(String OrderId, String status, Date datum, long leverancierID, long klantID, long transportdienstID) {
+
+	public void maakBestelling(String OrderId, String status, Date datum, long leverancierID, long klantID,
+			long transportdienstID) {
 		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID);
 	}
-	
-	//dit moet nog gefixed worden om enkel de bestellingen te krijgen van het bedrijf van de aanvrager
-	public List<BestellingDTO> getBestellingen(){
+
+	// dit moet nog gefixed worden om enkel de bestellingen te krijgen van het
+	// bedrijf van de aanvrager
+	public List<BestellingDTO> getBestellingen() {
 		List<Bestelling> bestellingen = bestellingService.getBestellingen(ingelogdeUser.getBedrijf().getId());
 		List<BestellingDTO> bestellingenDTO = bestellingen.stream().map(b -> new BestellingDTO(b)).toList();
-		
-		return Collections.unmodifiableList(bestellingenDTO);		
-		
+
+		return Collections.unmodifiableList(bestellingenDTO);
+
 	}
 
 	// GLOBAL OPERATIONS
