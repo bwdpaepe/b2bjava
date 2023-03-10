@@ -1,6 +1,17 @@
 
+.containerAnchor{
+    -fx-min-width: 1920px;
+    -fx-min-height: 915px;
+    -fx-max-width: 1920px;
+    -fx-max-height: 915px;
+}
+
 .table-view {
 	-fx-border-color: #000000;
+	-fx-translate-x: 18px;
+    -fx-translate-y: 12px;
+    -fx-pref-width: 769px;
+    -fx-pref-height: 892px;
 }
 
 .table-view  .column-header {
@@ -18,10 +29,23 @@
     -fx-alignment: bottom-left ;
     -fx-font: 15pt 'Inter', sans-serif;
     -fx-font-weight: bolder;
-    -fx-padding: 5px;
+    -fx-padding: 1px 4px; 
+} 
+
+.table-view .table-cell {
+    -fx-alignment: center-left;
+    -fx-padding: 1px 4px;
 }
 
-.table-view .search-field {
+.search-field {
 	-fx-background-color: #FFFFFF;
 	-fx-border-color: #000000;
+	-fx-translate-x: 24px;
+    -fx-translate-y: 18px;
+    -fx-pref-width: 300px;
+    -fx-pref-height: 25px; 
+}
+
+#tvKlantenLijst .column-header, #tvKlantenLijst .column-header-background {
+    -fx-pref-width: 385px; 
 }

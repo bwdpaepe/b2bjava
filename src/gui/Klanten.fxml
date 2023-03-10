@@ -5,19 +5,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="apKlantenScherm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="915.0" prefWidth="1920.0" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KlantenController">
+<AnchorPane fx:id="apKlantenScherm" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KlantenController">
    <children>
       <AnchorPane layoutX="805.0" layoutY="12.0" prefHeight="892.0" prefWidth="1099.0" style="-fx-background-color: grey;">
          <children>
             <TextField layoutX="479.0" layoutY="434.0" prefHeight="25.0" prefWidth="201.0" style="-fx-alignment: center;" text="Just a placeholder for UC6" />
          </children>
       </AnchorPane>
-      <TableView fx:id="tvKlantenLijst" layoutX="18.0" layoutY="12.0" prefHeight="892.0" prefWidth="769.0" styleClass="tableView">
+      <TableView fx:id="tvKlantenLijst">
         <columns>
-          <TableColumn prefWidth="368.0" text="Naam" />
-          <TableColumn minWidth="8.0" prefWidth="400.0" text="Aantal open bestellingen" />
+          <TableColumn text="Naam" />
+          <TableColumn text="Aantal open bestellingen" />
         </columns>
       </TableView>
-      <TextField fx:id="tfKlantZoeken" layoutX="24.0" layoutY="18.0" prefHeight="25.0" prefWidth="201.0" promptText="Zoeken..." styleClass="search-field" />
+      <TextField fx:id="tfKlantZoeken" promptText="Zoeken..." styleClass="search-field" />
    </children>
 </AnchorPane>
