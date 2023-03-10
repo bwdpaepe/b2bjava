@@ -8,14 +8,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 public class MasterController extends Pane {
 	
 
 	private DomeinController dc;
 
-	@FXML
-	private BorderPane bp;
+	@FXML private BorderPane bp;	
+	@FXML private Text titlePlaceholder;
 	
 	
 	
@@ -33,6 +34,7 @@ public class MasterController extends Pane {
 	public void loadTransportdienst() {
 		Parent root = null;
 		try {
+			titlePlaceholder.setText("Transportdiensten");
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Transportdiensten.fxml"));
 			root = loader.load();
 			TransportdienstenController tc = loader.getController();
@@ -56,6 +58,7 @@ public class MasterController extends Pane {
 	public void loadKlanten() {
 		Parent root = null;
 		try {
+			titlePlaceholder.setText("Klanten");
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Klanten.fxml"));
 			root = loader.load();
 			KlantenController kc = loader.getController();
@@ -75,6 +78,7 @@ public class MasterController extends Pane {
 	public void loadBestellingen() {
 		Parent root = null;
 		try {
+			titlePlaceholder.setText("Bestellingen");
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Bestellingen.fxml"));
 			root = loader.load();
 			BestellingenController bc = loader.getController();
