@@ -1,0 +1,28 @@
+
+.tableView {
+	-fx-border-color: #000000;
+}
+
+.tableView  .column-header {
+    -fx-background-color: #EC4842;
+    -fx-color: #FFFFFF;
+    -fx-pref-height: 62px;
+}
+
+.tableView .odd-row{
+	-fx-background-color: #F0F2F3;
+}
+
+.tableView .column-header > .label {
+    -fx-text-fill: white;
+    -fx-alignment: bottom-left ;
+    -fx-font: Inter;
+    -fx-font-size: 15;
+    -fx-font-weight: bolder;
+    -fx-padding: 5px;
+}
+
+.tableView .search-field {
+	-fx-background-color: #FFFFFF;
+	-fx-border-color: #000000;
+}

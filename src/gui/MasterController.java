@@ -64,15 +64,9 @@ public class MasterController extends Pane {
 			KlantenController kc = loader.getController();
 			kc.setParams(dc);
 			bp.setCenter(root);
-
-			
-
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
-		
-
 	}
 	
 	public void loadBestellingen() {
