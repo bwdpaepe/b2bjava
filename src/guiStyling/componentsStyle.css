@@ -6,12 +6,25 @@
     -fx-max-height: 915px;
 }
 
-.table-view {
-	-fx-border-color: #000000;
+.leftComponent {
 	-fx-translate-x: 18px;
     -fx-translate-y: 12px;
     -fx-pref-width: 769px;
     -fx-pref-height: 892px;
+    -fx-border-color: #000000;
+}
+
+.rightComponent {
+	-fx-translate-x: 805px;
+    -fx-translate-y: 12px;
+    -fx-pref-width: 1099px;
+    -fx-pref-height: 892px;
+    -fx-border-color: #000000;
+}
+
+/** Class selector voor de volledige table-view  */
+.table-view {
+	
 }
 
 .table-view  .column-header {

@@ -7,12 +7,12 @@
 
 <AnchorPane fx:id="apKlantenScherm" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KlantenController">
    <children>
-      <AnchorPane layoutX="805.0" layoutY="12.0" prefHeight="892.0" prefWidth="1099.0" style="-fx-background-color: grey;">
+      <AnchorPane style="-fx-background-color: grey;" styleClass="rightComponent">
          <children>
             <TextField layoutX="479.0" layoutY="434.0" prefHeight="25.0" prefWidth="201.0" style="-fx-alignment: center;" text="Just a placeholder for UC6" />
          </children>
       </AnchorPane>
-      <TableView fx:id="tvKlantenLijst">
+      <TableView fx:id="tvKlantenLijst" styleClass="leftComponent">
         <columns>
           <TableColumn text="Naam" />
           <TableColumn text="Aantal open bestellingen" />
