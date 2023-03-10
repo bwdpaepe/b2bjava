@@ -75,7 +75,11 @@ public class TransportdienstenController extends Pane {
 	}
 
 	private void buildGui() {
+		buidGuiTableViewTransportdiensten();
 
+	}
+
+	private void buidGuiTableViewTransportdiensten() {
 		transportdienstNaamKolom.setCellValueFactory(cellData -> cellData.getValue().getNaamProperty());
 		transportdienstStatusKolom.setCellValueFactory(cellData -> cellData.getValue().getIsActiefProperty());
 		tvTransportdiensten.setItems(transportdiensten);
@@ -101,7 +105,7 @@ public class TransportdienstenController extends Pane {
 		lblBarcodeLengte.setText(String.valueOf(selectedTransportdienstDTO.getBarcodeLengte()));
 		lblPrefix.setText(selectedTransportdienstDTO.getBarcodePrefix());
 		lblVerificatiecode.setText(selectedTransportdienstDTO.getVerificatieCodeString());
-		// lblBarcodeEnkelCijfers.setText(selectedTransportdienstDTO.get);
+		lblBarcodeEnkelCijfers.setText(String.valueOf(selectedTransportdienstDTO.isBarcodeEnkelCijfers()));
 		lblStatus.setText(String.valueOf(selectedTransportdienstDTO.getIsActief()));
 		contactpersoonVoornaamKolom.setCellValueFactory(cellData -> cellData.getValue().getVoornaamProperty());
 		contactpersoonFamilienaamKolom.setCellValueFactory(cellData -> cellData.getValue().getFamilienaamProperty());
