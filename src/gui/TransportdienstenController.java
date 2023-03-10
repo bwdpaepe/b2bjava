@@ -19,6 +19,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import repository.ContactpersoonDTO;
 import repository.TransportdienstDTO;
+import service.ValidationService;
 
 public class TransportdienstenController extends Pane {
 
@@ -68,6 +69,7 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	private Label lblStatus;
+
 	@FXML
 	private Button btnToevoegen;
 
@@ -163,7 +165,41 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	void addTransportdienst(ActionEvent event) {
+		try {
+			String naamTransportdienst = txtNaamTransportdienst.getText();
+			int barcodeLengte = spinnerLengteBarcode.getValue();
+			boolean isBarcodeEnkelCijfers = cbCijfers.isSelected();
+			String barcodePrefix = txtPrefix.getText();
+			String verificatiecode = (String) cbVerificatie.getValue();
+			String contactVoornaam = txtVoornaam.getText();
+			String contactFamilienaam = txtFamilienaam.getText();
+			String contactTelefoon = txtTelefoonnummer.getText();
+			String contactEmailadres = txtEmailadres.getText();
 
+			// TODO implementeren bedrijfsId
+			int bedrijfsId = 1;
+
+			// Validatie input formulier
+			ValidationService.controleerNietBlanco(naamTransportdienst);
+			ValidationService.controleerGroterDanNul(barcodeLengte);
+			ValidationService.controleerNietBlanco(barcodePrefix);
+			ValidationService.controleerNietBlanco(contactVoornaam);
+			ValidationService.controleerNietBlanco(contactFamilienaam);
+			ValidationService.controleerTelefoonnummer(contactTelefoon);
+			ValidationService.controleerEmail(contactEmailadres);
+
+			// Aanmaken van een transportdienst
+			dc.maakTransportdienst(naamTransportdienst, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
+					verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres,
+					bedrijfsId);
+			
+		} catch (IllegalArgumentException e) {
+			// TODO degelijk errorbericht aanmaken
+			System.out.println(e);
+		}
+		
+		transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
+		tvTransportdiensten.setItems(transportdiensten);
 	}
 
 }
