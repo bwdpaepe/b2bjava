@@ -4,6 +4,7 @@ import domein.DomeinController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -43,12 +44,26 @@ public class TransportdienstenController extends Pane {
 	@FXML
 	private TableColumn<ContactpersoonDTO, String> contactpersoonTelefoonnummerKolom;
 
+	@FXML
+	private Label lblNaam;
+
+	@FXML
+	private Label lblPrefix;
+
+	@FXML
+	private Label lblBarcodeLengte;
+
+	@FXML
+	private Label lblBarcodeEnkelCijfers;
+
+	@FXML
+	private Label lblVerificatiecode;
+
+	@FXML
+	private Label lblStatus;
+
 	public TransportdienstenController() {
 
-	}
-
-	public void buttonOne() {
-		System.out.println("Transportdiensten");
 	}
 
 	public void setParams(DomeinController dc) {
@@ -64,7 +79,7 @@ public class TransportdienstenController extends Pane {
 		transportdienstNaamKolom.setCellValueFactory(cellData -> cellData.getValue().getNaamProperty());
 		transportdienstStatusKolom.setCellValueFactory(cellData -> cellData.getValue().getIsActiefProperty());
 		tvTransportdiensten.setItems(transportdiensten);
-		populateContactperonen();
+		buildGuiRaadpleegTab();
 
 		tvTransportdiensten.setRowFactory(tv -> {
 			TableRow<TransportdienstDTO> row = new TableRow<>();
@@ -73,7 +88,7 @@ public class TransportdienstenController extends Pane {
 
 					this.selectedTransportdienstDTO = row.getItem();
 					// TODO methode toevoegen om deze in de raadpleeg of aanpas tab te zetten
-					populateContactperonen();
+					buildGuiRaadpleegTab();
 
 				}
 			});
@@ -81,7 +96,13 @@ public class TransportdienstenController extends Pane {
 		});
 	}
 
-	private void populateContactperonen() {
+	private void buildGuiRaadpleegTab() {
+		lblNaam.setText(selectedTransportdienstDTO.getNaam());
+		lblBarcodeLengte.setText(String.valueOf(selectedTransportdienstDTO.getBarcodeLengte()));
+		lblPrefix.setText(selectedTransportdienstDTO.getBarcodePrefix());
+		lblVerificatiecode.setText(selectedTransportdienstDTO.getVerificatieCodeString());
+		// lblBarcodeEnkelCijfers.setText(selectedTransportdienstDTO.get);
+		lblStatus.setText(String.valueOf(selectedTransportdienstDTO.getIsActief()));
 		contactpersoonVoornaamKolom.setCellValueFactory(cellData -> cellData.getValue().getVoornaamProperty());
 		contactpersoonFamilienaamKolom.setCellValueFactory(cellData -> cellData.getValue().getFamilienaamProperty());
 		contactpersoonEmailadresKolom.setCellValueFactory(cellData -> cellData.getValue().getEmailadresProperty());

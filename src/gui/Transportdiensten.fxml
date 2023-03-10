@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -19,7 +20,7 @@
       </TableView>
       <TabPane layoutX="364.0" layoutY="31.0" prefHeight="701.0" prefWidth="1514.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Raadpleeg">
+          <Tab closable="false" text="Raadpleeg">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -34,11 +35,23 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
+                        <Label layoutX="29.0" layoutY="14.0" text="Naam:" />
+                        <Label layoutX="29.0" layoutY="58.0" text="Barcode lengte:" />
+                        <Label layoutX="29.0" layoutY="197.0" text="Is barcode enkel cijfers:" />
+                        <Label layoutX="29.0" layoutY="253.0" text="Status voor levering:" />
+                        <Label layoutX="30.0" layoutY="160.0" text="Verificatiecode:" />
+                        <Label layoutX="31.0" layoutY="110.0" text="Prefix:" />
+                        <Label fx:id="lblNaam" layoutX="77.0" layoutY="14.0" prefHeight="17.0" prefWidth="126.0" />
+                        <Label fx:id="lblPrefix" layoutX="74.0" layoutY="110.0" prefHeight="17.0" prefWidth="126.0" />
+                        <Label fx:id="lblBarcodeLengte" layoutX="119.0" layoutY="58.0" prefHeight="17.0" prefWidth="126.0" />
+                        <Label fx:id="lblBarcodeEnkelCijfers" layoutX="158.0" layoutY="197.0" prefHeight="17.0" prefWidth="126.0" />
+                        <Label fx:id="lblVerificatiecode" layoutX="119.0" layoutY="160.0" prefHeight="17.0" prefWidth="126.0" />
+                        <Label fx:id="lblStatus" layoutX="152.0" layoutY="253.0" prefHeight="17.0" prefWidth="126.0" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Toevoegen">
+          <Tab closable="false" text="Toevoegen">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
