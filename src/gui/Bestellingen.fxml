@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BestellingenController">
+<AnchorPane fx:id="apBestellingen" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BestellingenController">
    <children>
-      <Button layoutY="1.0" mnemonicParsing="false" onMouseClicked="#buttonTwo" text="Bestellingen" />
+      <AnchorPane style="-fx-background-color: grey;" styleClass="rightComponent">
+         <children>
+            <TextField layoutX="479.0" layoutY="434.0" prefHeight="25.0" prefWidth="201.0" style="-fx-alignment: center;" text="Just a placeholder for UC8" />
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tvBestellingen" styleClass="leftComponent">
+        <columns>
+          <TableColumn fx:id="orderColumn" prefWidth="110.0" resizable="false" text="OrderID" />
+          <TableColumn fx:id="statusColumn" prefWidth="86.0" resizable="false" text="Status" />
+          <TableColumn fx:id="datumColumn" prefWidth="144.66668701171875" resizable="false" text="Datum" />
+          <TableColumn fx:id="klantColumn" prefWidth="184.6666259765625" resizable="false" text="Klant" />
+          <TableColumn fx:id="transportdienstColumn" prefWidth="242.66668701171875" resizable="false" text="Transportdienst" />
+        </columns>
+      </TableView>
+      <TextField fx:id="tfBestellingZoeken" promptText="Zoeken..." styleClass="search-field" />
    </children>
 </AnchorPane>

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class StartupGUI extends Application {
 
-	private DomeinController dc = new DomeinController();
+	private DomeinController dc;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -41,6 +41,6 @@ public class StartupGUI extends Application {
 	}
 
 	private void run() {	
-		new DomeinController(true); // boolean om al dan niet database te seeden
+		dc = new DomeinController(true); // boolean om al dan niet database te seeden
 	}
 }
