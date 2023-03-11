@@ -393,6 +393,13 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	void verwijderenContactpersoon(ActionEvent event) {
+		int rij = tvContactpersonen.getSelectionModel().getSelectedIndex();
+		ContactpersoonDTO c = tvContactpersonen.getItems().get(rij);
+		dc.removeContactpersoon(c.getId(), selectedTransportdienstDTO.getId());
+		this.selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
+		tvContactpersonen
+				.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
+		
 
 	}
 
