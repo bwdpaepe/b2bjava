@@ -108,8 +108,8 @@
 .table-row-cell:filled{
 	-fx-background-color: white;
 	-fx-font: 12pt 'Inter', sans-serif;
-	-fx-border-color: black;
-	-fx-border-width: 0 0 1 0;
+
+	-fx-border-width: 0 0 0 0;
 }
 
 
