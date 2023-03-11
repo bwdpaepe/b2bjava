@@ -46,11 +46,11 @@ public class DatabaseSeeding
 			domeinController.updateMedewerker(3, "magazijnier");
 
 			// transportdienst
-			domeinController.maakTransportdienst("TD1", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("Post NL", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.fr", 1);
-			domeinController.maakTransportdienst("TD2", 2, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("DHL", 2, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.hk", 3);
-			domeinController.maakTransportdienst("TD3", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("GLS", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.uk", 2);
 			// get transportdiensten van actueel ingelogde gebruiker:
 			System.out.println("********************************************");
@@ -71,7 +71,7 @@ public class DatabaseSeeding
 			domeinController.removeContactpersoon(1, 1);
 			tdDTO = domeinController.getTransportdienst(1);
 			System.out.println(tdDTO);
-			domeinController.updateTransportdienst("TD2_updated", 6, false, "7", "ORDERID", 1);
+			domeinController.updateTransportdienst("Post BE", 6, false, "7", "ORDERID", 1);
 			tdDTO = domeinController.getTransportdienst(1);
 			System.out.println(tdDTO);
 			
@@ -79,12 +79,12 @@ public class DatabaseSeeding
 
 			// Bestellingen
 			domeinController.maakBestelling("ORder1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("ORder2", "geplaatst", new Date(), 1, 3, 1);
-			domeinController.maakBestelling("ORder3", "GEPLAATST", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("ORder4", "verwerkt", new Date(), 1, 3, 1);
-			domeinController.maakBestelling("ORder5", "GEPLAATST", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("ORder6", "VErweRkT", new Date(), 1, 5, 1);
-			domeinController.maakBestelling("ORder6", "geplaatst", new Date(), 2, 4, 1);
+			domeinController.maakBestelling("ORder2", "geplaatst", new Date(), 1, 3, 2);
+			domeinController.maakBestelling("ORder3", "GEPLAATST", new Date(), 1, 2, 3);
+			domeinController.maakBestelling("ORder4", "verwerkt", new Date(), 2, 3, 2);
+			domeinController.maakBestelling("ORder5", "GEPLAATST", new Date(), 2, 2, 1);
+			domeinController.maakBestelling("ORder6", "VErweRkT", new Date(), 2, 5, 3);
+			domeinController.maakBestelling("ORder7", "geplaatst", new Date(), 3, 4, 1);
 
 			List<BestellingDTO> bestellingen = domeinController.getBestellingen();
 			for (BestellingDTO bestellingDTO : bestellingen)
