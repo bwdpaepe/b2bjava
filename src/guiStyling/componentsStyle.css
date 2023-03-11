@@ -57,12 +57,43 @@
 
 .table-view .scroll-bar:vertical {
     -fx-background-color: #FFB0B0;
+    
+}
+
+.table-view .scroll-bar:vertical .increment-button, .table-view .scroll-bar:vertical .decrement-button {
+   -fx-background-color: null;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+}
+
+.table-view .scroll-bar:vertical .increment-arrow,
+.table-view .scroll-bar:vertical .decrement-arrow {
+  -fx-background-color: null;
+  -fx-shape: null;
 }
 
 .table-view .scroll-bar:vertical .thumb {
     -fx-background-color: #EC4842;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 5px;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+  -fx-background-color: null;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow,
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+  -fx-background-color: null;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+  -fx-shape: null;
 }
 
 
@@ -86,19 +117,22 @@
 	-fx-background-color: #EC4842;
 	-fx-border-color: white;
 	-fx-border-width: 0 0 1 0;
-	-fx-textcolor: white;
+
 }
 
 .table-row-cell:filled:hover .table-cell{
 	-fx-text-fill: white;
 }
 
+.table-row-cell:filled:selected .table-cell{
+	-fx-text-fill: white;
+}
 
 .table-row-cell:selected{
 	-fx-table-cell-border-color: transparent;
 	-fx-background-color: #EC4842;
-	-fx-text-fill: green;
-	-fx-border-width: 0 0 1 0;
+	-fx-border-color: white;
+	-fx-border-width: 1 0 1 0;
 }
 
 #tvKlantenLijst .column-header, #tvKlantenLijst .column-header-background, #tvKlantenLijst .table-cell {
