@@ -47,6 +47,9 @@ public class Bedrijf implements Serializable
 
 	@OneToMany(mappedBy = "leverancier")
 	private List<Bestelling> incomingOrders;
+	
+	@OneToMany(mappedBy ="bedrijf")
+	private List<Doos> dozen;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

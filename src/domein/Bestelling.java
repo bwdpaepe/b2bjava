@@ -26,6 +26,12 @@ public class Bestelling {
 	private String orderID;
 	private Date datumGeplaatst;
 	private BestellingStatus status;
+	private String klantNaam;
+	
+	private String leveradresStraat;
+	private String leveradresNummer;
+	private String leveradresPostcode;
+	private String leveradresLand;
 
 	// RELATIES
 
@@ -41,17 +47,36 @@ public class Bestelling {
 	@JoinColumn(name = "Transportdienst", nullable = true)
 	private Transportdienst transportdienst;
 	
+	@ManyToOne
+	@JoinColumn(name = "Medewerker", nullable = false)
+	private Medewerker aankoper;
+	
 	protected Bestelling() {
 		
 	};
 	
-	public Bestelling(String orderID, Date datum_geplaatst,  String statusString, Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst) {
+	public Bestelling(String orderID, Date datum_geplaatst,  String statusString, 
+			Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst, Medewerker aankoper,
+			String leveradresStraat, String leveradresNummer, String leveradresPostcode, String leveradresLand) {
 		setOrderID(orderID);
 		setDatumGeplaatst(datum_geplaatst);
 		setLeverancier(leverancier);
 		setKlant(klant);
 		setTransportdienst(transportdienst);
 		setStatus(statusString);
+		setLeveradresLand(leveradresLand);
+		setLeveradresStraat(leveradresStraat);
+		setLeveradresNummer(leveradresNummer);
+		setLeveradresPostcode(leveradresPostcode);
+		
+	}
+
+	public Medewerker getAankoper() {
+		return aankoper;
+	}
+
+	public void setAankoper(Medewerker aankoper) {
+		this.aankoper = aankoper;
 	}
 
 	public long getId() {
@@ -120,6 +145,53 @@ public class Bestelling {
 		this.transportdienst = transportdienst;
 	}
 
+	public String getKlantNaam() {
+		return klantNaam;
+	}
+
+	public void setKlantNaam(String klantNaam) {
+		ValidationService.controleerNietBlanco(klantNaam);
+		this.klantNaam = klantNaam;
+	}
+
+
+	public String getLeveradresStraat() {
+		return leveradresStraat;
+	}
+
+	public void setLeveradresStraat(String leveradresStraat) {
+		ValidationService.controleerNietBlanco(leveradresStraat);
+		this.leveradresStraat = leveradresStraat;
+	}
+
+	public String getLeveradresNummer() {
+		return leveradresNummer;
+	}
+
+	public void setLeveradresNummer(String leveradresNummer) {
+		ValidationService.controleerNietBlanco(leveradresNummer);
+		this.leveradresNummer = leveradresNummer;
+	}
+
+	public String getLeveradresPostcode() {
+		return leveradresPostcode;
+	}
+
+	public void setLeveradresPostcode(String leveradresPostcode) {
+		ValidationService.controleerNietBlanco(leveradresPostcode);
+		this.leveradresPostcode = leveradresPostcode;
+	}
+
+	public String getLeveradresLand() {
+		return leveradresLand;
+	}
+
+	public void setLeveradresLand(String leveradresLand) {
+		ValidationService.controleerNietBlanco(leveradresLand);
+		this.leveradresLand = leveradresLand;
+	}
+	
+	
 
 
 }

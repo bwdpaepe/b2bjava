@@ -32,6 +32,13 @@ public class ValidationService
 			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
 		}
 	}
+	
+	public static final void controleerGroterDanNul(double waarde) {
+		if (waarde <= 0)
+		{// eventueel nog andere checks toevoegen
+			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
+		}
+	}
 
 
 	public static final void controleerEmail(String email)
