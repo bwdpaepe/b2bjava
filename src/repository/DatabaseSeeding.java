@@ -26,7 +26,7 @@ public class DatabaseSeeding
 			domeinController.maakBedrijf("Bedrijf E", "Straat E", "E5", "9876E", "stad E", "land E", "1234567",
 					"logo_bedrijf_E");
 
-			// Medewerkers worden aangemaakt voor 1 van de bovenstaande bedrijven
+			// Medewerkers
 			domeinController.maakMedewerker("Joachim2", "Dauchot", "emailail1@test.com", "paswoord",
 					"Adres adres adres1", "047563541854", "admin", 5, 1);
 			domeinController.maakMedewerker("Dimitri_2", "Valckenier", "emailail2@test.test.com", "paswoord",
@@ -38,41 +38,13 @@ public class DatabaseSeeding
 			domeinController.maakMedewerker("Ian", "Daelman", "emailail5@test.com", "paswoord", "Adres adres adres5",
 					"047565442854", "admin", 4, 3);
 
-			UserDTO u = domeinController.aanmelden("emailail1@test.com", "paswoord");
-			System.out.println(u);
-
-			domeinController.updateMedewerker(3, "magazijnier");
-
 			// transportdienst
 			domeinController.maakTransportdienst("Post NL", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.fr", 1);
 			domeinController.maakTransportdienst("DHL", 2, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.hk", 3);
 			domeinController.maakTransportdienst("GLS", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
-					"email@test.uk", 2);
-			// get transportdiensten van actueel ingelogde gebruiker:
-			System.out.println("********************************************");
-			System.out.println("transportdiensten van actueel ingelogde gebruiker:");
-			List<TransportdienstDTO> ltdDTOLijst = domeinController.getTransportdienstenDTO();
-			ltdDTOLijst.forEach(System.out::println);
-			
-			System.out.println("********************************************");
-			TransportdienstDTO tdDTO = domeinController.getTransportdienst(1);
-			System.out.println(tdDTO);
-			domeinController.addContactpersoon("john", "doe", "1234567890", "john.doe@foo.bar", tdDTO.getId());
-			tdDTO = domeinController.getTransportdienst(1);
-			System.out.println(tdDTO);
-			domeinController.editContactpersoon("tom", "tomson", "9999887766",
-					"tomail@test.se",1, 1);
-			tdDTO = domeinController.getTransportdienst(1);
-			System.out.println(tdDTO);
-			domeinController.removeContactpersoon(1, 1);
-			tdDTO = domeinController.getTransportdienst(1);
-			System.out.println(tdDTO);
-			domeinController.updateTransportdienst("Post BE", 6, false, "7", "ORDERID", 1);
-			tdDTO = domeinController.getTransportdienst(1);
-			System.out.println(tdDTO);
-			
+					"email@test.uk", 2);			
 			
 
 			// Bestellingen
@@ -157,25 +129,8 @@ public class DatabaseSeeding
 			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
 			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
 
-			List<BestellingDTO> bestellingen = domeinController.getBestellingen();
-			for (BestellingDTO bestellingDTO : bestellingen)
-			{
-				System.out.println(bestellingDTO + "/n");
+			System.out.print("Database Seeded");
 
-			}
-
-			// Toon klanten en aantal openstaande bestellingen van het bedrijf van de
-			// ingelogde user
-			List<KlantLijstEntryDTO> klantenVanLeverancier = domeinController
-					.geefLijstVanKlantenMetAantalOpenstaandeBestellingen();
-			System.out.println("\nklanten van leverancier '"
-					+ domeinController.getIngelogdeUser().getBedrijf().getNaam() + "' met bedrijfsId "
-					+ String.valueOf(domeinController.getIngelogdeUser().getBedrijf().getId()));
-			for (KlantLijstEntryDTO item : klantenVanLeverancier)
-			{
-				System.out.printf("   - " + item.toString() + "\n");
-			}
-			System.out.println();
 
 		} catch (IllegalArgumentException ex)
 		{
