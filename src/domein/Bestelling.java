@@ -1,6 +1,7 @@
 package domein;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import service.ValidationService;
@@ -32,6 +34,7 @@ public class Bestelling {
 	private String leveradresNummer;
 	private String leveradresPostcode;
 	private String leveradresLand;
+	private String trackAndTraceCode;
 
 	// RELATIES
 
@@ -50,6 +53,9 @@ public class Bestelling {
 	@ManyToOne
 	@JoinColumn(name = "Medewerker", nullable = false)
 	private Medewerker aankoper;
+	
+	@OneToMany
+	private List<BesteldProduct> besteldeProducten;
 	
 	protected Bestelling() {
 		
@@ -190,6 +196,15 @@ public class Bestelling {
 		ValidationService.controleerNietBlanco(leveradresLand);
 		this.leveradresLand = leveradresLand;
 	}
+
+	public String getTrackAndTraceCode() {
+		return trackAndTraceCode;
+	}
+
+	public void setTrackAndTraceCode(String trackAndTraceCode) {
+		this.trackAndTraceCode = trackAndTraceCode;
+	}
+	
 	
 	
 

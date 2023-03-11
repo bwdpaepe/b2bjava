@@ -21,8 +21,51 @@ public class BesteldProduct implements Serializable{
 	@OneToOne
 	private Product product;
 	
+	protected BesteldProduct() {};
+	
 	public BesteldProduct(long id, int aantal) {
 		
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getNaam() {
+		return naam;
+	}
+
+	public void setNaam(String naam) {
+		this.naam = naam;
+	}
+
+	public double getEenheidsprijs() {
+		return eenheidsprijs;
+	}
+
+	public void setEenheidsprijs(double eenheidsprijs) {
+		this.eenheidsprijs = eenheidsprijs;
+	}
+
+	public int getAantal() {
+		return aantal;
+	}
+
+	public void setAantal(int aantal) {
+		this.aantal = aantal;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	
+	
 }
