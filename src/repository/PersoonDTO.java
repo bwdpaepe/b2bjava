@@ -11,18 +11,18 @@ public abstract class PersoonDTO {
 	 * protected final String voornaam; protected final String familienaam;
 	 * protected final String emailAdres; protected final String telefoonnummer;
 	 */
-	protected final SimpleStringProperty voornaam = new SimpleStringProperty();
-	protected final SimpleStringProperty familienaam = new SimpleStringProperty();
-	protected final SimpleStringProperty emailAdres = new SimpleStringProperty();
-	protected final SimpleStringProperty telefoonnummer = new SimpleStringProperty();
+	protected final String voornaam;
+	protected final String familienaam;
+	protected final String emailAdres;
+	protected final String telefoonnummer;
 
 	public PersoonDTO(Persoon persoon) {
 
 		this.id = persoon.getId();
-		setVoornaam(persoon.getVoornaam());
-		setFamilienaam(persoon.getFamilienaam());
-		setEmailAdres(persoon.getEmailAdress());
-		setTelefoonnummer(persoon.getTelefoonnummer());
+		this.voornaam = persoon.getVoornaam();
+		this.familienaam = persoon.getFamilienaam();
+		this.emailAdres = persoon.getEmailAdress();
+		this.telefoonnummer = persoon.getTelefoonnummer();
 
 	}
 
@@ -30,51 +30,19 @@ public abstract class PersoonDTO {
 		return id;
 	}
 
-	private void setVoornaam(String voornaam) {
-		this.voornaam.set(voornaam);
-	}
-
 	public String getVoornaam() {
-		return voornaam.get();
-	}
-
-	public StringProperty getVoornaamProperty() {
 		return voornaam;
 	}
 
-	private void setFamilienaam(String familienaam) {
-		this.familienaam.set(familienaam);
-	}
-
 	public String getFamilienaam() {
-		return familienaam.get();
-	}
-
-	public StringProperty getFamilienaamProperty() {
 		return familienaam;
 	}
 
-	private void setEmailAdres(String emailAdres) {
-		this.emailAdres.set(emailAdres);
-	}
-
 	public String getEmailAdres() {
-		return emailAdres.get();
-	}
-
-	public StringProperty getEmailadresProperty() {
 		return emailAdres;
 	}
 
-	private void setTelefoonnummer(String telefoonnummer) {
-		this.telefoonnummer.set(telefoonnummer);
-	}
-
 	public String getTelefoonnummer() {
-		return telefoonnummer.get();
-	}
-
-	public StringProperty getTelefoonnummerProperty() {
 		return telefoonnummer;
 	}
 

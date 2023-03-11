@@ -46,8 +46,8 @@ public class AanmeldenController extends Pane {
 	private Pane errorWindow;
 	@FXML
 	private Button closeButton;
-	
-	//TODO verwijderen na ontwikkeling
+
+	// TODO verwijderen na ontwikkeling
 	@FXML
 	private Button aanmeldenZonderInlogButton;
 
@@ -88,16 +88,11 @@ public class AanmeldenController extends Pane {
 
 			// stage.setResizable(false);
 
-			// Mock data om gui te testen   <<=== maken in GraphicalUI en ophalen via DC
+			// Mock data om gui te testen <<=== maken in GraphicalUI en ophalen via DC
 
 			List<TransportdienstDTO> diensten = dc.getTransportdienstenDTO();
-			
-			
-			
-			
 
-			
-			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten, user);
+			TransportdienstenController root = new TransportdienstenController();
 			Scene scene = new Scene(root);
 			Stage stage = (Stage) this.getScene().getWindow();
 			stage.setScene(scene);
@@ -116,7 +111,7 @@ public class AanmeldenController extends Pane {
 
 		}
 	}
-	
+
 	public void aanmeldenZonderLoginGegevens(ActionEvent event) {
 		try {
 			UserDTO user = dc.aanmelden("emailail1@test.com", "paswoord");
@@ -127,13 +122,12 @@ public class AanmeldenController extends Pane {
 
 			List<TransportdienstDTO> diensten = dc.getTransportdienstenDTO();
 
-			
-			BeheerTransportdienstSchermController root = new BeheerTransportdienstSchermController(dc, diensten, user);
+			TransportdienstenController root = new TransportdienstenController();
 			Scene scene = new Scene(root);
 			Stage stage = (Stage) this.getScene().getWindow();
 			stage.setScene(scene);
-			
-		}catch (IllegalArgumentException e) {
+
+		} catch (IllegalArgumentException e) {
 			errorMessage.setText(e.getMessage());
 			this.errorWindow.setVisible(true);
 			this.closeButton.setVisible(true);
@@ -144,7 +138,6 @@ public class AanmeldenController extends Pane {
 			this.closeButton.setVisible(true);
 
 		}
-		
 
 	}
 

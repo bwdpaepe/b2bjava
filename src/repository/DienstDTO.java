@@ -16,22 +16,22 @@ import javafx.beans.property.StringProperty;
 public abstract class DienstDTO {
 
 	protected final long id;
-	protected final SimpleStringProperty naam = new SimpleStringProperty();
-	protected final SimpleBooleanProperty isActief = new SimpleBooleanProperty();
+	protected final String naam;
+	protected final boolean isActief;
 	protected final Set<ContactpersoonDTO> contactpersonen;
 
 	public DienstDTO(Dienst dienst) {
 		this.id = dienst.getId();
-		setNaam(dienst.getNaam());
-		setIsActief(dienst.isActief());
+		this.naam = dienst.getNaam();
+		this.isActief = dienst.isActief();
 		this.contactpersonen = setContactpersonen(dienst);
 
 	}
 
 	public DienstDTO(long id, String naam, boolean isActief, Set<ContactpersoonDTO> contactpersonen) {
 		this.id = id;
-		setNaam(naam);
-		setIsActief(isActief);
+		this.naam = naam;
+		this.isActief = isActief;
 		this.contactpersonen = contactpersonen;
 	}
 
@@ -39,27 +39,11 @@ public abstract class DienstDTO {
 		return id;
 	}
 
-	private void setNaam(String naam) {
-		this.naam.set(naam);
-	}
-
 	public String getNaam() {
-		return naam.get();
-	}
-
-	public StringProperty getNaamProperty() {
 		return naam;
 	}
 
-	private void setIsActief(boolean isActief) {
-		this.isActief.set(isActief);
-	}
-
 	public boolean getIsActief() {
-		return isActief.get();
-	}
-
-	public BooleanProperty getIsActiefProperty() { // de get is nodig om de data in de tableView te krijgen
 		return isActief;
 	}
 

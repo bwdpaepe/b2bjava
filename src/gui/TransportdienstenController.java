@@ -1,6 +1,8 @@
 package gui;
 
 import domein.DomeinController;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -145,8 +147,10 @@ public class TransportdienstenController extends Pane {
 	}
 
 	private void buidGuiTableViewTransportdiensten() {
-		transportdienstNaamKolom.setCellValueFactory(cellData -> cellData.getValue().getNaamProperty());
-		transportdienstStatusKolom.setCellValueFactory(cellData -> cellData.getValue().getIsActiefProperty());
+		transportdienstNaamKolom
+				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNaam()));
+		transportdienstStatusKolom
+				.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().getIsActief()));
 		tvTransportdiensten.setItems(transportdiensten);
 		buildGuiRaadpleegTab();
 
@@ -173,11 +177,14 @@ public class TransportdienstenController extends Pane {
 		cbEnkelCijfersRaadpleegTab.setSelected(selectedTransportdienstDTO.isBarcodeEnkelCijfers());
 		// lblVerificatiecode.setText(selectedTransportdienstDTO.getVerificatieCodeString());
 		cbStatusRaadpleegTab.setSelected(selectedTransportdienstDTO.getIsActief());
-		contactpersoonVoornaamKolom.setCellValueFactory(cellData -> cellData.getValue().getVoornaamProperty());
-		contactpersoonFamilienaamKolom.setCellValueFactory(cellData -> cellData.getValue().getFamilienaamProperty());
-		contactpersoonEmailadresKolom.setCellValueFactory(cellData -> cellData.getValue().getEmailadresProperty());
+		contactpersoonVoornaamKolom
+				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVoornaam()));
+		contactpersoonFamilienaamKolom
+				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFamilienaam()));
+		contactpersoonEmailadresKolom
+				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmailAdres()));
 		contactpersoonTelefoonnummerKolom
-				.setCellValueFactory(cellData -> cellData.getValue().getTelefoonnummerProperty());
+				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefoonnummer()));
 
 		this.tvContactpersonen.setItems(contactpersonen);
 
