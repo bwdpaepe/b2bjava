@@ -40,7 +40,7 @@
 .table-view .column-header > .label {
     -fx-text-fill: white;
     -fx-alignment: bottom-left ;
-    -fx-font: 15pt 'Inter', sans-serif;
+    -fx-font: 12pt 'Inter', sans-serif;
     -fx-font-weight: bolder;
     -fx-padding: 1px 4px; 
 } 
@@ -72,3 +72,4 @@
 #tvKlantenLijst .column-header, #tvKlantenLijst .column-header-background {
     -fx-pref-width: 385px; 
 }
+

@@ -32,10 +32,9 @@ public class DomeinController {
 	}
 
 	public DomeinController(Boolean doSeeding) {
-
-		super();
+		this();
 		if (doSeeding) {
-			DatabaseSeeding.startDatabaseSeed(new DomeinController());
+			DatabaseSeeding.startDatabaseSeed(this);
 		}
 	}
 

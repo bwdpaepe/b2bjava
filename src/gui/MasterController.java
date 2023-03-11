@@ -76,7 +76,8 @@ public class MasterController extends Pane {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Bestellingen.fxml"));
 			root = loader.load();
 			BestellingenController bc = loader.getController();
-			bc.setParams(dc);				
+			bc.setParams(dc);
+			bc.loadBestellingen();
 			bp.setCenter(root);
 
 			
