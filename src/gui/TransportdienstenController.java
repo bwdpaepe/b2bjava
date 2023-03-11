@@ -134,19 +134,23 @@ public class TransportdienstenController extends Pane {
 
 	public void setParams(DomeinController dc) {
 		this.dc = dc;
-		this.transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
-		this.selectedTransportdienstDTO = transportdiensten.get(0);
-		this.contactpersonen = FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen());
+		cbVerificatiecodeRaadpleegTab.getItems().add("Orderid");
+		cbVerificatiecodeRaadpleegTab.getItems().add("Postcode");
+		cbVerificatie.getItems().add("Orderid");
+		cbVerificatie.getItems().add("Postcode");
 		buildGui();
 	}
 
 	private void buildGui() {
-		buidGuiTableViewTransportdiensten();
+		this.transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
+		this.selectedTransportdienstDTO = transportdiensten.get(0);
+		this.contactpersonen = FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen());
+		buildGuiTableViewTransportdiensten();
 		buildGuiToevoegTab();
 
 	}
 
-	private void buidGuiTableViewTransportdiensten() {
+	private void buildGuiTableViewTransportdiensten() {
 		transportdienstNaamKolom
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNaam()));
 		transportdienstStatusKolom
@@ -188,8 +192,6 @@ public class TransportdienstenController extends Pane {
 
 		this.tvContactpersonen.setItems(contactpersonen);
 
-		cbVerificatiecodeRaadpleegTab.getItems().add("Orderid");
-		cbVerificatiecodeRaadpleegTab.getItems().add("Postcode");
 		lblVerificatiecode.setVisible(true);
 		cbVerificatiecodeRaadpleegTab.setVisible(false);
 		btnAbortUpdate.setVisible(false);
@@ -199,8 +201,6 @@ public class TransportdienstenController extends Pane {
 	private void buildGuiToevoegTab() {
 		SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100);
 		spinnerLengteBarcode.setValueFactory(factory);
-		cbVerificatie.getItems().add("Orderid");
-		cbVerificatie.getItems().add("Postcode");
 
 	}
 
@@ -252,16 +252,27 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	void saveUpdateTransportdienst(ActionEvent event) {
-		String naamTransportdienst = txtNaamRaadpleegTab.getText();
-		int barcodeLengte = Integer.valueOf(txtBarCodeLengteRaadpleegTab.getText());
-		boolean isBarcodeEnkelCijfers = cbEnkelCijfersRaadpleegTab.isSelected();
-		boolean isStatusActief = cbStatusRaadpleegTab.isSelected();
-		String barcodePrefix = txtPrefixRaadpleegTab.getText();
-		String verificatiecode = (String) cbVerificatiecodeRaadpleegTab.getValue();
-		
-		//Status moet nog worden toegevoegd
-		dc.updateTransportdienst(naamTransportdienst, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode, barcodeLengte);
+		try {
+			String naamTransportdienst = txtNaamRaadpleegTab.getText();
+			int barcodeLengte = Integer.valueOf(txtBarCodeLengteRaadpleegTab.getText());
+			boolean isBarcodeEnkelCijfers = cbEnkelCijfersRaadpleegTab.isSelected();
+			boolean isStatusActief = cbStatusRaadpleegTab.isSelected();
+			String barcodePrefix = txtPrefixRaadpleegTab.getText();
+			String verificatiecode = (String) cbVerificatiecodeRaadpleegTab.getValue();
+			long dienstId = selectedTransportdienstDTO.getId();
 
+			// Status moet nog worden toegevoegd
+			dc.updateTransportdienst(naamTransportdienst, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
+					verificatiecode, dienstId);
+			dc.wijzigActivatieDienst(dienstId, isStatusActief);
+
+		} catch (IllegalArgumentException e) {
+			melding.setAlertType(AlertType.ERROR);
+			melding.setContentText(e.getMessage());
+			melding.show();
+		}
+
+		buildGui();
 	}
 
 	// TODO de choicebox zou dezelfde waarde moeten hebben als het label momenteel
