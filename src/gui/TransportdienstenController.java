@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tab;
@@ -21,6 +22,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import repository.ContactpersoonDTO;
@@ -34,6 +37,8 @@ public class TransportdienstenController extends Pane {
 	private ObservableList<ContactpersoonDTO> contactpersonen;
 	private TransportdienstDTO selectedTransportdienstDTO;
 	private Alert melding = new Alert(AlertType.NONE);
+	private SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100);
+	private ToggleGroup tgRaadpleegTab = new ToggleGroup();
 
 	@FXML
 	private TableView<TransportdienstDTO> tvTransportdiensten;
@@ -69,6 +74,15 @@ public class TransportdienstenController extends Pane {
 	private TableColumn<ContactpersoonDTO, String> contactpersoonTelefoonnummerKolom;
 
 	@FXML
+	private RadioButton rbOrderIdRaadpleegTab;
+
+	@FXML
+	private RadioButton rbPostcodeRaadpleegTab;
+
+	@FXML
+	private Spinner<Integer> spinBarcodeLengteRaadpleegTab;
+
+	@FXML
 	private Label lblVerificatiecode;
 
 	@FXML
@@ -78,16 +92,10 @@ public class TransportdienstenController extends Pane {
 	private TextField txtPrefixRaadpleegTab;
 
 	@FXML
-	private TextField txtBarCodeLengteRaadpleegTab;
-
-	@FXML
 	private CheckBox cbEnkelCijfersRaadpleegTab;
 
 	@FXML
 	private CheckBox cbStatusRaadpleegTab;
-
-	@FXML
-	private ChoiceBox<String> cbVerificatiecodeRaadpleegTab;
 
 	@FXML
 	private Button btnToevoegen;
@@ -134,10 +142,10 @@ public class TransportdienstenController extends Pane {
 
 	public void setParams(DomeinController dc) {
 		this.dc = dc;
-		cbVerificatiecodeRaadpleegTab.getItems().add("Orderid");
-		cbVerificatiecodeRaadpleegTab.getItems().add("Postcode");
 		cbVerificatie.getItems().add("Orderid");
 		cbVerificatie.getItems().add("Postcode");
+		rbOrderIdRaadpleegTab.setToggleGroup(tgRaadpleegTab);
+		rbPostcodeRaadpleegTab.setToggleGroup(tgRaadpleegTab);
 		buildGui();
 	}
 
@@ -175,12 +183,15 @@ public class TransportdienstenController extends Pane {
 	}
 
 	private void buildGuiRaadpleegTab() {
+		boolean postcodeSelected = selectedTransportdienstDTO.getVerificatieCodeString() == "POSTCODE" ? true : false;
+		rbOrderIdRaadpleegTab.setSelected(!postcodeSelected);
+		rbPostcodeRaadpleegTab.setSelected(postcodeSelected);
 		txtNaamRaadpleegTab.setText(selectedTransportdienstDTO.getNaam());
-		txtBarCodeLengteRaadpleegTab.setText(String.valueOf(selectedTransportdienstDTO.getBarcodeLengte()));
 		txtPrefixRaadpleegTab.setText(selectedTransportdienstDTO.getBarcodePrefix());
 		cbEnkelCijfersRaadpleegTab.setSelected(selectedTransportdienstDTO.isBarcodeEnkelCijfers());
-		lblVerificatiecode.setText(selectedTransportdienstDTO.getVerificatieCodeString());
 		cbStatusRaadpleegTab.setSelected(selectedTransportdienstDTO.getIsActief());
+		spinBarcodeLengteRaadpleegTab.setValueFactory(factory);
+		spinBarcodeLengteRaadpleegTab.getValueFactory().setValue(selectedTransportdienstDTO.getBarcodeLengte());
 		contactpersoonVoornaamKolom
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVoornaam()));
 		contactpersoonFamilienaamKolom
@@ -192,15 +203,13 @@ public class TransportdienstenController extends Pane {
 
 		this.tvContactpersonen.setItems(contactpersonen);
 
-		lblVerificatiecode.setVisible(true);
-		cbVerificatiecodeRaadpleegTab.setVisible(false);
+		// lblVerificatiecode.setVisible(true);
 		btnAbortUpdate.setVisible(false);
 		btnSaveTransportdienst.setVisible(false);
 		disableGui();
 	}
 
 	private void buildGuiToevoegTab() {
-		SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100);
 		spinnerLengteBarcode.setValueFactory(factory);
 
 	}
@@ -212,14 +221,14 @@ public class TransportdienstenController extends Pane {
 			int barcodeLengte = spinnerLengteBarcode.getValue();
 			boolean isBarcodeEnkelCijfers = cbCijfers.isSelected();
 			String barcodePrefix = txtPrefix.getText();
-			String verificatiecode = (String) cbVerificatie.getValue();
+			String verificatiecode = (String) cbVerificatie.getValue(); // Nog wijzigen todo
 			String contactVoornaam = txtVoornaam.getText();
 			String contactFamilienaam = txtFamilienaam.getText();
 			String contactTelefoon = txtTelefoonnummer.getText();
 			String contactEmailadres = txtEmailadres.getText();
 
 			// TODO implementeren bedrijfsId
-			int bedrijfsId = 1;
+			int bedrijfsId = 1; // !!!!!!!!!!!!!!!!!!!!!!!!!
 
 			// Validatie input formulier
 			ValidationService.controleerNietBlanco(naamTransportdienst);
@@ -254,12 +263,13 @@ public class TransportdienstenController extends Pane {
 	@FXML
 	void saveUpdateTransportdienst(ActionEvent event) {
 		try {
+
 			String naamTransportdienst = txtNaamRaadpleegTab.getText();
-			int barcodeLengte = Integer.valueOf(txtBarCodeLengteRaadpleegTab.getText());
+			int barcodeLengte = spinBarcodeLengteRaadpleegTab.getValue();
 			boolean isBarcodeEnkelCijfers = cbEnkelCijfersRaadpleegTab.isSelected();
 			boolean isStatusActief = cbStatusRaadpleegTab.isSelected();
 			String barcodePrefix = txtPrefixRaadpleegTab.getText();
-			String verificatiecode = (String) cbVerificatiecodeRaadpleegTab.getValue();
+			String verificatiecode = rbOrderIdRaadpleegTab.isSelected() ? "Orderid" : "Postcode";
 			long dienstId = selectedTransportdienstDTO.getId();
 
 			// Status moet nog worden toegevoegd
@@ -282,7 +292,6 @@ public class TransportdienstenController extends Pane {
 	void updateTransportdienst(ActionEvent event) {
 		enableGui();
 		lblVerificatiecode.setVisible(false);
-		cbVerificatiecodeRaadpleegTab.setVisible(true);
 		btnAbortUpdate.setVisible(true);
 		btnSaveTransportdienst.setVisible(true);
 
@@ -291,17 +300,21 @@ public class TransportdienstenController extends Pane {
 	private void disableGui() {
 		txtNaamRaadpleegTab.setEditable(false);
 		txtPrefixRaadpleegTab.setEditable(false);
-		txtBarCodeLengteRaadpleegTab.setEditable(false);
 		cbEnkelCijfersRaadpleegTab.setDisable(true);
 		cbStatusRaadpleegTab.setDisable(true);
+		spinBarcodeLengteRaadpleegTab.setDisable(true);
+		rbOrderIdRaadpleegTab.setDisable(true);
+		rbPostcodeRaadpleegTab.setDisable(true);
 	}
 
 	private void enableGui() {
 		txtNaamRaadpleegTab.setEditable(true);
 		txtPrefixRaadpleegTab.setEditable(true);
-		txtBarCodeLengteRaadpleegTab.setEditable(true);
 		cbEnkelCijfersRaadpleegTab.setDisable(false);
 		cbStatusRaadpleegTab.setDisable(false);
+		spinBarcodeLengteRaadpleegTab.setDisable(false);
+		rbOrderIdRaadpleegTab.setDisable(false);
+		rbPostcodeRaadpleegTab.setDisable(false);
 	}
 
 }
