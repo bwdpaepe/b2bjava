@@ -39,6 +39,7 @@ public class TransportdienstenController extends Pane {
 	private Alert melding = new Alert(AlertType.NONE);
 	private SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100);
 	private ToggleGroup tgRaadpleegTab = new ToggleGroup();
+	private ToggleGroup tgToevoegTab = new ToggleGroup();
 
 	@FXML
 	private TableView<TransportdienstDTO> tvTransportdiensten;
@@ -131,7 +132,10 @@ public class TransportdienstenController extends Pane {
 	private CheckBox cbCijfers;
 
 	@FXML
-	private ChoiceBox<String> cbVerificatie;
+	private RadioButton rbOrderIdToevoegTab;
+
+	@FXML
+	private RadioButton rbPostcodeToevoegTab;
 
 	@FXML
 	private TextField txtPrefix;
@@ -142,17 +146,15 @@ public class TransportdienstenController extends Pane {
 
 	public void setParams(DomeinController dc) {
 		this.dc = dc;
-		cbVerificatie.getItems().add("Orderid");
-		cbVerificatie.getItems().add("Postcode");
 		rbOrderIdRaadpleegTab.setToggleGroup(tgRaadpleegTab);
 		rbPostcodeRaadpleegTab.setToggleGroup(tgRaadpleegTab);
+		this.transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
+		this.selectedTransportdienstDTO = transportdiensten.get(0);
+		this.contactpersonen = FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen());
 		buildGui();
 	}
 
 	private void buildGui() {
-		this.transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
-		this.selectedTransportdienstDTO = transportdiensten.get(0);
-		this.contactpersonen = FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen());
 		buildGuiTableViewTransportdiensten();
 		buildGuiToevoegTab();
 
@@ -201,9 +203,9 @@ public class TransportdienstenController extends Pane {
 		contactpersoonTelefoonnummerKolom
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefoonnummer()));
 
+		this.contactpersonen = FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen());
 		this.tvContactpersonen.setItems(contactpersonen);
 
-		// lblVerificatiecode.setVisible(true);
 		btnAbortUpdate.setVisible(false);
 		btnSaveTransportdienst.setVisible(false);
 		disableGui();
@@ -211,6 +213,8 @@ public class TransportdienstenController extends Pane {
 
 	private void buildGuiToevoegTab() {
 		spinnerLengteBarcode.setValueFactory(factory);
+		rbOrderIdToevoegTab.setToggleGroup(tgToevoegTab);
+		rbPostcodeToevoegTab.setToggleGroup(tgToevoegTab);
 
 	}
 
@@ -221,7 +225,7 @@ public class TransportdienstenController extends Pane {
 			int barcodeLengte = spinnerLengteBarcode.getValue();
 			boolean isBarcodeEnkelCijfers = cbCijfers.isSelected();
 			String barcodePrefix = txtPrefix.getText();
-			String verificatiecode = (String) cbVerificatie.getValue(); // Nog wijzigen todo
+			String verificatiecode = rbOrderIdToevoegTab.isSelected() ? "Orderid" : "Postcode";
 			String contactVoornaam = txtVoornaam.getText();
 			String contactFamilienaam = txtFamilienaam.getText();
 			String contactTelefoon = txtTelefoonnummer.getText();

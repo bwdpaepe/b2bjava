@@ -140,8 +140,9 @@
                               <Font size="18.0" />
                            </font>
                         </CheckBox>
-                        <ChoiceBox fx:id="cbVerificatie" layoutX="209.0" layoutY="200.0" prefWidth="150.0" />
                         <TextField fx:id="txtPrefix" layoutX="201.0" layoutY="248.0" />
+                        <RadioButton fx:id="rbOrderIdToevoegTab" layoutX="207.0" layoutY="206.0" mnemonicParsing="false" text="Orderid" />
+                        <RadioButton fx:id="rbPostcodeToevoegTab" layoutX="291.0" layoutY="206.0" mnemonicParsing="false" text="Postcode" />
                      </children></AnchorPane>
             </content>
           </Tab>
