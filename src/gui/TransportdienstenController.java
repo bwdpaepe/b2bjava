@@ -206,9 +206,7 @@ public class TransportdienstenController extends Pane {
 		this.contactpersonen = FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen());
 		this.tvContactpersonen.setItems(contactpersonen);
 
-		btnAbortUpdate.setVisible(false);
-		btnSaveTransportdienst.setVisible(false);
-		disableGui();
+		disableButtonsGui();
 	}
 
 	private void buildGuiToevoegTab() {
@@ -261,7 +259,7 @@ public class TransportdienstenController extends Pane {
 	@FXML
 	void abortUpdateTransportdienst(ActionEvent event) {
 		buildGuiRaadpleegTab();
-		disableGui();
+		disableButtonsGui();
 	}
 
 	@FXML
@@ -294,14 +292,11 @@ public class TransportdienstenController extends Pane {
 	// niet het geval
 	@FXML
 	void updateTransportdienst(ActionEvent event) {
-		enableGui();
-		lblVerificatiecode.setVisible(false);
-		btnAbortUpdate.setVisible(true);
-		btnSaveTransportdienst.setVisible(true);
+		enableButtonsGui();
 
 	}
 
-	private void disableGui() {
+	private void disableButtonsGui() {
 		txtNaamRaadpleegTab.setEditable(false);
 		txtPrefixRaadpleegTab.setEditable(false);
 		cbEnkelCijfersRaadpleegTab.setDisable(true);
@@ -309,9 +304,11 @@ public class TransportdienstenController extends Pane {
 		spinBarcodeLengteRaadpleegTab.setDisable(true);
 		rbOrderIdRaadpleegTab.setDisable(true);
 		rbPostcodeRaadpleegTab.setDisable(true);
+		btnAbortUpdate.setVisible(false);
+		btnSaveTransportdienst.setVisible(false);
 	}
 
-	private void enableGui() {
+	private void enableButtonsGui() {
 		txtNaamRaadpleegTab.setEditable(true);
 		txtPrefixRaadpleegTab.setEditable(true);
 		cbEnkelCijfersRaadpleegTab.setDisable(false);
@@ -319,6 +316,8 @@ public class TransportdienstenController extends Pane {
 		spinBarcodeLengteRaadpleegTab.setDisable(false);
 		rbOrderIdRaadpleegTab.setDisable(false);
 		rbPostcodeRaadpleegTab.setDisable(false);
+		btnAbortUpdate.setVisible(true);
+		btnSaveTransportdienst.setVisible(true);
 	}
 
 }
