@@ -14,8 +14,8 @@
       </AnchorPane>
       <TableView fx:id="tvKlantenLijst" styleClass="leftComponent">
         <columns>
-          <TableColumn text="Naam" />
-          <TableColumn text="Aantal open bestellingen" />
+          <TableColumn fx:id="naamColumn" text="Naam" />
+          <TableColumn fx:id="aantalBestellingenColumn" text="Aantal open bestellingen" />
         </columns>
       </TableView>
       <TextField fx:id="tfKlantZoeken" promptText="Zoeken..." styleClass="search-field" />

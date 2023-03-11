@@ -101,7 +101,7 @@
 	-fx-border-width: 0 0 1 0;
 }
 
-#tvKlantenLijst .column-header, #tvKlantenLijst .column-header-background {
+#tvKlantenLijst .column-header, #tvKlantenLijst .column-header-background, #tvKlantenLijst .table-cell {
     -fx-pref-width: 385px; 
 }
 

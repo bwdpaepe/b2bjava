@@ -1,11 +1,9 @@
 package repository;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 import domein.DomeinController;
-import domein.Persoon;
 
 public class DatabaseSeeding
 {
@@ -78,13 +76,14 @@ public class DatabaseSeeding
 			
 
 			// Bestellingen
-			domeinController.maakBestelling("ORder1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("ORder2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("ORder3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("ORder4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("ORder5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("ORder6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("ORder7", "geplaatst", new Date(), 3, 4, 1);
+			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
+			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
+			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
+			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
+			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
+			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
+			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
+			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
 
 			List<BestellingDTO> bestellingen = domeinController.getBestellingen();
 			for (BestellingDTO bestellingDTO : bestellingen)
