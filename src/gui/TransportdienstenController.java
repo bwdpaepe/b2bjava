@@ -26,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import repository.ContactpersoonDTO;
 import repository.PersoonDTO;
@@ -144,6 +145,24 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	private TextField txtPrefix;
+
+	@FXML
+	private HBox hBoxContactPersonen1;
+
+	@FXML
+	private HBox hBoxContactPersonen2;
+
+	@FXML
+	private TextField txtVoornaamToevoegen;
+
+	@FXML
+	private TextField txtFamilienaamToevoegen;
+
+	@FXML
+	private TextField txtEmailadresToevoegen;
+
+	@FXML
+	private TextField txtTelefoonnummerToevoegen;
 
 	public TransportdienstenController() {
 
@@ -349,6 +368,34 @@ public class TransportdienstenController extends Pane {
 
 	}
 
+	@FXML
+	void toevoegenContactpersoon(ActionEvent event) {
+
+		try {
+			dc.addContactpersoon(txtVoornaamToevoegen.getText(), txtFamilienaamToevoegen.getText(),
+					txtTelefoonnummerToevoegen.getText(), txtEmailadresToevoegen.getText(),
+					selectedTransportdienstDTO.getId());
+			this.selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
+			tvContactpersonen
+					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
+			txtVoornaamToevoegen.clear();
+			txtFamilienaamToevoegen.clear();
+			txtEmailadresToevoegen.clear();
+			txtTelefoonnummerToevoegen.clear();
+			txtVoornaamToevoegen.requestFocus();
+		} catch (IllegalArgumentException e) {
+			melding.setAlertType(AlertType.ERROR);
+			melding.setContentText(e.getMessage());
+			melding.show();
+		}
+
+	}
+
+	@FXML
+	void verwijderenContactpersoon(ActionEvent event) {
+
+	}
+
 	private void disableButtonsGui() {
 		txtNaamRaadpleegTab.setEditable(false);
 		txtPrefixRaadpleegTab.setEditable(false);
@@ -360,6 +407,8 @@ public class TransportdienstenController extends Pane {
 		btnAbortUpdate.setVisible(false);
 		btnSaveTransportdienst.setVisible(false);
 		tvContactpersonen.setEditable(false);
+		hBoxContactPersonen1.setVisible(false);
+		hBoxContactPersonen2.setVisible(false);
 	}
 
 	private void enableButtonsGui() {
@@ -373,6 +422,8 @@ public class TransportdienstenController extends Pane {
 		btnAbortUpdate.setVisible(true);
 		btnSaveTransportdienst.setVisible(true);
 		tvContactpersonen.setEditable(true);
+		hBoxContactPersonen1.setVisible(true);
+		hBoxContactPersonen2.setVisible(true);
 	}
 
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -61,13 +62,31 @@
                         <ChoiceBox fx:id="cbVerificatiecodeRaadpleegTab" layoutX="121.0" layoutY="156.0" prefWidth="150.0" visible="false" />
                         <CheckBox fx:id="cbEnkelCijfersRaadpleegTab" disable="true" layoutX="162.0" layoutY="248.0" mnemonicParsing="false" />
                         <CheckBox fx:id="cbStatusRaadpleegTab" disable="true" layoutX="145.0" layoutY="288.0" mnemonicParsing="false" />
-                        <Button fx:id="btnUpdateTransportdienst" layoutX="38.0" layoutY="800.0" mnemonicParsing="false" onAction="#updateTransportdienst" text="Gegevens wijzigen" />
-                        <Button fx:id="btnSaveTransportdienst" layoutX="166.0" layoutY="800.0" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" text="Wijzigingen opslaan" />
-                        <Button fx:id="btnAbortUpdate" layoutX="308.0" layoutY="800.0" mnemonicParsing="false" onAction="#abortUpdateTransportdienst" text="Annuleren" />
+                        <Button fx:id="btnUpdateTransportdienst" layoutX="31.0" layoutY="813.0" mnemonicParsing="false" onAction="#updateTransportdienst" text="Gegevens wijzigen" />
+                        <Button fx:id="btnSaveTransportdienst" layoutX="166.0" layoutY="813.0" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" text="Wijzigingen opslaan" />
+                        <Button fx:id="btnAbortUpdate" layoutX="308.0" layoutY="813.0" mnemonicParsing="false" onAction="#abortUpdateTransportdienst" text="Annuleren" />
                         <Spinner fx:id="spinBarcodeLengteRaadpleegTab" layoutX="121.0" layoutY="54.0" />
                         <RadioButton fx:id="rbOrderIdRaadpleegTab" layoutX="118.0" layoutY="160.0" mnemonicParsing="false" text="Order id" />
                         <RadioButton fx:id="rbPostcodeRaadpleegTab" layoutX="195.0" layoutY="160.0" mnemonicParsing="false" text="Postcode" />
-                        <HBox layoutX="29.0" layoutY="677.0" prefHeight="55.0" prefWidth="749.0" style="-fx-background-color: white; -fx-border-color: gray;" />
+                        <HBox fx:id="hBoxContactPersonen1" layoutX="29.0" layoutY="677.0" prefHeight="50.0" prefWidth="749.0" spacing="40.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="134.0">
+                           <children>
+                              <TextField fx:id="txtVoornaamToevoegen" promptText="Voornaam" />
+                              <TextField fx:id="txtFamilienaamToevoegen" promptText="Familienaam" />
+                              <TextField fx:id="txtEmailadresToevoegen" promptText="Emailadres" />
+                              <TextField fx:id="txtTelefoonnummerToevoegen" promptText="Telefoonnummer" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" top="10.0" />
+                           </padding></HBox>
+                        <HBox fx:id="hBoxContactPersonen2" alignment="TOP_RIGHT" layoutX="29.0" layoutY="727.0" prefHeight="34.0" prefWidth="749.0" spacing="20.0" style="-fx-background-color: white;" visible="false">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#toevoegenContactpersoon" text="Toevoegen" />
+                              <Button mnemonicParsing="false" onAction="#verwijderenContactpersoon" text="Verwijderen" />
+                           </children>
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </AnchorPane>
             </content>
