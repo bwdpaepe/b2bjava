@@ -7,10 +7,6 @@ import javafx.beans.property.StringProperty;
 public abstract class PersoonDTO {
 
 	protected final long id;
-	/*
-	 * protected final String voornaam; protected final String familienaam;
-	 * protected final String emailAdres; protected final String telefoonnummer;
-	 */
 	protected final String voornaam;
 	protected final String familienaam;
 	protected final String emailAdres;

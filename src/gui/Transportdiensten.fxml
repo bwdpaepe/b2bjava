@@ -13,6 +13,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="915.0" prefWidth="1920.0" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TransportdienstenController">
@@ -38,6 +39,7 @@
                      <children>
                         <TableView fx:id="tvContactpersonen" layoutX="29.0" layoutY="361.0" prefHeight="316.0" prefWidth="749.0">
                           <columns>
+                              <TableColumn fx:id="contactpersoonIdKolom" prefWidth="75.0" text="Id" visible="false" />
                             <TableColumn fx:id="contactpersoonVoornaamKolom" prefWidth="75.0" text="Voornaam" />
                             <TableColumn fx:id="contactpersoonFamilienaamKolom" prefWidth="75.0" text="Familienaam" />
                               <TableColumn fx:id="contactpersoonEmailadresKolom" prefWidth="75.0" text="Emailadres" />
@@ -59,12 +61,13 @@
                         <ChoiceBox fx:id="cbVerificatiecodeRaadpleegTab" layoutX="121.0" layoutY="156.0" prefWidth="150.0" visible="false" />
                         <CheckBox fx:id="cbEnkelCijfersRaadpleegTab" disable="true" layoutX="162.0" layoutY="248.0" mnemonicParsing="false" />
                         <CheckBox fx:id="cbStatusRaadpleegTab" disable="true" layoutX="145.0" layoutY="288.0" mnemonicParsing="false" />
-                        <Button fx:id="btnUpdateTransportdienst" layoutX="30.0" layoutY="694.0" mnemonicParsing="false" onAction="#updateTransportdienst" text="Gegevens wijzigen" />
-                        <Button fx:id="btnSaveTransportdienst" layoutX="153.0" layoutY="694.0" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" text="Wijzigingen opslaan" visible="false" />
-                        <Button fx:id="btnAbortUpdate" layoutX="282.0" layoutY="694.0" mnemonicParsing="false" onAction="#abortUpdateTransportdienst" text="Annuleren" visible="false" />
+                        <Button fx:id="btnUpdateTransportdienst" layoutX="38.0" layoutY="800.0" mnemonicParsing="false" onAction="#updateTransportdienst" text="Gegevens wijzigen" />
+                        <Button fx:id="btnSaveTransportdienst" layoutX="166.0" layoutY="800.0" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" text="Wijzigingen opslaan" />
+                        <Button fx:id="btnAbortUpdate" layoutX="308.0" layoutY="800.0" mnemonicParsing="false" onAction="#abortUpdateTransportdienst" text="Annuleren" />
                         <Spinner fx:id="spinBarcodeLengteRaadpleegTab" layoutX="121.0" layoutY="54.0" />
                         <RadioButton fx:id="rbOrderIdRaadpleegTab" layoutX="118.0" layoutY="160.0" mnemonicParsing="false" text="Order id" />
                         <RadioButton fx:id="rbPostcodeRaadpleegTab" layoutX="195.0" layoutY="160.0" mnemonicParsing="false" text="Postcode" />
+                        <HBox layoutX="29.0" layoutY="677.0" prefHeight="55.0" prefWidth="749.0" style="-fx-background-color: white; -fx-border-color: gray;" />
                      </children>
                   </AnchorPane>
             </content>
