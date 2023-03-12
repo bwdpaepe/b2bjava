@@ -79,6 +79,9 @@ public class MasterController extends Pane {
 			BestellingenController bc = loader.getController();
 			bc.setParams(dc);
 			bc.loadBestellingen();
+			bc.addListenerRijSelecteren();
+			// rechts tonen we een form om bestelling te wijzigen, dit is leeg bij init => disable velden
+			bc.disableDetail();
 			bp.setCenter(root);
 
 			
