@@ -21,6 +21,6 @@
           <TableColumn fx:id="transportdienstColumn" prefWidth="242.66668701171875" resizable="false" text="Transportdienst" />
         </columns>
       </TableView>
-      <TextField fx:id="tfBestellingZoeken" promptText="Zoeken..." styleClass="search-field" />
+      <TextField fx:id="tfBestellingZoeken" promptText="Zoek klant..." styleClass="search-field" />
    </children>
 </AnchorPane>
