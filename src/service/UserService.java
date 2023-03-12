@@ -72,4 +72,13 @@ public class UserService
 		}
 
 	}
+	
+	public Medewerker getMedewerkerById(long id) {
+		User user =  userRepo.get(id);
+		
+		if(user instanceof Medewerker) {
+			return (Medewerker) user;
+		}
+		throw new IllegalArgumentException("Ongeldige id of usertype");
+	}
 }

@@ -161,8 +161,9 @@ public class DomeinController {
 	}
 
 	public void maakBestelling(String OrderId, String status, Date datum, long leverancierID, long klantID,
-			long transportdienstID) {
-		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID);
+			long transportdienstID, long aankoperId, String leveradresStraat, String leveradresNummer,String leveradresPostcode, String leveradresStad, 
+			String leveradresLand) {
+		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID, aankoperId, leveradresStraat, leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand);
 	}
 
 	// dit moet nog gefixed worden om enkel de bestellingen te krijgen van het

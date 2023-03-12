@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import service.ValidationService;
+import util.AankoperFunctie;
 import util.AdminFunctie;
 import util.Functie;
 import util.MagazijnierFunctie;
@@ -53,6 +54,7 @@ public class Medewerker extends User
 			{
 			case "magazijnier" -> new MagazijnierFunctie();
 			case "admin" -> new AdminFunctie();
+			case "aankoper" -> new AankoperFunctie();
 			default -> throw new IllegalArgumentException("Unexpected value: " + functie.toLowerCase());
 
 			};

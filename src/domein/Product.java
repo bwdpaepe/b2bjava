@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import service.ValidationService;
@@ -28,6 +30,11 @@ public class Product  implements Serializable{
 	private String naam;
 	@Column(name = "Eenheidsprijs")
 	private double eenheidsprijs;
+	
+	@ManyToOne
+	@JoinColumn(name = "bedrijf", nullable = false)
+	private Bedrijf leverancier;
+	
 	
 	protected Product() {};
 	

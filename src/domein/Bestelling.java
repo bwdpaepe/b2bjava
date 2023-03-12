@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import service.ValidationService;
 
@@ -64,7 +63,8 @@ public class Bestelling {
 	
 	public Bestelling(String orderID, Date datum_geplaatst,  String statusString, 
 			Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst, Medewerker aankoper,
-			String leveradresStraat, String leveradresNummer, String leveradresPostcode, String leveradresStad, String leveradresLand) {
+			String leveradresStraat, String leveradresNummer,String leveradresPostcode, String leveradresStad, 
+			String leveradresLand) {
 		setOrderID(orderID);
 		setDatumGeplaatst(datum_geplaatst);
 		setLeverancier(leverancier);
@@ -78,6 +78,10 @@ public class Bestelling {
 		setLeveradresPostcode(leveradresPostcode);
 		setLeveradresStad(leveradresStad);
 		
+	}
+	
+	public void addBesteldProductToBestelling(BesteldProduct bp) {
+		besteldeProducten.add(bp);
 	}
 
 	public String getLeveradresStad() {
@@ -94,7 +98,9 @@ public class Bestelling {
 	}
 
 	public void setAankoper(Medewerker aankoper) {
-		this.aankoper = aankoper;
+		if(aankoper.getFunctie().equalsIgnoreCase("aankoper")) {
+		this.aankoper = aankoper; }
+		throw new IllegalArgumentException("Medewerker is geen aankoper");
 	}
 
 	public long getId() {

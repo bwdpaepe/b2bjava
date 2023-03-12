@@ -23,8 +23,11 @@ public class BesteldProduct implements Serializable{
 	
 	protected BesteldProduct() {};
 	
-	public BesteldProduct(long id, int aantal) {
-		
+	public BesteldProduct(Product product, int aantal) {
+		setNaam(product.getNaam());
+		setEenheidsprijs(product.getEenheidsprijs());
+		setAantal(aantal);
+		setProduct(product);
 	}
 
 	public long getId() {

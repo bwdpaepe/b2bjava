@@ -1,6 +1,7 @@
 package repository;
 
 import java.util.Date;
+import java.util.Random;
 
 import domein.DomeinController;
 
@@ -36,6 +37,7 @@ public class DatabaseSeeding
 					"Adres adres adres4", "047565442854", "admin", 3, 2);
 			domeinController.maakMedewerker("Ian", "Daelman", "emailail5@test.com", "paswoord", "Adres adres adres5",
 					"047565442854", "admin", 4, 3);
+			domeinController.maakMedewerker("A.", "De Aankoper", "aankoper@test.com", "paswoord", "Adres adres adres5", "047565442854", "aankoper", 6, 1);
 
 			// transportdienst
 			domeinController.maakTransportdienst("Post NL", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874",
@@ -47,6 +49,20 @@ public class DatabaseSeeding
 			
 
 			// Bestellingen
+			
+			Random random = new Random();
+			for (int i = 1; i <= 100; i++) {
+			    String orderId = "Order" + i;
+			    String status = random.nextBoolean() ? "geplaatst" : "verwerkt";
+			    Date datum = new Date();
+			    long leverancierID = random.nextLong(5) + 1;
+			    long klantID = random.nextLong(5) + 1;
+			    while (klantID == leverancierID) {
+			    	klantID = random.nextLong(5) + 1;
+			    }
+			    domeinController.maakBestelling(orderId, status, datum, leverancierID, klantID, 1, 6, "leveradresStraat", "leveradresNummer", "leveradresPostcode", "leveradresStad", "leveradresLand");
+			}
+			/*
 			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
 			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
 			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
@@ -130,6 +146,8 @@ public class DatabaseSeeding
 			
 			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 1, 5, 3);
 			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 1, 5, 3);
+			*/
+			
 
 			System.out.print("Database Seeded");
 

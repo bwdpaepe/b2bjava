@@ -28,14 +28,14 @@ public class Doos implements Serializable {
 	private boolean isActief;
 	private double prijs;
 	
-	public Doos(String naam, double hoogte, double breedte, double lengte, DoosType type, boolean isActief, double prijs) {
+	public Doos(String naam, double hoogte, double breedte, double lengte, DoosType type, double prijs) {
 		setNaam(naam);
 		setBreedte(breedte);
 		setHoogte(hoogte);
 		setLengte(lengte);
 		setDoosType(type);
 		setPrijs(prijs);
-		setActief(isActief);
+		setActief(true);
 	}
 
 	public String getNaam() {

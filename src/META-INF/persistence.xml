@@ -16,7 +16,8 @@
 		<class>domein.Contactpersoon</class>
 		<class>domein.TrackTraceFormat</class>
 		<class>domein.Bestelling</class>
-
+		<class>domein.Product</class>
+		<class>domein.BesteldProduct</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/sdp2_test?serverTimezone=UTC" />
