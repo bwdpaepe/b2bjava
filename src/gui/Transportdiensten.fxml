@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -12,11 +14,12 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="915.0" prefWidth="1920.0" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TransportdienstenController">
 	<children>
-      <TableView fx:id="tvTransportdiensten" layoutX="10.0" layoutY="2.0" prefHeight="701.0" prefWidth="289.0" stylesheets="@../guiStyling/componentsStyle.css">
+      <TableView fx:id="tvTransportdiensten" styleClass="leftComponent">
         <columns>
           <TableColumn fx:id="transportdienstNaamKolom" prefWidth="75.0" text="Naam" />
           <TableColumn fx:id="transportdienstStatusKolom" prefWidth="75.0" text="Status" />
@@ -29,7 +32,7 @@
             <String fx:value="table-view" />
          </styleClass>
       </TableView>
-      <TabPane fx:id="tabPane" layoutX="2.0" layoutY="2.0" prefHeight="892.0" prefWidth="1000.0" style="-fx-border-color: black;" styleClass="rightComponent" stylesheets="@../guiStyling/componentsStyle.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutX="2.0" layoutY="2.0" prefHeight="892.0" prefWidth="1000.0" styleClass="rightComponent" stylesheets="@../guiStyling/componentsStyle.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="raadpleegTab" closable="false" text="Raadpleeg">
             <content>
@@ -37,6 +40,7 @@
                      <children>
                         <TableView fx:id="tvContactpersonen" layoutX="29.0" layoutY="361.0" prefHeight="316.0" prefWidth="749.0">
                           <columns>
+                              <TableColumn fx:id="contactpersoonIdKolom" prefWidth="75.0" text="Id" visible="false" />
                             <TableColumn fx:id="contactpersoonVoornaamKolom" prefWidth="75.0" text="Voornaam" />
                             <TableColumn fx:id="contactpersoonFamilienaamKolom" prefWidth="75.0" text="Familienaam" />
                               <TableColumn fx:id="contactpersoonEmailadresKolom" prefWidth="75.0" text="Emailadres" />
@@ -48,20 +52,41 @@
                         </TableView>
                         <Label layoutX="29.0" layoutY="14.0" text="Naam:" />
                         <Label layoutX="29.0" layoutY="58.0" text="Barcode lengte:" />
-                        <Label layoutX="29.0" layoutY="197.0" text="Is barcode enkel cijfers:" />
-                        <Label layoutX="29.0" layoutY="253.0" text="Actief om te leveren:" />
+                        <Label layoutX="33.0" layoutY="248.0" text="Is barcode enkel cijfers:" />
+                        <Label layoutX="33.0" layoutY="288.0" text="Actief om te leveren:" />
                         <Label layoutX="30.0" layoutY="160.0" text="Verificatiecode:" />
                         <Label layoutX="31.0" layoutY="110.0" text="Prefix:" />
                         <Label fx:id="lblVerificatiecode" layoutX="120.0" layoutY="160.0" prefHeight="17.0" prefWidth="126.0" />
                         <TextField fx:id="txtNaamRaadpleegTab" editable="false" layoutX="78.0" layoutY="11.0" />
                         <TextField fx:id="txtPrefixRaadpleegTab" editable="false" layoutX="121.0" layoutY="106.0" />
-                        <TextField fx:id="txtBarCodeLengteRaadpleegTab" editable="false" layoutX="121.0" layoutY="54.0" />
                         <ChoiceBox fx:id="cbVerificatiecodeRaadpleegTab" layoutX="121.0" layoutY="156.0" prefWidth="150.0" visible="false" />
-                        <CheckBox fx:id="cbEnkelCijfersRaadpleegTab" disable="true" layoutX="167.0" layoutY="197.0" mnemonicParsing="false" />
-                        <CheckBox fx:id="cbStatusRaadpleegTab" disable="true" layoutX="145.0" layoutY="253.0" mnemonicParsing="false" />
-                        <Button fx:id="btnUpdateTransportdienst" layoutX="30.0" layoutY="694.0" mnemonicParsing="false" onAction="#updateTransportdienst" text="Gegevens wijzigen" />
-                        <Button fx:id="btnSaveTransportdienst" layoutX="153.0" layoutY="694.0" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" text="Wijzigingen opslaan" visible="false" />
-                        <Button fx:id="btnAbortUpdate" layoutX="282.0" layoutY="694.0" mnemonicParsing="false" onAction="#abortUpdateTransportdienst" text="Annuleren" visible="false" />
+                        <CheckBox fx:id="cbEnkelCijfersRaadpleegTab" disable="true" layoutX="162.0" layoutY="248.0" mnemonicParsing="false" />
+                        <CheckBox fx:id="cbStatusRaadpleegTab" disable="true" layoutX="145.0" layoutY="288.0" mnemonicParsing="false" />
+                        <Button fx:id="btnUpdateTransportdienst" layoutX="31.0" layoutY="813.0" mnemonicParsing="false" onAction="#updateTransportdienst" text="Gegevens wijzigen" />
+                        <Button fx:id="btnSaveTransportdienst" layoutX="166.0" layoutY="813.0" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" text="Wijzigingen opslaan" />
+                        <Button fx:id="btnAbortUpdate" layoutX="308.0" layoutY="813.0" mnemonicParsing="false" onAction="#abortUpdateTransportdienst" text="Annuleren" />
+                        <Spinner fx:id="spinBarcodeLengteRaadpleegTab" layoutX="121.0" layoutY="54.0" />
+                        <RadioButton fx:id="rbOrderIdRaadpleegTab" layoutX="118.0" layoutY="160.0" mnemonicParsing="false" text="Order id" />
+                        <RadioButton fx:id="rbPostcodeRaadpleegTab" layoutX="195.0" layoutY="160.0" mnemonicParsing="false" text="Postcode" />
+                        <HBox fx:id="hBoxContactPersonen1" layoutX="29.0" layoutY="677.0" prefHeight="50.0" prefWidth="749.0" spacing="40.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="134.0">
+                           <children>
+                              <TextField fx:id="txtVoornaamToevoegen" promptText="Voornaam" />
+                              <TextField fx:id="txtFamilienaamToevoegen" promptText="Familienaam" />
+                              <TextField fx:id="txtEmailadresToevoegen" promptText="Emailadres" />
+                              <TextField fx:id="txtTelefoonnummerToevoegen" promptText="Telefoonnummer" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" top="10.0" />
+                           </padding></HBox>
+                        <HBox fx:id="hBoxContactPersonen2" alignment="TOP_RIGHT" layoutX="29.0" layoutY="727.0" prefHeight="34.0" prefWidth="749.0" spacing="20.0" style="-fx-background-color: white;" visible="false">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#toevoegenContactpersoon" text="Toevoegen" />
+                              <Button mnemonicParsing="false" onAction="#verwijderenContactpersoon" text="Verwijderen" />
+                           </children>
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </AnchorPane>
             </content>
@@ -137,30 +162,12 @@
                               <Font size="18.0" />
                            </font>
                         </CheckBox>
-                        <ChoiceBox fx:id="cbVerificatie" layoutX="209.0" layoutY="200.0" prefWidth="150.0" />
                         <TextField fx:id="txtPrefix" layoutX="201.0" layoutY="248.0" />
+                        <RadioButton fx:id="rbOrderIdToevoegTab" layoutX="207.0" layoutY="206.0" mnemonicParsing="false" text="Orderid" />
+                        <RadioButton fx:id="rbPostcodeToevoegTab" layoutX="291.0" layoutY="206.0" mnemonicParsing="false" text="Postcode" />
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab closable="false" text="Aanpassen">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="tvContactpersonen1" layoutX="32.0" layoutY="335.0" prefHeight="316.0" prefWidth="749.0">
-                           <columns>
-                              <TableColumn fx:id="contactpersoonVoornaamKolom1" prefWidth="75.0" text="Voornaam" />
-                              <TableColumn fx:id="contactpersoonFamilienaamKolom1" prefWidth="75.0" text="Familienaam" />
-                              <TableColumn fx:id="contactpersoonEmailadresKolom1" prefWidth="75.0" text="Emailadres" />
-                              <TableColumn fx:id="contactpersoonTelefoonnummerKolom1" prefWidth="156.0" text="Telefoonnummer" />
-                           </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
         </tabs>
       </TabPane>
 	</children>

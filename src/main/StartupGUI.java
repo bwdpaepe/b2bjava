@@ -5,6 +5,7 @@ import gui.AanmeldenController;
 import gui.MasterController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -18,13 +19,23 @@ public class StartupGUI extends Application {
 		try {
 			run();
 
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Master.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Aanmelden.fxml"));
+			AanmeldenController ac = new AanmeldenController(dc);
+			loader.setController(ac);
+			Parent root = loader.load();
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			
+			
+			
+			/* FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Master.fxml"));
 			BorderPane bp = loader.<BorderPane>load();
 			MasterController mc = loader.getController();
 			mc.setParams(dc);
 			Scene scene = new Scene(bp);
 			primaryStage.setScene(scene);
-			primaryStage.show();
+			primaryStage.show(); */
 
 			
 

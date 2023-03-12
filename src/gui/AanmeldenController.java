@@ -28,9 +28,9 @@ import repository.UserDTO;
 public class AanmeldenController extends Pane {
 
 	private final DomeinController dc;
-	// private Stage stage;
-	// private Scene scene;
-	// private Parent root;
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
 
 	@FXML
 	private TextField gebruikersnaamTxtField;
@@ -53,52 +53,33 @@ public class AanmeldenController extends Pane {
 
 	public AanmeldenController(DomeinController dc) {
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("Aanmelden.fxml"));
-		loader.setController(this);
-		loader.setRoot(this);
 		this.dc = dc;
-
-		try {
-			loader.load();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		
 	}
 
-	@FXML
 	public void onEnter(ActionEvent ae) throws IOException {
 		this.aanmelden(ae);
 	}
 
-	@FXML
 	public void closeError(ActionEvent ae) {
 		this.errorWindow.setVisible(false);
 
 	}
 
+	@FXML
 	public void aanmelden(ActionEvent event) throws IOException {
 		try {
-			UserDTO user = dc.aanmelden(gebruikersnaamTxtField.getText(), paswoordTxtField.getText());
+			dc.aanmelden(gebruikersnaamTxtField.getText(), paswoordTxtField.getText());
 
-			// FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
-			// HomeController hc = new HomeController(this.dc, user);
-			// loader.setController(hc);
-			// root = loader.load();
-			// stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-			// stage.setResizable(false);
-
-			// Mock data om gui te testen <<=== maken in GraphicalUI en ophalen via DC
-
-			List<TransportdienstDTO> diensten = dc.getTransportdienstenDTO();
-
-			TransportdienstenController root = new TransportdienstenController();
-			Scene scene = new Scene(root);
-			Stage stage = (Stage) this.getScene().getWindow();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Master.fxml"));
+			Parent root = loader.load();
+			MasterController mc = loader.getController();
+			mc.setParams(dc);			
+			scene = new Scene(root);
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			stage.setScene(scene);
+			stage.show();
 
-			// hc.setWelkomTekst();
-			// stage.show();
 		} catch (IllegalArgumentException e) {
 			errorMessage.setText(e.getMessage());
 			this.errorWindow.setVisible(true);
@@ -112,20 +93,19 @@ public class AanmeldenController extends Pane {
 		}
 	}
 
-	public void aanmeldenZonderLoginGegevens(ActionEvent event) {
+	@FXML
+	public void aanmeldenZonderLoginGegevens(ActionEvent event) throws IOException {
 		try {
-			UserDTO user = dc.aanmelden("emailail1@test.com", "paswoord");
-
-			// stage.setResizable(false);
-
-			// Mock data om gui te testen <<=== SAME HERE
-
-			List<TransportdienstDTO> diensten = dc.getTransportdienstenDTO();
-
-			TransportdienstenController root = new TransportdienstenController();
-			Scene scene = new Scene(root);
-			Stage stage = (Stage) this.getScene().getWindow();
+			dc.aanmelden("emailail1@test.com", "paswoord");
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Master.fxml"));
+			Parent root = loader.load();
+			MasterController mc = loader.getController();
+			mc.setParams(dc);			
+			scene = new Scene(root);
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			stage.setScene(scene);
+			stage.show();
 
 		} catch (IllegalArgumentException e) {
 			errorMessage.setText(e.getMessage());

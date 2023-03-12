@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="apBestellingen" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BestellingenController">
+<AnchorPane fx:id="apBestellingen" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BestellingenController">
    <children>
       <AnchorPane style="-fx-background-color: grey;" styleClass="rightComponent">
          <children>
@@ -21,6 +21,6 @@
           <TableColumn fx:id="transportdienstColumn" prefWidth="242.66668701171875" resizable="false" text="Transportdienst" />
         </columns>
       </TableView>
-      <TextField fx:id="tfBestellingZoeken" promptText="Zoeken..." styleClass="search-field" />
+      <TextField fx:id="tfBestellingZoeken" promptText="Zoek klant..." styleClass="search-field" />
    </children>
 </AnchorPane>
