@@ -41,7 +41,6 @@ public class KlantenController extends Pane {
 
 	}	
 	
-
 	public void setParams(DomeinController dc) {
 		this.dc = dc;
 	}
@@ -52,8 +51,6 @@ public class KlantenController extends Pane {
 
 	    naamColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKlantNaam()));
 	    aantalBestellingenColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAantalOpenBestellingen().toString()));
-
-	    tvKlantenLijst.setItems(klantenList);
 
 	    // Create a filtered list that wraps the original list
 	    FilteredList<KlantLijstEntryDTO> filteredList = new FilteredList<>(klantenList, p -> true);
