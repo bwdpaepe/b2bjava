@@ -14,15 +14,15 @@ public class DatabaseSeeding
 		{
 
 			// bedrijven
-			domeinController.maakBedrijf("Bedrijf A", "Straat A", "A1", "1234A", "stad A", "land A", "0123456789",
+			domeinController.maakBedrijf("Bedrijf Alfa", "Straat A", "A1", "1234A", "stad A", "land A", "0123456789",
 					"logo_bedrijf_A");
-			domeinController.maakBedrijf("Bedrijf B", "Straat B", "B2", "4321B", "stad B", "land B", "9876543210",
+			domeinController.maakBedrijf("Bedrijf Beta", "Straat B", "B2", "4321B", "stad B", "land B", "9876543210",
 					"logo_bedrijf_B");
-			domeinController.maakBedrijf("Bedrijf C", "Straat C", "C3", "9876C", "stad C", "land C", "1234567",
+			domeinController.maakBedrijf("Bedrijf Charlie", "Straat C", "C3", "9876C", "stad C", "land C", "1234567",
 					"logo_bedrijf_C");
-			domeinController.maakBedrijf("Bedrijf D", "Straat D", "D4", "9876D", "stad D", "land D", "1234567",
+			domeinController.maakBedrijf("Bedrijf Delta", "Straat D", "D4", "9876D", "stad D", "land D", "1234567",
 					"logo_bedrijf_D");
-			domeinController.maakBedrijf("Bedrijf E", "Straat E", "E5", "9876E", "stad E", "land E", "1234567",
+			domeinController.maakBedrijf("Bedrijf Echo", "Straat E", "E5", "9876E", "stad E", "land E", "1234567",
 					"logo_bedrijf_E");
 
 			// Medewerkers
