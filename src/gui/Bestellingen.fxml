@@ -109,7 +109,7 @@
 	                              <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
 	                           </padding>
 	                        </Label>
-	                        <Label fx:id="txtDozenVoorVerpakking" prefHeight="1000.0" prefWidth="1000.0" text="Dozen voor verpakking">
+	                        <Label prefHeight="1000.0" prefWidth="1000.0" text="Dozen voor verpakking">
 	                           <font>
 	                              <Font name="SansSerif Bold" size="12.0" />
 	                           </font>
@@ -117,7 +117,7 @@
 	                              <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
 	                           </padding>
 	                        </Label>
-	                        <Label fx:id="txtTransportDienst" prefHeight="1000.0" prefWidth="1000.0" text="Transportdienst">
+	                        <Label prefHeight="1000.0" prefWidth="1000.0" text="Transportdienst">
 	                           <font>
 	                              <Font name="SansSerif Bold" size="12.0" />
 	                           </font>
@@ -177,7 +177,7 @@
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>
 	                        </TextField>
-	                        <TextField prefHeight="1000.0">
+	                        <TextField fx:id="txtDozenVoorVerpakking" prefHeight="1000.0">
 	                           <VBox.margin>
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>
