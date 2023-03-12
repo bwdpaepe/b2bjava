@@ -312,6 +312,16 @@ public class TransportdienstenController extends Pane {
 
 		transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
 		tvTransportdiensten.setItems(transportdiensten);
+		txtNaamTransportdienst.clear();
+		spinnerLengteBarcode.getValueFactory().setValue(1);
+		cbCijfers.setSelected(false);
+		rbOrderIdToevoegTab.setSelected(false);
+		rbPostcodeToevoegTab.setSelected(false);
+		txtPrefix.clear();
+		txtVoornaam.clear();
+		txtFamilienaam.clear();
+		txtTelefoonnummer.clear();
+		txtEmailadres.clear();
 	}
 
 	@FXML
@@ -357,9 +367,9 @@ public class TransportdienstenController extends Pane {
 			long transportId) {
 		try {
 			dc.editContactpersoon(voornaam, familienaam, telefoonnummer, email, id, transportId);
+			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-			this.selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 		} catch (IllegalArgumentException e) {
 			melding.setAlertType(AlertType.ERROR);
 			melding.setContentText(e.getMessage());
@@ -397,9 +407,7 @@ public class TransportdienstenController extends Pane {
 		ContactpersoonDTO c = tvContactpersonen.getItems().get(rij);
 		dc.removeContactpersoon(c.getId(), selectedTransportdienstDTO.getId());
 		this.selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
-		tvContactpersonen
-				.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-		
+		tvContactpersonen.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
 
 	}
 
@@ -413,6 +421,7 @@ public class TransportdienstenController extends Pane {
 		rbPostcodeRaadpleegTab.setDisable(true);
 		btnAbortUpdate.setVisible(false);
 		btnSaveTransportdienst.setVisible(false);
+		btnUpdateTransportdienst.setVisible(true);
 		tvContactpersonen.setEditable(false);
 		hBoxContactPersonen1.setVisible(false);
 		hBoxContactPersonen2.setVisible(false);
@@ -428,6 +437,7 @@ public class TransportdienstenController extends Pane {
 		rbPostcodeRaadpleegTab.setDisable(false);
 		btnAbortUpdate.setVisible(true);
 		btnSaveTransportdienst.setVisible(true);
+		btnUpdateTransportdienst.setVisible(false);
 		tvContactpersonen.setEditable(true);
 		hBoxContactPersonen1.setVisible(true);
 		hBoxContactPersonen2.setVisible(true);
