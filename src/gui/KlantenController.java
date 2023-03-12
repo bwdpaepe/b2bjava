@@ -3,6 +3,7 @@ package gui;
 
 
 import domein.DomeinController;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +34,7 @@ public class KlantenController extends Pane {
 	@FXML
 	TableColumn<KlantLijstEntryDTO, String> naamColumn;
 	@FXML
-	TableColumn<KlantLijstEntryDTO, String> aantalBestellingenColumn;
+	TableColumn<KlantLijstEntryDTO, Number> aantalBestellingenColumn;
 	@FXML
 	TextField tfKlantZoeken;
 	
@@ -50,7 +51,9 @@ public class KlantenController extends Pane {
 	    ObservableList<KlantLijstEntryDTO> klantenList = FXCollections.observableList(dc.geefLijstVanKlantenMetAantalOpenstaandeBestellingen());
 
 	    naamColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKlantNaam()));
-	    aantalBestellingenColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAantalOpenBestellingen().toString()));
+//	    aantalBestellingenColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAantalOpenBestellingen().toString()));
+	    aantalBestellingenColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty((int) cellData.getValue().getAantalOpenBestellingen()));
+
 
 	    // Create a filtered list that wraps the original list
 	    FilteredList<KlantLijstEntryDTO> filteredList = new FilteredList<>(klantenList, p -> true);
