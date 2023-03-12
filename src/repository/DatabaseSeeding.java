@@ -1,7 +1,6 @@
 package repository;
 
 import java.util.Date;
-import java.util.List;
 
 import domein.DomeinController;
 
@@ -128,6 +127,9 @@ public class DatabaseSeeding
 			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
 			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
 			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
+			
+			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 1, 5, 3);
+			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 1, 5, 3);
 
 			System.out.print("Database Seeded");
 
