@@ -1,24 +1,24 @@
 
 .containerAnchor{
-    -fx-min-width: 1920px;
-    -fx-min-height: 915px;
-    -fx-max-width: 1920px;
-    -fx-max-height: 915px;
+    -fx-min-width: 1920.0px;
+    -fx-min-height: 915.0px;
+    -fx-max-width: 1920.0px;
+    -fx-max-height: 915.0px;
 }
 
 .leftComponent {
-	-fx-translate-x: 18px;
-    -fx-translate-y: 12px;
-    -fx-pref-width: 769px;
-    -fx-pref-height: 892px;
+	-fx-translate-x: 18.0px;
+    -fx-translate-y: 12.0px;
+    -fx-pref-width: 769.0px;
+    -fx-pref-height: 892.0px;
     -fx-border-color: #000000;
 }
 
 .rightComponent {
-	-fx-translate-x: 805px;
-    -fx-translate-y: 12px;
-    -fx-pref-width: 1099px;
-    -fx-pref-height: 892px;
+	-fx-translate-x: 805.0px;
+    -fx-translate-y: 12.0px;
+    -fx-pref-width: 1099.0px;
+    -fx-pref-height: 892.0px;
     -fx-border-color: #000000;
 }
 
@@ -30,29 +30,29 @@
 .table-view  .column-header {
     -fx-background-color: #EC4842;
     -fx-color: #FFFFFF;
-    -fx-pref-height: 62px;
+    -fx-pref-height: 62.0px;
     }
 
 .table-view .column-header > .label {
     -fx-text-fill: white;
     -fx-alignment: bottom-left ;
-    -fx-font: 12pt 'Inter', sans-serif;
+    -fx-font: 12.0pt 'Inter', sans-serif;
     -fx-font-weight: bolder;
-    -fx-padding: 1px 4px; 
+    -fx-padding: 1.0px 4.0px; 
 } 
 
 .table-view .table-cell {
     -fx-alignment: center-left;
-    -fx-padding: 1px 4px;
+    -fx-padding: 1.0px 4.0px;
 }
 
 .search-field {
 	-fx-background-color: #FFFFFF;
 	-fx-border-color: #000000;
-	-fx-translate-x: 24px;
-    -fx-translate-y: 18px;
-    -fx-pref-width: 300px;
-    -fx-pref-height: 25px; 
+	-fx-translate-x: 24.0px;
+    -fx-translate-y: 18.0px;
+    -fx-pref-width: 300.0px;
+    -fx-pref-height: 25.0px; 
 }
 
 .table-view .scroll-bar:vertical {
@@ -62,9 +62,9 @@
 
 .table-view .scroll-bar:vertical .increment-button, .table-view .scroll-bar:vertical .decrement-button {
    -fx-background-color: null;
-  -fx-background-radius: 0;
-  -fx-background-insets: 0;
-  -fx-padding: 0;
+  -fx-background-radius: 0.0;
+  -fx-background-insets: 0.0;
+  -fx-padding: 0.0;
 }
 
 .table-view .scroll-bar:vertical .increment-arrow,
@@ -75,24 +75,24 @@
 
 .table-view .scroll-bar:vertical .thumb {
     -fx-background-color: #EC4842;
-    -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 5px;
+    -fx-background-insets: 0.0, 1.0, 2.0;
+    -fx-background-radius: 5.0px;
 }
 
 .table-view *.scroll-bar:horizontal *.increment-button,
 .table-view *.scroll-bar:horizontal *.decrement-button {
   -fx-background-color: null;
-  -fx-background-radius: 0;
-  -fx-background-insets: 0;
-  -fx-padding: 0;
+  -fx-background-radius: 0.0;
+  -fx-background-insets: 0.0;
+  -fx-padding: 0.0;
 }
 
 .table-view *.scroll-bar:horizontal *.increment-arrow,
 .table-view *.scroll-bar:horizontal *.decrement-arrow {
   -fx-background-color: null;
-  -fx-background-radius: 0;
-  -fx-background-insets: 0;
-  -fx-padding: 0;
+  -fx-background-radius: 0.0;
+  -fx-background-insets: 0.0;
+  -fx-padding: 0.0;
   -fx-shape: null;
 }
 
@@ -100,23 +100,22 @@
 
 .table-row-cell{
 	-fx-background-color: white;
-	-fx-font: 12pt 'Inter', sans-serif;
+	-fx-font: 12.0pt 'Inter', sans-serif;
 	-fx-border-color: black;
-	-fx-border-width: 0 0 0 0;
+	-fx-border-width: 0.0 0.0 0.0 0.0;
 }
 
 .table-row-cell:filled{
 	-fx-background-color: white;
-	-fx-font: 12pt 'Inter', sans-serif;
-
-	-fx-border-width: 0 0 0 0;
+	-fx-font: 12.0pt 'Inter', sans-serif;
+	-fx-border-width: 0.0 0.0 0.0 0.0;
 }
 
 
 .table-row-cell:filled:hover{
 	-fx-background-color: #EC4842;
 	-fx-border-color: white;
-	-fx-border-width: 0 0 1 0;
+	-fx-border-width: 0.0 0.0 1.0 0.0;
 
 }
 
@@ -132,10 +131,19 @@
 	-fx-table-cell-border-color: transparent;
 	-fx-background-color: #EC4842;
 	-fx-border-color: white;
-	-fx-border-width: 1 0 1 0;
+	-fx-border-width: 1.0 0.0 1.0 0.0;
 }
 
 #tvKlantenLijst .column-header, #tvKlantenLijst .column-header-background, #tvKlantenLijst .table-cell {
-    -fx-pref-width: 385px; 
+    -fx-pref-width: 385.0px; 
+}
+
+.button{
+	-fx-background-color: #EC4842;
+	-fx-font: 12.0pt 'Inter', sans-serif;
+	-fx-font-weight: bolder;
+	-fx-text-fill: white;
+    -fx-padding: 1.0px 4.0px; 
+    -fx-border-radius: 4px
 }
 

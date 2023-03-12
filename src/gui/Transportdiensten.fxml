@@ -32,7 +32,7 @@
             <String fx:value="table-view" />
          </styleClass>
       </TableView>
-      <TabPane fx:id="tabPane" layoutX="2.0" layoutY="2.0" prefHeight="892.0" prefWidth="1000.0" style="-fx-border-color: black;" styleClass="rightComponent" stylesheets="@../guiStyling/componentsStyle.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutX="2.0" layoutY="2.0" prefHeight="892.0" prefWidth="1000.0" styleClass="rightComponent" stylesheets="@../guiStyling/componentsStyle.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="raadpleegTab" closable="false" text="Raadpleeg">
             <content>
@@ -168,11 +168,6 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab closable="false" text="Aanpassen">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
         </tabs>
       </TabPane>
 	</children>
