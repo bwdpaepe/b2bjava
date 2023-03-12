@@ -5,6 +5,7 @@ import java.util.List;
 
 import domein.Bedrijf;
 import domein.Bestelling;
+import domein.Medewerker;
 import domein.Transportdienst;
 import repository.BestellingDao;
 import repository.BestellingDaoJpa;
@@ -22,12 +23,14 @@ public class BestellingService {
 	}
 
 	public void maakBestelling(String orderID, String status, Date datum, long leverancierID, long klantID,
-			long transportdienstID) {
+			long transportdienstID, String leveradresStraat, String leveradresStad, String leveradresPostcode, String leveradresNummer,
+			String leveradresLand) {
 		try {
 			Bedrijf leverancier = bedrijfService.getBedrijfById(leverancierID);
 			Bedrijf klant = bedrijfService.getBedrijfById(klantID);
 			Transportdienst td = dienstService.getTransportdienstByID(transportdienstID);
-			Bestelling bestelling = new Bestelling(orderID, datum, status, leverancier, klant, td);
+			Bestelling bestelling = new Bestelling(orderID, datum, status, leverancier, klant, td, leveradresStraat,
+					leveradresStad, leveradresNummer, leveradresPostcode, leveradresLand);
 
 			GenericDaoJpa.startTransaction();
 			bestellingRepo.insert(bestelling);

@@ -34,6 +34,7 @@ public class Bestelling {
 	private String leveradresNummer;
 	private String leveradresPostcode;
 	private String leveradresLand;
+	private String leveradresStad;
 	private String trackAndTraceCode;
 
 	// RELATIES
@@ -63,18 +64,29 @@ public class Bestelling {
 	
 	public Bestelling(String orderID, Date datum_geplaatst,  String statusString, 
 			Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst, Medewerker aankoper,
-			String leveradresStraat, String leveradresNummer, String leveradresPostcode, String leveradresLand) {
+			String leveradresStraat, String leveradresNummer, String leveradresPostcode, String leveradresStad, String leveradresLand) {
 		setOrderID(orderID);
 		setDatumGeplaatst(datum_geplaatst);
 		setLeverancier(leverancier);
 		setKlant(klant);
 		setTransportdienst(transportdienst);
 		setStatus(statusString);
+		setAankoper(aankoper);
 		setLeveradresLand(leveradresLand);
 		setLeveradresStraat(leveradresStraat);
 		setLeveradresNummer(leveradresNummer);
 		setLeveradresPostcode(leveradresPostcode);
+		setLeveradresStad(leveradresStad);
 		
+	}
+
+	public String getLeveradresStad() {
+		return leveradresStad;
+	}
+
+	public void setLeveradresStad(String leveradresStad) {
+		ValidationService.controleerNietBlanco(leveradresPostcode);
+		this.leveradresStad = leveradresStad;
 	}
 
 	public Medewerker getAankoper() {
