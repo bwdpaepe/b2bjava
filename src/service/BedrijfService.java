@@ -43,7 +43,6 @@ public class BedrijfService
 			System.err.println(e.getMessage());
 			throw new IllegalArgumentException(e.getMessage());
 		}
-
 	}
 
 	public Bedrijf getBedrijfById(long bedrijfsId)
@@ -71,7 +70,7 @@ public class BedrijfService
 	        GenericDaoJpa.commitTransaction();
 		} catch (Exception e) {
 			GenericDaoJpa.rollbackTransaction();
-			System.err.println(e.getMessage());
+//			System.err.println(e.getMessage());
 			throw new IllegalArgumentException(e.getMessage());
 		};
 	}
@@ -86,7 +85,7 @@ public class BedrijfService
 	        GenericDaoJpa.commitTransaction();
 		} catch (Exception e) {
 			GenericDaoJpa.rollbackTransaction();
-			System.err.println(e.getMessage());
+//			System.err.println(e.getMessage());
 			throw new IllegalArgumentException(e.getMessage());
 		};
 	}

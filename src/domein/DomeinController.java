@@ -166,14 +166,14 @@ public class DomeinController {
 		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID, aankoperId, leveradresStraat, leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand);
 	}
 
-	// dit moet nog gefixed worden om enkel de bestellingen te krijgen van het
-	// bedrijf van de aanvrager
 	public List<BestellingDTO> getBestellingen() {
 		List<Bestelling> bestellingen = bestellingService.getBestellingen(ingelogdeUser.getBedrijf().getId());
 		List<BestellingDTO> bestellingenDTO = bestellingen.stream().map(b -> new BestellingDTO(b)).toList();
-
 		return Collections.unmodifiableList(bestellingenDTO);
-
+	}
+	
+	public void addProductenToBestelling(long bestellingId, long longProductId, int aantal) {
+		bestellingService.addBesteldProductToBestelling(bestellingId, longProductId, aantal);
 	}
 	
 	// DOOS OPERATIONS

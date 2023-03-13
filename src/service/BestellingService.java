@@ -7,6 +7,7 @@ import domein.Bedrijf;
 import domein.BesteldProduct;
 import domein.Bestelling;
 import domein.Medewerker;
+import domein.Product;
 import domein.Transportdienst;
 import repository.BestellingDao;
 import repository.BestellingDaoJpa;
@@ -57,9 +58,16 @@ public class BestellingService {
 	
 	public void addBesteldProductToBestelling (long bestellingId, long productId, int aantal) {
 		try {
-			bestellingRepo.get(bestellingId).addBesteldProductToBestelling(new BesteldProduct(productService.getProductById(productId), aantal));
+			GenericDaoJpa.startTransaction();
+			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			Product product = productService.getProductById(productId);
+			BesteldProduct besteldProduct = new BesteldProduct(product, aantal, bestelling);
+			bestelling.addBesteldProductToBestelling(besteldProduct);
+			bestellingRepo.update(bestelling);
+			GenericDaoJpa.commitTransaction();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			GenericDaoJpa.rollbackTransaction();
+//			System.err.println(e.getMessage());
 			throw new IllegalArgumentException(e.getMessage());
 		}
 	}

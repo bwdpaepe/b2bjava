@@ -3,6 +3,7 @@ package domein;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,7 +55,7 @@ public class Bestelling {
 	@JoinColumn(name = "Medewerker", nullable = false)
 	private Medewerker aankoper;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "bestelling", cascade = CascadeType.ALL)
 	private List<BesteldProduct> besteldeProducten;
 	
 	protected Bestelling() {
