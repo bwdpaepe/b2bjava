@@ -185,6 +185,7 @@ public class TransportdienstenController extends Pane {
 
 	private void buildGui() {
 		buildGuiTableViewTransportdiensten();
+		buildGuiRaadpleegTab();
 		buildGuiToevoegTab();
 
 	}
@@ -219,16 +220,15 @@ public class TransportdienstenController extends Pane {
 		sortedList.comparatorProperty().bind(tvTransportdiensten.comparatorProperty());
 		tvTransportdiensten.setItems(sortedList);
 
-		buildGuiRaadpleegTab();
-
+		// Selecteer een rij die in het rechtercomponent zichtbaar wordt
 		tvTransportdiensten.setRowFactory(tv -> {
 			TableRow<TransportdienstDTO> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
 				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
 
 					this.selectedTransportdienstDTO = row.getItem();
-					buildGuiRaadpleegTab();
 					tabPane.getSelectionModel().select(raadpleegTab);
+					buildGuiRaadpleegTab();
 
 				}
 			});
