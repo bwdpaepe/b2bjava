@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import domein.Bedrijf;
 import domein.BestellingStatus;
+import domein.Doos;
 import repository.BedrijfDao;
 import repository.BedrijfDaoJpa;
 import repository.GenericDaoJpa;
@@ -34,12 +35,13 @@ public class BedrijfService
 		{
 			bedrijfRepo
 					.insert(new Bedrijf(naam, straat, huisnummer, postcode, stad, land, telefoonnummer, logo_filename));
-
+			GenericDaoJpa.commitTransaction();
 		} catch (Exception e)
 		{
 			GenericDaoJpa.rollbackTransaction();
+			System.err.println(e.getMessage());
+			throw new IllegalArgumentException(e.getMessage());
 		}
-		GenericDaoJpa.commitTransaction();
 
 	}
 
@@ -56,5 +58,20 @@ public class BedrijfService
 		return lijst.stream()
 		        .map(obj -> new KlantLijstEntryDTO(obj))
 		        .collect(Collectors.toUnmodifiableList());
+	}
+	
+	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs) {
+		GenericDaoJpa.startTransaction();
+		try {
+	        Bedrijf bedrijf = bedrijfRepo.get(bedrijfsId);
+	        Doos doos = new Doos(naam, hoogte, breedte, lengte, doosTypeString, prijs, bedrijf);
+	        bedrijf.getDozen().add(doos);
+	        bedrijfRepo.update(bedrijf);
+	        GenericDaoJpa.commitTransaction();
+		} catch (Exception e) {
+			GenericDaoJpa.rollbackTransaction();
+			System.err.println(e.getMessage());
+			throw new IllegalArgumentException(e.getMessage());
+		};
 	}
 }

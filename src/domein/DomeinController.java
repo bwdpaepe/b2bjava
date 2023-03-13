@@ -175,6 +175,12 @@ public class DomeinController {
 		return Collections.unmodifiableList(bestellingenDTO);
 
 	}
+	
+	// DOOS OPERATIONS
+	// --------------------------------------------------------------------------------------------------------------------------------------------------
+	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs ) {
+		bedrijfService.maakDoos(bedrijfsId, naam, doosTypeString, hoogte, breedte, lengte, prijs);
+	}
 
 	// GLOBAL OPERATIONS
 	// --------------------------------------------------------------------------------------------------------------------------------------------------

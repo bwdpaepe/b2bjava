@@ -26,6 +26,11 @@ public class DatabaseSeeding
 			domeinController.maakBedrijf("Bedrijf Echo", "Straat E", "E5", "9876E", "stad E", "land E", "1234567",
 					"logo_bedrijf_E");
 
+			// Dozen
+			domeinController.maakDoos(1, "doos_1", "standaard", 1, 3, 2, 1);
+			domeinController.maakDoos(1, "doos_2", "custom", 1, 2, 3, 4);
+			domeinController.maakDoos(2, "doos_2", "custom", 2, 2, 3, 4); // zelfde naam maar ander bedrijf -> mag geen error geven
+			
 			// Medewerkers
 			domeinController.maakMedewerker("Joachim2", "Dauchot", "emailail1@test.com", "paswoord",
 					"Adres adres adres1", "047563541854", "admin", 5, 1);

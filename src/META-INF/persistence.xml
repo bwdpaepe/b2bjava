@@ -18,6 +18,7 @@
 		<class>domein.Bestelling</class>
 		<class>domein.Product</class>
 		<class>domein.BesteldProduct</class>
+		<class>domein.Doos</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"
