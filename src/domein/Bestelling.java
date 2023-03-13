@@ -80,7 +80,7 @@ public class Bestelling {
 		
 	}
 	
-	public void addBesteldProductToBestelling(BesteldProduct bp) {
+	public final void addBesteldProductToBestelling(BesteldProduct bp) {
 		besteldeProducten.add(bp);
 	}
 
@@ -88,7 +88,7 @@ public class Bestelling {
 		return leveradresStad;
 	}
 
-	public void setLeveradresStad(String leveradresStad) {
+	public final void setLeveradresStad(String leveradresStad) {
 		ValidationService.controleerNietBlanco(leveradresPostcode);
 		this.leveradresStad = leveradresStad;
 	}
@@ -97,7 +97,7 @@ public class Bestelling {
 		return aankoper;
 	}
 
-	public void setAankoper(Medewerker aankoper) {
+	public final void setAankoper(Medewerker aankoper) {
 		if(aankoper.getFunctie().toString().equalsIgnoreCase("aankoper")) {
 		this.aankoper = aankoper; 
 		} else {
@@ -113,7 +113,7 @@ public class Bestelling {
 		return orderID;
 	}
 
-	public void setOrderID(String orderID) {
+	public final void setOrderID(String orderID) {
 		ValidationService.controleerNietBlanco(orderID);
 		this.orderID = orderID;
 	}
@@ -122,7 +122,7 @@ public class Bestelling {
 		return datumGeplaatst;
 	}
 
-	public void setDatumGeplaatst(Date datum) {
+	public final void setDatumGeplaatst(Date datum) {
 		ValidationService.controleerNietBlanco(datum);
 
 		this.datumGeplaatst = datum;
@@ -132,7 +132,7 @@ public class Bestelling {
 		return status.toString().toLowerCase();
 	}
 
-	public void setStatus(String statusString) {
+	public final void setStatus(String statusString) {
 		ValidationService.controleerNietBlanco(statusString);
 		this.status = switch (statusString.toLowerCase())
 			{
@@ -147,7 +147,7 @@ public class Bestelling {
 		return leverancier;
 	}
 
-	public void setLeverancier(Bedrijf leverancier) {
+	public final void setLeverancier(Bedrijf leverancier) {
 		ValidationService.controleerNietBlanco(leverancier);
 		this.leverancier = leverancier;
 	}
@@ -157,7 +157,7 @@ public class Bestelling {
 	}
 
 		
-	public void setKlant(Bedrijf klant) {
+	public final void setKlant(Bedrijf klant) {
 		ValidationService.controleerNietBlanco(klant);
 		this.klant = klant;
 	}
@@ -166,7 +166,7 @@ public class Bestelling {
 		return transportdienst;
 	}
 
-	public void setTransportdienst(Transportdienst transportdienst) {
+	public final void setTransportdienst(Transportdienst transportdienst) {
 		ValidationService.controleerNietBlanco(transportdienst);
 		this.transportdienst = transportdienst;
 	}
