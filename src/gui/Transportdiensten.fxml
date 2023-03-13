@@ -39,7 +39,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="861.0" prefWidth="1000.0">
                      <children>
-                        <TableView fx:id="tvContactpersonen" layoutX="29.0" layoutY="361.0" prefHeight="316.0" prefWidth="749.0">
+                        <TableView fx:id="tvContactpersonen" layoutX="30.0" layoutY="360.0" prefHeight="316.0" prefWidth="749.0">
                           <columns>
                               <TableColumn fx:id="contactpersoonIdKolom" prefWidth="75.0" text="Id" visible="false" />
                             <TableColumn fx:id="contactpersoonVoornaamKolom" prefWidth="75.0" text="Voornaam" />
@@ -51,57 +51,62 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <Label layoutX="29.0" layoutY="15.0" text="Naam:">
+                        <Label layoutX="30.0" layoutY="15.0" text="Naam:">
                            <font>
                               <Font size="24.0" />
                            </font></Label>
-                        <Label layoutX="29.0" layoutY="70.0" text="Barcode lengte:">
+                        <Label layoutX="29.0" layoutY="150.0" text="Lengte barcode:">
                            <font>
                               <Font size="24.0" />
                            </font></Label>
-                        <Label layoutX="28.0" layoutY="235.0" text="Is barcode enkel cijfers:">
+                        <Label layoutX="30.0" layoutY="60.0" text="Structuur Track &amp; Tracecode">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="105.0" text="Is barcode enkel cijfers:">
                            <font>
                               <Font size="24.0" />
                            </font></Label>
-                        <Label layoutX="26.0" layoutY="290.0" text="Actief om te leveren:">
+                        <Label layoutX="30.0" layoutY="285.0" text="Actief om te leveren:">
                            <font>
                               <Font size="24.0" />
                            </font></Label>
-                        <Label layoutX="29.0" layoutY="180.0" text="Verificatiecode:">
+                        <Label layoutX="29.0" layoutY="195.0" text="Type verificatie:">
                            <font>
                               <Font size="24.0" />
                            </font></Label>
-                        <Label layoutX="26.0" layoutY="125.0" text="Prefix:">
+                        <Label layoutX="26.0" layoutY="240.0" text="Prefix barcode:">
                            <font>
                               <Font size="24.0" />
                            </font></Label>
                         <Label fx:id="lblVerificatiecode" layoutX="120.0" layoutY="160.0" prefHeight="17.0" prefWidth="126.0" />
-                        <TextField fx:id="txtNaamRaadpleegTab" editable="false" layoutX="106.0" layoutY="13.0" prefHeight="39.0" prefWidth="329.0">
+                        <TextField fx:id="txtNaamRaadpleegTab" editable="false" layoutX="106.0" layoutY="13.0" prefHeight="39.0" prefWidth="383.0">
                            <font>
                               <Font size="18.0" />
                            </font></TextField>
-                        <TextField fx:id="txtPrefixRaadpleegTab" editable="false" layoutX="135.0" layoutY="125.0" prefHeight="39.0" prefWidth="299.0">
+                        <TextField fx:id="txtPrefixRaadpleegTab" editable="false" layoutX="191.0" layoutY="240.0" prefHeight="39.0" prefWidth="299.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="10.0" />
                            </font></TextField>
                         <ChoiceBox fx:id="cbVerificatiecodeRaadpleegTab" layoutX="121.0" layoutY="156.0" prefWidth="150.0" visible="false" />
-                        <CheckBox fx:id="cbEnkelCijfersRaadpleegTab" disable="true" layoutX="297.0" layoutY="240.0" mnemonicParsing="false">
+                        <CheckBox fx:id="cbEnkelCijfersRaadpleegTab" disable="true" layoutX="297.0" layoutY="110.0" mnemonicParsing="false">
                            <font>
                               <Font size="18.0" />
                            </font></CheckBox>
-                        <CheckBox fx:id="cbStatusRaadpleegTab" disable="true" layoutX="259.0" layoutY="295.0" mnemonicParsing="false">
+                        <CheckBox fx:id="cbStatusRaadpleegTab" disable="true" layoutX="259.0" layoutY="290.0" mnemonicParsing="false">
                            <font>
                               <Font size="18.0" />
                            </font></CheckBox>
                         <Button fx:id="btnUpdateTransportdienst" layoutX="25.0" layoutY="805.0" mnemonicParsing="false" onAction="#updateTransportdienst" prefHeight="41.0" prefWidth="245.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Gegevens wijzigen" />
                         <Button fx:id="btnSaveTransportdienst" layoutX="300.0" layoutY="805.0" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" prefHeight="41.0" prefWidth="290.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Wijzigingen opslaan" />
                         <Button fx:id="btnAbortUpdate" layoutX="615.0" layoutY="805.0" mnemonicParsing="false" onAction="#abortUpdateTransportdienst" prefHeight="41.0" prefWidth="165.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Annuleren" />
-                        <Spinner fx:id="spinBarcodeLengteRaadpleegTab" layoutX="211.0" layoutY="71.0" prefHeight="34.0" prefWidth="223.0" />
-                        <RadioButton fx:id="rbOrderIdRaadpleegTab" layoutX="197.0" layoutY="185.0" mnemonicParsing="false" text="Order id">
+                        <Spinner fx:id="spinBarcodeLengteRaadpleegTab" layoutX="211.0" layoutY="155.0" prefHeight="34.0" prefWidth="276.0" />
+                        <RadioButton fx:id="rbOrderIdRaadpleegTab" layoutX="197.0" layoutY="200.0" mnemonicParsing="false" text="Order id">
                            <font>
                               <Font size="18.0" />
                            </font></RadioButton>
-                        <RadioButton fx:id="rbPostcodeRaadpleegTab" layoutX="310.0" layoutY="185.0" mnemonicParsing="false" text="Postcode">
+                        <RadioButton fx:id="rbPostcodeRaadpleegTab" layoutX="310.0" layoutY="200.0" mnemonicParsing="false" text="Postcode">
                            <font>
                               <Font size="18.0" />
                            </font></RadioButton>
@@ -121,6 +126,11 @@
                               <Button mnemonicParsing="false" onAction="#verwijderenContactpersoon" prefHeight="41.0" prefWidth="172.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Verwijderen" />
                            </children>
                         </HBox>
+                        <Label layoutX="31.0" layoutY="325.0" text="Contactpersonen">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
             </content>
@@ -129,7 +139,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../guiStyling/componentsStyle.css">
                      <children>
-                        <Label layoutX="20.0" layoutY="145.0" text="Enkel cijfers:">
+                        <Label layoutX="20.0" layoutY="145.0" text="Bestaat barcode enkel uit cijfers:">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -206,7 +216,7 @@
                               <Font size="18.0" />
                            </font></TextField>
                         <Spinner fx:id="spinnerLengteBarcode" editable="true" layoutX="201.0" layoutY="210.0" prefHeight="39.0" prefWidth="268.0" />
-                        <CheckBox fx:id="cbCijfers" layoutX="161.0" layoutY="150.0" mnemonicParsing="false">
+                        <CheckBox fx:id="cbCijfers" layoutX="370.0" layoutY="149.0" mnemonicParsing="false">
                            <font>
                               <Font size="18.0" />
                            </font>

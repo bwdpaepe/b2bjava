@@ -430,6 +430,7 @@ public class TransportdienstenController extends Pane {
 	@FXML
 	void verwijderenContactpersoon(ActionEvent event) {
 		try {
+
 			if (tvContactpersonen.getItems().size() == 1) {
 				throw new IllegalArgumentException("Er moet minstens 1 contactpersoon beschikbaar zijn");
 			}
