@@ -162,8 +162,8 @@ public class DomeinController {
 
 	public void maakBestelling(String OrderId, String status, Date datum, long leverancierID, long klantID,
 			long transportdienstID, long aankoperId, String leveradresStraat, String leveradresNummer,String leveradresPostcode, String leveradresStad, 
-			String leveradresLand) {
-		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID, aankoperId, leveradresStraat, leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand);
+			String leveradresLand, long doosId) {
+		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID, aankoperId, leveradresStraat, leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand, doosId);
 	}
 
 	public List<BestellingDTO> getBestellingen() {

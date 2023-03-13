@@ -58,6 +58,10 @@ public class Bestelling {
 	@OneToMany(mappedBy = "bestelling", cascade = CascadeType.ALL)
 	private List<BesteldProduct> besteldeProducten;
 	
+	@ManyToOne
+	@JoinColumn(name = "Doos", nullable = false)
+	private Doos doos;
+	
 	protected Bestelling() {
 		
 	};
@@ -65,7 +69,7 @@ public class Bestelling {
 	public Bestelling(String orderID, Date datum_geplaatst,  String statusString, 
 			Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst, Medewerker aankoper,
 			String leveradresStraat, String leveradresNummer,String leveradresPostcode, String leveradresStad, 
-			String leveradresLand) {
+			String leveradresLand, Doos doos) {
 		setOrderID(orderID);
 		setDatumGeplaatst(datum_geplaatst);
 		setLeverancier(leverancier);
@@ -78,9 +82,26 @@ public class Bestelling {
 		setLeveradresNummer(leveradresNummer);
 		setLeveradresPostcode(leveradresPostcode);
 		setLeveradresStad(leveradresStad);
-		
+		setDoos(doos);
 	}
 	
+	
+	public Doos getDoos()
+	{
+		return doos;
+	}
+
+	private void setDoos(Doos doos)
+	{
+		ValidationService.controleerNietBlanco(doos);
+		this.doos = doos;
+	}
+
+	public List<BesteldProduct> getBesteldeProducten()
+	{
+		return besteldeProducten;
+	}
+
 	public final void addBesteldProductToBestelling(BesteldProduct bp) {
 		besteldeProducten.add(bp);
 	}

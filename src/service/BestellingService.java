@@ -6,6 +6,7 @@ import java.util.List;
 import domein.Bedrijf;
 import domein.BesteldProduct;
 import domein.Bestelling;
+import domein.Doos;
 import domein.Medewerker;
 import domein.Product;
 import domein.Transportdienst;
@@ -19,6 +20,7 @@ public class BestellingService {
 	DienstService dienstService = new DienstService();
 	UserService userService = new UserService();
 	ProductService productService = new ProductService();
+	DoosService doosService = new DoosService();
 	BestellingDao bestellingRepo;
 
 	public BestellingService() {
@@ -27,14 +29,15 @@ public class BestellingService {
 
 	public void maakBestelling(String orderID, String status, Date datum, long leverancierID, long klantID,
 			long transportdienstID, long aankoperId, String leveradresStraat, String leveradresNummer,String leveradresPostcode, String leveradresStad, 
-			String leveradresLand) {
+			String leveradresLand, long doosId) {
 		try {
 			Bedrijf leverancier = bedrijfService.getBedrijfById(leverancierID);
 			Bedrijf klant = bedrijfService.getBedrijfById(klantID);
 			Transportdienst td = dienstService.getTransportdienstByID(transportdienstID);
 			Medewerker aankoper = userService.getMedewerkerById(aankoperId);
+			Doos doos = doosService.getDoosById(doosId);
 			Bestelling bestelling = new Bestelling(orderID, datum, status, leverancier, klant, td, aankoper, leveradresStraat,
-					leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand);
+					leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand, doos);
 
 			GenericDaoJpa.startTransaction();
 			bestellingRepo.insert(bestelling);

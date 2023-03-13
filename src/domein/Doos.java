@@ -28,6 +28,7 @@ public class Doos implements Serializable {
 	@ManyToOne
 	private Bedrijf bedrijf;
 	
+	
 	@Column
 	private String naam;
 	@Column

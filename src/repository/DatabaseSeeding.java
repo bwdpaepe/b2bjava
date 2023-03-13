@@ -31,7 +31,7 @@ public class DatabaseSeeding
 					"logo_bedrijf_E");
 
 			// Dozen
-			for (int i = 1; i <= 5; i++) {
+			for (int i = 1; i <= AANTAL_BEDRIJVEN; i++) {
 			    for (int j = 1; j <= 10; j++) {
 			        String naam = "doos_" + j;
 			        double hoogte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
@@ -88,7 +88,8 @@ public class DatabaseSeeding
 			    while (klantID == leverancierID) {
 			    	klantID = random.nextLong(5) + 1;
 			    }
-			    domeinController.maakBestelling(orderId, status, datum, leverancierID, klantID, 1, 6, "leveradresStraat", "leveradresNummer", "leveradresPostcode", "leveradresStad", "leveradresLand");
+			    long doosId = random.nextLong(10) + 1;
+			    domeinController.maakBestelling(orderId, status, datum, leverancierID, klantID, 1, 6, "leveradresStraat", "leveradresNummer", "leveradresPostcode", "leveradresStad", "leveradresLand", doosId);
 			}
 			
 			// add BesteldProduct to bestelling
