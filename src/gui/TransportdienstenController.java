@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -27,6 +29,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import repository.BestellingDTO;
 import repository.ContactpersoonDTO;
 import repository.PersoonDTO;
 import repository.TransportdienstDTO;
@@ -51,6 +54,9 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	private TableColumn<TransportdienstDTO, String> transportdienstStatusKolom;
+
+	@FXML
+	private TextField txtTransportdienstZoeken;
 
 	@FXML
 	private TabPane tabPane;
@@ -190,7 +196,31 @@ public class TransportdienstenController extends Pane {
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNaam()));
 		transportdienstStatusKolom.setCellValueFactory(cellData -> new SimpleStringProperty(
 				getStatusTransportdienstString(cellData.getValue().getIsActief())));
-		tvTransportdiensten.setItems(transportdiensten);
+
+		FilteredList<TransportdienstDTO> filteredList = new FilteredList<>(transportdiensten, p -> true);
+
+		txtTransportdienstZoeken.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredList.setPredicate(transportdienst -> {
+				// If search field is empty, show all entries
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				// Zoektekst naar lowercase
+				String lowerCaseFilter = newValue.toLowerCase();
+
+				if (transportdienst.getNaam().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				}
+				return false;
+			});
+
+		});
+
+		// Wrap the filtered list in a sorted list and add it to the table view
+		SortedList<TransportdienstDTO> sortedList = new SortedList<>(filteredList);
+		sortedList.comparatorProperty().bind(tvTransportdiensten.comparatorProperty());
+		tvTransportdiensten.setItems(sortedList);
+
 		buildGuiRaadpleegTab();
 
 		tvTransportdiensten.setRowFactory(tv -> {
@@ -199,7 +229,6 @@ public class TransportdienstenController extends Pane {
 				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
 
 					this.selectedTransportdienstDTO = row.getItem();
-					// TODO methode toevoegen om deze in de raadpleeg of aanpas tab te zetten
 					buildGuiRaadpleegTab();
 					tabPane.getSelectionModel().select(raadpleegTab);
 
@@ -207,6 +236,7 @@ public class TransportdienstenController extends Pane {
 			});
 			return row;
 		});
+
 	}
 
 	private void buildGuiRaadpleegTab() {
