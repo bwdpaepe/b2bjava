@@ -98,9 +98,11 @@ public class Bestelling {
 	}
 
 	public void setAankoper(Medewerker aankoper) {
-		if(aankoper.getFunctie().equalsIgnoreCase("aankoper")) {
-		this.aankoper = aankoper; }
+		if(aankoper.getFunctie().toString().equalsIgnoreCase("aankoper")) {
+		this.aankoper = aankoper; 
+		} else {
 		throw new IllegalArgumentException("Medewerker is geen aankoper");
+		}
 	}
 
 	public long getId() {
