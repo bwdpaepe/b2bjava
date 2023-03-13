@@ -6,7 +6,9 @@ import java.util.List;
 import domein.Bedrijf;
 import domein.BesteldProduct;
 import domein.Bestelling;
+import domein.Doos;
 import domein.Medewerker;
+import domein.Product;
 import domein.Transportdienst;
 import repository.BestellingDao;
 import repository.BestellingDaoJpa;
@@ -18,6 +20,7 @@ public class BestellingService {
 	DienstService dienstService = new DienstService();
 	UserService userService = new UserService();
 	ProductService productService = new ProductService();
+	DoosService doosService = new DoosService();
 	BestellingDao bestellingRepo;
 
 	public BestellingService() {
@@ -26,14 +29,15 @@ public class BestellingService {
 
 	public void maakBestelling(String orderID, String status, Date datum, long leverancierID, long klantID,
 			long transportdienstID, long aankoperId, String leveradresStraat, String leveradresNummer,String leveradresPostcode, String leveradresStad, 
-			String leveradresLand) {
+			String leveradresLand, long doosId) {
 		try {
 			Bedrijf leverancier = bedrijfService.getBedrijfById(leverancierID);
 			Bedrijf klant = bedrijfService.getBedrijfById(klantID);
 			Transportdienst td = dienstService.getTransportdienstByID(transportdienstID);
 			Medewerker aankoper = userService.getMedewerkerById(aankoperId);
+			Doos doos = doosService.getDoosById(doosId);
 			Bestelling bestelling = new Bestelling(orderID, datum, status, leverancier, klant, td, aankoper, leveradresStraat,
-					leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand);
+					leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand, doos);
 
 			GenericDaoJpa.startTransaction();
 			bestellingRepo.insert(bestelling);
@@ -57,9 +61,16 @@ public class BestellingService {
 	
 	public void addBesteldProductToBestelling (long bestellingId, long productId, int aantal) {
 		try {
-			bestellingRepo.get(bestellingId).addBesteldProductToBestelling(new BesteldProduct(productService.getProductById(productId), aantal));
+			GenericDaoJpa.startTransaction();
+			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			Product product = productService.getProductById(productId);
+			BesteldProduct besteldProduct = new BesteldProduct(product, aantal, bestelling);
+			bestelling.addBesteldProductToBestelling(besteldProduct);
+			bestellingRepo.update(bestelling);
+			GenericDaoJpa.commitTransaction();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			GenericDaoJpa.rollbackTransaction();
+//			System.err.println(e.getMessage());
 			throw new IllegalArgumentException(e.getMessage());
 		}
 	}

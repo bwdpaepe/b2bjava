@@ -8,6 +8,10 @@ import domein.DomeinController;
 
 public class DatabaseSeeding
 {
+	private static final int AANTAL_BEDRIJVEN = 5;
+	private static final int AANTAL_BESTELLINGEN = 100;
+	private static final int  AANTAL_PRODUCTEN_PER_LEVERANCIER = 20;
+	
 	public static final void startDatabaseSeed(DomeinController dc)
 	{
 		DomeinController domeinController = dc;
@@ -27,6 +31,31 @@ public class DatabaseSeeding
 			domeinController.maakBedrijf("Bedrijf E", "Straat E", "E5", "9876E", "stad E", "land E", "1234567",
 					"logo_bedrijf_E");
 
+			// Dozen
+			for (int i = 1; i <= AANTAL_BEDRIJVEN; i++) {
+			    for (int j = 1; j <= 10; j++) {
+			        String naam = "doos_" + j;
+			        double hoogte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
+			        double breedte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
+			        double lengte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
+			        double prijs = Math.round((Math.random() * 100 + 1) * 100.0) / 100.0;
+			        String doosType = "standaard";
+			        if (j % 2 == 0) {
+			            doosType = "custom";
+			        }
+			        domeinController.maakDoos(i, naam, doosType, hoogte, breedte, lengte, prijs);
+			    }
+			}
+			
+			// Producten
+			for (int i = 1; i <= AANTAL_BEDRIJVEN; i++) {
+			    for (int j = 1; j <= AANTAL_PRODUCTEN_PER_LEVERANCIER; j++) {
+			        String naam = "product_" + j;
+			        double prijs = Math.round((Math.random() * 10000 + 1)) / 100.0;
+			        domeinController.maakProduct(i, naam, prijs);
+			    }
+			}
+			
 			// Medewerkers
 			domeinController.maakMedewerker("Joachim2", "Dauchot", "emailail1@test.com", "paswoord",
 					"Adres adres adres1", "047563541854", "admin", 5, 1);
@@ -50,9 +79,8 @@ public class DatabaseSeeding
 			
 
 			// Bestellingen
-			
 			Random random = new Random();
-			for (int i = 1; i <= 100; i++) {
+			for (int i = 1; i <= AANTAL_BESTELLINGEN; i++) {
 			    String orderId = "Order" + i;
 			    String status = random.nextBoolean() ? "geplaatst" : "verwerkt";
 			    Date datum = new Date();
@@ -61,8 +89,20 @@ public class DatabaseSeeding
 			    while (klantID == leverancierID) {
 			    	klantID = random.nextLong(5) + 1;
 			    }
-			    domeinController.maakBestelling(orderId, status, datum, leverancierID, klantID, 1, 6, "leveradresStraat", "leveradresNummer", "leveradresPostcode", "leveradresStad", "leveradresLand");
+			    long doosId = random.nextLong(10) + 1;
+			    domeinController.maakBestelling(orderId, status, datum, leverancierID, klantID, 1, 6, "leveradresStraat", "leveradresNummer", "leveradresPostcode", "leveradresStad", "leveradresLand", doosId);
 			}
+			
+			// add BesteldProduct to bestelling
+			// DomeinController.addProductenToBestelling(long bestellingId, long longProductId, int aantal)
+			for (int i = 1; i <= AANTAL_BESTELLINGEN; i++) {
+			    int aantalProductenPerBestelling = (int) (Math.random() * 5) + 2; // random number of products per bestelling between 2 and 5
+			    for (int j = 1; j < aantalProductenPerBestelling; j++) {
+			        int quantity = (int) (Math.random() * 100) + 1; // random quantity between 1 and 100
+			        	domeinController.addProductenToBestelling(i, j, quantity); 
+			    }
+			}
+			
 			/*
 			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
 			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);

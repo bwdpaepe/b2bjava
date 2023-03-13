@@ -84,15 +84,7 @@ public class DomeinController {
 
 	}
 
-	// dit geeft ruwe transportdiensten terug, MAG NIET
-//	public List<Transportdienst> getTransportdiensten() {
-//		return dienstService.getTransportdiensten();
-//	}
-	// Zelfde methode als hierboven maar geeft DTO objecten
 	public List<TransportdienstDTO> getTransportdienstenDTO() {
-		//TODO eens aanmelden gelinkt is moet dit weg
-		UserDTO user = userService.aanmelden("emailail1@test.com", "paswoord");
-		setIngelogdeUser(user);
 		
 		List<Transportdienst> tdList = dienstService.getTransportdiensten(ingelogdeUser.getBedrijf().getId());
 		List<TransportdienstDTO> tdListDTO = new ArrayList<>();
@@ -105,7 +97,7 @@ public class DomeinController {
 
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
 			String verificatiecode, String contactVoornaam, String contactFamilienaam, String contactTelefoon,
-			String contactEmailadres, int bedrijfsId) {
+			String contactEmailadres, long bedrijfsId) {
 		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
 		dienstService.maakTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode,
 				contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres, bedrijf);
@@ -162,18 +154,30 @@ public class DomeinController {
 
 	public void maakBestelling(String OrderId, String status, Date datum, long leverancierID, long klantID,
 			long transportdienstID, long aankoperId, String leveradresStraat, String leveradresNummer,String leveradresPostcode, String leveradresStad, 
-			String leveradresLand) {
-		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID, aankoperId, leveradresStraat, leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand);
+			String leveradresLand, long doosId) {
+		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID, aankoperId, leveradresStraat, leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand, doosId);
 	}
 
-	// dit moet nog gefixed worden om enkel de bestellingen te krijgen van het
-	// bedrijf van de aanvrager
 	public List<BestellingDTO> getBestellingen() {
 		List<Bestelling> bestellingen = bestellingService.getBestellingen(ingelogdeUser.getBedrijf().getId());
 		List<BestellingDTO> bestellingenDTO = bestellingen.stream().map(b -> new BestellingDTO(b)).toList();
-
 		return Collections.unmodifiableList(bestellingenDTO);
-
+	}
+	
+	public void addProductenToBestelling(long bestellingId, long longProductId, int aantal) {
+		bestellingService.addBesteldProductToBestelling(bestellingId, longProductId, aantal);
+	}
+	
+	// DOOS OPERATIONS
+	// --------------------------------------------------------------------------------------------------------------------------------------------------
+	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs ) {
+		bedrijfService.maakDoos(bedrijfsId, naam, doosTypeString, hoogte, breedte, lengte, prijs);
+	}
+	
+	// PRODUCT OPERATIONS
+	// --------------------------------------------------------------------------------------------------------------------------------------------------
+	public void maakProduct(long leveranciersId, String naam, double eenheidsprijs) {
+		bedrijfService.maakProduct(leveranciersId, naam, eenheidsprijs);
 	}
 
 	// GLOBAL OPERATIONS

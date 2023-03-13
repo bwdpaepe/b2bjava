@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,10 +49,10 @@ public class Bedrijf implements Serializable
 	@OneToMany(mappedBy = "leverancier")
 	private List<Bestelling> incomingOrders;
 	
-	@OneToMany(mappedBy ="bedrijf")
+	@OneToMany(mappedBy ="bedrijf", cascade = CascadeType.ALL)  // new Doos object will be automatically saved to the database when you save the Bedrijf object
 	private List<Doos> dozen;
 	
-	@OneToMany(mappedBy = "bedrijf")
+	@OneToMany(mappedBy = "leverancier", cascade = CascadeType.ALL)
 	private List<Product> productenTeKoop;
 
 	@Id
@@ -216,4 +217,11 @@ public class Bedrijf implements Serializable
 		this.logo_filename = logo_filename;
 	}
 
+	public List<Doos> getDozen() {
+		return this.dozen;
+	}
+	
+	public List<Product> getProductenTeKoop() {
+		return this.productenTeKoop;
+	}
 }

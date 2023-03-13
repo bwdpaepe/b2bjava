@@ -144,7 +144,7 @@
 	-fx-font: 20.0pt 'Inter', calibri;
 	-fx-text-fill: white;
     -fx-padding: 1.0px 4.0px; 
-    -fx-border-radius: 4px
+    -fx-border-radius: 4.0px
 }
 
 #tvProductenLijst .column-header, #tvProductenLijst .column-header-background, #tvProductenLijst .table-cell {
@@ -168,6 +168,23 @@
 	-fx-background-color: #E0433E;
 	-fx-font: 20.0pt 'Inter', calibri;
 	-fx-border-color: black;
-	-fx-border-width: 2;
-	-fx-border-radius: 15;
+	-fx-border-width: 2.0;
+	-fx-border-radius: 15.0;
+}
+
+.tab {
+  -fx-font-family: Arial;
+  -fx-font-size: 18.0;
+  -fx-background-color:#EC4842 ;
+	
+}
+
+
+.tab-label{
+	-fx-text-fill: white;
+}
+
+.tab:selected {
+    -fx-background-color:#E0433E ;
+    -fx-font-weight: bolder;
 }

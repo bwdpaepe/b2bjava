@@ -15,6 +15,12 @@ public class BestellingDTO {
 	protected final long transportdienstID;
 	protected final String transportdienstNaam;
 	protected final String klantNaam;
+	protected final String leveradresStraat;
+	protected final String leveradresNummer;
+	protected final String leveradresPostcode;
+	protected final String leveradresStad;
+	protected final String leveradresLand;
+	protected final MedewerkerDTO aankoper;
 	public BestellingDTO(Bestelling bestelling) {
 
 		this.id = bestelling.getId();
@@ -26,6 +32,13 @@ public class BestellingDTO {
 		this.transportdienstNaam = bestelling.getTransportdienst().getNaam();
 		this.transportdienstID = bestelling.getTransportdienst().getId();
 		this.klantID = bestelling.getKlant().getID();
+		this.leveradresStraat = bestelling.getLeveradresStraat();
+		this.leveradresNummer = bestelling.getLeveradresNummer();
+		this.leveradresPostcode = bestelling.getLeveradresPostcode();
+		this.leveradresStad = bestelling.getLeveradresStad();
+		this.leveradresLand = bestelling.getLeveradresLand();
+		this.aankoper = new MedewerkerDTO(bestelling.getAankoper());
+		
 	}
 	public long getId() {
 		return id;
@@ -54,6 +67,30 @@ public class BestellingDTO {
 	}
 	public String getKlantNaam() {
 		return klantNaam;
+	}
+	
+	public String getLeveradresStraat() {
+		return leveradresStraat;
+	}
+	
+	public String getLeveradresNummer() {
+		return leveradresNummer;
+	}
+	
+	public String getLeveradresPostcode() {
+		return leveradresPostcode;
+	}
+	
+	public String getLeveradresStad() {
+		return leveradresStad;
+	}
+	
+	public String getLeveradresLand() {
+		return leveradresLand;
+	}
+	
+	public MedewerkerDTO getAankoper() {
+		return aankoper;
 	}
 	@Override
 	public String toString() {

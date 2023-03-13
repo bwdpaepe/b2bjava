@@ -3,6 +3,7 @@ package domein;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,8 +55,12 @@ public class Bestelling {
 	@JoinColumn(name = "Medewerker", nullable = false)
 	private Medewerker aankoper;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "bestelling", cascade = CascadeType.ALL)
 	private List<BesteldProduct> besteldeProducten;
+	
+	@ManyToOne
+	@JoinColumn(name = "Doos", nullable = false)
+	private Doos doos;
 	
 	protected Bestelling() {
 		
@@ -64,7 +69,7 @@ public class Bestelling {
 	public Bestelling(String orderID, Date datum_geplaatst,  String statusString, 
 			Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst, Medewerker aankoper,
 			String leveradresStraat, String leveradresNummer,String leveradresPostcode, String leveradresStad, 
-			String leveradresLand) {
+			String leveradresLand, Doos doos) {
 		setOrderID(orderID);
 		setDatumGeplaatst(datum_geplaatst);
 		setLeverancier(leverancier);
@@ -77,10 +82,27 @@ public class Bestelling {
 		setLeveradresNummer(leveradresNummer);
 		setLeveradresPostcode(leveradresPostcode);
 		setLeveradresStad(leveradresStad);
-		
+		setDoos(doos);
 	}
 	
-	public void addBesteldProductToBestelling(BesteldProduct bp) {
+	
+	public Doos getDoos()
+	{
+		return doos;
+	}
+
+	private void setDoos(Doos doos)
+	{
+		ValidationService.controleerNietBlanco(doos);
+		this.doos = doos;
+	}
+
+	public List<BesteldProduct> getBesteldeProducten()
+	{
+		return besteldeProducten;
+	}
+
+	public final void addBesteldProductToBestelling(BesteldProduct bp) {
 		besteldeProducten.add(bp);
 	}
 
@@ -88,7 +110,7 @@ public class Bestelling {
 		return leveradresStad;
 	}
 
-	public void setLeveradresStad(String leveradresStad) {
+	public final void setLeveradresStad(String leveradresStad) {
 		ValidationService.controleerNietBlanco(leveradresPostcode);
 		this.leveradresStad = leveradresStad;
 	}
@@ -97,10 +119,12 @@ public class Bestelling {
 		return aankoper;
 	}
 
-	public void setAankoper(Medewerker aankoper) {
-		if(aankoper.getFunctie().equalsIgnoreCase("aankoper")) {
-		this.aankoper = aankoper; }
+	public final void setAankoper(Medewerker aankoper) {
+		if(aankoper.getFunctie().toString().equalsIgnoreCase("aankoper")) {
+		this.aankoper = aankoper; 
+		} else {
 		throw new IllegalArgumentException("Medewerker is geen aankoper");
+		}
 	}
 
 	public long getId() {
@@ -111,7 +135,7 @@ public class Bestelling {
 		return orderID;
 	}
 
-	public void setOrderID(String orderID) {
+	public final void setOrderID(String orderID) {
 		ValidationService.controleerNietBlanco(orderID);
 		this.orderID = orderID;
 	}
@@ -120,7 +144,7 @@ public class Bestelling {
 		return datumGeplaatst;
 	}
 
-	public void setDatumGeplaatst(Date datum) {
+	public final void setDatumGeplaatst(Date datum) {
 		ValidationService.controleerNietBlanco(datum);
 
 		this.datumGeplaatst = datum;
@@ -130,7 +154,7 @@ public class Bestelling {
 		return status.toString().toLowerCase();
 	}
 
-	public void setStatus(String statusString) {
+	public final void setStatus(String statusString) {
 		ValidationService.controleerNietBlanco(statusString);
 		this.status = switch (statusString.toLowerCase())
 			{
@@ -145,7 +169,7 @@ public class Bestelling {
 		return leverancier;
 	}
 
-	public void setLeverancier(Bedrijf leverancier) {
+	public final void setLeverancier(Bedrijf leverancier) {
 		ValidationService.controleerNietBlanco(leverancier);
 		this.leverancier = leverancier;
 	}
@@ -155,7 +179,7 @@ public class Bestelling {
 	}
 
 		
-	public void setKlant(Bedrijf klant) {
+	public final void setKlant(Bedrijf klant) {
 		ValidationService.controleerNietBlanco(klant);
 		this.klant = klant;
 	}
@@ -164,7 +188,7 @@ public class Bestelling {
 		return transportdienst;
 	}
 
-	public void setTransportdienst(Transportdienst transportdienst) {
+	public final void setTransportdienst(Transportdienst transportdienst) {
 		ValidationService.controleerNietBlanco(transportdienst);
 		this.transportdienst = transportdienst;
 	}
