@@ -84,15 +84,7 @@ public class DomeinController {
 
 	}
 
-	// dit geeft ruwe transportdiensten terug, MAG NIET
-//	public List<Transportdienst> getTransportdiensten() {
-//		return dienstService.getTransportdiensten();
-//	}
-	// Zelfde methode als hierboven maar geeft DTO objecten
 	public List<TransportdienstDTO> getTransportdienstenDTO() {
-		//TODO eens aanmelden gelinkt is moet dit weg
-		UserDTO user = userService.aanmelden("emailail1@test.com", "paswoord");
-		setIngelogdeUser(user);
 		
 		List<Transportdienst> tdList = dienstService.getTransportdiensten(ingelogdeUser.getBedrijf().getId());
 		List<TransportdienstDTO> tdListDTO = new ArrayList<>();
@@ -105,7 +97,7 @@ public class DomeinController {
 
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
 			String verificatiecode, String contactVoornaam, String contactFamilienaam, String contactTelefoon,
-			String contactEmailadres, int bedrijfsId) {
+			String contactEmailadres, long bedrijfsId) {
 		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
 		dienstService.maakTransportdienst(naam, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix, verificatiecode,
 				contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres, bedrijf);
