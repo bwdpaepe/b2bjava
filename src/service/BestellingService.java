@@ -6,6 +6,7 @@ import java.util.List;
 import domein.Bedrijf;
 import domein.BesteldProduct;
 import domein.Bestelling;
+import domein.BestellingStatus;
 import domein.Doos;
 import domein.Medewerker;
 import domein.Product;
@@ -79,7 +80,7 @@ public class BestellingService {
 		try {
 			GenericDaoJpa.startTransaction();
 			Bestelling bestelling = bestellingRepo.get(bestellingId);
-			if (bestelling.getStatus() != "VERWERKT") {
+			if (bestelling.getStatus().equalsIgnoreCase(BestellingStatus.VERWERKT.toString())) {
 				throw new IllegalArgumentException("Deze bestelling is niet wijzigbaar, want deze heeft niet de juiste status!");
 			}
 			Transportdienst transportdienst = dienstService.getTransportdienstByID(transportdienstId);
