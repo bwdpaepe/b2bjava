@@ -87,7 +87,7 @@
                            </font></TextField>
                         <TextField fx:id="txtPrefixRaadpleegTab" editable="false" layoutX="191.0" layoutY="240.0" prefHeight="39.0" prefWidth="299.0">
                            <font>
-                              <Font size="10.0" />
+                              <Font size="18.0" />
                            </font></TextField>
                         <ChoiceBox fx:id="cbVerificatiecodeRaadpleegTab" layoutX="121.0" layoutY="156.0" prefWidth="150.0" visible="false" />
                         <CheckBox fx:id="cbEnkelCijfersRaadpleegTab" disable="true" layoutX="297.0" layoutY="110.0" mnemonicParsing="false">
@@ -102,11 +102,11 @@
                         <Button fx:id="btnSaveTransportdienst" layoutX="300.0" layoutY="805.0" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" prefHeight="41.0" prefWidth="290.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Wijzigingen opslaan" />
                         <Button fx:id="btnAbortUpdate" layoutX="615.0" layoutY="805.0" mnemonicParsing="false" onAction="#abortUpdateTransportdienst" prefHeight="41.0" prefWidth="165.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Annuleren" />
                         <Spinner fx:id="spinBarcodeLengteRaadpleegTab" layoutX="211.0" layoutY="155.0" prefHeight="34.0" prefWidth="276.0" />
-                        <RadioButton fx:id="rbOrderIdRaadpleegTab" layoutX="197.0" layoutY="200.0" mnemonicParsing="false" text="Order id">
+                        <RadioButton fx:id="rbOrderIdRaadpleegTab" layoutX="210.0" layoutY="200.0" mnemonicParsing="false" text="Order id">
                            <font>
                               <Font size="18.0" />
                            </font></RadioButton>
-                        <RadioButton fx:id="rbPostcodeRaadpleegTab" layoutX="310.0" layoutY="200.0" mnemonicParsing="false" text="Postcode">
+                        <RadioButton fx:id="rbPostcodeRaadpleegTab" layoutX="321.0" layoutY="200.0" mnemonicParsing="false" text="Postcode">
                            <font>
                               <Font size="18.0" />
                            </font></RadioButton>
