@@ -1,7 +1,6 @@
 package gui;
 
 import domein.DomeinController;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -264,14 +263,13 @@ public class TransportdienstenController extends Pane {
 		this.contactpersonen = FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen());
 		this.tvContactpersonen.setItems(contactpersonen);
 
-		disableButtonsGui();
+		disableGui();
 	}
 
 	private void buildGuiToevoegTab() {
 		spinnerLengteBarcode.setValueFactory(factory);
 		rbOrderIdToevoegTab.setToggleGroup(tgToevoegTab);
 		rbPostcodeToevoegTab.setToggleGroup(tgToevoegTab);
-
 	}
 
 	@FXML
@@ -327,7 +325,7 @@ public class TransportdienstenController extends Pane {
 	@FXML
 	void abortUpdateTransportdienst(ActionEvent event) {
 		buildGuiRaadpleegTab();
-		disableButtonsGui();
+		disableGui();
 	}
 
 	@FXML
@@ -359,7 +357,7 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	void updateTransportdienst(ActionEvent event) {
-		enableButtonsGui();
+		editableGui();
 
 	}
 
@@ -411,7 +409,7 @@ public class TransportdienstenController extends Pane {
 
 	}
 
-	private void disableButtonsGui() {
+	private void disableGui() {
 		txtNaamRaadpleegTab.setEditable(false);
 		txtPrefixRaadpleegTab.setEditable(false);
 		cbEnkelCijfersRaadpleegTab.setDisable(true);
@@ -425,9 +423,11 @@ public class TransportdienstenController extends Pane {
 		tvContactpersonen.setEditable(false);
 		hBoxContactPersonen1.setVisible(false);
 		hBoxContactPersonen2.setVisible(false);
+		tvTransportdiensten.setDisable(false);
+		toevoegTab.setDisable(false);
 	}
 
-	private void enableButtonsGui() {
+	private void editableGui() {
 		txtNaamRaadpleegTab.setEditable(true);
 		txtPrefixRaadpleegTab.setEditable(true);
 		cbEnkelCijfersRaadpleegTab.setDisable(false);
@@ -441,11 +441,12 @@ public class TransportdienstenController extends Pane {
 		tvContactpersonen.setEditable(true);
 		hBoxContactPersonen1.setVisible(true);
 		hBoxContactPersonen2.setVisible(true);
+		tvTransportdiensten.setDisable(true);
+		toevoegTab.setDisable(true);
 	}
 
 	private String getStatusTransportdienstString(boolean isActief) {
-		String stringStatus = isActief == true ? "Actief" : "Non-actief";
-		return stringStatus;
+		return isActief == true ? "Actief" : "Non-actief";
 	}
 
 }
