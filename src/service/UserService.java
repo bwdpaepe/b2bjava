@@ -35,7 +35,7 @@ public class UserService
 			throw new IllegalArgumentException("Ongeldige inloggegevens");
 		}
 
-		if (user instanceof Medewerker)
+		if (user instanceof Medewerker && ((Medewerker) user).getFunctie() != "Aankoper")
 		{
 			return new MedewerkerDTO((Medewerker)user);
 		} else

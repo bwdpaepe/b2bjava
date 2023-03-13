@@ -29,8 +29,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import repository.BestellingDTO;
 import repository.ContactpersoonDTO;
+import repository.MedewerkerDTO;
 import repository.PersoonDTO;
 import repository.TransportdienstDTO;
 import service.ValidationService;
@@ -38,6 +38,7 @@ import service.ValidationService;
 public class TransportdienstenController extends Pane {
 
 	private DomeinController dc;
+	private MedewerkerDTO ingelogdeUser;
 	private ObservableList<TransportdienstDTO> transportdiensten;
 	private ObservableList<ContactpersoonDTO> contactpersonen;
 	private TransportdienstDTO selectedTransportdienstDTO;
@@ -175,6 +176,7 @@ public class TransportdienstenController extends Pane {
 
 	public void setParams(DomeinController dc) {
 		this.dc = dc;
+		this.ingelogdeUser = (MedewerkerDTO) dc.getIngelogdeUser();
 		rbOrderIdRaadpleegTab.setToggleGroup(tgRaadpleegTab);
 		rbPostcodeRaadpleegTab.setToggleGroup(tgRaadpleegTab);
 		this.transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
@@ -312,9 +314,7 @@ public class TransportdienstenController extends Pane {
 			String contactFamilienaam = txtFamilienaam.getText();
 			String contactTelefoon = txtTelefoonnummer.getText();
 			String contactEmailadres = txtEmailadres.getText();
-
-			// TODO implementeren bedrijfsId
-			int bedrijfsId = 1; // !!!!!!!!!!!!!!!!!!!!!!!!!
+			long bedrijfsId = ingelogdeUser.getBedrijf().getId();
 
 			// Validatie input formulier
 			ValidationService.controleerNietBlanco(naamTransportdienst);
@@ -330,11 +330,11 @@ public class TransportdienstenController extends Pane {
 					verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres,
 					bedrijfsId);
 
-			showMelding(AlertType.INFORMATION, "De transportdienst is aangemaakt");
+			toonMelding(AlertType.INFORMATION, "De transportdienst is aangemaakt");
 
 		} catch (IllegalArgumentException e) {
 
-			showMelding(AlertType.ERROR, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 
 		transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
@@ -374,10 +374,10 @@ public class TransportdienstenController extends Pane {
 			dc.wijzigActivatieDienst(dienstId, isStatusActief);
 			this.transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
 			this.selectedTransportdienstDTO = dc.getTransportdienst(dienstId);
-			showMelding(AlertType.INFORMATION, "De wijzigingen zijn opgeslaan");
+			toonMelding(AlertType.INFORMATION, "De wijzigingen zijn opgeslaan");
 
 		} catch (IllegalArgumentException e) {
-			showMelding(AlertType.ERROR, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 
 		buildGui();
@@ -396,9 +396,9 @@ public class TransportdienstenController extends Pane {
 			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-			showMelding(AlertType.INFORMATION, "De wijzigingen zijn opgeslaan");
+			toonMelding(AlertType.INFORMATION, "De wijzigingen zijn opgeslaan");
 		} catch (IllegalArgumentException e) {
-			showMelding(AlertType.ERROR, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 
 	}
@@ -419,10 +419,10 @@ public class TransportdienstenController extends Pane {
 			txtTelefoonnummerToevoegen.clear();
 			txtVoornaamToevoegen.requestFocus();
 
-			showMelding(AlertType.INFORMATION, "De contactpersoon is opgeslaan");
+			toonMelding(AlertType.INFORMATION, "De contactpersoon is opgeslaan");
 
 		} catch (IllegalArgumentException e) {
-			showMelding(AlertType.ERROR, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 
 	}
@@ -441,14 +441,18 @@ public class TransportdienstenController extends Pane {
 			this.selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-			showMelding(AlertType.INFORMATION, "De contactpersoon is verwijderd");
+			toonMelding(AlertType.INFORMATION, "De contactpersoon is verwijderd");
 		} catch (IllegalArgumentException e) {
-			showMelding(AlertType.ERROR, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 
 	}
 
 	private void disableGui() {
+		if (ingelogdeUser.getFunctie() != "Admin") {
+			btnUpdateTransportdienst.setVisible(false);
+		}
+		txtTransportdienstZoeken.setEditable(false);
 		txtNaamRaadpleegTab.setEditable(false);
 		txtPrefixRaadpleegTab.setEditable(false);
 		cbEnkelCijfersRaadpleegTab.setDisable(true);
@@ -467,6 +471,7 @@ public class TransportdienstenController extends Pane {
 	}
 
 	private void editableGui() {
+		txtTransportdienstZoeken.setEditable(true);
 		txtNaamRaadpleegTab.setEditable(true);
 		txtPrefixRaadpleegTab.setEditable(true);
 		cbEnkelCijfersRaadpleegTab.setDisable(false);
@@ -488,7 +493,7 @@ public class TransportdienstenController extends Pane {
 		return isActief == true ? "Actief" : "Non-actief";
 	}
 
-	private void showMelding(AlertType type, String boodschap) {
+	private void toonMelding(AlertType type, String boodschap) {
 		melding.setAlertType(type);
 		melding.setContentText(boodschap);
 		melding.show();

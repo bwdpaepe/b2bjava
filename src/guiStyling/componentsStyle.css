@@ -147,6 +147,23 @@
     -fx-border-radius: 4.0px
 }
 
+#tvProductenLijst .column-header, #tvProductenLijst .column-header-background, #tvProductenLijst .table-cell {
+    -fx-pref-width: 275px; 
+}
+
+/** Header */
+.container-header {
+    -fx-background-color: #EC4842;
+    -fx-color: #FFFFFF;
+    -fx-pref-height: 62px;
+    }
+    
+.pre-header {
+    -fx-background-color: #FFFFFF;
+    -fx-color: #000000;
+    -fx-pref-height: 62px;
+    }
+
 .loginButtons:hover{
 	-fx-background-color: #E0433E;
 	-fx-font: 20.0pt 'Inter', calibri;
