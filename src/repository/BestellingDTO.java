@@ -25,6 +25,7 @@ public class BestellingDTO {
 	protected final MedewerkerDTO aankoper;
 	protected final DoosDTO doos;
 	protected final List<BesteldProductDTO> besteldeProducten;
+	protected final double totaalbedrag;
 
 	public BestellingDTO(Bestelling bestelling) {
 
@@ -45,6 +46,7 @@ public class BestellingDTO {
 		this.aankoper = new MedewerkerDTO(bestelling.getAankoper());
 		this.doos = new DoosDTO(bestelling.getDoos());
 		this.besteldeProducten = bestelling.getBesteldeProducten().stream().map(e -> new BesteldProductDTO(e)).collect(Collectors.toUnmodifiableList());
+		this.totaalbedrag = bestelling.getBesteldeProducten().stream().mapToDouble(bp -> bp.getAantal() * bp.getEenheidsprijs()).sum();
 	}
 	public long getId() {
 		return id;
