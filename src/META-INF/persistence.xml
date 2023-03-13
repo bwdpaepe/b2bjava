@@ -19,7 +19,6 @@
 		<class>domein.Product</class>
 		<class>domein.BesteldProduct</class>
 		<class>domein.Doos</class>
-
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/sdp2_test?serverTimezone=UTC" />

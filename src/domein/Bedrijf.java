@@ -51,9 +51,9 @@ public class Bedrijf implements Serializable
 	
 	@OneToMany(mappedBy ="bedrijf", cascade = CascadeType.ALL)  // new Doos object will be automatically saved to the database when you save the Bedrijf object
 	private List<Doos> dozen;
-//	
-//	@OneToMany(mappedBy = "bedrijf")
-//	private List<Product> productenTeKoop;
+	
+	@OneToMany(mappedBy = "leverancier", cascade = CascadeType.ALL)
+	private List<Product> productenTeKoop;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -219,5 +219,9 @@ public class Bedrijf implements Serializable
 
 	public List<Doos> getDozen() {
 		return this.dozen;
+	}
+	
+	public List<Product> getProductenTeKoop() {
+		return this.productenTeKoop;
 	}
 }

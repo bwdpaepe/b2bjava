@@ -60,12 +60,8 @@ public class Doos implements Serializable {
 	
 	public final void setBedrijf(Bedrijf bedrijf)
 	{
-		if(bedrijf == null) {
-			throw new IllegalArgumentException("Bedrijf voor doos is ongeldig");
-		}
-		
-		this.bedrijf = bedrijf;
-		
+		ValidationService.controleerNietBlanco(bedrijf);
+		this.bedrijf = bedrijf;	
 	}
 
 	public Doos() {

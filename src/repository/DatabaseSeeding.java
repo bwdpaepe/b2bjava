@@ -27,9 +27,29 @@ public class DatabaseSeeding
 					"logo_bedrijf_E");
 
 			// Dozen
-			domeinController.maakDoos(1, "doos_1", "standaard", 1, 3, 2, 1);
-			domeinController.maakDoos(1, "doos_2", "custom", 1, 2, 3, 4);
-			domeinController.maakDoos(2, "doos_2", "custom", 2, 2, 3, 4); // zelfde naam maar ander bedrijf -> mag geen error geven
+			for (int i = 1; i <= 5; i++) {
+			    for (int j = 1; j <= 10; j++) {
+			        String naam = "doos_" + j;
+			        double hoogte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
+			        double breedte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
+			        double lengte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
+			        double prijs = Math.round((Math.random() * 100 + 1) * 100.0) / 100.0;
+			        String doosType = "standaard";
+			        if (j % 2 == 0) {
+			            doosType = "custom";
+			        }
+			        domeinController.maakDoos(i, naam, doosType, hoogte, breedte, lengte, prijs);
+			    }
+			}
+			
+			// Producten
+			for (int i = 1; i <= 5; i++) {
+			    for (int j = 1; j <= 20; j++) {
+			        String naam = "product_" + j;
+			        double prijs = Math.round((Math.random() * 100 + 1) * 100.0) / 100.0;
+			        domeinController.maakProduct(i, naam, prijs);
+			    }
+			}
 			
 			// Medewerkers
 			domeinController.maakMedewerker("Joachim2", "Dauchot", "emailail1@test.com", "paswoord",

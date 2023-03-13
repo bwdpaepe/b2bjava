@@ -181,6 +181,12 @@ public class DomeinController {
 	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs ) {
 		bedrijfService.maakDoos(bedrijfsId, naam, doosTypeString, hoogte, breedte, lengte, prijs);
 	}
+	
+	// PRODUCT OPERATIONS
+	// --------------------------------------------------------------------------------------------------------------------------------------------------
+	public void maakProduct(long leveranciersId, String naam, double eenheidsprijs) {
+		bedrijfService.maakProduct(leveranciersId, naam, eenheidsprijs);
+	}
 
 	// GLOBAL OPERATIONS
 	// --------------------------------------------------------------------------------------------------------------------------------------------------

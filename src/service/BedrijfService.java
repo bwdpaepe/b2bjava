@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import domein.Bedrijf;
 import domein.BestellingStatus;
 import domein.Doos;
+import domein.Product;
 import repository.BedrijfDao;
 import repository.BedrijfDaoJpa;
 import repository.GenericDaoJpa;
@@ -67,6 +68,21 @@ public class BedrijfService
 	        Doos doos = new Doos(naam, hoogte, breedte, lengte, doosTypeString, prijs, bedrijf);
 	        bedrijf.getDozen().add(doos);
 	        bedrijfRepo.update(bedrijf);
+	        GenericDaoJpa.commitTransaction();
+		} catch (Exception e) {
+			GenericDaoJpa.rollbackTransaction();
+			System.err.println(e.getMessage());
+			throw new IllegalArgumentException(e.getMessage());
+		};
+	}
+	
+	public void maakProduct(long leveranciersId, String naam, double eenheidsprijs) {
+		GenericDaoJpa.startTransaction();
+		try {
+	        Bedrijf leverancier = bedrijfRepo.get(leveranciersId);
+	        Product product = new Product(naam, eenheidsprijs, leverancier);
+	        leverancier.getProductenTeKoop().add(product);
+	        bedrijfRepo.update(leverancier);
 	        GenericDaoJpa.commitTransaction();
 		} catch (Exception e) {
 			GenericDaoJpa.rollbackTransaction();
