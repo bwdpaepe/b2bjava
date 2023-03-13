@@ -51,7 +51,7 @@ public class TransportdienstenController extends Pane {
 	private TableColumn<TransportdienstDTO, String> transportdienstNaamKolom;
 
 	@FXML
-	private TableColumn<TransportdienstDTO, Boolean> transportdienstStatusKolom;
+	private TableColumn<TransportdienstDTO, String> transportdienstStatusKolom;
 
 	@FXML
 	private TabPane tabPane;
@@ -189,8 +189,8 @@ public class TransportdienstenController extends Pane {
 	private void buildGuiTableViewTransportdiensten() {
 		transportdienstNaamKolom
 				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNaam()));
-		transportdienstStatusKolom
-				.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().getIsActief()));
+		transportdienstStatusKolom.setCellValueFactory(cellData -> new SimpleStringProperty(
+				getStatusTransportdienstString(cellData.getValue().getIsActief())));
 		tvTransportdiensten.setItems(transportdiensten);
 		buildGuiRaadpleegTab();
 
@@ -441,6 +441,11 @@ public class TransportdienstenController extends Pane {
 		tvContactpersonen.setEditable(true);
 		hBoxContactPersonen1.setVisible(true);
 		hBoxContactPersonen2.setVisible(true);
+	}
+
+	private String getStatusTransportdienstString(boolean isActief) {
+		String stringStatus = isActief == true ? "Actief" : "Non-actief";
+		return stringStatus;
 	}
 
 }
