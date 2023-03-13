@@ -100,6 +100,17 @@ public class BestellingDTO {
 	public MedewerkerDTO getAankoper() {
 		return aankoper;
 	}
+	
+	public DoosDTO getDoos() {
+		return doos;
+	}
+	public List<BesteldProductDTO> getBesteldeProducten() {
+		return besteldeProducten;
+	}
+	public double getTotaalbedrag() {
+		return totaalbedrag;
+	}
+	
 	@Override
 	public String toString()
 	{

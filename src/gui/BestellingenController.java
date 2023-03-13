@@ -21,9 +21,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import repository.BesteldProductDTO;
 import repository.BestellingDTO;
+import repository.DoosDTO;
 import repository.TransportdienstDTO;
 import repository.KlantLijstEntryDTO;
+import repository.MedewerkerDTO;
 
 public class BestellingenController extends Pane {
 	private DomeinController dc;
@@ -67,15 +70,16 @@ public class BestellingenController extends Pane {
 	private ComboBox<TransportdienstDTO> cmbTransportdienst;
 	@FXML
 	private TextField txtTrackTraceGegevens;
-	//ToDo add ProductDTO
 	@FXML
-	private TableColumn productNaamColumn;
+	private TableView<BesteldProductDTO> tvBesteldeProducten;
 	@FXML
-	private TableColumn productAantalColumn;
+	TableColumn<BesteldProductDTO, String> productNaamColumn;
 	@FXML
-	private TableColumn productEenheidsprijsColumn;
+	TableColumn<BesteldProductDTO, String> productAantalColumn;
 	@FXML
-	private TableColumn productTotalePrijsColumn;
+	TableColumn<BesteldProductDTO, String> productEenheidsprijsColumn;
+	@FXML
+	TableColumn<BesteldProductDTO, String> productTotalePrijsColumn;
 	
 	@FXML
 	TextField tfBestellingZoeken;
@@ -161,15 +165,14 @@ public class BestellingenController extends Pane {
 				if (newBestellingDTO != null) {
 					//int index = tvBestellingen.getSelectionModel().getSelectedIndex();
 					lblDetailsBestelling.setText(String.format("Detail bestelling: %s", newBestellingDTO.getOrderID()));
-					txtDozenVoorVerpakking.setText("ToDo");
+					txtDozenVoorVerpakking.setText(maakVisueelDoosType(newBestellingDTO));
 					txtDozenVoorVerpakking.setDisable(true);
 					//txtTransportDienst;
 					txtNaamKlant.setText(newBestellingDTO.getKlantNaam());
 					txtNaamKlant.setDisable(true);
-					//KlantDTO klantDTO = dc.newBestellingDTO.getKlant(newBestellingDTO.getKlantID());
-					txtNaamAankoper.setText("ToDo");
+					txtNaamAankoper.setText(maakVisueleNaamAankoper(newBestellingDTO));
 					txtNaamAankoper.setDisable(true);
-					txtEmailAankoper.setText("ToDo");
+					txtEmailAankoper.setText(maakVisueleEmailAankoper(newBestellingDTO));
 					txtEmailAankoper.setDisable(true);
 					txtOrderId.setText(newBestellingDTO.getOrderID());
 					txtOrderId.setDisable(true);
@@ -178,11 +181,11 @@ public class BestellingenController extends Pane {
 					String strDate = dateFormat.format(date);  
 					txtDatumGeplaatst.setText(strDate);
 					txtDatumGeplaatst.setDisable(true);
-					txtLeveradres.setText("ToDo");
+					txtLeveradres.setText(maakVisueelLeveradres(newBestellingDTO));
 					txtLeveradres.setDisable(true);
 					txtStatus.setText(newBestellingDTO.getStatus());
 					txtStatus.setDisable(true);
-					txtTotaleOrderbedrag.setText("ToDo");
+					txtTotaleOrderbedrag.setText(String.format("%.2f€", newBestellingDTO.getTotaalbedrag()));
 					txtTotaleOrderbedrag.setDisable(true);
 					// transportdiensten van bedrijf van actueel ingelogde gebruiker
 					ObservableList<TransportdienstDTO> transportdienstDTOList = FXCollections.observableList(dc.getTransportdienstenDTO());
@@ -207,11 +210,45 @@ public class BestellingenController extends Pane {
 						txtTrackTraceGegevens.setDisable(true);
 						btnWijzigBestelling.setDisable(true);
 					}
-					//ToDo add ProductDTO
+					//Bestelde producten
+					loadBesteldeProducten(newBestellingDTO);
 					
 					
 				}
 			});
+	}
+	
+	private String maakVisueleNaamAankoper(BestellingDTO bestellingDTO) {
+		MedewerkerDTO medewerkerDTO = bestellingDTO.getAankoper();
+		return (medewerkerDTO.getVoornaam() + " " + medewerkerDTO.getFamilienaam());
+	}
+	
+	private String maakVisueleEmailAankoper(BestellingDTO bestellingDTO) {
+		MedewerkerDTO medewerkerDTO = bestellingDTO.getAankoper();
+		return (medewerkerDTO.getEmail());
+	}
+	
+	private String maakVisueelLeveradres(BestellingDTO bestellingDTO) {
+		return (bestellingDTO.getLeveradresStraat() + " " 
+				+ bestellingDTO.getLeveradresNummer() + " | "
+				+ bestellingDTO.getLeveradresPostcode() + " "
+				+bestellingDTO.getLeveradresStad() + " | "
+				+bestellingDTO.getLeveradresLand());
+	}
+	
+	private String maakVisueelDoosType(BestellingDTO bestellingDTO) {
+		DoosDTO doosDTO = bestellingDTO.getDoos();
+		return (doosDTO.getDoosType());
+	}
+	
+	private void loadBesteldeProducten(BestellingDTO bestellingDTO) {
+		ObservableList<BesteldProductDTO> besteldProductDTOLijst = FXCollections.observableList(bestellingDTO.getBesteldeProducten());
+		productNaamColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNaam()));
+		productAantalColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.format("%d", cellData.getValue().getAantal())));
+		productEenheidsprijsColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.format("%.2f€",cellData.getValue().getEenheidsprijs())));
+		productTotalePrijsColumn.setCellValueFactory(
+				cellData -> new SimpleStringProperty(String.format("%.2f€", cellData.getValue().getSubtotaal())));
+		
 	}
 
 }
