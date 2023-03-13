@@ -1,6 +1,8 @@
 package repository;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import domein.Bestelling;
 
@@ -22,6 +24,7 @@ public class BestellingDTO {
 	protected final String leveradresLand;
 	protected final MedewerkerDTO aankoper;
 	protected final DoosDTO doos;
+	protected final List<BesteldProductDTO> besteldeProducten;
 
 	public BestellingDTO(Bestelling bestelling) {
 
@@ -41,7 +44,7 @@ public class BestellingDTO {
 		this.leveradresLand = bestelling.getLeveradresLand();
 		this.aankoper = new MedewerkerDTO(bestelling.getAankoper());
 		this.doos = new DoosDTO(bestelling.getDoos());
-		
+		this.besteldeProducten = bestelling.getBesteldeProducten().stream().map(e -> new BesteldProductDTO(e)).collect(Collectors.toUnmodifiableList());
 	}
 	public long getId() {
 		return id;
