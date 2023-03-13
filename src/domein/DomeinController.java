@@ -168,6 +168,10 @@ public class DomeinController {
 		bestellingService.addBesteldProductToBestelling(bestellingId, longProductId, aantal);
 	}
 	
+	public void wijzigBestelling(long bestellingId, long transportdienstId) {
+		bestellingService.wijzigBestelling(bestellingId, transportdienstId);
+	}
+	
 	// DOOS OPERATIONS
 	// --------------------------------------------------------------------------------------------------------------------------------------------------
 	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs ) {

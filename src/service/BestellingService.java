@@ -74,5 +74,22 @@ public class BestellingService {
 			throw new IllegalArgumentException(e.getMessage());
 		}
 	}
+	
+	public void wijzigBestelling(long bestellingId, long transportdienstId) {
+		try {
+			GenericDaoJpa.startTransaction();
+			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			if (bestelling.getStatus() != "VERWERKT") {
+				throw new IllegalArgumentException("Deze bestelling is niet wijzigbaar, want deze heeft niet de juiste status!");
+			}
+			Transportdienst transportdienst = dienstService.getTransportdienstByID(transportdienstId);
+			bestelling.setTransportdienst(transportdienst);
+			bestellingRepo.update(bestelling);
+			GenericDaoJpa.commitTransaction();
+		} catch (Exception e) {
+			GenericDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException(e.getMessage());
+		}
+	}
 
 }
