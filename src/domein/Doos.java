@@ -2,6 +2,7 @@ package domein;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +21,22 @@ public class Doos implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+//	@ManyToOne
+//	private Bedrijf bedrijf;
+	
+	@Column
 	private String naam;
+	@Column
 	private DoosType doosType;
+	@Column
 	private double hoogte;
+	@Column
 	private double breedte;
+	@Column
 	private double lengte;
+	@Column
 	private boolean isActief;
+	@Column
 	private double prijs;
 	
 	public Doos(String naam, double hoogte, double breedte, double lengte, DoosType type, double prijs) {

@@ -50,7 +50,7 @@ public class Bedrijf implements Serializable
 	
 //	@OneToMany(mappedBy ="bedrijf")
 //	private List<Doos> dozen;
-	
+//	
 //	@OneToMany(mappedBy = "bedrijf")
 //	private List<Product> productenTeKoop;
 
