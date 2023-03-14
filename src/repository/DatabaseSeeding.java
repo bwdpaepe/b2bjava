@@ -88,7 +88,6 @@ public class DatabaseSeeding
 					"email2@test.hk", 1);
 			domeinController.maakTransportdienst("ZOEF", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
 					"email2@test.uk", 3);
-					"email@test.uk", 2);
 			
 			// contactpersonen transportdienst
 			domeinController.addContactpersoon("Jan", "Metdepet", "0478559874", "test@jan.com", 1);
