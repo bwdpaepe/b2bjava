@@ -161,7 +161,7 @@ public class BestellingenController extends Pane {
 	}
 	
 	public void disableDetail() {
-		txtDozenVoorVerpakking.setDisable(true);
+		/*txtDozenVoorVerpakking.setDisable(true);
 		txtNaamKlant.setDisable(true);
 		txtNaamAankoper.setDisable(true);
 		txtEmailAankoper.setDisable(true);
@@ -170,9 +170,13 @@ public class BestellingenController extends Pane {
 		txtLeveradres.setDisable(true);
 		txtStatus.setDisable(true);
 		txtTotaleOrderbedrag.setDisable(true);
+		*/
 		cmbTransportdienst.setDisable(true);
+		//cmbTransportdienst.setStyle("-fx-opacity: 1.0;-fx-background-color: #EC4842;-fx-text-fill: #000000;");
 		txtTrackTraceGegevens.setDisable(true);
+		txtTrackTraceGegevens.setStyle("-fx-opacity: 1.0;-fx-background-color: #EC4842;");
 		btnWijzigBestelling.setDisable(true);
+		btnWijzigBestelling.setStyle("-fx-opacity: 1.0;");
 	}
 	
 	public void addListenerRijSelecteren() {
@@ -195,26 +199,26 @@ public class BestellingenController extends Pane {
 	private void maakVisueelDetailBestelling(BestellingDTO bestellingDTO) {
 		lblDetailsBestelling.setText(String.format("Detail bestelling: %s", bestellingDTO.getOrderID()));
 		txtDozenVoorVerpakking.setText(maakVisueelDoosType(bestellingDTO));
-		txtDozenVoorVerpakking.setDisable(true);
+		//txtDozenVoorVerpakking.setDisable(true);
 		txtNaamKlant.setText(bestellingDTO.getKlantNaam());
-		txtNaamKlant.setDisable(true);
+		//txtNaamKlant.setDisable(true);
 		txtNaamAankoper.setText(maakVisueelNaamAankoper(bestellingDTO));
-		txtNaamAankoper.setDisable(true);
+		//txtNaamAankoper.setDisable(true);
 		txtEmailAankoper.setText(maakVisueelEmailAankoper(bestellingDTO));
-		txtEmailAankoper.setDisable(true);
+		//txtEmailAankoper.setDisable(true);
 		txtOrderId.setText(bestellingDTO.getOrderID());
-		txtOrderId.setDisable(true);
+		//txtOrderId.setDisable(true);
 		//Date date = newBestellingDTO.getDatumGeplaatst();  
 		//DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
 		//String strDate = dateFormat.format(date);  
 		txtDatumGeplaatst.setText(DateFormat.getDateInstance().format(bestellingDTO.getDatumGeplaatst()));
-		txtDatumGeplaatst.setDisable(true);
+		//txtDatumGeplaatst.setDisable(true);
 		txtLeveradres.setText(maakVisueelLeveradres(bestellingDTO));
-		txtLeveradres.setDisable(true);
+		//txtLeveradres.setDisable(true);
 		txtStatus.setText(bestellingDTO.getStatus());
-		txtStatus.setDisable(true);
+		//txtStatus.setDisable(true);
 		txtTotaleOrderbedrag.setText(String.format("%.2f€", bestellingDTO.getTotaalbedrag()));
-		txtTotaleOrderbedrag.setDisable(true);
+		//txtTotaleOrderbedrag.setDisable(true);
 		// transportdiensten van bedrijf van actueel ingelogde gebruiker
 		ObservableList<TransportdienstDTO> transportdienstDTOList = FXCollections.observableList(dc.getTransportdienstenDTO());
 		long geselecteerdeTransportdienstDTOId = dc.getTransportdienst(bestellingDTO.getTransportdienstID()).getId();
@@ -256,7 +260,9 @@ public class BestellingenController extends Pane {
 		}
 		else {
 			cmbTransportdienst.setDisable(true);
+			//cmbTransportdienst.setStyle("-fx-opacity: 1.0;-fx-background-color: #EC4842;-fx-text-fill: #000000;");
 			btnWijzigBestelling.setDisable(true);
+			btnWijzigBestelling.setStyle("-fx-opacity: 1.0;");
 		}
 		txtTrackTraceGegevens.setText("ToDo");
 		if(bestellingDTO.getStatus().toUpperCase().equals(VERWERKT)) {
@@ -265,7 +271,9 @@ public class BestellingenController extends Pane {
 		}
 		else {
 			txtTrackTraceGegevens.setDisable(true);
+			txtTrackTraceGegevens.setStyle("-fx-opacity: 1.0;-fx-background-color: #EC4842;");
 			btnWijzigBestelling.setDisable(true);
+			btnWijzigBestelling.setStyle("-fx-opacity: 1.0;");
 		}
 	}
 	

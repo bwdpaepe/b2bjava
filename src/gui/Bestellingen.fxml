@@ -137,52 +137,52 @@
 	                  </VBox>
 	                  <VBox prefHeight="200.0" prefWidth="1000.0">
 	                     <children>
-	                        <TextField fx:id="txtNaamKlant" prefHeight="1000.0">
+	                        <TextField fx:id="txtNaamKlant" editable="false" prefHeight="1000.0">
 	                           <VBox.margin>
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>
 	                        </TextField>
-	                        <TextField fx:id="txtNaamAankoper" prefHeight="1000.0">
+	                        <TextField fx:id="txtNaamAankoper" editable="false" prefHeight="1000.0">
 	                           <VBox.margin>
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>
 	                        </TextField>
-	                        <TextField fx:id="txtEmailAankoper" prefHeight="1000.0">
+	                        <TextField fx:id="txtEmailAankoper" editable="false" prefHeight="1000.0">
 	                           <VBox.margin>
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>
 	                        </TextField>
-	                        <TextField fx:id="txtOrderId" prefHeight="1000.0">
+	                        <TextField fx:id="txtOrderId" editable="false" prefHeight="1000.0">
 	                           <VBox.margin>
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>
 	                        </TextField>
-	                        <TextField fx:id="txtDatumGeplaatst" prefHeight="1000.0">
+	                        <TextField fx:id="txtDatumGeplaatst" editable="false" prefHeight="1000.0">
 	                           <VBox.margin>
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>
 	                        </TextField>
-	                        <TextField fx:id="txtLeveradres" prefHeight="1000.0">
+	                        <TextField fx:id="txtLeveradres" editable="false" prefHeight="1000.0">
 	                           <VBox.margin>
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>
 	                        </TextField>
-	                        <TextField fx:id="txtStatus" prefHeight="1000.0">
+	                        <TextField fx:id="txtStatus" editable="false" prefHeight="1000.0">
 	                           <VBox.margin>
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>
 	                        </TextField>
-	                        <TextField fx:id="txtTotaleOrderbedrag" prefHeight="1000.0">
+	                        <TextField fx:id="txtTotaleOrderbedrag" editable="false" prefHeight="1000.0">
 	                           <VBox.margin>
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>
 	                        </TextField>
-	                        <TextField fx:id="txtDozenVoorVerpakking" prefHeight="1000.0">
+	                        <TextField fx:id="txtDozenVoorVerpakking" editable="false" prefHeight="1000.0">
 	                           <VBox.margin>
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>
 	                        </TextField>
-	                        <ComboBox fx:id="cmbTransportdienst" prefHeight="1000.0" prefWidth="1000.0" promptText="Select transportdienst" style="-fx-background-color: #EC4842;">
+	                        <ComboBox fx:id="cmbTransportdienst" prefHeight="1000.0" prefWidth="1000.0" promptText="Select transportdienst" style="-fx-background-color: #EC4842;" stylesheets="@../guiStyling/componentsStyle.css">
 	                           <VBox.margin>
 	                              <Insets bottom="1.0" right="20.0" top="1.0" />
 	                           </VBox.margin>

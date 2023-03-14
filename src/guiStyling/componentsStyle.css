@@ -188,3 +188,7 @@
     -fx-background-color:#E0433E ;
     -fx-font-weight: bolder;
 }
+
+.combo-box:disabled, .combo-box:disabled > * {
+  -fx-opacity: 1.0 ;
+}
