@@ -43,7 +43,6 @@ public class TransportdienstenController extends Pane {
 	private ObservableList<ContactpersoonDTO> contactpersonen;
 	private TransportdienstDTO selectedTransportdienstDTO;
 	private Alert melding = new Alert(AlertType.NONE);
-	private SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100);
 	private ToggleGroup tgRaadpleegTab = new ToggleGroup();
 	private ToggleGroup tgToevoegTab = new ToggleGroup();
 
@@ -93,9 +92,6 @@ public class TransportdienstenController extends Pane {
 	private RadioButton rbPostcodeRaadpleegTab;
 
 	@FXML
-	private Spinner<Integer> spinBarcodeLengteRaadpleegTab;
-
-	@FXML
 	private Label lblVerificatiecode;
 
 	@FXML
@@ -103,6 +99,9 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	private TextField txtPrefixRaadpleegTab;
+
+	@FXML
+	private TextField txtBarcodeLengteRaadpleegTab;
 
 	@FXML
 	private CheckBox cbEnkelCijfersRaadpleegTab;
@@ -138,7 +137,7 @@ public class TransportdienstenController extends Pane {
 	private TextField txtVoornaam;
 
 	@FXML
-	private Spinner<Integer> spinnerLengteBarcode;
+	private TextField txtLengteBarcodeToevoegTab;
 
 	@FXML
 	private CheckBox cbCijfers;
@@ -247,8 +246,7 @@ public class TransportdienstenController extends Pane {
 		txtPrefixRaadpleegTab.setText(selectedTransportdienstDTO.getBarcodePrefix());
 		cbEnkelCijfersRaadpleegTab.setSelected(selectedTransportdienstDTO.isBarcodeEnkelCijfers());
 		cbStatusRaadpleegTab.setSelected(selectedTransportdienstDTO.getIsActief());
-		spinBarcodeLengteRaadpleegTab.setValueFactory(factory);
-		spinBarcodeLengteRaadpleegTab.getValueFactory().setValue(selectedTransportdienstDTO.getBarcodeLengte());
+		txtBarcodeLengteRaadpleegTab.setText(String.valueOf(selectedTransportdienstDTO.getBarcodeLengte()));
 
 		contactpersoonIdKolom
 				.setCellValueFactory(cellData -> new SimpleLongProperty(cellData.getValue().getId()).asObject());
@@ -297,7 +295,7 @@ public class TransportdienstenController extends Pane {
 	}
 
 	private void buildGuiToevoegTab() {
-		spinnerLengteBarcode.setValueFactory(factory);
+		// spinnerLengteBarcode.setValueFactory(factory);
 		rbOrderIdToevoegTab.setToggleGroup(tgToevoegTab);
 		rbPostcodeToevoegTab.setToggleGroup(tgToevoegTab);
 	}
@@ -306,7 +304,8 @@ public class TransportdienstenController extends Pane {
 	void addTransportdienst(ActionEvent event) {
 		try {
 			String naamTransportdienst = txtNaamTransportdienst.getText();
-			int barcodeLengte = spinnerLengteBarcode.getValue();
+			// int barcodeLengte = spinnerLengteBarcode.getValue();
+			int barcodeLengte = Integer.valueOf(txtLengteBarcodeToevoegTab.getText());
 			boolean isBarcodeEnkelCijfers = cbCijfers.isSelected();
 			String barcodePrefix = txtPrefix.getText();
 			String verificatiecode = rbOrderIdToevoegTab.isSelected() ? "Orderid" : "Postcode";
@@ -332,15 +331,17 @@ public class TransportdienstenController extends Pane {
 
 			toonMelding(AlertType.INFORMATION, "De transportdienst is aangemaakt");
 
+		} catch (NumberFormatException e) {
+			toonMelding(AlertType.ERROR, "De lengte van de barcode moet een cijfer zijn.");
 		} catch (IllegalArgumentException e) {
-
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 
 		transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
 		tvTransportdiensten.setItems(transportdiensten);
 		txtNaamTransportdienst.clear();
-		spinnerLengteBarcode.getValueFactory().setValue(1);
+		txtLengteBarcodeToevoegTab.clear();
+		// spinnerLengteBarcode.getValueFactory().setValue(1);
 		cbCijfers.setSelected(false);
 		rbOrderIdToevoegTab.setSelected(false);
 		rbPostcodeToevoegTab.setSelected(false);
@@ -362,7 +363,7 @@ public class TransportdienstenController extends Pane {
 		try {
 
 			String naamTransportdienst = txtNaamRaadpleegTab.getText();
-			int barcodeLengte = spinBarcodeLengteRaadpleegTab.getValue();
+			int barcodeLengte = Integer.valueOf(txtBarcodeLengteRaadpleegTab.getText());
 			boolean isBarcodeEnkelCijfers = cbEnkelCijfersRaadpleegTab.isSelected();
 			boolean isStatusActief = cbStatusRaadpleegTab.isSelected();
 			String barcodePrefix = txtPrefixRaadpleegTab.getText();
@@ -376,6 +377,8 @@ public class TransportdienstenController extends Pane {
 			this.selectedTransportdienstDTO = dc.getTransportdienst(dienstId);
 			toonMelding(AlertType.INFORMATION, "De wijzigingen zijn opgeslaan");
 
+		} catch (NumberFormatException e) {
+			toonMelding(AlertType.ERROR, "De lengte van de barcode moet een cijfer zijn.");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
@@ -392,13 +395,17 @@ public class TransportdienstenController extends Pane {
 	private void editContactPersoon(String voornaam, String familienaam, String telefoonnummer, String email, long id,
 			long transportId) {
 		try {
+			ValidationService.controleerUniekEmailadres(selectedTransportdienstDTO.getContactpersonen(), email);
 			dc.editContactpersoon(voornaam, familienaam, telefoonnummer, email, id, transportId);
 			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-			toonMelding(AlertType.INFORMATION, "De wijzigingen zijn opgeslaan");
+			// toonMelding(AlertType.INFORMATION, "De wijzigingen zijn opgeslaan");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
+			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
+			tvContactpersonen
+					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
 		}
 
 	}
@@ -407,6 +414,10 @@ public class TransportdienstenController extends Pane {
 	void toevoegenContactpersoon(ActionEvent event) {
 
 		try {
+
+			ValidationService.controleerUniekEmailadres(selectedTransportdienstDTO.getContactpersonen(),
+					txtEmailadresToevoegen.getText());
+
 			dc.addContactpersoon(txtVoornaamToevoegen.getText(), txtFamilienaamToevoegen.getText(),
 					txtTelefoonnummerToevoegen.getText(), txtEmailadresToevoegen.getText(),
 					selectedTransportdienstDTO.getId());
@@ -421,7 +432,7 @@ public class TransportdienstenController extends Pane {
 
 			toonMelding(AlertType.INFORMATION, "De contactpersoon is opgeslaan");
 
-		} catch (IllegalArgumentException e) {
+		} catch (Exception e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 
@@ -444,6 +455,8 @@ public class TransportdienstenController extends Pane {
 			toonMelding(AlertType.INFORMATION, "De contactpersoon is verwijderd");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
+		} catch (IndexOutOfBoundsException e) {
+			toonMelding(AlertType.ERROR, "Selecteer een contactpersoon");
 		}
 
 	}
@@ -452,12 +465,12 @@ public class TransportdienstenController extends Pane {
 		if (ingelogdeUser.getFunctie() != "Admin") {
 			btnUpdateTransportdienst.setVisible(false);
 		}
+		txtBarcodeLengteRaadpleegTab.setEditable(false);
 		txtTransportdienstZoeken.setEditable(false);
 		txtNaamRaadpleegTab.setEditable(false);
 		txtPrefixRaadpleegTab.setEditable(false);
 		cbEnkelCijfersRaadpleegTab.setDisable(true);
 		cbStatusRaadpleegTab.setDisable(true);
-		spinBarcodeLengteRaadpleegTab.setDisable(true);
 		rbOrderIdRaadpleegTab.setDisable(true);
 		rbPostcodeRaadpleegTab.setDisable(true);
 		btnAbortUpdate.setVisible(false);
@@ -471,12 +484,12 @@ public class TransportdienstenController extends Pane {
 	}
 
 	private void editableGui() {
+		txtBarcodeLengteRaadpleegTab.setEditable(true);
 		txtTransportdienstZoeken.setEditable(true);
 		txtNaamRaadpleegTab.setEditable(true);
 		txtPrefixRaadpleegTab.setEditable(true);
 		cbEnkelCijfersRaadpleegTab.setDisable(false);
 		cbStatusRaadpleegTab.setDisable(false);
-		spinBarcodeLengteRaadpleegTab.setDisable(false);
 		rbOrderIdRaadpleegTab.setDisable(false);
 		rbPostcodeRaadpleegTab.setDisable(false);
 		btnAbortUpdate.setVisible(true);
