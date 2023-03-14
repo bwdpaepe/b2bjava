@@ -395,6 +395,7 @@ public class TransportdienstenController extends Pane {
 	private void editContactPersoon(String voornaam, String familienaam, String telefoonnummer, String email, long id,
 			long transportId) {
 		try {
+			ValidationService.controleerUniekEmailadres(selectedTransportdienstDTO.getContactpersonen(), email);
 			dc.editContactpersoon(voornaam, familienaam, telefoonnummer, email, id, transportId);
 			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
@@ -451,6 +452,8 @@ public class TransportdienstenController extends Pane {
 			toonMelding(AlertType.INFORMATION, "De contactpersoon is verwijderd");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
+		} catch (IndexOutOfBoundsException e) {
+			toonMelding(AlertType.ERROR, "Selecteer een contactpersoon");
 		}
 
 	}
