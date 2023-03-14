@@ -21,8 +21,8 @@ class BestellingTest {
 	private static final String ORDERID = "ORDER_111";
 	private static final Date DATUMGEPLAATST = new Date(2022,10,10);
 	private static final String STATUS = "geplaatst";
-	private static final Bedrijf LEVERANCIER = new Bedrijf();
-	private static final Bedrijf KLANT = new Bedrijf();
+	private static final Bedrijf LEVERANCIER = new Bedrijf("Testleverancier","teststraat", "15","2221", "testgemeente", "testland", "32135135", "teststring");
+	private static final Bedrijf KLANT = new Bedrijf("Testklant","teststraat", "15","2221", "testgemeente", "testland", "32135135", "teststring");
 	private static final Transportdienst TRANSPORTDIENST = new Transportdienst();
 	
 	private static final Medewerker AANKOPER = new Medewerker("voornaam", "familienaam", "emailadres@test.cm", "password", "adres", "012345678", 1,
@@ -43,7 +43,7 @@ class BestellingTest {
 		b = new Bestelling(ORDERID, DATUMGEPLAATST, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS );
 	}
 	@Test
-	void test() {
+	public void test() {
 		Assertions.assertDoesNotThrow(() -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS ));
 		
 		
@@ -62,21 +62,27 @@ class BestellingTest {
 		
 	}
 	
-	//TODO testen verder uitwerken
+	
 	@ParameterizedTest
 	@NullAndEmptySource
-	void ongeldige_strings_throwsError(String value) {
+	public void ongeldige_strings_throwsError(String value) {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(value, DATUMGEPLAATST, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS));
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(ORDERID, DATUMGEPLAATST, value, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS));
+		Assertions.assertThrows(IllegalArgumentException.class, () ->  new Bestelling(ORDERID, DATUMGEPLAATST, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER, value, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS));
+		Assertions.assertThrows(IllegalArgumentException.class, () ->  new Bestelling(ORDERID, DATUMGEPLAATST, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, value, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS));
+		Assertions.assertThrows(IllegalArgumentException.class, () ->  new Bestelling(ORDERID, DATUMGEPLAATST, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, value, LEVERADRES_STAD, LEVERADRES_LAND, DOOS));
+		Assertions.assertThrows(IllegalArgumentException.class, () ->  new Bestelling(ORDERID, DATUMGEPLAATST, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, value, LEVERADRES_LAND, DOOS));
+		Assertions.assertThrows(IllegalArgumentException.class, () ->  new Bestelling(ORDERID, DATUMGEPLAATST, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, value, DOOS));
 	}
 	
 	@Test
-	void ongeldig_bedrijf_throwsError() {
+	public void ongeldig_bedrijf_throwsError() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS, LEVERANCIER, KLANT, null, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS));
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS, LEVERANCIER, null, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS));
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS, null, KLANT, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS));
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(ORDERID, null, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS));
 
 	}
+	
 	
 }

@@ -112,7 +112,7 @@ public class Bestelling {
 	}
 
 	public final void setLeveradresStad(String leveradresStad) {
-		ValidationService.controleerNietBlanco(leveradresPostcode);
+		ValidationService.controleerNietBlanco(leveradresStad);
 		this.leveradresStad = leveradresStad;
 	}
 
