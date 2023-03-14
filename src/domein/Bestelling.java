@@ -74,6 +74,7 @@ public class Bestelling {
 		setDatumGeplaatst(datum_geplaatst);
 		setLeverancier(leverancier);
 		setKlant(klant);
+		setKlantNaam(klant.getNaam());
 		setTransportdienst(transportdienst);
 		setStatus(statusString);
 		setAankoper(aankoper);

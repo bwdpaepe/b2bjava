@@ -37,5 +37,6 @@ module B2B_Portal_Delaware {
 	requires org.mockito;
 	requires jbcrypt;
 	requires org.junit.jupiter.params;
+	requires java.desktop;
 
 }

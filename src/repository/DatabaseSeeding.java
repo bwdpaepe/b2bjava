@@ -75,7 +75,13 @@ public class DatabaseSeeding
 			domeinController.maakTransportdienst("DHL", 2, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.hk", 3);
 			domeinController.maakTransportdienst("GLS", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
-					"email@test.uk", 2);			
+					"email@test.uk", 2);
+			domeinController.maakTransportdienst("Post MM", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874",
+					"email2@test.fr", 2);
+			domeinController.maakTransportdienst("BHV", 2, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
+					"email2@test.hk", 1);
+			domeinController.maakTransportdienst("ZOEF", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
+					"email2@test.uk", 3);
 			
 
 			// Bestellingen
