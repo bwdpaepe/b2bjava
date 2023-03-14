@@ -16,11 +16,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 import repository.BesteldProductDTO;
 import repository.BestellingDTO;
 import repository.DoosDTO;
@@ -151,6 +154,8 @@ public class BestellingenController extends Pane {
 		//***toon gewijzigd BestellingDTO op het scherm***
 		BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
 		maakVisueelDetailBestelling(gewijzigdeDetailBestellingDTO);
+		//***laadt de lijst met bestellingen***
+		loadBestellingen();
 		
 		
 	}
@@ -212,10 +217,39 @@ public class BestellingenController extends Pane {
 		txtTotaleOrderbedrag.setDisable(true);
 		// transportdiensten van bedrijf van actueel ingelogde gebruiker
 		ObservableList<TransportdienstDTO> transportdienstDTOList = FXCollections.observableList(dc.getTransportdienstenDTO());
-		TransportdienstDTO geselecteerdeTransportdienstDTO = dc.getTransportdienst(bestellingDTO.getTransportdienstID());
-		// ToDo: toon enkel naam transportdienst ipv volledig object
+		long geselecteerdeTransportdienstDTOId = dc.getTransportdienst(bestellingDTO.getTransportdienstID()).getId();
+		//cmbTransportdienst.getSelectionModel().clearSelection();
+		//cmbTransportdienst.getItems().clear();
+		//cmbTransportdienst.valueProperty().set(null);
 		cmbTransportdienst.setItems(transportdienstDTOList);
-		cmbTransportdienst.setValue(geselecteerdeTransportdienstDTO);
+		cmbTransportdienst.setValue(filterTransportdienst(transportdienstDTOList, geselecteerdeTransportdienstDTOId));
+		cmbTransportdienst.setCellFactory(new Callback<ListView<TransportdienstDTO>, ListCell<TransportdienstDTO>>() {
+            @Override
+            public ListCell<TransportdienstDTO> call(ListView<TransportdienstDTO> param) {
+                return new ListCell<TransportdienstDTO>() {
+                    @Override
+                    protected void updateItem(TransportdienstDTO item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setText(null);
+                        } else {
+                            setText(item.getNaam()); // use the name property of the TransportdienstDTO object
+                        }
+                    }
+                };
+            }
+        });
+		cmbTransportdienst.setButtonCell(new ListCell<TransportdienstDTO>() {
+            @Override
+            protected void updateItem(TransportdienstDTO item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getNaam()); // use the name property of the TransportdienstDTO object
+                }
+            }
+        });
 		if(bestellingDTO.getStatus().toUpperCase().equals(VERWERKT)) {
 			cmbTransportdienst.setDisable(false);
 			btnWijzigBestelling.setDisable(false);
@@ -233,6 +267,10 @@ public class BestellingenController extends Pane {
 			txtTrackTraceGegevens.setDisable(true);
 			btnWijzigBestelling.setDisable(true);
 		}
+	}
+	
+	private TransportdienstDTO filterTransportdienst(ObservableList<TransportdienstDTO> transportdienstDTOList, long geselecteerdeTransportdienstDTOId) {
+		return transportdienstDTOList.stream().filter(td -> (td.getId() == geselecteerdeTransportdienstDTOId)).findFirst().get();
 	}
 	
 	private String maakVisueelNaamAankoper(BestellingDTO bestellingDTO) {
@@ -256,11 +294,6 @@ public class BestellingenController extends Pane {
 	private String maakVisueelDoosType(BestellingDTO bestellingDTO) {
 		DoosDTO doosDTO = bestellingDTO.getDoos();
 		return (doosDTO.getDoosType());
-	}
-	
-	//ToDo we willen enkel de naam van de transportdienst weergeven in de combobox
-	private String maakVisueelTransportdienst(TransportdienstDTO transportdienstDTO) {
-		return transportdienstDTO.getNaam();
 	}
 	
 	private void loadBesteldeProducten(BestellingDTO bestellingDTO) {
