@@ -70,8 +70,14 @@ public class DatabaseSeeding
 			domeinController.maakMedewerker("A.", "De Aankoper", "aankoper@test.com", "paswoord", "Adres adres adres5", "047565442854", "aankoper", 6, 1);
 
 			// transportdienst
-			domeinController.maakTransportdienst("Post NL", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("Post FR", 4, true, "1", "POSTCODE", "jos", "josinson", "0478559871",
 					"email@test.fr", 1);
+			domeinController.maakTransportdienst("Post BE", 4, true, "2", "ORDERID", "jos", "josinson", "0478559872",
+					"email@test.be", 1);
+			domeinController.maakTransportdienst("Post DE", 4, true, "3", "POSTCODE", "jos", "josinson", "0478559873",
+					"email@test.de", 1);
+			domeinController.maakTransportdienst("Post NL", 4, true, "4", "POSTCODE", "jos", "josinson", "0478559874",
+					"email@test.nl", 1);
 			domeinController.maakTransportdienst("DHL", 2, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.hk", 3);
 			domeinController.maakTransportdienst("GLS", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
@@ -82,6 +88,13 @@ public class DatabaseSeeding
 					"email2@test.hk", 1);
 			domeinController.maakTransportdienst("ZOEF", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
 					"email2@test.uk", 3);
+					"email@test.uk", 2);
+			
+			// contactpersonen transportdienst
+			domeinController.addContactpersoon("Jan", "Metdepet", "0478559874", "test@jan.com", 1);
+			domeinController.addContactpersoon("Karel", "Metdepet", "0478559874", "test@metdepet.com", 1);
+			domeinController.addContactpersoon("Joseline", "Metdepet", "0478559874", "test@test.com", 1);
+			domeinController.addContactpersoon("Franky", "Metdepet", "0478559874", "test@td.com", 1);
 			
 
 			// Bestellingen
