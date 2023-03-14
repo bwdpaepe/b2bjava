@@ -3,6 +3,8 @@ package testen;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import domein.Bedrijf;
 import domein.Doos;
@@ -39,4 +41,12 @@ class DoosTest
 	
 	
 	// TODO verdere testen uitwerken met ongeldige waardes
+	@ParameterizedTest
+	@ValueSource (doubles = {-2, -0.01, 0})
+	void maakDoos_ongeldigeWaardes(double value) {
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Doos(NAAM, value, GELDIG_GETAL, GELDIG_GETAL, TYPE_STRING, GELDIG_GETAL, BEDRIJF));
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Doos(NAAM, GELDIG_GETAL, value, GELDIG_GETAL, TYPE_STRING, GELDIG_GETAL, BEDRIJF));
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Doos(NAAM, GELDIG_GETAL, GELDIG_GETAL, value, TYPE_STRING, GELDIG_GETAL, BEDRIJF));
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Doos(NAAM, GELDIG_GETAL, GELDIG_GETAL, GELDIG_GETAL, TYPE_STRING, value, BEDRIJF));
+	}
 }
