@@ -15,8 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -295,7 +293,6 @@ public class TransportdienstenController extends Pane {
 	}
 
 	private void buildGuiToevoegTab() {
-		// spinnerLengteBarcode.setValueFactory(factory);
 		rbOrderIdToevoegTab.setToggleGroup(tgToevoegTab);
 		rbPostcodeToevoegTab.setToggleGroup(tgToevoegTab);
 	}
@@ -304,7 +301,6 @@ public class TransportdienstenController extends Pane {
 	void addTransportdienst(ActionEvent event) {
 		try {
 			String naamTransportdienst = txtNaamTransportdienst.getText();
-			// int barcodeLengte = spinnerLengteBarcode.getValue();
 			int barcodeLengte = Integer.valueOf(txtLengteBarcodeToevoegTab.getText());
 			boolean isBarcodeEnkelCijfers = cbCijfers.isSelected();
 			String barcodePrefix = txtPrefix.getText();
