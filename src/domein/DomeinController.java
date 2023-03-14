@@ -24,7 +24,6 @@ public class DomeinController {
 	private BestellingService bestellingService;
 
 	public DomeinController() {
-
 		setUserService(new UserService());
 		setDienstService(new DienstService());
 		setBedrijfService(new BedrijfService());
@@ -158,6 +157,12 @@ public class DomeinController {
 		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID, aankoperId, leveradresStraat, leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand, doosId);
 	}
 
+	public BestellingDTO getBestelling(long bestellingId) {
+		Bestelling bestelling = bestellingService.getBestelling(bestellingId);
+		BestellingDTO bestellingDTO = new BestellingDTO(bestelling);
+		return bestellingDTO;
+	}
+	
 	public List<BestellingDTO> getBestellingen() {
 		List<Bestelling> bestellingen = bestellingService.getBestellingen(ingelogdeUser.getBedrijf().getId());
 		List<BestellingDTO> bestellingenDTO = bestellingen.stream().map(b -> new BestellingDTO(b)).toList();

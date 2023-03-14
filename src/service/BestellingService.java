@@ -51,6 +51,14 @@ public class BestellingService {
 
 	}
 	
+	public Bestelling getBestelling(long bestellingID){
+		
+		Bestelling bestelling = bestellingRepo.get(bestellingID);
+		return bestelling;
+	}
+	
+	
+	
 	public List<Bestelling> getBestellingen(long leverancierID){
 		
 		Bedrijf leverancier = bedrijfService.getBedrijfById(leverancierID);
@@ -80,7 +88,7 @@ public class BestellingService {
 		try {
 			GenericDaoJpa.startTransaction();
 			Bestelling bestelling = bestellingRepo.get(bestellingId);
-			if (bestelling.getStatus().equalsIgnoreCase(BestellingStatus.VERWERKT.toString())) {
+			if (!bestelling.getStatus().equalsIgnoreCase(BestellingStatus.VERWERKT.toString())) {
 				throw new IllegalArgumentException("Deze bestelling is niet wijzigbaar, want deze heeft niet de juiste status!");
 			}
 			Transportdienst transportdienst = dienstService.getTransportdienstByID(transportdienstId);
