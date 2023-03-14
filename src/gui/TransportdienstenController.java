@@ -403,6 +403,9 @@ public class TransportdienstenController extends Pane {
 			// toonMelding(AlertType.INFORMATION, "De wijzigingen zijn opgeslaan");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
+			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
+			tvContactpersonen
+					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
 		}
 
 	}
