@@ -31,7 +31,7 @@ public class DoosServiceTest {
 	private static final String STAD_LEVERANCIER = " stad A";
 	private static final String LAND_LEVERANCIER = "land A";
 	private static final String TELEFOONNUMMER_LEVERANCIER = "0123456789";
-	private static final String LOGO_FILENAME_LEVERANCIER = "logog_bedrijf_A";
+	private static final String LOGO_FILENAME_LEVERANCIER = "logo_bedrijf_A";
 	private final Bedrijf LEVERANCIER = new Bedrijf(NAAMBEDRIJF_LEVERANCIER, STRAAT_LEVERANCIER, HUISNUMMER_LEVERANCIER,
 			POSTCODE_LEVERANCIER, STAD_LEVERANCIER, LAND_LEVERANCIER, TELEFOONNUMMER_LEVERANCIER,
 			LOGO_FILENAME_LEVERANCIER);
@@ -52,7 +52,7 @@ public class DoosServiceTest {
 	}
 
 	@Test
-	void testGetDoosByIdCorrect() {
+	void testGetDoosById() {
 		Mockito.doReturn(doos).when(doosRepoMock).get(DOOS_ID);
 
 		Doos doos2 = doosService.getDoosById(DOOS_ID);

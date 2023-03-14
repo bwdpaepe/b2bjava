@@ -282,8 +282,14 @@ public class TransportdienstenController extends Pane {
 		contactpersoonEmailadresKolom.setCellFactory(TextFieldTableCell.<ContactpersoonDTO>forTableColumn());
 		contactpersoonEmailadresKolom.setOnEditCommit((CellEditEvent<ContactpersoonDTO, String> t) -> {
 			ContactpersoonDTO c = ((ContactpersoonDTO) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-			editContactPersoon(c.getVoornaam(), c.getFamilienaam(), c.getTelefoonnummer(), t.getNewValue(), c.getId(),
-					selectedTransportdienstDTO.getId());
+			try {
+				ValidationService.controleerUniekEmailadres(selectedTransportdienstDTO.getContactpersonen(),
+						t.getNewValue());
+				editContactPersoon(c.getVoornaam(), c.getFamilienaam(), c.getTelefoonnummer(), t.getNewValue(),
+						c.getId(), selectedTransportdienstDTO.getId());
+			} catch (IllegalArgumentException e) {
+				toonMelding(AlertType.ERROR, e.getMessage());
+			}
 		});
 
 		this.contactpersonen = FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen());
@@ -337,7 +343,6 @@ public class TransportdienstenController extends Pane {
 		tvTransportdiensten.setItems(transportdiensten);
 		txtNaamTransportdienst.clear();
 		txtLengteBarcodeToevoegTab.clear();
-		// spinnerLengteBarcode.getValueFactory().setValue(1);
 		cbCijfers.setSelected(false);
 		rbOrderIdToevoegTab.setSelected(false);
 		rbPostcodeToevoegTab.setSelected(false);
@@ -391,12 +396,10 @@ public class TransportdienstenController extends Pane {
 	private void editContactPersoon(String voornaam, String familienaam, String telefoonnummer, String email, long id,
 			long transportId) {
 		try {
-			ValidationService.controleerUniekEmailadres(selectedTransportdienstDTO.getContactpersonen(), email);
 			dc.editContactpersoon(voornaam, familienaam, telefoonnummer, email, id, transportId);
 			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-			// toonMelding(AlertType.INFORMATION, "De wijzigingen zijn opgeslaan");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
@@ -448,7 +451,7 @@ public class TransportdienstenController extends Pane {
 			this.selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-			toonMelding(AlertType.INFORMATION, "De contactpersoon is verwijderd");
+			toonMelding(AlertType.INFORMATION, "Contactpersoon is succesvol verwijderd");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		} catch (IndexOutOfBoundsException e) {
