@@ -140,9 +140,6 @@ public class TransportdienstenController extends Pane {
 	private TextField txtLengteBarcodeToevoegTab;
 
 	@FXML
-	private Spinner<Integer> spinnerLengteBarcode;
-
-	@FXML
 	private CheckBox cbCijfers;
 
 	@FXML
