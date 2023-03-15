@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="apKlantenScherm" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KlantenController">
+   <children>
+      <AnchorPane style="-fx-background-color: grey;" styleClass="rightComponent">
+         <children>
+            <TextField layoutX="479.0" layoutY="434.0" prefHeight="25.0" prefWidth="201.0" style="-fx-alignment: center;" text="Just a placeholder for UC6" />
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tvKlantenLijst" styleClass="leftComponent">
+        <columns>
+          <TableColumn fx:id="naamColumn" text="Naam" />
+          <TableColumn fx:id="aantalBestellingenColumn" text="Aantal open bestellingen" />
+        </columns>
+      </TableView>
+      <TextField fx:id="tfKlantZoeken" promptText="Zoeken..." styleClass="search-field" />
+   </children>
+</AnchorPane>

@@ -2,6 +2,7 @@ package service;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import domein.Bedrijf;
 import domein.Medewerker;
 import domein.User;
 import repository.MedewerkerDTO;
@@ -34,10 +35,9 @@ public class UserService
 			throw new IllegalArgumentException("Ongeldige inloggegevens");
 		}
 
-		if (user instanceof Medewerker)
+		if (user instanceof Medewerker && ((Medewerker) user).getFunctie() != "Aankoper")
 		{
-			return new MedewerkerDTO(user.getVoornaam(), user.getFamilienaam(), user.getEmail(), user.getAdres(),
-					user.getTelefoonnummer(), ((Medewerker) user).getPersoneelsNr(), ((Medewerker) user).getFunctie());
+			return new MedewerkerDTO((Medewerker)user);
 		} else
 		{
 			throw new IllegalArgumentException("Ongeldig usertype");
@@ -45,19 +45,19 @@ public class UserService
 	}
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres,
-			String telefoonnummer, String functie, int personeelsNr)
+			String telefoonnummer, int personeelsNr, String functie, Bedrijf bedrijf)
 	{
 		UserDaoJpa.startTransaction();
 
 		userRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, adres, telefoonnummer, personeelsNr,
-				functie));
+				functie, bedrijf));
 
 		UserDaoJpa.commitTransaction();
 	}
 
-	public void updateMedewerker(String email, String nieuweRol)
+	public void updateMedewerker(int id, String nieuweRol)
 	{
-		User user = userRepo.getMedewerkerByEmailAdress(email);
+		User user = userRepo.get(Long.valueOf(id));
 
 		if (user instanceof Medewerker)
 		{
@@ -71,5 +71,14 @@ public class UserService
 			throw new IllegalArgumentException("Ongeldig usertype");
 		}
 
+	}
+	
+	public Medewerker getMedewerkerById(long id) {
+		User user =  userRepo.get(id);
+		
+		if(user instanceof Medewerker) {
+			return (Medewerker) user;
+		}
+		throw new IllegalArgumentException("Ongeldige id of usertype");
 	}
 }

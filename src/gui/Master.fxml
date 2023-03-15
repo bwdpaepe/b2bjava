@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane id="borderPane" fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MasterController">
+   <top>
+         <AnchorPane id="menuPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="1920.0" stylesheets="@../guiStyling/menuStyle.css" BorderPane.alignment="CENTER">
+            <children>
+               <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1920.0" style="-fx-background-color: EC4842;">
+                  <children>
+                     <ImageView fitHeight="80.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+                        <image>
+                           <Image url="@../gui_images/logo_red.jpg" />
+                        </image>
+                     </ImageView>
+                     <Button id="medewerkerButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#loadMedewerker" styleClass="menuButton" translateX="200.0">
+                        <graphic>
+                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../gui_images/team.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button id="transportdienstButton" mnemonicParsing="false" onMouseClicked="#loadTransportdienst" styleClass="menuButton" translateX="320.0">
+                        <graphic>
+                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../gui_images/truck.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button id="doosButton" mnemonicParsing="false" onMouseClicked="#loadDoos" styleClass="menuButton" translateX="440.0">
+                        <graphic>
+                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../gui_images/box.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button id="klantenButton" mnemonicParsing="false" onMouseClicked="#loadKlanten" styleClass="menuButton" translateX="560.0">
+                        <graphic>
+                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../gui_images/2409728-200.png" />
+                              </image>
+                              <effect>
+                                 <ColorAdjust brightness="1.0" contrast="-1.0" hue="-1.0" saturation="-1.0" />
+                              </effect>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button id="bestellingButton" mnemonicParsing="false" onMouseClicked="#loadBestellingen" styleClass="menuButton" translateX="680.0">
+                        <graphic>
+                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../gui_images/order.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button id="profielButton" mnemonicParsing="false" styleClass="profileButton" StackPane.alignment="CENTER_RIGHT">
+                        <graphic>
+                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../gui_images/profile.png" />
+                              </image>
+                              <effect>
+                                 <ColorAdjust brightness="1.0" />
+                              </effect>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="B2B Portal" translateX="90.0" StackPane.alignment="CENTER_LEFT">
+                        <font>
+                           <Font name="Calibri Bold Italic" size="64.0" />
+                        </font>
+                     </Text>
+                  </children>
+               </StackPane>
+               <StackPane layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="1920.0" style="-fx-background-color: E0433E;">
+                  <children>
+                     <Text id="titelPlaceholder" fx:id="titlePlaceholder" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Titel-placeholder" StackPane.alignment="CENTER">
+                        <font>
+                           <Font name="Calibri Bold Italic" size="24.0" />
+                        </font>
+                     </Text>
+                  </children>
+               </StackPane>
+            </children>
+         </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane id="contentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#loadBestellingen" prefHeight="965.0" prefWidth="1920.0" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="20.0" prefWidth="1920.0" style="-fx-background-color: F8FAFB;" />
+            <Pane prefHeight="30.0" prefWidth="1920.0" style="-fx-background-color: F0F2F3;" />
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>

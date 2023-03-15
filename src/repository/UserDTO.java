@@ -1,5 +1,8 @@
 package repository;
 
+import domein.Bedrijf;
+import domein.User;
+
 // Data Transfer Object PATTERN (DTO PATTERN)
 // ENKEL FINAL ATTRIBUTEN EN NOOIT LOGICA OPNEMEN
 public abstract class UserDTO
@@ -9,14 +12,16 @@ public abstract class UserDTO
 	protected final String email;
 	protected final String telefoonnummer;
 	protected final String adres;
+	protected final BedrijfDTO bedrijf;
 
-	public UserDTO(String voornaam, String familienaam, String email, String telefoonnummer, String adres)
+	public UserDTO(User user)
 	{
-		this.voornaam = voornaam;
-		this.familienaam = familienaam;
-		this.email = email;
-		this.telefoonnummer = telefoonnummer;
-		this.adres = adres;
+		this.voornaam = user.getVoornaam();
+		this.familienaam = user.getFamilienaam();
+		this.email = user.getEmail();
+		this.telefoonnummer = user.getTelefoonnummer();
+		this.adres = user.getAdres();
+		this.bedrijf = new BedrijfDTO(user.getBedrijf());
 	}
 
 	public String getVoornaam()
@@ -43,12 +48,18 @@ public abstract class UserDTO
 	{
 		return adres;
 	}
+	
+	public BedrijfDTO getBedrijf() {
+		return bedrijf;
+	}
 
 	@Override
-	public String toString()
-	{
-		return "voornaam=" + voornaam + ", familienaam=" + familienaam + ", email=" + email
-				+ ", telefoonnummer=" + telefoonnummer + ", adres=" + adres;
+	public String toString() {
+		return "UserDTO [voornaam=" + voornaam + ", familienaam=" + familienaam + ", email=" + email
+				+ ", telefoonnummer=" + telefoonnummer + ", adres=" + adres + "]";
 	}
+
+	
+
 
 }

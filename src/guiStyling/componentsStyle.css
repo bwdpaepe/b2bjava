@@ -1,0 +1,199 @@
+
+.containerAnchor{
+    -fx-min-width: 1920.0px;
+    -fx-min-height: 915.0px;
+    -fx-max-width: 1920.0px;
+    -fx-max-height: 915.0px;
+}
+
+.leftComponent {
+	-fx-translate-x: 18.0px;
+    -fx-translate-y: 12.0px;
+    -fx-pref-width: 769.0px;
+    -fx-pref-height: 892.0px;
+    -fx-border-color: #000000;
+}
+
+.rightComponent {
+	-fx-translate-x: 805.0px;
+    -fx-translate-y: 12.0px;
+    -fx-pref-width: 1099.0px;
+    -fx-pref-height: 892.0px;
+    -fx-border-color: #000000;
+}
+
+/** Class selector voor de volledige table-view  */
+.table-view {
+	-fx-table-cell-border-color: transparent;
+}
+
+.table-view  .column-header {
+    -fx-background-color: #EC4842;
+    -fx-color: #FFFFFF;
+    -fx-pref-height: 62.0px;
+    }
+
+.table-view .column-header > .label {
+    -fx-text-fill: white;
+    -fx-alignment: bottom-left ;
+    -fx-font: 12.0pt 'Inter', sans-serif;
+    -fx-font-weight: bolder;
+    -fx-padding: 1.0px 4.0px; 
+} 
+
+.table-view .table-cell {
+    -fx-alignment: center-left;
+    -fx-padding: 1.0px 4.0px;
+}
+
+.search-field {
+	-fx-background-color: #FFFFFF;
+	-fx-border-color: #000000;
+	-fx-translate-x: 24.0px;
+    -fx-translate-y: 18.0px;
+    -fx-pref-width: 300.0px;
+    -fx-pref-height: 25.0px; 
+}
+
+.table-view .scroll-bar:vertical {
+    -fx-background-color: #FFB0B0;
+    
+}
+
+.table-view .scroll-bar:vertical .increment-button, .table-view .scroll-bar:vertical .decrement-button {
+   -fx-background-color: null;
+  -fx-background-radius: 0.0;
+  -fx-background-insets: 0.0;
+  -fx-padding: 0.0;
+}
+
+.table-view .scroll-bar:vertical .increment-arrow,
+.table-view .scroll-bar:vertical .decrement-arrow {
+  -fx-background-color: null;
+  -fx-shape: null;
+}
+
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #EC4842;
+    -fx-background-insets: 0.0, 1.0, 2.0;
+    -fx-background-radius: 5.0px;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+  -fx-background-color: null;
+  -fx-background-radius: 0.0;
+  -fx-background-insets: 0.0;
+  -fx-padding: 0.0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow,
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+  -fx-background-color: null;
+  -fx-background-radius: 0.0;
+  -fx-background-insets: 0.0;
+  -fx-padding: 0.0;
+  -fx-shape: null;
+}
+
+
+
+.table-row-cell{
+	-fx-background-color: white;
+	-fx-font: 12.0pt 'Inter', sans-serif;
+	-fx-border-color: black;
+	-fx-border-width: 0.0 0.0 0.0 0.0;
+}
+
+.table-row-cell:filled{
+	-fx-background-color: white;
+	-fx-font: 12.0pt 'Inter', sans-serif;
+	-fx-border-width: 0.0 0.0 0.0 0.0;
+}
+
+
+.table-row-cell:filled:hover{
+	-fx-background-color: #EC4842;
+	-fx-border-color: white;
+	-fx-border-width: 0.0 0.0 1.0 0.0;
+
+}
+
+.table-row-cell:filled:hover .table-cell{
+	-fx-text-fill: white;
+}
+
+.table-row-cell:filled:selected .table-cell{
+	-fx-text-fill: white;
+}
+
+.table-row-cell:selected{
+	-fx-table-cell-border-color: transparent;
+	-fx-background-color: #EC4842;
+	-fx-border-color: white;
+	-fx-border-width: 1.0 0.0 1.0 0.0;
+}
+
+#tvKlantenLijst .column-header, #tvKlantenLijst .column-header-background, #tvKlantenLijst .table-cell {
+    -fx-pref-width: 385.0px; 
+}
+
+.loginButtons{
+	-fx-background-color: #EC4842;
+	-fx-font-weight: bolder;
+	-fx-font: 20.0pt 'Inter', calibri;
+	-fx-text-fill: white;
+    -fx-padding: 1.0px 4.0px; 
+    -fx-border-radius: 4.0px
+}
+
+#tvProductenLijst .column-header, #tvProductenLijst .column-header-background, #tvProductenLijst .table-cell {
+    -fx-pref-width: 275px; 
+}
+
+/** Header */
+.container-header {
+    -fx-background-color: #EC4842;
+    -fx-color: #FFFFFF;
+    -fx-pref-height: 62px;
+    }
+    
+.pre-header {
+    -fx-background-color: #FFFFFF;
+    -fx-color: #000000;
+    -fx-pref-height: 62px;
+    }
+
+.loginButtons:hover{
+	-fx-background-color: #E0433E;
+	-fx-font: 20.0pt 'Inter', calibri;
+	-fx-border-color: black;
+	-fx-border-width: 2.0;
+	-fx-border-radius: 15.0;
+}
+
+.tab {
+  -fx-font-family: Arial;
+  -fx-font-size: 18.0;
+  -fx-background-color:#EC4842 ;
+	
+}
+
+
+.tab-label{
+	-fx-text-fill: white;
+}
+
+.tab:selected {
+    -fx-background-color:#E0433E ;
+    -fx-border-color:white;
+    -fx-font-weight: bolder;
+}
+
+.combo-box:disabled, .combo-box:disabled > * {
+  -fx-opacity: 1.0 ;
+}
+
+.tab-pane .tab-header-area .tab-header-background{
+	-fx-background-color:#EC4842 ;
+}

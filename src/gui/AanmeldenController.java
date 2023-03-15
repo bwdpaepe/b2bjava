@@ -1,7 +1,10 @@
 package gui;
 
-
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -16,20 +19,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import repository.DienstDTO;
+import repository.TransportdienstDTO;
 import repository.UserDTO;
 
-public class AanmeldenController {
-	
+public class AanmeldenController extends Pane {
+
 	private final DomeinController dc;
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-	
+
 	@FXML
 	private TextField gebruikersnaamTxtField;
 	@FXML
@@ -44,52 +46,79 @@ public class AanmeldenController {
 	private Pane errorWindow;
 	@FXML
 	private Button closeButton;
-	
-	
-	public AanmeldenController(DomeinController dc) {
-		this.dc = dc;
-	}
-	
+
+	// TODO verwijderen na ontwikkeling
 	@FXML
+	private Button aanmeldenZonderInlogButton;
+
+	public AanmeldenController(DomeinController dc) {
+
+		this.dc = dc;
+		
+	}
+
 	public void onEnter(ActionEvent ae) throws IOException {
 		this.aanmelden(ae);
 	}
-	
-	@FXML
+
 	public void closeError(ActionEvent ae) {
 		this.errorWindow.setVisible(false);
-		
+
 	}
-	
+
+	@FXML
 	public void aanmelden(ActionEvent event) throws IOException {
 		try {
-			UserDTO user = dc.aanmelden(gebruikersnaamTxtField.getText(), paswoordTxtField.getText());
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
-			HomeController hc = new HomeController(this.dc, user);
-			
-			loader.setController(hc);
-			
-			root = loader.load();
-			
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			stage.setResizable(false);
+			dc.aanmelden(gebruikersnaamTxtField.getText(), paswoordTxtField.getText());
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Master.fxml"));
+			Parent root = loader.load();
+			MasterController mc = loader.getController();
+			mc.setParams(dc);			
 			scene = new Scene(root);
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			stage.setScene(scene);
-			hc.setWelkomTekst();
 			stage.show();
+
 		} catch (IllegalArgumentException e) {
 			errorMessage.setText(e.getMessage());
 			this.errorWindow.setVisible(true);
 			this.closeButton.setVisible(true);
-			
-			
-			
+
 		} catch (EntityNotFoundException e) {
 			errorMessage.setText(e.getMessage());
 			this.errorWindow.setVisible(true);
 			this.closeButton.setVisible(true);
-			
+
 		}
 	}
-	
+
+	@FXML
+	public void aanmeldenZonderLoginGegevens(ActionEvent event) throws IOException {
+		try {
+			dc.aanmelden("emailail1@test.com", "paswoord");
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Master.fxml"));
+			Parent root = loader.load();
+			MasterController mc = loader.getController();
+			mc.setParams(dc);			
+			scene = new Scene(root);
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (IllegalArgumentException e) {
+			errorMessage.setText(e.getMessage());
+			this.errorWindow.setVisible(true);
+			this.closeButton.setVisible(true);
+
+		} catch (EntityNotFoundException e) {
+			errorMessage.setText(e.getMessage());
+			this.errorWindow.setVisible(true);
+			this.closeButton.setVisible(true);
+
+		}
+
+	}
+
 }

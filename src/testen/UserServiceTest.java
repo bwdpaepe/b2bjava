@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import domein.Bedrijf;
 import domein.Medewerker;
 import domein.User;
 import repository.MedewerkerDTO;
@@ -34,11 +35,12 @@ class UserServiceTest
 	private static final String FUNCTIE = "Admin";
 	//private static final String FUNCTIE_NIEUW = "Magazijnier"; eventueel later te gebruiken bij Update
 	private static final int PERSONEELNR = 12345;
+	private static final Bedrijf BEDRIJF = new Bedrijf("Bedrijf A", "Straat A", "A1", "1234A", "stad A", "land A", "0123456789", "logo_bedrijf_A");
 
 	@Test
 	void aanmelden()
 	{
-		User user = new Medewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELNR, FUNCTIE);
+		User user = new Medewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELNR, FUNCTIE, BEDRIJF);
 
 		Mockito.when(userRepoMock.getMedewerkerByEmailAdress(EMAILADRES)).thenReturn(user);
 
@@ -59,18 +61,20 @@ class UserServiceTest
 	}
 
 	// TODO nog uitzoeken hoe connectie met databank kan voorkomen worden door UserDaoJpa.startTransaction()
-//	@Test
-//	public void testMaakMedewerker()
-//	{
-//
-//		Medewerker mw = new Medewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER,
-//				PERSONEELNR, FUNCTIE);
-//
-//		userService.maakMedewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER, FUNCTIE,
-//				PERSONEELNR);
-//
-//		Mockito.verify(userRepoMock, Mockito.times(1)).insert(mw);
-//	}
+	@Test
+	public void testMaakMedewerker()
+	{
+
+		Medewerker mw = new Medewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER,PERSONEELNR,
+				FUNCTIE, BEDRIJF);
+		
+		Mockito.doNothing().when(userRepoMock).insert(mw);
+
+		userService.maakMedewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER,PERSONEELNR,
+				FUNCTIE, BEDRIJF);
+
+		Mockito.verify(userRepoMock, Mockito.times(1)).insert(mw);
+	}
 
 	// TODO nog uitzoeken hoe connectie met databank kan voorkomen worden door UserDaoJpa.startTransaction()
 //	@Test

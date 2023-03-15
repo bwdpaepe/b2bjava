@@ -1,5 +1,7 @@
 package repository;
 
+import domein.Medewerker;
+
 // Een Data Transfer Object klasse om een immutable object van Medewerker te kunnen 
 // returnen naar de GUI
 // ENKEL FINAL ATTRIBUTEN EN NOOIT LOGICA OPNEMEN
@@ -8,12 +10,11 @@ public class MedewerkerDTO extends UserDTO
 	private final int personeelsNr;
 	private final String functie;
 
-	public MedewerkerDTO(String voornaam, String familienaam, String email, String adres, String telefoonnummer,
-			int personeelsNr, String functie)
+	public MedewerkerDTO(Medewerker mw)
 	{
-		super(voornaam, familienaam, email, telefoonnummer, adres);
-		this.personeelsNr = personeelsNr;
-		this.functie = functie;
+		super(mw);
+		this.personeelsNr = mw.getPersoneelsNr();
+		this.functie = mw.getFunctie();
 	}
 
 	public int getPersoneelsNr()
@@ -27,8 +28,13 @@ public class MedewerkerDTO extends UserDTO
 	}
 
 	@Override
-	public final String toString()
-	{
-		return "MedewerkerDTO [personeelsNr=" + personeelsNr + ", functie=" + functie + ", " + super.toString() + "]";
+	public String toString() {
+		return "MedewerkerDTO [personeelsNr=" + personeelsNr + ", functie=" + functie + ", voornaam=" + voornaam
+				+ ", familienaam=" + familienaam + ", email=" + email + ", telefoonnummer=" + telefoonnummer
+				+ ", adres=" + adres + "]";
 	}
+	
+	
+
+
 }

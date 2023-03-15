@@ -5,6 +5,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import service.ValidationService;
+import util.AankoperFunctie;
 import util.AdminFunctie;
 import util.Functie;
 import util.MagazijnierFunctie;
@@ -18,7 +20,7 @@ public class Medewerker extends User
 
 	@Column(name = "personeelsNr", unique = true)
 	private int personeelsNr;
-	
+
 	@Column(name = "Functie")
 	private String functieString;
 
@@ -26,9 +28,9 @@ public class Medewerker extends User
 	private Functie functie;
 
 	public Medewerker(String voornaam, String familienaam, String email, String password, String adres,
-			String telefoonnummer, int personeelsNr, String functie)
+			String telefoonnummer, int personeelsNr, String functie, Bedrijf bedrijf)
 	{
-		super(voornaam, familienaam, email, password, telefoonnummer, adres);
+		super(voornaam, familienaam, email, password, telefoonnummer, adres, bedrijf);
 		setFunctie(functie);
 		setPersoneelsNr(personeelsNr);
 	}
@@ -46,27 +48,20 @@ public class Medewerker extends User
 
 	public final void setFunctie(String functie)
 	{
-		if (functie == null || functie.isBlank())
-		{
-			throw new IllegalArgumentException("This function is not valid, please choose Admin or Magazijnier");
-		}
+		ValidationService.controleerNietBlanco(functie);
 
-		switch (functie.toLowerCase())
+		this.functie = switch (functie.toLowerCase())
 			{
-			case "magazijnier":
-				this.functie = new MagazijnierFunctie();
-				break;
-			case "admin":
-				this.functie = new AdminFunctie();
-				break;
+			case "magazijnier" -> new MagazijnierFunctie();
+			case "admin" -> new AdminFunctie();
+			case "aankoper" -> new AankoperFunctie();
+			default -> throw new IllegalArgumentException("Unexpected value: " + functie.toLowerCase());
 
-			default:
-				throw new IllegalArgumentException("This function is not valid, please choose Admin or Magazijnier");
-			}
+			};
 
 		this.functieString = this.functie.toString();
 	}
-	
+
 	public int getPersoneelsNr()
 	{
 		return personeelsNr;
@@ -74,10 +69,7 @@ public class Medewerker extends User
 
 	public final void setPersoneelsNr(int personeelsNR)
 	{
-		if (personeelsNR <= 0)
-		{// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Personeelnummer is ongeldig");
-		}
+		ValidationService.controleerGroterDanNul(personeelsNR);
 		this.personeelsNr = personeelsNR;
 	}
 

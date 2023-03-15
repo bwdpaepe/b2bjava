@@ -6,14 +6,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="170.0" layoutY="240.0" prefHeight="80.0" prefWidth="1920.0" style="-fx-background-color: EC4842;" AnchorPane.bottomAnchor="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="80.0" prefWidth="1920.0" style="-fx-background-color: EC4842;">
          <children>
             <Text fill="#fdfdfd" layoutX="566.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welkom op jouw B2B Portal">
                <font>
@@ -27,8 +26,8 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="8.0" layoutY="68.0" prefHeight="35.0" prefWidth="1920.0" style="-fx-background-color: E0433E;" AnchorPane.bottomAnchor="944.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
-      <Pane layoutX="854.0" layoutY="462.0" prefHeight="243.0" prefWidth="789.0" style="-fx-background-color: EC4842; -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-color: black;" AnchorPane.leftAnchor="560.0" AnchorPane.topAnchor="347.0">
+      <Pane layoutY="80.0" prefHeight="35.0" prefWidth="1920.0" style="-fx-background-color: E0433E;" />
+      <Pane layoutX="566.0" layoutY="297.0" prefHeight="243.0" prefWidth="789.0" style="-fx-background-color: EC4842; -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-color: black;">
          <children>
             <Text fill="#fdfdfd" layoutX="305.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aanmelden">
                <font>
@@ -47,7 +46,7 @@
             </PasswordField>
          </children>
       </Pane>
-      <Pane layoutX="860.0" layoutY="752.0" prefHeight="67.0" prefWidth="789.0" AnchorPane.leftAnchor="565.0" AnchorPane.topAnchor="645.0">
+      <Pane layoutX="566.0" layoutY="571.0" prefHeight="67.0" prefWidth="789.0">
          <children>
             <Button fx:id="aanmeldenButton" mnemonicParsing="false" onAction="#aanmelden" prefHeight="67.0" prefWidth="200.0" style="-fx-background-color: EC4842; -fx-background-radius: 15;" text="Aanmelden" textFill="WHITE">
                <font>
@@ -59,11 +58,12 @@
                   <Font name="Calibri Bold Italic" size="24.0" />
                </font>
             </Button>
+            <Button fx:id="aanmeldenZonderInlogButton" layoutX="271.0" layoutY="12.0" mnemonicParsing="false" onAction="#aanmeldenZonderLoginGegevens" prefHeight="43.0" prefWidth="227.0" text="Aanmelden zonder inlog gegevens" />
          </children>
       </Pane>
-      <Pane layoutX="308.0" layoutY="829.0" prefHeight="20.0" prefWidth="1920.0" style="-fx-background-color: F8FAFB;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1030.0" />
-      <Pane layoutX="219.0" layoutY="648.0" prefHeight="30.0" prefWidth="1920.0" style="-fx-background-color: F0F2F3;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1050.0" />
-      <Pane fx:id="errorWindow" layoutX="252.0" layoutY="159.0" prefHeight="57.0" prefWidth="767.0" style="-fx-background-color: EEB2B2; -fx-border-color: FF0000; -fx-border-radius: 25; -fx-background-radius: 25;" visible="false" AnchorPane.leftAnchor="573.0" AnchorPane.topAnchor="255.0">
+      <Pane layoutY="1030.0" prefHeight="20.0" prefWidth="1920.0" style="-fx-background-color: F8FAFB;" />
+      <Pane layoutY="1050.0" prefHeight="30.0" prefWidth="1920.0" style="-fx-background-color: F0F2F3;" />
+      <Pane fx:id="errorWindow" layoutX="577.0" layoutY="222.0" prefHeight="57.0" prefWidth="767.0" style="-fx-background-color: EEB2B2; -fx-border-color: FF0000; -fx-border-radius: 25; -fx-background-radius: 25;" visible="false">
          <children>
             <Label fx:id="errorMessage" layoutX="55.0" layoutY="10.0" textFill="WHITE">
                <font>
@@ -77,8 +77,9 @@
                         <Image url="@../gui_images/red%20cross.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+            </Button>
          </children>
       </Pane>
    </children>
-</AnchorPane>
+</Pane>

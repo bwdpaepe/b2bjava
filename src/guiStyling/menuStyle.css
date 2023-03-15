@@ -1,0 +1,30 @@
+.menuButton{
+	-fx-background-color: #EC4842;
+}
+
+
+.menuButton:hover {
+	-fx-background-color: #E0433E;
+	-fx-border-width: 1 1 0 1;
+	-fx-border-color: black;
+	
+}
+
+.profileButton{
+	-fx-background-color: #EC4842;
+}
+
+
+.profileButton:hover {
+	-fx-background-color: #E0433E;
+
+	-fx-border-width: 0 0 0 1;
+	-fx-border-color: black;
+	
+}
+
+
+.tab-header-background{
+	-fx-background-color:  #EC4842;
+}
+
