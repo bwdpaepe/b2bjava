@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
@@ -14,6 +13,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="915.0" prefWidth="1920.0" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TransportdienstenController">
@@ -38,101 +38,218 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="861.0" prefWidth="1000.0">
                      <children>
-                        <TableView fx:id="tvContactpersonen" layoutX="30.0" layoutY="360.0" prefHeight="316.0" prefWidth="1040.0">
+                        <TableView fx:id="tvContactpersonen" layoutX="20.0" layoutY="327.0" prefHeight="316.0" prefWidth="1040.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                           <columns>
                               <TableColumn fx:id="contactpersoonIdKolom" prefWidth="75.0" text="Id" visible="false" />
                             <TableColumn fx:id="contactpersoonVoornaamKolom" prefWidth="75.0" text="Voornaam" />
                             <TableColumn fx:id="contactpersoonFamilienaamKolom" prefWidth="75.0" text="Familienaam" />
                               <TableColumn fx:id="contactpersoonEmailadresKolom" prefWidth="75.0" text="Emailadres" />
-                              <TableColumn fx:id="contactpersoonTelefoonnummerKolom" prefWidth="156.0" text="Telefoonnummer" />
+                              <TableColumn fx:id="contactpersoonTelefoonnummerKolom" prefWidth="264.0" text="Telefoonnummer" />
                           </columns>
+                           <padding>
+                              <Insets bottom="1.0" top="1.0" />
+                           </padding>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </TableView>
-                        <Label layoutX="30.0" layoutY="20.0" text="Naam:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font></Label>
-                        <Label layoutX="30.0" layoutY="153.0" text="Lengte barcode:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font></Label>
-                        <Label layoutX="30.0" layoutY="60.0" text="Structuur Track &amp; Tracecode">
-                           <font>
-                              <Font name="SansSerif Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="30.0" layoutY="105.0" text="Bestaat barcode enkel cijfers:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font></Label>
-                        <Label layoutX="30.0" layoutY="291.0" text="Actief om te leveren:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font></Label>
-                        <Label layoutX="30.0" layoutY="199.0" text="Type verificatie:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font></Label>
-                        <Label layoutX="30.0" layoutY="245.0" text="Prefix barcode:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font></Label>
-                        <TextField fx:id="txtNaamRaadpleegTab" editable="false" layoutX="107.0" layoutY="15.0" prefHeight="39.0" prefWidth="392.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font></TextField>
-                        <TextField fx:id="txtPrefixRaadpleegTab" editable="false" layoutX="198.0" layoutY="240.0" prefHeight="39.0" prefWidth="300.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font></TextField>
-                        <ChoiceBox fx:id="cbVerificatiecodeRaadpleegTab" layoutX="121.0" layoutY="156.0" prefWidth="150.0" visible="false" />
-                        <CheckBox fx:id="cbEnkelCijfersRaadpleegTab" disable="true" layoutX="351.0" layoutY="105.0" mnemonicParsing="false">
-                           <font>
-                              <Font size="18.0" />
-                           </font></CheckBox>
-                        <CheckBox fx:id="cbStatusRaadpleegTab" disable="true" layoutX="255.0" layoutY="293.0" mnemonicParsing="false">
-                           <font>
-                              <Font size="18.0" />
-                           </font></CheckBox>
-                        <Button fx:id="btnUpdateTransportdienst" layoutX="30.0" layoutY="805.0" mnemonicParsing="false" onAction="#updateTransportdienst" prefHeight="41.0" prefWidth="555.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Gegevens wijzigen" />
-                        <Button fx:id="btnSaveTransportdienst" layoutX="600.0" layoutY="805.0" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" prefHeight="41.0" prefWidth="290.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Wijzigingen opslaan" />
-                        <Button fx:id="btnAbortUpdate" layoutX="905.0" layoutY="805.0" mnemonicParsing="false" onAction="#abortUpdateTransportdienst" prefHeight="41.0" prefWidth="165.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Annuleren" />
-                        <RadioButton fx:id="rbOrderIdRaadpleegTab" layoutX="203.0" layoutY="200.0" mnemonicParsing="false" text="Order id">
-                           <font>
-                              <Font size="18.0" />
-                           </font></RadioButton>
-                        <RadioButton fx:id="rbPostcodeRaadpleegTab" layoutX="311.0" layoutY="200.0" mnemonicParsing="false" text="Postcode">
-                           <font>
-                              <Font size="18.0" />
-                           </font></RadioButton>
-                        <HBox fx:id="hBoxContactPersonen1" layoutX="30.0" layoutY="677.0" prefHeight="50.0" prefWidth="1040.0" spacing="40.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="134.0">
+                        <HBox layoutX="-1.0" layoutY="14.0" prefHeight="266.0" prefWidth="1099.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="595.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0">
                            <children>
-                              <TextField fx:id="txtVoornaamToevoegen" prefHeight="25.0" prefWidth="260.0" promptText="Voornaam" />
-                              <TextField fx:id="txtFamilienaamToevoegen" prefHeight="25.0" prefWidth="260.0" promptText="Familienaam" />
-                              <TextField fx:id="txtEmailadresToevoegen" prefHeight="25.0" prefWidth="260.0" promptText="Emailadres" />
-                              <TextField fx:id="txtTelefoonnummerToevoegen" prefHeight="25.0" prefWidth="260.0" promptText="Telefoonnummer" />
+                              <VBox prefHeight="334.0" prefWidth="201.0">
+                                 <children>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Naam transportdienst:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Lengte barcode:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Prefix barcode:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Type verificatie:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Bestaat barcode enkel cijfers:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Actief om te leveren:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="334.0" prefWidth="805.0">
+                                 <children>
+                                    <TextField fx:id="txtBarcodeLengteRaadpleegTab" editable="false" prefHeight="1000.0" prefWidth="1000.0">
+                                       <font>
+                                          <Font name="SansSerif Regular" size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets top="1.0" />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets bottom="1.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </TextField>
+                                    <TextField fx:id="txtNaamRaadpleegTab" editable="false" prefHeight="1000.0" prefWidth="1000.0">
+                                       <font>
+                                          <Font name="SansSerif Regular" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" right="4.0" top="1.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets top="1.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="txtPrefixRaadpleegTab" editable="false" prefHeight="1000.0" prefWidth="1000.0">
+                                       <font>
+                                          <Font name="SansSerif Regular" size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets top="1.0" />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets bottom="1.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </TextField>
+                                    <HBox prefHeight="1000.0" prefWidth="1000.0">
+                                       <children>
+                                          <RadioButton fx:id="rbOrderIdRaadpleegTab" mnemonicParsing="false" prefHeight="1000.0" text="Order id">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" right="20.0" top="1.0" />
+                                             </padding>
+                                          </RadioButton>
+                                          <RadioButton fx:id="rbPostcodeRaadpleegTab" mnemonicParsing="false" prefHeight="1000.0" text="Postcode">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" right="20.0" top="1.0" />
+                                             </padding>
+                                          </RadioButton>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="1.0" right="4.0" top="1.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <CheckBox fx:id="cbStatusRaadpleegTab" disable="true" mnemonicParsing="false" prefHeight="1000.0" prefWidth="1000.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" right="4.0" top="1.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets top="1.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                    <CheckBox fx:id="cbEnkelCijfersRaadpleegTab" disable="true" mnemonicParsing="false" prefHeight="1000.0" prefWidth="1000.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" right="4.0" top="1.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets top="1.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="743.0" prefHeight="104.0" prefWidth="1057.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                           <children>
+                              <Button fx:id="btnUpdateTransportdienst" mnemonicParsing="false" onAction="#updateTransportdienst" prefHeight="41.0" prefWidth="555.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Gegevens wijzigen" />
+                              <Button fx:id="btnSaveTransportdienst" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" prefHeight="41.0" prefWidth="290.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Wijzigingen opslaan" />
+                              <Button fx:id="btnAbortUpdate" mnemonicParsing="false" onAction="#abortUpdateTransportdienst" prefHeight="41.0" prefWidth="165.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Annuleren" />
                            </children>
                            <padding>
-                              <Insets left="10.0" top="10.0" />
+                              <Insets bottom="1.0" right="4.0" top="1.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="hBoxContactPersonen1" layoutX="20.0" layoutY="643.0" prefHeight="50.0" prefWidth="1057.0" spacing="40.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                           <children>
+                              <TextField fx:id="txtVoornaamToevoegen" prefHeight="25.0" prefWidth="260.0" promptText="Voornaam">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin></TextField>
+                              <TextField fx:id="txtFamilienaamToevoegen" prefHeight="25.0" prefWidth="260.0" promptText="Familienaam">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin></TextField>
+                              <TextField fx:id="txtEmailadresToevoegen" prefHeight="25.0" prefWidth="260.0" promptText="Emailadres">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin></TextField>
+                              <TextField fx:id="txtTelefoonnummerToevoegen" prefHeight="25.0" prefWidth="260.0" promptText="Telefoonnummer">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin></TextField>
+                           </children>
+                           <padding>
+                              <Insets bottom="1.0" top="1.0" />
                            </padding></HBox>
-                        <HBox fx:id="hBoxContactPersonen2" alignment="CENTER_RIGHT" layoutX="30.0" layoutY="727.0" prefHeight="41.0" prefWidth="1040.0" spacing="20.0" style="-fx-background-color: white;">
+                        <HBox fx:id="hBoxContactPersonen2" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="693.0" prefHeight="68.0" prefWidth="1057.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#toevoegenContactpersoon" prefHeight="41.0" prefWidth="161.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Toevoegen" />
                               <Button mnemonicParsing="false" onAction="#verwijderenContactpersoon" prefHeight="41.0" prefWidth="165.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Verwijderen" />
                            </children>
+                           <padding>
+                              <Insets bottom="1.0" right="4.0" top="1.0" />
+                           </padding>
                         </HBox>
-                        <Label layoutX="30.0" layoutY="334.0" text="Contactpersonen">
-                           <font>
-                              <Font name="SansSerif Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtBarcodeLengteRaadpleegTab" editable="false" layoutX="210.0" layoutY="149.0" prefHeight="39.0" prefWidth="289.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
+                        <HBox layoutX="-1.0" layoutY="265.0" prefHeight="62.0" prefWidth="1099.0">
+                           <children>
+                              <Label prefHeight="200.0" prefWidth="200.0" text="Contactpersonen">
+                                 <font>
+                                    <Font name="SansSerif Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </AnchorPane>
             </content>
@@ -141,104 +258,182 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../guiStyling/componentsStyle.css">
                      <children>
-                        <Label layoutX="20.0" layoutY="145.0" text="Bestaat barcode enkel uit cijfers:">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="20.0" layoutY="20.0" styleClass="scroll-bar" text="Naam:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font>
-                        </Label>
-                        <Button fx:id="btnToevoegen" layoutX="20.0" layoutY="730.0" mnemonicParsing="false" onAction="#addTransportdienst" prefHeight="110.0" prefWidth="458.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Toevoegen" />
-                        <Label layoutX="20.0" layoutY="280.0" text="Type verificatie:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="20.0" layoutY="475.0" text="Voornaam:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="20.0" layoutY="215.0" text="Lengte barcode:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="20.0" layoutY="345.0" text="Prefix barcode:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="20.0" layoutY="85.0" text="Structuur Track &amp; Tracecode">
-                           <font>
-                              <Font name="SansSerif Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="20.0" layoutY="405.0" prefHeight="35.0" prefWidth="460.0" text="Contactpersoon transportdienst">
-                           <font>
-                              <Font name="SansSerif Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="20.0" layoutY="540.0" text="Familienaam:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="20.0" layoutY="605.0" text="E-mailadres:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="20.0" layoutY="670.0" text="Telefoonnummer:">
-                           <font>
-                              <Font name="SansSerif Regular" size="24.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtNaamTransportdienst" layoutX="97.0" layoutY="15.0" prefHeight="39.0" prefWidth="393.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font></TextField>
-                        <TextField fx:id="txtTelefoonnummer" layoutX="215.0" layoutY="665.0" prefHeight="39.0" prefWidth="275.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font></TextField>
-                        <TextField fx:id="txtEmailadres" layoutX="161.0" layoutY="600.0" prefHeight="39.0" prefWidth="329.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font></TextField>
-                        <TextField fx:id="txtFamilienaam" layoutX="171.0" layoutY="535.0" prefHeight="39.0" prefWidth="319.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font></TextField>
-                        <TextField fx:id="txtVoornaam" layoutX="144.0" layoutY="470.0" prefHeight="39.0" prefWidth="346.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font></TextField>
-                        <CheckBox fx:id="cbCijfers" layoutX="367.0" layoutY="149.0" mnemonicParsing="false">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </CheckBox>
-                        <TextField fx:id="txtPrefix" layoutX="188.0" layoutY="340.0" prefHeight="39.0" prefWidth="302.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font></TextField>
-                        <RadioButton fx:id="rbOrderIdToevoegTab" layoutX="195.0" layoutY="280.0" mnemonicParsing="false" text="Orderid">
-                           <font>
-                              <Font size="18.0" />
-                           </font></RadioButton>
-                        <RadioButton fx:id="rbPostcodeToevoegTab" layoutX="305.0" layoutY="280.0" mnemonicParsing="false" text="Postcode">
-                           <font>
-                              <Font size="18.0" />
-                           </font></RadioButton>
-                        <TextField fx:id="txtLengteBarcodeToevoegTab" layoutX="200.0" layoutY="210.0" prefHeight="39.0" prefWidth="290.0">
-                           <font>
-                              <Font name="SansSerif Regular" size="18.0" />
-                           </font>
-                        </TextField>
+                        <HBox layoutX="20.0" layoutY="15.0" prefHeight="586.0" prefWidth="1099.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <VBox prefHeight="586.0" prefWidth="500.0">
+                                 <children>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" styleClass="scroll-bar" text="Naam transoportdienst:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Lengte barcode:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Prefix barcode:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Type verificatie:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Bestaat barcode enkel uit cijfers:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Voornaam contactpersoon:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Familienaam contactpersoon:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="E-mailadres contactpersoon:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="1000.0" prefWidth="1000.0" text="Telefoonnummer contactpersoon:">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="586.0" prefWidth="777.0">
+                                 <children>
+                                    <TextField fx:id="txtNaamTransportdienst" prefHeight="1000.0" prefWidth="393.0">
+                                       <VBox.margin>
+                                          <Insets bottom="1.0" right="20.0" top="1.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="txtEmailadres" prefHeight="1000.0" prefWidth="329.0">
+                                       <VBox.margin>
+                                          <Insets bottom="1.0" right="20.0" top="1.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="txtFamilienaam" prefHeight="1000.0" prefWidth="319.0">
+                                       <VBox.margin>
+                                          <Insets bottom="1.0" right="20.0" top="1.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <HBox prefHeight="1000.0">
+                                       <children>
+                                          <RadioButton fx:id="rbOrderIdToevoegTab" mnemonicParsing="false" prefHeight="1000.0" text="Orderid">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </RadioButton>
+                                          <RadioButton fx:id="rbPostcodeToevoegTab" mnemonicParsing="false" prefHeight="1000.0" text="Postcode">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </RadioButton>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="1.0" right="20.0" top="1.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <CheckBox fx:id="cbCijfers" mnemonicParsing="false" prefHeight="1000.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="1.0" right="20.0" top="1.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                    <TextField fx:id="txtPrefix" prefHeight="1000.0" prefWidth="302.0">
+                                       <VBox.margin>
+                                          <Insets bottom="1.0" right="20.0" top="1.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="txtLengteBarcodeToevoegTab" prefHeight="1000.0" prefWidth="290.0">
+                                       <VBox.margin>
+                                          <Insets bottom="1.0" right="20.0" top="1.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="txtTelefoonnummer" prefHeight="1000.0" prefWidth="275.0">
+                                       <VBox.margin>
+                                          <Insets bottom="1.0" right="20.0" top="1.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="txtVoornaam" prefHeight="1000.0" prefWidth="346.0">
+                                       <VBox.margin>
+                                          <Insets bottom="1.0" right="20.0" top="1.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Button fx:id="btnToevoegen" layoutX="726.0" layoutY="650.0" mnemonicParsing="false" onAction="#addTransportdienst" prefHeight="71.0" prefWidth="350.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Toevoegen" AnchorPane.rightAnchor="20.0">
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding>
+                        </Button>
                      </children></AnchorPane>
             </content>
           </Tab>
