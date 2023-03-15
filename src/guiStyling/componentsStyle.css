@@ -186,9 +186,14 @@
 
 .tab:selected {
     -fx-background-color:#E0433E ;
+    -fx-border-color:white;
     -fx-font-weight: bolder;
 }
 
 .combo-box:disabled, .combo-box:disabled > * {
   -fx-opacity: 1.0 ;
+}
+
+.tab-pane .tab-header-area .tab-header-background{
+	-fx-background-color:#EC4842 ;
 }

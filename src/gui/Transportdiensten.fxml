@@ -207,7 +207,7 @@
                               <Insets bottom="1.0" right="4.0" top="1.0" />
                            </padding>
                         </HBox>
-                        <HBox fx:id="hBoxContactPersonen1" layoutX="20.0" layoutY="643.0" prefHeight="50.0" prefWidth="1057.0" spacing="40.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                        <HBox fx:id="hBoxContactPersonen1" layoutX="20.0" layoutY="643.0" prefHeight="48.0" prefWidth="1057.0" spacing="40.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                            <children>
                               <TextField fx:id="txtVoornaamToevoegen" prefHeight="25.0" prefWidth="260.0" promptText="Voornaam">
                                  <HBox.margin>
