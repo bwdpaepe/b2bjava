@@ -223,7 +223,7 @@ public class TransportdienstenController extends Pane {
 		tvTransportdiensten.setRowFactory(tv -> {
 			TableRow<TransportdienstDTO> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
-				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() >=1) {
 
 					this.selectedTransportdienstDTO = row.getItem();
 					tabPane.getSelectionModel().select(raadpleegTab);
