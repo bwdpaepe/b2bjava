@@ -112,17 +112,6 @@
                               </VBox>
                               <VBox prefHeight="334.0" prefWidth="805.0">
                                  <children>
-                                    <TextField fx:id="txtBarcodeLengteRaadpleegTab" editable="false" prefHeight="1000.0" prefWidth="1000.0">
-                                       <font>
-                                          <Font name="SansSerif Regular" size="18.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets top="1.0" />
-                                       </VBox.margin>
-                                       <padding>
-                                          <Insets bottom="1.0" right="4.0" top="1.0" />
-                                       </padding>
-                                    </TextField>
                                     <TextField fx:id="txtNaamRaadpleegTab" editable="false" prefHeight="1000.0" prefWidth="1000.0">
                                        <font>
                                           <Font name="SansSerif Regular" size="18.0" />
@@ -133,6 +122,17 @@
                                        <VBox.margin>
                                           <Insets top="1.0" />
                                        </VBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="txtBarcodeLengteRaadpleegTab" editable="false" prefHeight="1000.0" prefWidth="1000.0">
+                                       <font>
+                                          <Font name="SansSerif Regular" size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets top="1.0" />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets bottom="1.0" right="4.0" top="1.0" />
+                                       </padding>
                                     </TextField>
                                     <TextField fx:id="txtPrefixRaadpleegTab" editable="false" prefHeight="1000.0" prefWidth="1000.0">
                                        <font>
@@ -171,7 +171,7 @@
                                           <Insets />
                                        </VBox.margin>
                                     </HBox>
-                                    <CheckBox fx:id="cbStatusRaadpleegTab" disable="true" mnemonicParsing="false" prefHeight="1000.0" prefWidth="1000.0">
+                                    <CheckBox fx:id="cbEnkelCijfersRaadpleegTab" disable="true" mnemonicParsing="false" prefHeight="1000.0" prefWidth="1000.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -182,7 +182,7 @@
                                           <Insets top="1.0" />
                                        </VBox.margin>
                                     </CheckBox>
-                                    <CheckBox fx:id="cbEnkelCijfersRaadpleegTab" disable="true" mnemonicParsing="false" prefHeight="1000.0" prefWidth="1000.0">
+                                    <CheckBox fx:id="cbStatusRaadpleegTab" disable="true" mnemonicParsing="false" prefHeight="1000.0" prefWidth="1000.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -349,7 +349,7 @@
                                           <Font size="18.0" />
                                        </font>
                                     </TextField>
-                                    <TextField fx:id="txtEmailadres" prefHeight="1000.0" prefWidth="329.0">
+                                    <TextField fx:id="txtLengteBarcodeToevoegTab" prefHeight="1000.0" prefWidth="290.0">
                                        <VBox.margin>
                                           <Insets bottom="1.0" right="20.0" top="1.0" />
                                        </VBox.margin>
@@ -357,7 +357,7 @@
                                           <Font size="18.0" />
                                        </font>
                                     </TextField>
-                                    <TextField fx:id="txtFamilienaam" prefHeight="1000.0" prefWidth="319.0">
+                                    <TextField fx:id="txtPrefix" prefHeight="1000.0" prefWidth="302.0">
                                        <VBox.margin>
                                           <Insets bottom="1.0" right="20.0" top="1.0" />
                                        </VBox.margin>
@@ -396,7 +396,7 @@
                                           <Insets bottom="1.0" right="20.0" top="1.0" />
                                        </VBox.margin>
                                     </CheckBox>
-                                    <TextField fx:id="txtPrefix" prefHeight="1000.0" prefWidth="302.0">
+                                    <TextField fx:id="txtVoornaam" prefHeight="1000.0" prefWidth="346.0">
                                        <VBox.margin>
                                           <Insets bottom="1.0" right="20.0" top="1.0" />
                                        </VBox.margin>
@@ -404,7 +404,15 @@
                                           <Font size="18.0" />
                                        </font>
                                     </TextField>
-                                    <TextField fx:id="txtLengteBarcodeToevoegTab" prefHeight="1000.0" prefWidth="290.0">
+                                    <TextField fx:id="txtFamilienaam" prefHeight="1000.0" prefWidth="319.0">
+                                       <VBox.margin>
+                                          <Insets bottom="1.0" right="20.0" top="1.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="txtEmailadres" prefHeight="1000.0" prefWidth="329.0">
                                        <VBox.margin>
                                           <Insets bottom="1.0" right="20.0" top="1.0" />
                                        </VBox.margin>
@@ -413,14 +421,6 @@
                                        </font>
                                     </TextField>
                                     <TextField fx:id="txtTelefoonnummer" prefHeight="1000.0" prefWidth="275.0">
-                                       <VBox.margin>
-                                          <Insets bottom="1.0" right="20.0" top="1.0" />
-                                       </VBox.margin>
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </TextField>
-                                    <TextField fx:id="txtVoornaam" prefHeight="1000.0" prefWidth="346.0">
                                        <VBox.margin>
                                           <Insets bottom="1.0" right="20.0" top="1.0" />
                                        </VBox.margin>
