@@ -23,11 +23,11 @@ import service.ValidationService;
 		{
 			@NamedQuery(
 				    name = "Bedrijf.findKlantenWithOpenOrdersByLeverancier",
-				    query = "SELECT klant, COUNT(CASE WHEN o.status = :status THEN 1 ELSE null END) as aantal " +
-				            "FROM Bedrijf lev " +
-				            "LEFT JOIN lev.incomingOrders o " +
-				            "LEFT JOIN o.klant klant " +
-				            "WHERE lev.id = :bedrijfId " +
+						    query = "SELECT new domein.KlantEnAantalBestellingen(klant, COUNT(CASE WHEN o.status = :status THEN 1 ELSE null END)) as aantal " +
+						            "FROM Bedrijf lev " +
+						            "LEFT JOIN lev.incomingOrders o " +
+						            "LEFT JOIN o.klant klant " +
+						            "WHERE lev.id = :bedrijfId " +
 				            "GROUP BY klant " +
 				            "ORDER BY aantal DESC, klant.naam ASC"
 				)

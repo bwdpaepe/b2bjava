@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import domein.Bedrijf;
 import domein.BestellingStatus;
 import domein.Doos;
+import domein.KlantEnAantalBestellingen;
 import domein.Product;
 import repository.BedrijfDao;
 import repository.BedrijfDaoJpa;
@@ -52,7 +53,7 @@ public class BedrijfService
 	}
 	
 	public List<KlantLijstEntryDTO> getListOfClientNamesWithNumberOfOpenOrders(long bedrijfsId) {
-		List<Object[]> lijst = bedrijfRepo.findCustomersWithOrdersWithSpecificStatus(bedrijfsId, BestellingStatus.GEPLAATST);
+		List<KlantEnAantalBestellingen> lijst = bedrijfRepo.findCustomersWithOrdersWithSpecificStatus(bedrijfsId, BestellingStatus.GEPLAATST);
 		
 		// return a unmodifiable List of KlantLijstEntryDTO objects
 		return lijst.stream()
