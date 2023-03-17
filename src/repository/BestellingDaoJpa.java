@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 
 import domein.Bedrijf;
 import domein.Bestelling;
+import domein.BestellingDetails;
 
 
 public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements BestellingDao {
@@ -25,5 +26,12 @@ public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements Beste
             throw new EntityNotFoundException("Deze leverancier heeft nog geen bestellingen");
         } 
     }
+
+	@Override
+	public List<BestellingDetails> getBestellingInfoBijLeverancierVanKlant(long leverancierId, long klantId)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
