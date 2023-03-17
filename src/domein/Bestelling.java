@@ -20,7 +20,7 @@ import service.ValidationService;
 @NamedQueries(
 		{ 
 			@NamedQuery(name = "Bestelling.getBestellingenByLeverancierID", query = "select b from Bestelling b where b.leverancier = :leverancier") ,
-			@NamedQuery(name = "Bestellingen.getBestellingenVanKlantBijLeverancier", query = "select b from Bestelling b where b.leverancier = :leverancier and b.klant = :klant") }
+			@NamedQuery(name = "Bestelling.getBestellingenVanKlantBijLeverancier", query = "select b from Bestelling b where b.leverancier = :leverancier and b.klant = :klant") }
 		)
 public class Bestelling {
 

@@ -220,7 +220,13 @@ public class DatabaseSeeding
 			*/
 			
 
-			System.out.print("Database Seeded");
+			System.out.println("Database Seeded");
+			
+			dc.aanmelden("emailail1@test.com", "paswoord");
+			System.out.println("user 1 aangemeld");
+			
+			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
+			System.out.println(kab);
 
 
 		} catch (IllegalArgumentException ex)
