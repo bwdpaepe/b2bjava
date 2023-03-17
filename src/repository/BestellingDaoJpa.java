@@ -28,10 +28,16 @@ public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements Beste
     }
 
 	@Override
-	public List<BestellingDetails> getBestellingInfoBijLeverancierVanKlant(long leverancierId, long klantId)
+	public List<BestellingDetails> getBestellingInfoBijLeverancierVanKlant(Bedrijf leverancier, Bedrijf klant)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		try {
+            return em.createNamedQuery("Bestelling.getBestellingenByLeverancierID", BestellingDetails.class)
+                 .setParameter("leverancier", leverancier)
+                 .setParameter("klant", klant)
+                .getResultList();
+        } catch (NoResultException ex) {
+            throw new EntityNotFoundException("Deze klant heeft nog geen bestellingen bij deze leverancier");
+        } 
 	}
 
 }

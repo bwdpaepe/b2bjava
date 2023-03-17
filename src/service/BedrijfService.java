@@ -3,7 +3,9 @@ package service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import domein.AankoperDetails;
 import domein.Bedrijf;
+import domein.BestellingDetails;
 import domein.BestellingStatus;
 import domein.Doos;
 import domein.KlantEnAantalBestellingen;
@@ -100,9 +102,12 @@ public class BedrijfService
 		};
 	}
 
-	public KlantAankopersBestellingenDTO getDetailsOfClient(long id, long klantId)
+	public KlantAankopersBestellingenDTO getDetailsOfClient(long leverancierId, long klantId)
 	{
 		Bedrijf klant = bedrijfRepo.get(klantId);
+		Bedrijf leverancier = bedrijfRepo.get(leverancierId);
+		List<BestellingDetails> bestellingen = bestellingRepo.getBestellingInfoBijLeverancierVanKlant(leverancier, klant);
+		List<AankoperDetails> aankopers = null;
 		
 		return null;
 	}

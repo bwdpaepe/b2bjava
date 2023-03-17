@@ -12,6 +12,6 @@ public interface BestellingDao extends GenericDao<Bestelling> {
 	
 	public List<Bestelling> getBestellingenByLeverancierID(Bedrijf leverancier) throws EntityNotFoundException;
 
-	public List<BestellingDetails> getBestellingInfoBijLeverancierVanKlant(long leverancierId, long klantId);
+	public List<BestellingDetails> getBestellingInfoBijLeverancierVanKlant(Bedrijf leverancier, Bedrijf klant);
 
 }
