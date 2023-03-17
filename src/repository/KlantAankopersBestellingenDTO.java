@@ -2,9 +2,9 @@ package repository;
 
 import java.util.List;
 
-import domein.AankoperDetails;
 import domein.Bedrijf;
-import domein.BestellingDetails;
+import domein.Bestelling;
+import domein.User;
 
 public class KlantAankopersBestellingenDTO
 {
@@ -12,7 +12,7 @@ public class KlantAankopersBestellingenDTO
 	private final Long klantId;
 	private final String klantNaam;
 
-	public KlantAankopersBestellingenDTO(Bedrijf klant, List<AankoperDetails> aankopersVanKlant, List<BestellingDetails> bestellingVanKlant)
+	public KlantAankopersBestellingenDTO(Bedrijf klant, List<User> aankopers, List<Bestelling> bestellingen)
 	{
 		this.klantId = klant.getID();
 		this.klantNaam = klant.getNaam();

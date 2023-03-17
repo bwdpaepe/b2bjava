@@ -3,13 +3,13 @@ package service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import domein.AankoperDetails;
 import domein.Bedrijf;
-import domein.BestellingDetails;
+import domein.Bestelling;
 import domein.BestellingStatus;
 import domein.Doos;
 import domein.KlantEnAantalBestellingen;
 import domein.Product;
+import domein.User;
 import repository.BedrijfDao;
 import repository.BedrijfDaoJpa;
 import repository.BestellingDao;
@@ -106,9 +106,9 @@ public class BedrijfService
 	{
 		Bedrijf klant = bedrijfRepo.get(klantId);
 		Bedrijf leverancier = bedrijfRepo.get(leverancierId);
-		List<BestellingDetails> bestellingen = bestellingRepo.getBestellingInfoBijLeverancierVanKlant(leverancier, klant);
-		List<AankoperDetails> aankopers = null;
+		List<Bestelling> bestellingen = bestellingRepo.getBestellingInfoBijLeverancierVanKlant(leverancier, klant);
+		List<User> aankopers = userRepo.getAankopersFromCompany(klantId);
 		
-		return null;
+		return new KlantAankopersBestellingenDTO(klant, aankopers, bestellingen);
 	}
 }

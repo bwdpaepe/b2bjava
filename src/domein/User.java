@@ -24,7 +24,10 @@ import service.ValidationService;
 @Entity
 @Table(name = "Gebruikers")
 @NamedQueries(
-	{ @NamedQuery(name = "User.findByEmailAdress", query = "select u from User u where u.emailAdress = :emailAdress") })
+	{ 
+		@NamedQuery(name = "User.findByEmailAdress", query = "select u from User u where u.emailAdress = :emailAdress"),
+		@NamedQuery(name = "User.findAankopersByBedrijfId", query = "select m from Medewerker m where m.bedrijf.id = :klantId and m.functieString = 'aankoper'")
+	})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "soort")
 public abstract class User implements Serializable

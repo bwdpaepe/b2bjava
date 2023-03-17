@@ -7,7 +7,6 @@ import javax.persistence.NoResultException;
 
 import domein.Bedrijf;
 import domein.Bestelling;
-import domein.BestellingDetails;
 
 
 public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements BestellingDao {
@@ -28,10 +27,10 @@ public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements Beste
     }
 
 	@Override
-	public List<BestellingDetails> getBestellingInfoBijLeverancierVanKlant(Bedrijf leverancier, Bedrijf klant)
+	public List<Bestelling> getBestellingInfoBijLeverancierVanKlant(Bedrijf leverancier, Bedrijf klant)
 	{
 		try {
-            return em.createNamedQuery("Bestelling.getBestellingenByLeverancierID", BestellingDetails.class)
+            return em.createNamedQuery("Bestelling.getBestellingenByLeverancierID", Bestelling.class)
                  .setParameter("leverancier", leverancier)
                  .setParameter("klant", klant)
                 .getResultList();
