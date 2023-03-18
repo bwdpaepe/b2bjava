@@ -97,7 +97,7 @@ public class Bestelling {
 
 	private void setDoos(Doos doos)
 	{
-		ValidationService.controleerNietBlanco(doos);
+		//ValidationService.controleerNietBlanco(doos);  // MAG WEL BLANCO ZIJN
 		this.doos = doos;
 	}
 
@@ -193,7 +193,7 @@ public class Bestelling {
 	}
 
 	public final void setTransportdienst(Transportdienst transportdienst) {
-		ValidationService.controleerNietBlanco(transportdienst);
+		//ValidationService.controleerNietBlanco(transportdienst);    // MAG WEL BLANCO ZIJN
 		this.transportdienst = transportdienst;
 	}
 

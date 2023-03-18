@@ -7,12 +7,14 @@ import domein.Bestelling;
 public class BestellingDetailsDTO
 {
 	private final long bestellingId;
+	private final String orderId;
 	private final Date datumGeplaatst;
 	private final String status;
 	
 	public BestellingDetailsDTO(Bestelling bestelling)
 	{
 		this.bestellingId = bestelling.getId();
+		this.orderId = bestelling.getOrderID();
 		this.datumGeplaatst = bestelling.getDatumGeplaatst();
 		this.status = bestelling.getStatus();
 	}
@@ -32,12 +34,16 @@ public class BestellingDetailsDTO
 		return status;
 	}
 
+	public String getOrderId()
+	{
+		return orderId;
+	}
+
 	@Override
 	public String toString()
 	{
-		return "BestellingDetailsDTO [bestellingId=" + bestellingId + ", datumGeplaatst=" + datumGeplaatst + ", status="
-				+ status + "]";
+		return "BestellingDetailsDTO [bestellingId=" + bestellingId + ", orderId=" + orderId + ", datumGeplaatst="
+				+ datumGeplaatst + ", status=" + status + "]";
 	}
-
-	
+		
 }
