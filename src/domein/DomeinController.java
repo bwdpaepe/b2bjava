@@ -8,6 +8,7 @@ import java.util.List;
 import repository.BestellingDTO;
 import repository.DatabaseSeeding;
 import repository.GenericDaoJpa;
+import repository.KlantAankopersBestellingenDTO;
 import repository.KlantLijstEntryDTO;
 import repository.TransportdienstDTO;
 import repository.UserDTO;
@@ -142,6 +143,10 @@ public class DomeinController {
 
 	public final List<KlantLijstEntryDTO> geefLijstVanKlantenMetAantalOpenstaandeBestellingen() {
 		return bedrijfService.getListOfClientNamesWithNumberOfOpenOrders(ingelogdeUser.getBedrijf().getId());
+	}
+	
+	public final KlantAankopersBestellingenDTO geefDetailsVanKlant(long klantId) {
+		return bedrijfService.getDetailsOfClient(ingelogdeUser.getBedrijf().getId(), klantId);
 	}
 
 	// BESTELLING OPERATIONS

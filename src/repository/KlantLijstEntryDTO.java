@@ -1,6 +1,6 @@
 package repository;
 
-import domein.Bedrijf;
+import domein.KlantEnAantalBestellingen;
 
 public class KlantLijstEntryDTO
 {
@@ -9,11 +9,11 @@ public class KlantLijstEntryDTO
 	private final String klantNaam;
 	private final int aantalOpenBestellingen;
 	
-	public KlantLijstEntryDTO(Object[] obj)
+	public KlantLijstEntryDTO(KlantEnAantalBestellingen obj)
 	{
-		this.klantId = ((Bedrijf) obj[0]).getID();
-		this.klantNaam = ((Bedrijf) obj[0]).getNaam();
-		this.aantalOpenBestellingen =  ((Number) obj[1]).intValue();
+		this.klantId = obj.getBedrijf().getID();
+		this.klantNaam = obj.getBedrijf().getNaam();
+		this.aantalOpenBestellingen =  obj.getAantalOpenBestellingen().intValue();
 	}
 
 	public Long getKlantId()

@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import domein.Bedrijf;
 import domein.BestellingStatus;
+import domein.KlantEnAantalBestellingen;
 
 public class BedrijfDaoJpa extends GenericDaoJpa<Bedrijf> implements BedrijfDao  {
     public BedrijfDaoJpa() {
@@ -16,10 +17,10 @@ public class BedrijfDaoJpa extends GenericDaoJpa<Bedrijf> implements BedrijfDao 
     }
 
 	@Override
-	public List<Object[]> findCustomersWithOrdersWithSpecificStatus(Long leverancierId, BestellingStatus status) throws EntityNotFoundException
+	public List<KlantEnAantalBestellingen> findCustomersWithOrdersWithSpecificStatus(Long leverancierId, BestellingStatus status) throws EntityNotFoundException
 	{
 		try {
-			Query query = em.createNamedQuery("Bedrijf.findKlantenWithOpenOrdersByLeverancier", Object[].class)
+			Query query = em.createNamedQuery("Bedrijf.findKlantenWithOpenOrdersByLeverancier", KlantEnAantalBestellingen.class)
                  .setParameter("bedrijfId", leverancierId)
                  .setParameter("status", status);
 			// FOR DEBUGGING

@@ -4,21 +4,33 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import domein.Bedrijf;
+import domein.Bestelling;
 import domein.BestellingStatus;
 import domein.Doos;
+import domein.KlantEnAantalBestellingen;
 import domein.Product;
+import domein.User;
 import repository.BedrijfDao;
 import repository.BedrijfDaoJpa;
+import repository.BestellingDao;
+import repository.BestellingDaoJpa;
 import repository.GenericDaoJpa;
+import repository.KlantAankopersBestellingenDTO;
 import repository.KlantLijstEntryDTO;
+import repository.UserDao;
+import repository.UserDaoJpa;
 
 public class BedrijfService
 {
 	private BedrijfDao bedrijfRepo;
+	private UserDao userRepo;
+	private BestellingDao bestellingRepo;
 
 	public BedrijfService()
 	{
 		this.bedrijfRepo = new BedrijfDaoJpa();
+		this.userRepo = new UserDaoJpa();
+		this.bestellingRepo = new BestellingDaoJpa();
 	}
 
 	// nodig voor mockito
@@ -52,7 +64,7 @@ public class BedrijfService
 	}
 	
 	public List<KlantLijstEntryDTO> getListOfClientNamesWithNumberOfOpenOrders(long bedrijfsId) {
-		List<Object[]> lijst = bedrijfRepo.findCustomersWithOrdersWithSpecificStatus(bedrijfsId, BestellingStatus.GEPLAATST);
+		List<KlantEnAantalBestellingen> lijst = bedrijfRepo.findCustomersWithOrdersWithSpecificStatus(bedrijfsId, BestellingStatus.GEPLAATST);
 		
 		// return a unmodifiable List of KlantLijstEntryDTO objects
 		return lijst.stream()
@@ -88,5 +100,15 @@ public class BedrijfService
 //			System.err.println(e.getMessage());
 			throw new IllegalArgumentException(e.getMessage());
 		};
+	}
+
+	public KlantAankopersBestellingenDTO getDetailsOfClient(long leverancierId, long klantId)
+	{
+		Bedrijf klant = bedrijfRepo.get(klantId);
+		Bedrijf leverancier = bedrijfRepo.get(leverancierId);
+		List<Bestelling> bestellingen = bestellingRepo.getBestellingInfoBijLeverancierVanKlant(leverancier, klant);
+		List<User> aankopers = userRepo.getAankopersFromCompany(klantId);
+		
+		return new KlantAankopersBestellingenDTO(klant, aankopers, bestellingen);
 	}
 }

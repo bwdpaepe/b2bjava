@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import domein.Bedrijf;
 import domein.BestellingStatus;
+import domein.KlantEnAantalBestellingen;
 import repository.BedrijfDao;
 import repository.KlantLijstEntryDTO;
 import service.BedrijfService;
@@ -76,21 +77,18 @@ public class BedrijfServiceTest
 
 	private static Stream<Arguments> provideListOfObjectArrays()
 	{
-		return Stream.of(Arguments.of(new Object[]
-			{ new Bedrijf("Bedrijf 1", STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME), 2 },
-				new Object[]
-				{ new Bedrijf("Bedrijf 2", STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME),
-						5 },
-				new Object[]
-				{ new Bedrijf("Bedrijf 3", STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME),
-						1 }));
+		return Stream.of(Arguments.of(new KlantEnAantalBestellingen(new Bedrijf("Bedrijf 1", STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME), 2L ),
+				new KlantEnAantalBestellingen(new Bedrijf("Bedrijf 2", STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME),
+						5L),
+				new KlantEnAantalBestellingen(new Bedrijf("Bedrijf 3", STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME),
+						1L)));
 	}
 
 	@ParameterizedTest
 	@MethodSource("provideListOfObjectArrays")
-	public void testGetListOfClientNamesWithNumberOfOpenOrders(Object[] obj1, Object[] obj2, Object[] obj3)
+	public void testGetListOfClientNamesWithNumberOfOpenOrders(KlantEnAantalBestellingen obj1, KlantEnAantalBestellingen obj2, KlantEnAantalBestellingen obj3)
 	{
-		List<Object[]> objectList = new ArrayList<>();
+		List<KlantEnAantalBestellingen> objectList = new ArrayList<>();
 		objectList.add(obj1);
 		objectList.add(obj2);
 		objectList.add(obj3);
@@ -112,7 +110,7 @@ public class BedrijfServiceTest
 		for(int i = 0; i < expectedList.size(); i++) {
 			Assertions.assertEquals(expectedList.get(i).getKlantId(), actualList.get(i).getKlantId());
 			Assertions.assertEquals(expectedList.get(i).getKlantNaam(), actualList.get(i).getKlantNaam());
-			Assertions.assertEquals(expectedList.get(i).getAantalOpenBestellingen(), actualList.get(i).getAantalOpenBestellingen());
+			Assertions.assertEquals(expectedList.get(i).getAantalOpenBestellingen().intValue(), actualList.get(i).getAantalOpenBestellingen().intValue());
 		}
 		
 		Mockito.verify(bedrijfRepoMock).findCustomersWithOrdersWithSpecificStatus(BEDRIJFSID, BestellingStatus.GEPLAATST);

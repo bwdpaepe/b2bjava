@@ -27,7 +27,7 @@ public class UserService
 	public UserDTO aanmelden(String emailAdress, String password)
 	{
 		
-		
+		try {
 		User user = userRepo.getMedewerkerByEmailAdress(emailAdress);
 
 		if (!BCrypt.checkpw(password, user.getHashedPW()))
@@ -41,6 +41,9 @@ public class UserService
 		} else
 		{
 			throw new IllegalArgumentException("Ongeldig usertype");
+		}
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Ongeldige inloggegevens");
 		}
 	}
 
