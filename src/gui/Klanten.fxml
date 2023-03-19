@@ -15,43 +15,44 @@
          <children>
             <BorderPane id="bpKlantDetails" fx:id="bpKlantDetails">
                <right>
-                  <ImageView id="bpKlantDetailsRIGHT" fx:id="ivLogoKlant" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                  <ImageView id="bpKlantDetailsRIGHT" fx:id="ivLogoKlant" fitHeight="140.0" fitWidth="200.0" pickOnBounds="true" />
                </right>
                <top>
                   <AnchorPane id="bpKlantDetailsTOP" fx:id="bpKlantDetailsTOP" BorderPane.alignment="CENTER">
                      <children>
-                        <Label id="labelKlantDetailsNaam" fx:id="labelKlantDetailsNaam" text="Label" />
+                        <Label id="labelKlantDetailsNaam" fx:id="labelKlantDetailsNaam" text="" />
                      </children>
                   </AnchorPane>
                </top>
                <left>
                   <VBox id="bpKlantDetailsLEFT" fx:id="bpKlantDetailsLEFT" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="klantDetailLabelStraatNummer" text="Label" />
-                        <Label fx:id="klantDetailLabelPostcodeStad" text="Label" />
-                        <Label fx:id="klantDetailLabelLand" text="Label" />
-                        <Label fx:id="klantDetailLabelTelefoonnr" text="Label" />
+                        <Label fx:id="klantDetailLabelStraatNummer" text="Straat en huisnummer" />
+                        <Label fx:id="klantDetailLabelPostcodeStad" text="Postcode en stad" />
+                        <Label fx:id="klantDetailLabelLand" text="Land" />
+                        <Label fx:id="klantDetailLabelTelefoonnr" text="Telefoonnummer" />
                      </children>
                   </VBox>
                </left>
                <center>
                   <VBox id="bpKlantDetailsCENTER" fx:id="bpKlantDetailsCENTER" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="klantDetailLabelKlantStraatNummer" text="Label" />
-                        <Label fx:id="klantDetailLabelKlantPostcodeStad" text="Label" />
-                        <Label fx:id="klantDetailLabelKlantLand" text="Label" />
-                        <Label fx:id="klantDetailLabelKlantTelefoonnr" text="Label" />
+                        <Label fx:id="klantDetailLabelKlantStraatNummer" text="" />
+                        <Label fx:id="klantDetailLabelKlantPostcodeStad" text="" />
+                        <Label fx:id="klantDetailLabelKlantLand" text="" />
+                        <Label fx:id="klantDetailLabelKlantTelefoonnr" text="" />
                      </children>
                   </VBox>
                </center>
             </BorderPane>
-            <TableView id="tvKlantDetailAankopers" fx:id="tvKlantDetailAankopers" >
+            <TableView id="tvKlantDetailAankopers" fx:id="tvKlantDetailAankopers">
               <columns>
                 <TableColumn fx:id="naamAankoperColumn" text="Aankoper naam" />
                 <TableColumn fx:id="emailAankoperColumn" text="E-mailadres" />
+                 <TableColumn />
               </columns>
             </TableView>
-            <TableView id="tvKlantDetailBestellingen" fx:id="tvKlantDetailBestellingen" >
+            <TableView id="tvKlantDetailBestellingen" fx:id="tvKlantDetailBestellingen">
               <columns>
                 <TableColumn fx:id="orderIdColumn" text="Order ID" />
                 <TableColumn fx:id="orderDatumColumn" text="Datum" />

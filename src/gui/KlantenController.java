@@ -2,8 +2,14 @@ package gui;
 
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import domein.DomeinController;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +21,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
+import javafx.util.StringConverter;
+import repository.AankoperDetailsDTO;
+import repository.BestellingDetailsDTO;
 import repository.KlantAankopersBestellingenDTO;
 import repository.KlantLijstEntryDTO;
 
@@ -38,6 +48,34 @@ public class KlantenController extends Pane {
 	TableColumn<KlantLijstEntryDTO, Number> aantalBestellingenColumn;
 	@FXML
 	TextField tfKlantZoeken;
+	
+	@FXML
+	private Label labelKlantDetailsNaam;
+	@FXML
+	private Label klantDetailLabelKlantStraatNummer;
+	@FXML
+	private Label klantDetailLabelKlantPostcodeStad;
+	@FXML
+	private Label klantDetailLabelKlantLand;
+	@FXML
+	private Label klantDetailLabelKlantTelefoonnr;
+	
+	@FXML
+	private TableView<AankoperDetailsDTO> tvKlantDetailAankopers;
+	@FXML
+	TableColumn<AankoperDetailsDTO, String> naamAankoperColumn;
+	@FXML
+	TableColumn<AankoperDetailsDTO, String> emailAankoperColumn;
+	
+	@FXML
+	private TableView<BestellingDetailsDTO> tvKlantDetailBestellingen;
+	@FXML
+	TableColumn<BestellingDetailsDTO, String> orderIdColumn;
+	@FXML
+	TableColumn<BestellingDetailsDTO, Date> orderDatumColumn;
+	@FXML
+	TableColumn<BestellingDetailsDTO, String> orderStatusColumn;
+
 	
 	public KlantenController() {
 
@@ -93,8 +131,63 @@ public class KlantenController extends Pane {
 	        KlantAankopersBestellingenDTO klantDetails = dc.geefDetailsVanKlant(selectedKlant.getKlantId());
 	        System.out.println(klantDetails);
 	        // Hier verdere methodes aanmaken/aanroepen om de GUI up te daten
+	        setLabelsInBorderpane(klantDetails);
+	        setTableViewKlantAankopers(klantDetails.getAankopers());
+	        setTableViewKlantDetailBestellingen(klantDetails.getBestellingen());
+	        
 	    }
 	}
+
+	private void setLabelsInBorderpane(KlantAankopersBestellingenDTO klantDetails)
+	{
+		labelKlantDetailsNaam.setText(klantDetails.getKlantNaam().toUpperCase());
+		klantDetailLabelKlantStraatNummer.setText(klantDetails.getStraat() + " " + klantDetails.getHuisnummer());
+        klantDetailLabelKlantPostcodeStad.setText(klantDetails.getPostcode() + " " + klantDetails.getStad());
+        klantDetailLabelKlantLand.setText(klantDetails.getLand());
+        klantDetailLabelKlantTelefoonnr.setText(klantDetails.getTelefoonnummer());
+		
+	}
 	
+	private void setTableViewKlantAankopers(List<AankoperDetailsDTO> aankopers)
+	{
+		ObservableList<AankoperDetailsDTO> aankopersList = FXCollections.observableList(aankopers);
+		
+		naamAankoperColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVoornaam() + " " + cellData.getValue().getFamilienaam()));
+		emailAankoperColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmailadres()));
+		
+		SortedList<AankoperDetailsDTO> sortedList = new SortedList<>(aankopersList);
+		sortedList.comparatorProperty().bind(tvKlantDetailAankopers.comparatorProperty());
+		tvKlantDetailAankopers.setItems(sortedList);
+	}
 	
+	private void setTableViewKlantDetailBestellingen(List<BestellingDetailsDTO> bestellingen)
+	{
+		ObservableList<BestellingDetailsDTO> bestellingenList = FXCollections.observableList(bestellingen);
+		
+		orderIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderId()));
+
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		orderDatumColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<Date>(cellData.getValue().getDatumGeplaatst()));
+		orderDatumColumn.setCellFactory(col -> new TextFieldTableCell<BestellingDetailsDTO, Date>(new StringConverter<Date>()
+		{
+			@Override
+			public String toString(Date date)
+			{
+				return dateFormat.format(date);
+			}
+
+			@Override
+			public Date fromString(String string)
+			{
+				throw new UnsupportedOperationException("Not supported.");
+			}	
+		}));
+		
+		orderStatusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		
+		SortedList<BestellingDetailsDTO> sortedList = new SortedList<>(bestellingenList);
+		sortedList.comparatorProperty().bind(tvKlantDetailBestellingen.comparatorProperty());
+		tvKlantDetailBestellingen.setItems(sortedList);
+		
+	}	
 }

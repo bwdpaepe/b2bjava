@@ -40,7 +40,7 @@
 }
 
 #bpKlantDetailsLEFT {
-	-fx-pref-width: 150.0px;
+	-fx-pref-width: 200.0px;
 }
 
 #bpKlantDetailsLEFT Label, #bpKlantDetailsCENTER Label {
@@ -51,12 +51,10 @@
 }
 
 #bpKlantDetailsCENTER {
-	-fx-pref-width: 150.0px;
+
 }
 
-#bpKlantDetailsRIGHT {
-	-fx-pref-width: 200.0px;
-}
+
 
 #tvKlantDetailAankopers {
 	-fx-translate-x: 1.0px;
@@ -65,11 +63,19 @@
 	-fx-translate-y: 203.0px;
 }
 
+#tvKlantDetailAankopers .column-header, #tvKlantDetailAankopers .column-header-background, #tvKlantDetailAankopers .table-cell {
+    -fx-pref-width: 366px; 
+}
+
 #tvKlantDetailBestellingen {
 	-fx-translate-x: 1.0px;
 	-fx-pref-width: 1098.0px;
 	-fx-pref-height: 344.0px;
 	-fx-translate-y: 547.0px;
+}
+
+#tvKlantDetailBestellingen .column-header, #tvKlantDetailBestellingen .column-header-background, #tvKlantDetailBestellingen .table-cell {
+    -fx-pref-width: 366px; 
 }
 
 /** Class selector voor de volledige table-view  */
