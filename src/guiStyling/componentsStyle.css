@@ -36,8 +36,13 @@
 }
 
 #bpKlantDetailsTOP > .label {
-	-fx-translate-y: 35.0px;
-}
+	-fx-translate-y: 18.0px;
+    -fx-text-fill: white;
+    -fx-alignment: bottom-left ;
+    -fx-font: 24.0pt 'Inter', sans-serif;
+    -fx-font-weight: bolder;
+    -fx-padding: 1.0px 4.0px; 
+} 
 
 #bpKlantDetailsLEFT {
 	-fx-pref-width: 200.0px;
@@ -61,9 +66,16 @@
 	-fx-pref-width: 1098.0px;
 	-fx-pref-height: 344.0px;
 	-fx-translate-y: 203.0px;
+	-fx-padding: 10px 0 0 0; /* top margin 10px, no other margins */
 }
 
-#tvKlantDetailAankopers .column-header, #tvKlantDetailAankopers .column-header-background, #tvKlantDetailAankopers .table-cell {
+#tvKlantDetailAankopers .column-header{
+    -fx-pref-height: 31.0px;
+}
+
+#tvKlantDetailAankopers .column-header, 
+#tvKlantDetailAankopers .column-header-background, 
+#tvKlantDetailAankopers .table-cell {
     -fx-pref-width: 366px; 
 }
 
@@ -72,9 +84,16 @@
 	-fx-pref-width: 1098.0px;
 	-fx-pref-height: 344.0px;
 	-fx-translate-y: 547.0px;
+	-fx-padding: 10px 0 0 0; /* top margin 10px, no other margins */
 }
 
-#tvKlantDetailBestellingen .column-header, #tvKlantDetailBestellingen .column-header-background, #tvKlantDetailBestellingen .table-cell {
+#tvKlantDetailBestellingen .column-header{
+    -fx-pref-height: 31.0px;
+}
+
+#tvKlantDetailBestellingen .column-header, 
+#tvKlantDetailBestellingen .column-header-background, 
+#tvKlantDetailBestellingen .table-cell {
     -fx-pref-width: 366px; 
 }
 
@@ -88,8 +107,8 @@
     -fx-color: #FFFFFF;
     -fx-pref-height: 62.0px;
     }
-
-.table-view .column-header > .label, #bpKlantDetailsTOP > .label {
+    
+.table-view .column-header > .label {
     -fx-text-fill: white;
     -fx-alignment: bottom-left ;
     -fx-font: 12.0pt 'Inter', sans-serif;
