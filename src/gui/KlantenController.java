@@ -2,6 +2,7 @@ package gui;
 
 
 
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +23,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
 import repository.AankoperDetailsDTO;
@@ -61,6 +64,9 @@ public class KlantenController extends Pane {
 	private Label klantDetailLabelKlantTelefoonnr;
 	
 	@FXML
+	private ImageView ivLogoKlant;
+	
+	@FXML
 	private TableView<AankoperDetailsDTO> tvKlantDetailAankopers;
 	@FXML
 	TableColumn<AankoperDetailsDTO, String> naamAankoperColumn;
@@ -90,9 +96,7 @@ public class KlantenController extends Pane {
 	    ObservableList<KlantLijstEntryDTO> klantenList = FXCollections.observableList(dc.geefLijstVanKlantenMetAantalOpenstaandeBestellingen());
 
 	    naamColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKlantNaam()));
-//	    aantalBestellingenColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAantalOpenBestellingen().toString()));
 	    aantalBestellingenColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty((int) cellData.getValue().getAantalOpenBestellingen()));
-
 
 	    // Create a filtered list that wraps the original list
 	    FilteredList<KlantLijstEntryDTO> filteredList = new FilteredList<>(klantenList, p -> true);
@@ -132,6 +136,7 @@ public class KlantenController extends Pane {
 	        System.out.println(klantDetails);
 	        // Hier verdere methodes aanmaken/aanroepen om de GUI up te daten
 	        setLabelsInBorderpane(klantDetails);
+	        setBedrijfLogo(klantDetails.getLogo_filename());
 	        setTableViewKlantAankopers(klantDetails.getAankopers());
 	        setTableViewKlantDetailBestellingen(klantDetails.getBestellingen());
 	        
@@ -145,7 +150,25 @@ public class KlantenController extends Pane {
         klantDetailLabelKlantPostcodeStad.setText(klantDetails.getPostcode() + " " + klantDetails.getStad());
         klantDetailLabelKlantLand.setText(klantDetails.getLand());
         klantDetailLabelKlantTelefoonnr.setText(klantDetails.getTelefoonnummer());
-		
+	}
+	
+	private void setBedrijfLogo(String logo_filename) {
+	    if (logo_filename != null) {
+	        try {
+	            InputStream logoStream = getClass().getResourceAsStream("/gui_images/bedrijflogos/" + logo_filename);
+	            if (logoStream != null) {
+	                Image logo = new Image(logoStream);
+	                ivLogoKlant.setImage(logo);
+	            } else {
+	                ivLogoKlant.setImage(null);
+	            }
+	        } catch (Exception e) {
+	            System.err.println("Error loading logo image: " + e.getMessage());
+	            ivLogoKlant.setImage(null);
+	        }
+	    } else {
+	        ivLogoKlant.setImage(null);
+	    }
 	}
 	
 	private void setTableViewKlantAankopers(List<AankoperDetailsDTO> aankopers)

@@ -15,7 +15,7 @@
          <children>
             <BorderPane id="bpKlantDetails" fx:id="bpKlantDetails">
                <right>
-                  <ImageView id="bpKlantDetailsRIGHT" fx:id="ivLogoKlant" fitHeight="140.0" fitWidth="200.0" pickOnBounds="true" />
+                  <ImageView id="bpKlantDetailsRIGHT" fx:id="ivLogoKlant" fitHeight="140.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                </right>
                <top>
                   <AnchorPane id="bpKlantDetailsTOP" fx:id="bpKlantDetailsTOP" BorderPane.alignment="CENTER">
