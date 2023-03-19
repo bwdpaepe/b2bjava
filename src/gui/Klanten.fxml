@@ -7,6 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="apKlantenScherm" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KlantenController">
    <children>
@@ -23,21 +24,38 @@
                      </children>
                   </AnchorPane>
                </top>
+               <left>
+                  <VBox id="bpKlantDetailsLEFT" fx:id="bpKlantDetailsLEFT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="klantDetailLabelStraatNummer" text="Label" />
+                        <Label fx:id="klantDetailLabelPostcodeStad" text="Label" />
+                        <Label fx:id="klantDetailLabelLand" text="Label" />
+                        <Label fx:id="klantDetailLabelTelefoonnr" text="Label" />
+                     </children>
+                  </VBox>
+               </left>
                <center>
-                  <AnchorPane id="bpKlantDetailsCENTER" fx:id="bpKlantDetailsCENTER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                  <VBox id="bpKlantDetailsCENTER" fx:id="bpKlantDetailsCENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="klantDetailLabelKlantStraatNummer" text="Label" />
+                        <Label fx:id="klantDetailLabelKlantPostcodeStad" text="Label" />
+                        <Label fx:id="klantDetailLabelKlantLand" text="Label" />
+                        <Label fx:id="klantDetailLabelKlantTelefoonnr" text="Label" />
+                     </children>
+                  </VBox>
                </center>
             </BorderPane>
             <TableView id="tvKlantDetailAankopers" fx:id="tvKlantDetailAankopers" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Aankoper naam" />
-                <TableColumn prefWidth="75.0" text="E-mailadres" />
+                <TableColumn fx:id="naamAankoperColumn" text="Aankoper naam" />
+                <TableColumn fx:id="emailAankoperColumn" text="E-mailadres" />
               </columns>
             </TableView>
             <TableView id="tvKlantDetailBestellingen" fx:id="tvKlantDetailBestellingen" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Order ID" />
-                <TableColumn prefWidth="75.0" text="Datum" />
-                  <TableColumn prefWidth="75.0" text="Status" />
+                <TableColumn fx:id="orderIdColumn" text="Order ID" />
+                <TableColumn fx:id="orderDatumColumn" text="Datum" />
+                <TableColumn fx:id="orderStatusColumn" text="Status" />
               </columns>
             </TableView>
          </children>
