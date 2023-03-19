@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import repository.KlantAankopersBestellingenDTO;
 import repository.KlantLijstEntryDTO;
 
 
@@ -79,5 +80,21 @@ public class KlantenController extends Pane {
 	    SortedList<KlantLijstEntryDTO> sortedList = new SortedList<>(filteredList);
 	    sortedList.comparatorProperty().bind(tvKlantenLijst.comparatorProperty());
 	    tvKlantenLijst.setItems(sortedList);
+	    
+	    // Listener om de details van een geselecteerde klant op te halen
+	    tvKlantenLijst.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+	        loadSelectedKlantDetails(newValue);
+	    });
 	}
+	
+	private void loadSelectedKlantDetails(KlantLijstEntryDTO selectedKlant) {
+		System.out.println("Details aan het ophalen van klant: " + selectedKlant.getKlantNaam());
+	    if (selectedKlant != null) {
+	        KlantAankopersBestellingenDTO klantDetails = dc.geefDetailsVanKlant(selectedKlant.getKlantId());
+	        System.out.println(klantDetails);
+	        // Hier verdere methodes aanmaken/aanroepen om de GUI up te daten
+	    }
+	}
+	
+	
 }

@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 
 <AnchorPane fx:id="apKlantenScherm" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KlantenController">
    <children>
-      <AnchorPane style="-fx-background-color: grey;" styleClass="rightComponent">
+      <AnchorPane fx:id="apRightComponent" styleClass="rightComponent">
          <children>
-            <TextField layoutX="479.0" layoutY="434.0" prefHeight="25.0" prefWidth="201.0" style="-fx-alignment: center;" text="Just a placeholder for UC6" />
+            <BorderPane id="bpKlantDetails" fx:id="bpKlantDetails" prefHeight="255.0" prefWidth="769.0">
+               <right>
+                  <ImageView id="bpKlantDetailsRIGHT" fx:id="ivLogoKlant" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+               </right>
+               <top>
+                  <AnchorPane id="bpKlantDetailsTOP" fx:id="bpKlantDetailsTOP" prefHeight="89.0" prefWidth="769.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label id="labelKlantDetailsNaam" fx:id="labelKlantDetailsNaam" text="Label" />
+                     </children>
+                  </AnchorPane>
+               </top>
+               <center>
+                  <AnchorPane id="bpKlantDetailsCENTER" fx:id="bpKlantDetailsCENTER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <TableView id="tvKlantDetailAankopers" fx:id="tvKlantDetailAankopers" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Aankoper naam" />
+                <TableColumn prefWidth="75.0" text="E-mailadres" />
+              </columns>
+            </TableView>
+            <TableView id="tvKlantDetailBestellingen" fx:id="tvKlantDetailBestellingen" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Order ID" />
+                <TableColumn prefWidth="75.0" text="Datum" />
+                  <TableColumn prefWidth="75.0" text="Status" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
       <TableView fx:id="tvKlantenLijst" styleClass="leftComponent">
