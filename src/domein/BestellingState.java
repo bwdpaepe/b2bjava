@@ -13,7 +13,7 @@ public abstract class BestellingState {
 				"Een bestelling kan enkel verwerkt worden wanneer deze de status geplaatst heeft");
 	}
 
-	public void wijzigBestelling(Transportdienst transportdienst) {
+	public void wijzigBestelling(Transportdienst transportdienst, String trackAndTraceCode) {
 		throw new IllegalArgumentException("Een bestelling kan enkel gewijzigd worden wanneer deze verwerkt is");
 	}
 

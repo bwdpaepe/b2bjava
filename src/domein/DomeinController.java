@@ -179,8 +179,8 @@ public class DomeinController {
 		bestellingService.addBesteldProductToBestelling(bestellingId, longProductId, aantal);
 	}
 
-	public void wijzigBestelling(long bestellingId, long transportdienstId) {
-		bestellingService.wijzigBestelling(bestellingId, transportdienstId);
+	public void wijzigBestelling(long bestellingId, long transportdienstId, String trackAndTraceCode) {
+		bestellingService.wijzigBestelling(bestellingId, transportdienstId, trackAndTraceCode);
 	}
 
 	/*public void wijzigTrackAndTraceCodeBestelling(long bestellingId) {

@@ -106,8 +106,8 @@ public class Bestelling {
 		currentState.verwerkBestelling(transportdienst);
 	}
 
-	public void wijzigBestelling(Transportdienst transportdienst) {
-		currentState.wijzigBestelling(transportdienst);
+	public void wijzigBestelling(Transportdienst transportdienst, String trackAndTraceCode) {
+		currentState.wijzigBestelling(transportdienst, trackAndTraceCode);
 	}
 
 	public Doos getDoos() {
