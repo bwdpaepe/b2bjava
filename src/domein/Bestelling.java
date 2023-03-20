@@ -15,6 +15,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import service.ValidationService;
+import util.BestellingState;
+import util.GeplaatstState;
 
 @Entity
 @NamedQueries(
@@ -65,6 +67,9 @@ public class Bestelling {
 	@JoinColumn(name = "Doos", nullable = false)
 	private Doos doos;
 	
+	// STATE PATTERN
+	private BestellingState currentState;
+	
 	protected Bestelling() {
 		
 	};
@@ -87,6 +92,8 @@ public class Bestelling {
 		setLeveradresPostcode(leveradresPostcode);
 		setLeveradresStad(leveradresStad);
 		setDoos(doos);
+		
+		toState(new GeplaatstState(this));
 	}
 	
 	
@@ -251,7 +258,9 @@ public class Bestelling {
 		this.trackAndTraceCode = trackAndTraceCode;
 	}
 	
-	
+	protected void toState(BestellingState state) {
+		currentState = state;
+	}
 	
 
 
