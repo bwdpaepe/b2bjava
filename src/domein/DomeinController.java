@@ -187,8 +187,8 @@ public class DomeinController {
 		bestellingService.wijzigTrackAndTraceCodeBestelling(bestellingId);
 	}
 
-	public void verwerkBestelling(long bestellingId) {
-		bestellingService.verwerkBestelling(bestellingId);
+	public void verwerkBestelling(long bestellingId, long transportdienstId) {
+		bestellingService.verwerkBestelling(bestellingId, transportdienstId);
 	}
 
 	// DOOS OPERATIONS

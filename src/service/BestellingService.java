@@ -115,11 +115,12 @@ public class BestellingService {
 		}
 	}
 	
-	public void verwerkBestelling(long bestellingId) {
+	public void verwerkBestelling(long bestellingId, long transportdienstId) {
 		try {
 			GenericDaoJpa.startTransaction();
 			Bestelling bestelling = bestellingRepo.get(bestellingId);
-			bestelling.verwerkBestelling();
+			Transportdienst transportdienst = dienstService.getTransportdienstByID(transportdienstId);
+			bestelling.verwerkBestelling(transportdienst);
 			bestellingRepo.update(bestelling);
 			GenericDaoJpa.commitTransaction();
 		} catch (Exception e) {

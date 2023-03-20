@@ -8,7 +8,7 @@ public abstract class BestellingState {
 		this.bestelling = bestelling;
 	}
 
-	public void verwerkBestelling() {
+	public void verwerkBestelling(Transportdienst transportdienst) {
 		throw new IllegalArgumentException(
 				"Een bestelling kan enkel verwerkt worden wanneer deze de status geplaatst heeft");
 	}

@@ -95,8 +95,8 @@ public class Bestelling {
 		toState(new GeplaatstBestellingState(this));
 	}
 
-	public void verwerkBestelling() {
-		currentState.verwerkBestelling();
+	public void verwerkBestelling(Transportdienst transportdienst) {
+		currentState.verwerkBestelling(transportdienst);
 	}
 
 	public void wijzigTrackAndTraceCodeBestelling() {
