@@ -183,9 +183,9 @@ public class DomeinController {
 		bestellingService.wijzigBestelling(bestellingId, transportdienstId);
 	}
 
-	public void wijzigTrackAndTraceCodeBestelling(long bestellingId) {
+	/*public void wijzigTrackAndTraceCodeBestelling(long bestellingId) {
 		bestellingService.wijzigTrackAndTraceCodeBestelling(bestellingId);
-	}
+	}*/
 
 	public void verwerkBestelling(long bestellingId, long transportdienstId) {
 		bestellingService.verwerkBestelling(bestellingId, transportdienstId);

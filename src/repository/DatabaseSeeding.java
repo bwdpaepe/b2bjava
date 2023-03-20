@@ -232,7 +232,8 @@ public class DatabaseSeeding
 			List<BestellingDTO> bestellingen = dc.getBestellingen();
 			for(BestellingDTO bestelling: bestellingen) {
 				if(bestelling.getStatus().equalsIgnoreCase("verwerkt")) {
-					dc.verwerkBestelling(bestelling.getId(), 2L);
+					//dc.verwerkBestelling(bestelling.getId(), 2L);
+					dc.wijzigBestelling(bestelling.getId(), 2L);
 				}
 			}
 			System.out.println(kab);
