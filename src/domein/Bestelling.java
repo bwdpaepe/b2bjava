@@ -13,17 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import service.ValidationService;
-import util.BestellingState;
-import util.GeplaatstState;
 
 @Entity
-@NamedQueries(
-		{ 
-			@NamedQuery(name = "Bestelling.getBestellingenByLeverancierID", query = "select b from Bestelling b where b.leverancier = :leverancier") ,
-			@NamedQuery(name = "Bestelling.getBestellingenVanKlantBijLeverancier", query = "select b from Bestelling b where b.leverancier = :leverancier and b.klant = :klant") }
-		)
+@NamedQueries({
+		@NamedQuery(name = "Bestelling.getBestellingenByLeverancierID", query = "select b from Bestelling b where b.leverancier = :leverancier"),
+		@NamedQuery(name = "Bestelling.getBestellingenVanKlantBijLeverancier", query = "select b from Bestelling b where b.leverancier = :leverancier and b.klant = :klant") })
 public class Bestelling {
 
 	@Id
@@ -34,50 +32,57 @@ public class Bestelling {
 	private Date datumGeplaatst;
 	private BestellingStatus status;
 	private String klantNaam;
-	
+
 	private String leveradresStraat;
 	private String leveradresNummer;
 	private String leveradresPostcode;
 	private String leveradresLand;
 	private String leveradresStad;
 	private String trackAndTraceCode;
+	
+	@Transient
+	private BestellingState currentState;
 
 	// RELATIES
 
 	@ManyToOne
 	@JoinColumn(name = "Leverancier", nullable = false)
 	private Bedrijf leverancier;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "Klant", nullable = false)
 	private Bedrijf klant;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "Transportdienst", nullable = true)
 	private Transportdienst transportdienst;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "Medewerker", nullable = false)
 	private Medewerker aankoper;
-	
+
 	@OneToMany(mappedBy = "bestelling", cascade = CascadeType.ALL)
 	private List<BesteldProduct> besteldeProducten;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "Doos", nullable = false)
 	private Doos doos;
 	
-	// STATE PATTERN
-	private BestellingState currentState;
 	
+	
+
+
+	@OneToOne(mappedBy = "bestelling")
+	private Notificatie notificatie;
+
+
 	protected Bestelling() {
-		
+
 	};
-	
-	public Bestelling(String orderID, Date datum_geplaatst,  String statusString, 
-			Bedrijf leverancier, Bedrijf klant, Transportdienst transportdienst, Medewerker aankoper,
-			String leveradresStraat, String leveradresNummer,String leveradresPostcode, String leveradresStad, 
-			String leveradresLand, Doos doos) {
+
+	public Bestelling(String orderID, Date datum_geplaatst, String statusString, Bedrijf leverancier, Bedrijf klant,
+			Transportdienst transportdienst, Medewerker aankoper, String leveradresStraat, String leveradresNummer,
+			String leveradresPostcode, String leveradresStad, String leveradresLand, Doos doos) {
 		setOrderID(orderID);
 		setDatumGeplaatst(datum_geplaatst);
 		setLeverancier(leverancier);
@@ -92,24 +97,28 @@ public class Bestelling {
 		setLeveradresPostcode(leveradresPostcode);
 		setLeveradresStad(leveradresStad);
 		setDoos(doos);
-		
-		toState(new GeplaatstState(this));
+
+		toState(new GeplaatstBestellingState(this));
+
 	}
-	
-	
-	public Doos getDoos()
-	{
+
+	public void verwerkBestelling(Transportdienst transportdienst) {
+		currentState.verwerkBestelling(transportdienst);
+	}
+
+	public void wijzigTrackAndTraceCodeBestelling() {
+		currentState.wijzigTrackAndTraceCodeBestelling();
+	}
+
+	public Doos getDoos() {
 		return doos;
 	}
 
-	private void setDoos(Doos doos)
-	{
-		//ValidationService.controleerNietBlanco(doos);  // MAG WEL BLANCO ZIJN
+	private void setDoos(Doos doos) {
 		this.doos = doos;
 	}
 
-	public List<BesteldProduct> getBesteldeProducten()
-	{
+	public List<BesteldProduct> getBesteldeProducten() {
 		return besteldeProducten;
 	}
 
@@ -131,10 +140,10 @@ public class Bestelling {
 	}
 
 	public final void setAankoper(Medewerker aankoper) {
-		if(aankoper.getFunctie().toString().equalsIgnoreCase("aankoper")) {
-		this.aankoper = aankoper; 
+		if (aankoper.getFunctie().toString().equalsIgnoreCase("aankoper")) {
+			this.aankoper = aankoper;
 		} else {
-		throw new IllegalArgumentException("Medewerker is geen aankoper");
+			throw new IllegalArgumentException("Medewerker is geen aankoper");
 		}
 	}
 
@@ -157,7 +166,6 @@ public class Bestelling {
 
 	public final void setDatumGeplaatst(Date datum) {
 		ValidationService.controleerNietBlanco(datum);
-
 		this.datumGeplaatst = datum;
 	}
 
@@ -167,14 +175,12 @@ public class Bestelling {
 
 	public final void setStatus(String statusString) {
 		ValidationService.controleerNietBlanco(statusString);
-		this.status = switch (statusString.toLowerCase())
-			{
-			case "geplaatst" -> BestellingStatus.GEPLAATST;
-			case "verwerkt" -> BestellingStatus.VERWERKT;
-			default -> throw new IllegalArgumentException("Ongeldige status van Bestelling: " + statusString);
-			};
+		this.status = switch (statusString.toLowerCase()) {
+		case "geplaatst" -> BestellingStatus.GEPLAATST;
+		case "verwerkt" -> BestellingStatus.VERWERKT;
+		default -> throw new IllegalArgumentException("Ongeldige status van Bestelling: " + statusString);
+		};
 	}
-
 
 	public Bedrijf getLeverancier() {
 		return leverancier;
@@ -184,12 +190,11 @@ public class Bestelling {
 		ValidationService.controleerNietBlanco(leverancier);
 		this.leverancier = leverancier;
 	}
-	
+
 	public Bedrijf getKlant() {
 		return klant;
 	}
 
-		
 	public final void setKlant(Bedrijf klant) {
 		ValidationService.controleerNietBlanco(klant);
 		this.klant = klant;
@@ -200,7 +205,6 @@ public class Bestelling {
 	}
 
 	public final void setTransportdienst(Transportdienst transportdienst) {
-		//ValidationService.controleerNietBlanco(transportdienst);    // MAG WEL BLANCO ZIJN
 		this.transportdienst = transportdienst;
 	}
 
@@ -212,7 +216,6 @@ public class Bestelling {
 		ValidationService.controleerNietBlanco(klantNaam);
 		this.klantNaam = klantNaam;
 	}
-
 
 	public String getLeveradresStraat() {
 		return leveradresStraat;
@@ -262,6 +265,15 @@ public class Bestelling {
 		currentState = state;
 	}
 	
+
+
+	public Notificatie getNotificatie() {
+		return notificatie;
+	}
+
+	public void setNotificatie(Notificatie notificatie) {
+		this.notificatie = notificatie;
+	}
 
 
 }

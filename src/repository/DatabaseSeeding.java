@@ -1,6 +1,7 @@
 package repository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import domein.DomeinController;
@@ -226,6 +227,14 @@ public class DatabaseSeeding
 			System.out.println("user 1 aangemeld");
 			
 			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
+			
+			//genereren TTC voor verwerkte bestellingen van gebruiker
+			List<BestellingDTO> bestellingen = dc.getBestellingen();
+			for(BestellingDTO bestelling: bestellingen) {
+				if(bestelling.getStatus().equalsIgnoreCase("verwerkt")) {
+					dc.verwerkBestelling(bestelling.getId(), 2L);
+				}
+			}
 			System.out.println(kab);
 
 
