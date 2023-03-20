@@ -19,7 +19,82 @@
     -fx-translate-y: 12.0px;
     -fx-pref-width: 1099.0px;
     -fx-pref-height: 892.0px;
-    -fx-border-color: #000000;
+    -fx-border-color: #000000; 
+}
+
+#bpKlantDetails {
+	-fx-translate-y: 2.0px;
+	-fx-translate-x: 2.0px;
+    -fx-pref-width: 1097.0px;
+    -fx-pref-height: 202.0px;
+}
+
+#bpKlantDetails .top,  #bpKlantDetailsTOP {
+	-fx-background-color: #EC4842;
+    -fx-color: #FFFFFF;
+    -fx-pref-height: 62.0px;
+}
+
+#bpKlantDetailsTOP > .label {
+	-fx-translate-y: 18.0px;
+    -fx-text-fill: white;
+    -fx-alignment: bottom-left ;
+    -fx-font: 24.0pt 'Inter', sans-serif;
+    -fx-font-weight: bolder;
+    -fx-padding: 1.0px 4.0px; 
+} 
+
+#bpKlantDetailsLEFT {
+	-fx-pref-width: 200.0px;
+}
+
+#bpKlantDetailsLEFT Label, #bpKlantDetailsCENTER Label {
+    -fx-font: 12.0pt 'Inter', sans-serif;
+    -fx-padding: 5px 10px;
+    -fx-text-fill: #333333;
+    -fx-vgrow: always;
+}
+
+#bpKlantDetailsCENTER {
+
+}
+
+
+
+#tvKlantDetailAankopers {
+	-fx-translate-x: 1.0px;
+	-fx-pref-width: 1098.0px;
+	-fx-pref-height: 344.0px;
+	-fx-translate-y: 203.0px;
+	-fx-padding: 10px 0 0 0; /* top margin 10px, no other margins */
+}
+
+#tvKlantDetailAankopers .column-header{
+    -fx-pref-height: 31.0px;
+}
+
+#tvKlantDetailAankopers .column-header, 
+#tvKlantDetailAankopers .column-header-background, 
+#tvKlantDetailAankopers .table-cell {
+    -fx-pref-width: 366px; 
+}
+
+#tvKlantDetailBestellingen {
+	-fx-translate-x: 1.0px;
+	-fx-pref-width: 1098.0px;
+	-fx-pref-height: 344.0px;
+	-fx-translate-y: 547.0px;
+	-fx-padding: 10px 0 0 0; /* top margin 10px, no other margins */
+}
+
+#tvKlantDetailBestellingen .column-header{
+    -fx-pref-height: 31.0px;
+}
+
+#tvKlantDetailBestellingen .column-header, 
+#tvKlantDetailBestellingen .column-header-background, 
+#tvKlantDetailBestellingen .table-cell {
+    -fx-pref-width: 366px; 
 }
 
 /** Class selector voor de volledige table-view  */
@@ -32,7 +107,7 @@
     -fx-color: #FFFFFF;
     -fx-pref-height: 62.0px;
     }
-
+    
 .table-view .column-header > .label {
     -fx-text-fill: white;
     -fx-alignment: bottom-left ;

@@ -13,22 +13,23 @@ public class DatabaseSeeding
 	
 	public static final void startDatabaseSeed(DomeinController dc)
 	{
+		System.out.println("Database seeding started, please wait...");
+		
 		DomeinController domeinController = dc;
 
 		try
 		{
-
 			// bedrijven
 			domeinController.maakBedrijf("Bedrijf A", "Straat A", "A1", "1234A", "stad A", "land A", "0123456789",
-					"logo_bedrijf_A");
+					"1.jpg");
 			domeinController.maakBedrijf("Bedrijf B", "Straat B", "B2", "4321B", "stad B", "land B", "9876543210",
-					"logo_bedrijf_B");
+					"2.jpg");
 			domeinController.maakBedrijf("Bedrijf C", "Straat C", "C3", "9876C", "stad C", "land C", "1234567",
-					"logo_bedrijf_C");
+					"3.jpg");
 			domeinController.maakBedrijf("Bedrijf D", "Straat D", "D4", "9876D", "stad D", "land D", "1234567",
-					"logo_bedrijf_D");
+					"4.jpg");
 			domeinController.maakBedrijf("Bedrijf E", "Straat E", "E5", "9876E", "stad E", "land E", "1234567",
-					"logo_bedrijf_E");
+					"5.jpg");
 
 			// Dozen
 			for (int i = 1; i <= AANTAL_BEDRIJVEN; i++) {
@@ -222,17 +223,16 @@ public class DatabaseSeeding
 
 			System.out.println("Database Seeded");
 			
-			dc.aanmelden("emailail1@test.com", "paswoord");
-			System.out.println("user 1 aangemeld");
-			
-			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
-			System.out.println(kab);
+//			dc.aanmelden("emailail1@test.com", "paswoord");
+//			System.out.println("user 1 aangemeld");
+//			
+//			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
+//			System.out.println(kab);
 
 
 		} catch (IllegalArgumentException ex)
 		{
 			System.out.println("Operatie mislukt " + ex.getMessage());
 		}
-
 	}
 }
