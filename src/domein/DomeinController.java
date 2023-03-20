@@ -85,7 +85,7 @@ public class DomeinController {
 	}
 
 	public List<TransportdienstDTO> getTransportdienstenDTO() {
-		
+
 		List<Transportdienst> tdList = dienstService.getTransportdiensten(ingelogdeUser.getBedrijf().getId());
 		List<TransportdienstDTO> tdListDTO = new ArrayList<>();
 		for (Transportdienst td : tdList) {
@@ -144,7 +144,7 @@ public class DomeinController {
 	public final List<KlantLijstEntryDTO> geefLijstVanKlantenMetAantalOpenstaandeBestellingen() {
 		return bedrijfService.getListOfClientNamesWithNumberOfOpenOrders(ingelogdeUser.getBedrijf().getId());
 	}
-	
+
 	public final KlantAankopersBestellingenDTO geefDetailsVanKlant(long klantId) {
 		return bedrijfService.getDetailsOfClient(ingelogdeUser.getBedrijf().getId(), klantId);
 	}
@@ -157,9 +157,10 @@ public class DomeinController {
 	}
 
 	public void maakBestelling(String OrderId, String status, Date datum, long leverancierID, long klantID,
-			long transportdienstID, long aankoperId, String leveradresStraat, String leveradresNummer,String leveradresPostcode, String leveradresStad, 
-			String leveradresLand, long doosId) {
-		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID, aankoperId, leveradresStraat, leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand, doosId);
+			long transportdienstID, long aankoperId, String leveradresStraat, String leveradresNummer,
+			String leveradresPostcode, String leveradresStad, String leveradresLand, long doosId) {
+		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID, aankoperId,
+				leveradresStraat, leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand, doosId);
 	}
 
 	public BestellingDTO getBestelling(long bestellingId) {
@@ -167,27 +168,36 @@ public class DomeinController {
 		BestellingDTO bestellingDTO = new BestellingDTO(bestelling);
 		return bestellingDTO;
 	}
-	
+
 	public List<BestellingDTO> getBestellingen() {
 		List<Bestelling> bestellingen = bestellingService.getBestellingen(ingelogdeUser.getBedrijf().getId());
 		List<BestellingDTO> bestellingenDTO = bestellingen.stream().map(b -> new BestellingDTO(b)).toList();
 		return Collections.unmodifiableList(bestellingenDTO);
 	}
-	
+
 	public void addProductenToBestelling(long bestellingId, long longProductId, int aantal) {
 		bestellingService.addBesteldProductToBestelling(bestellingId, longProductId, aantal);
 	}
-	
+
 	public void wijzigBestelling(long bestellingId, long transportdienstId) {
 		bestellingService.wijzigBestelling(bestellingId, transportdienstId);
 	}
-	
+
+	public void wijzigTrackAndTraceCodeBestelling(long bestellingId) {
+		bestellingService.wijzigTrackAndTraceCodeBestelling(bestellingId);
+	}
+
+	public void verwerkBestelling(long bestellingId) {
+		bestellingService.verwerkBestelling(bestellingId);
+	}
+
 	// DOOS OPERATIONS
 	// --------------------------------------------------------------------------------------------------------------------------------------------------
-	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs ) {
+	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte,
+			double lengte, double prijs) {
 		bedrijfService.maakDoos(bedrijfsId, naam, doosTypeString, hoogte, breedte, lengte, prijs);
 	}
-	
+
 	// PRODUCT OPERATIONS
 	// --------------------------------------------------------------------------------------------------------------------------------------------------
 	public void maakProduct(long leveranciersId, String naam, double eenheidsprijs) {
