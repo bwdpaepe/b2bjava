@@ -78,5 +78,11 @@ public class ValidationService {
 			}
 		}
 	}
+	
+	public static final void controleerTTFPrefixLengte(int TTFlengte, String TTFPrefix) {
+		if(TTFPrefix.length() >= TTFlengte) {
+			throw new IllegalArgumentException("Prefix kan niet groter of gelijk zijn dan totale lengte code");
+		}
+	}
 
 }
