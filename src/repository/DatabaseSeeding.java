@@ -13,11 +13,12 @@ public class DatabaseSeeding
 	
 	public static final void startDatabaseSeed(DomeinController dc)
 	{
+		System.out.println("Database seeding started, please wait...");
+		
 		DomeinController domeinController = dc;
 
 		try
 		{
-
 			// bedrijven
 			domeinController.maakBedrijf("Bedrijf A", "Straat A", "A1", "1234A", "stad A", "land A", "0123456789",
 					"1.jpg");
@@ -222,17 +223,16 @@ public class DatabaseSeeding
 
 			System.out.println("Database Seeded");
 			
-			dc.aanmelden("emailail1@test.com", "paswoord");
-			System.out.println("user 1 aangemeld");
-			
-			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
-			System.out.println(kab);
+//			dc.aanmelden("emailail1@test.com", "paswoord");
+//			System.out.println("user 1 aangemeld");
+//			
+//			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
+//			System.out.println(kab);
 
 
 		} catch (IllegalArgumentException ex)
 		{
 			System.out.println("Operatie mislukt " + ex.getMessage());
 		}
-
 	}
 }

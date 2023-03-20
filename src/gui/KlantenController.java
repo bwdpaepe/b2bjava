@@ -92,7 +92,7 @@ public class KlantenController extends Pane {
 	}
 	
 	public void loadKlanten() {
-	    System.out.println("Klanten lijst loading");
+	    //System.out.println("Klanten lijst loading");
 	    ObservableList<KlantLijstEntryDTO> klantenList = FXCollections.observableList(dc.geefLijstVanKlantenMetAantalOpenstaandeBestellingen());
 
 	    naamColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKlantNaam()));
@@ -130,16 +130,16 @@ public class KlantenController extends Pane {
 	}
 	
 	private void loadSelectedKlantDetails(KlantLijstEntryDTO selectedKlant) {
-		System.out.println("Details aan het ophalen van klant: " + selectedKlant.getKlantNaam());
+		//System.out.println("Details aan het ophalen van klant: " + selectedKlant.getKlantNaam());
 	    if (selectedKlant != null) {
 	        KlantAankopersBestellingenDTO klantDetails = dc.geefDetailsVanKlant(selectedKlant.getKlantId());
-	        System.out.println(klantDetails);
+	        //System.out.println(klantDetails);
+	        
 	        // Hier verdere methodes aanmaken/aanroepen om de GUI up te daten
 	        setLabelsInBorderpane(klantDetails);
 	        setBedrijfLogo(klantDetails.getLogo_filename());
 	        setTableViewKlantAankopers(klantDetails.getAankopers());
 	        setTableViewKlantDetailBestellingen(klantDetails.getBestellingen());
-	        
 	    }
 	}
 
@@ -187,8 +187,10 @@ public class KlantenController extends Pane {
 	{
 		ObservableList<BestellingDetailsDTO> bestellingenList = FXCollections.observableList(bestellingen);
 		
+		// Order ID data toevoegen in kolom
 		orderIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderId()));
 
+		// Datum van de Order eerst omzetten naar geschikt formaat alvorens toe te voegen aan kolom
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		orderDatumColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<Date>(cellData.getValue().getDatumGeplaatst()));
 		orderDatumColumn.setCellFactory(col -> new TextFieldTableCell<BestellingDetailsDTO, Date>(new StringConverter<Date>()
@@ -206,11 +208,11 @@ public class KlantenController extends Pane {
 			}	
 		}));
 		
+		// Status van bestelling toevoegen in kolom
 		orderStatusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
 		
 		SortedList<BestellingDetailsDTO> sortedList = new SortedList<>(bestellingenList);
 		sortedList.comparatorProperty().bind(tvKlantDetailBestellingen.comparatorProperty());
 		tvKlantDetailBestellingen.setItems(sortedList);
-		
 	}	
 }
