@@ -1,6 +1,7 @@
 package repository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import domein.DomeinController;
@@ -228,6 +229,15 @@ public class DatabaseSeeding
 //			
 //			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
 //			System.out.println(kab);
+			
+			//genereren TTC voor verwerkte bestellingen van gebruiker
+			List<BestellingDTO> bestellingen = dc.getBestellingen();
+			for(BestellingDTO bestelling: bestellingen) {
+				if(bestelling.getStatus().equalsIgnoreCase("verwerkt")) {
+					dc.verwerkBestelling(bestelling.getId(), 1L);	
+					dc.wijzigBestelling(bestelling.getId(), 2L);
+				}
+			}
 
 
 		} catch (IllegalArgumentException ex)
