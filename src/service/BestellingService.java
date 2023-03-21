@@ -84,7 +84,7 @@ public class BestellingService {
 		}
 	}
 
-	public void wijzigBestelling(long bestellingId, long transportdienstId, String trackAndTraceCode) {
+	public void wijzigBestelling(long bestellingId, long transportdienstId) {
 		try {
 			GenericDaoJpa.startTransaction();
 			Bestelling bestelling = bestellingRepo.get(bestellingId);
@@ -94,7 +94,7 @@ public class BestellingService {
 						"Deze bestelling is niet wijzigbaar, want deze heeft niet de juiste status!");
 			}*/
 			Transportdienst transportdienst = dienstService.getTransportdienstByID(transportdienstId);
-			bestelling.wijzigBestelling(transportdienst, trackAndTraceCode);
+			bestelling.wijzigBestelling(transportdienst);
 			//bestelling.setTransportdienst(transportdienst);
 			bestellingRepo.update(bestelling);
 			GenericDaoJpa.commitTransaction();

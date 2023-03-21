@@ -148,9 +148,11 @@ public class BestellingenController extends Pane {
 		long geselecteerdeBestellingDTOId = selectedBestellingDTO.getId();
 		TransportdienstDTO geselecteerdeTransportdienstDTO = cmbTransportdienst.getValue();
 		long geselecteerdeTransportdienstDTOId = geselecteerdeTransportdienstDTO.getId();
+		
+		//WE HALEN DE TTC NIET UIT DE GUI MAAR GENEREREN DIE TOCH ZELF?
 		String trackAndTraceCodeBestelling = txtTrackTraceGegevens.getText();
 		
-		dc.wijzigBestelling(geselecteerdeBestellingDTOId, geselecteerdeTransportdienstDTOId, trackAndTraceCodeBestelling);
+		dc.wijzigBestelling(geselecteerdeBestellingDTOId, geselecteerdeTransportdienstDTOId);
 		
 		//***toon gewijzigd BestellingDTO op het scherm***
 		BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);

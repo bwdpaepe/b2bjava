@@ -83,7 +83,7 @@ public class DatabaseSeeding
 			
 			
 			// transportdienst
-			domeinController.maakTransportdienst("Post FR", 4, true, "1", "POSTCODE", "jos", "josinson", "0478559871",
+			domeinController.maakTransportdienst("Post FR", 10, true, "1", "POSTCODE", "jos", "josinson", "0478559871",
 					"email@test.fr", 1);
 			domeinController.maakTransportdienst("Post BE", 4, true, "2", "ORDERID", "jos", "josinson", "0478559872",
 					"email@test.be", 1);
@@ -230,12 +230,12 @@ public class DatabaseSeeding
 			
 			//genereren TTC voor verwerkte bestellingen van gebruiker
 			List<BestellingDTO> bestellingen = dc.getBestellingen();
-			// ToDo aanpassen
-			/*for(BestellingDTO bestelling: bestellingen) {
+			for(BestellingDTO bestelling: bestellingen) {
 				if(bestelling.getStatus().equalsIgnoreCase("verwerkt")) {
-					dc.verwerkBestelling(bestelling.getId(), 2L);					
+					dc.verwerkBestelling(bestelling.getId(), 1L);	
+					dc.wijzigBestelling(bestelling.getId(), 2L);
 				}
-			}*/
+			}
 			System.out.println(kab);
 
 

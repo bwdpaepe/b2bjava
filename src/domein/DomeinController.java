@@ -179,14 +179,10 @@ public class DomeinController {
 		bestellingService.addBesteldProductToBestelling(bestellingId, longProductId, aantal);
 	}
 
-	public void wijzigBestelling(long bestellingId, long transportdienstId, String trackAndTraceCode) {
-		bestellingService.wijzigBestelling(bestellingId, transportdienstId, trackAndTraceCode);
+	public void wijzigBestelling(long bestellingId, long transportdienstId) {
+		bestellingService.wijzigBestelling(bestellingId, transportdienstId);
 	}
-
-	/*public void wijzigTrackAndTraceCodeBestelling(long bestellingId) {
-		bestellingService.wijzigTrackAndTraceCodeBestelling(bestellingId);
-	}*/
-
+	
 	public void verwerkBestelling(long bestellingId, long transportdienstId) {
 		bestellingService.verwerkBestelling(bestellingId, transportdienstId);
 	}

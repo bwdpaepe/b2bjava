@@ -11,9 +11,11 @@ public class VerwerktBestellingState extends BestellingState{
 	}
 	
 	@Override
-	public void wijzigBestelling(Transportdienst transportdienst, String trackAndTraceCode) {
+	public void wijzigBestelling(Transportdienst transportdienst) {
 		// transportdienst
 		bestelling.setTransportdienst(transportdienst);
+		String trackAndTraceCode = bestelling.getTrackAndTraceCode();
+	
 		
 		//ToDo: if empty trackAndTraceCode
 		// {
@@ -41,8 +43,14 @@ public class VerwerktBestellingState extends BestellingState{
 			// throw error if not valid
 		// }
 		
-		Notificatie notificatie = new Notificatie(new Date(), false, bestelling.getAankoper(), bestelling);
-		bestelling.setNotificatie(notificatie);
+		//WE MOETEN VOLGENS MIJ GEEN NIEUWE NOTIFICATIE MAKEN HIER, STAAT NERGENS IN DE UC
+		//WE KUNNEN WEL DE BESTAANDE NOTIFICATIE AANPASSEN DOOR DE FLAG OP FALSE TE ZETTEN 
+		//ZODAT DE AANKOPER ZIET DAT ER IETS GEWIJZIGD IS, OP DEZE MANIER:
+			
+		bestelling.getNotificatie().setBekenen(false);
+		
+		//Notificatie notificatie = new Notificatie(new Date(), false, bestelling.getAankoper(), bestelling);
+		//bestelling.setNotificatie(notificatie);
 	}
 
 }
