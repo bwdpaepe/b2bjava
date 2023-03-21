@@ -14,31 +14,25 @@ public class VerwerktBestellingState extends BestellingState {
 	public void wijzigBestelling(Transportdienst transportdienst) {
 		// transportdienst
 		bestelling.setTransportdienst(transportdienst);
+		TrackTraceFormat ttf = bestelling.getTransportdienst().getTrackTraceFormat();
 		String trackAndTraceCode = bestelling.getTrackAndTraceCode();
-
-		// ToDo: if empty trackAndTraceCode
-		// {
-		// track & trace
-		TrackTraceFormat ttf = transportdienst.getTrackTraceFormat();
+		String generatedString;
+		String generatedCode;
 		// gebruik het ID van de bestelling om de code uniek te maken
 		// String id = String.valueOf(bestelling.getId());
 		// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3/3.12.0
-		String generatedString;
-		if (ttf.isBarcodeEnkelCijfers()) {
-			// generatedString = RandomStringUtils.randomNumeric(ttf.getBarcodeLengte() -
-			// id.length() - ttf.getBarcodePrefix().length());
-			generatedString = RandomStringUtils.randomNumeric(ttf.getBarcodeLengte() - ttf.getBarcodePrefix().length());
-		} else {
-			// generatedString = RandomStringUtils.randomAlphanumeric(ttf.getBarcodeLengte()
-			// - id.length() - ttf.getBarcodePrefix().length());
-			generatedString = RandomStringUtils
-					.randomAlphanumeric(ttf.getBarcodeLengte() - ttf.getBarcodePrefix().length());
-		}
-
-		// StringBuilder code = new
-		// StringBuilder().append(ttf.getBarcodePrefix()).append(generatedString).append(id);
-		StringBuilder code = new StringBuilder().append(ttf.getBarcodePrefix()).append(generatedString);
-		bestelling.setTrackAndTraceCode(new String(code));
+		do {
+			if (ttf.isBarcodeEnkelCijfers()) {
+				generatedString = RandomStringUtils
+						.randomNumeric(ttf.getBarcodeLengte() - ttf.getBarcodePrefix().length());
+			} else {
+				generatedString = RandomStringUtils
+						.randomAlphanumeric(ttf.getBarcodeLengte() - ttf.getBarcodePrefix().length());
+			}
+			StringBuilder code = new StringBuilder().append(ttf.getBarcodePrefix()).append(generatedString);
+			generatedCode = new String(code);
+		} while (generatedCode.equals(trackAndTraceCode));
+		bestelling.setTrackAndTraceCode(generatedCode);
 		// }
 		// ToDo: else validate trackAndTraceCode
 		// {
@@ -75,7 +69,7 @@ public class VerwerktBestellingState extends BestellingState {
 			StringBuilder code = new StringBuilder().append(ttf.getBarcodePrefix()).append(generatedString);
 			generatedCode = new String(code);
 		} while (generatedCode.equals(trackAndTraceCode));
-
+		bestelling.setTrackAndTraceCode(generatedCode);
 	}
 
 }
