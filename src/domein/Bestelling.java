@@ -39,7 +39,7 @@ public class Bestelling {
 	private String leveradresLand;
 	private String leveradresStad;
 	private String trackAndTraceCode;
-	
+
 	@Transient
 	private BestellingState currentState;
 
@@ -67,14 +67,9 @@ public class Bestelling {
 	@ManyToOne
 	@JoinColumn(name = "Doos", nullable = false)
 	private Doos doos;
-	
-	
-	
-
 
 	@OneToOne(mappedBy = "bestelling")
 	private Notificatie notificatie;
-
 
 	protected Bestelling() {
 
@@ -108,6 +103,10 @@ public class Bestelling {
 
 	public void wijzigBestelling(Transportdienst transportdienst) {
 		currentState.wijzigBestelling(transportdienst);
+	}
+
+	public void wijzigTrackAndTraceCode() {
+		currentState.wijzigTrackAndTraceCode();
 	}
 
 	public Doos getDoos() {
@@ -260,12 +259,10 @@ public class Bestelling {
 	public void setTrackAndTraceCode(String trackAndTraceCode) {
 		this.trackAndTraceCode = trackAndTraceCode;
 	}
-	
+
 	protected void toState(BestellingState state) {
 		currentState = state;
 	}
-	
-
 
 	public Notificatie getNotificatie() {
 		return notificatie;
@@ -274,6 +271,5 @@ public class Bestelling {
 	public void setNotificatie(Notificatie notificatie) {
 		this.notificatie = notificatie;
 	}
-
 
 }

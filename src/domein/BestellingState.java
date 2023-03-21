@@ -17,4 +17,9 @@ public abstract class BestellingState {
 		throw new IllegalArgumentException("Een bestelling kan enkel gewijzigd worden wanneer deze verwerkt is");
 	}
 
+	public void wijzigTrackAndTraceCode() {
+		throw new IllegalArgumentException(
+				"Een track and trace code kan enkel gewijzigd worden wanneer deze verwerkt is");
+	}
+
 }

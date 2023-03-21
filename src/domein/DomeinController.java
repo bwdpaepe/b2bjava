@@ -182,9 +182,13 @@ public class DomeinController {
 	public void wijzigBestelling(long bestellingId, long transportdienstId) {
 		bestellingService.wijzigBestelling(bestellingId, transportdienstId);
 	}
-	
+
 	public void verwerkBestelling(long bestellingId, long transportdienstId) {
 		bestellingService.verwerkBestelling(bestellingId, transportdienstId);
+	}
+
+	public void wijzigTrackAndTraceCode(long bestellingId) {
+		bestellingService.wijzigTrackAndTraceCode(bestellingId);
 	}
 
 	// DOOS OPERATIONS

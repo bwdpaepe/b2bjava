@@ -111,5 +111,18 @@ public class BestellingService {
 			throw new IllegalArgumentException(e.getMessage());
 		}
 	}
+	
+	public void wijzigTrackAndTraceCode(long bestellingId) {
+		try {
+			GenericDaoJpa.startTransaction();
+			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			bestelling.wijzigTrackAndTraceCode();
+			bestellingRepo.update(bestelling);
+			GenericDaoJpa.commitTransaction();
+		} catch (Exception e) {
+			GenericDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException(e.getMessage());
+		}
+	}
 
 }
