@@ -224,11 +224,11 @@ public class DatabaseSeeding
 
 			System.out.println("Database Seeded");
 			
-//			dc.aanmelden("emailail1@test.com", "paswoord");
-//			System.out.println("user 1 aangemeld");
-//			
-//			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
-//			System.out.println(kab);
+			dc.aanmelden("emailail1@test.com", "paswoord");
+			System.out.println("user 1 aangemeld");
+			
+		KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
+			System.out.println(kab);
 			
 			//genereren TTC voor verwerkte bestellingen van gebruiker
 			List<BestellingDTO> bestellingen = dc.getBestellingen();
