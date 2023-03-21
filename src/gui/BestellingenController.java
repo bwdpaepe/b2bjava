@@ -50,29 +50,29 @@ public class BestellingenController extends Pane {
 	@FXML
 	private Button btnWijzigBestelling;
 	@FXML
-	private TextField txtDozenVoorVerpakking;
+	private Label lblDozenVoorVerpakking;
 	/*@FXML
 	private Label txtTransportDienst;*/
 	@FXML
-	private TextField txtNaamKlant;
+	private Label lblNaamKlant;
 	@FXML
-	private TextField txtNaamAankoper;
+	private Label lblNaamAankoper;
 	@FXML
-	private TextField txtEmailAankoper;
+	private Label lblEmailAankoper;
 	@FXML
-	private TextField txtOrderId;
+	private Label lblOrderId;
 	@FXML
-	private TextField txtDatumGeplaatst;
+	private Label lblDatumGeplaatst;
 	@FXML
-	private TextField txtLeveradres;
+	private Label lblLeveradres;
 	@FXML
-	private TextField txtStatus;
+	private Label lblStatus;
 	@FXML
-	private TextField txtTotaleOrderbedrag;
+	private Label lblTotaleOrderbedrag;
 	@FXML
 	private ComboBox<TransportdienstDTO> cmbTransportdienst;
 	@FXML
-	private TextField txtTrackTraceGegevens;
+	private Label lblTrackTraceGegevens;
 	@FXML
 	private TableView<BesteldProductDTO> tvBesteldeProducten;
 	@FXML
@@ -150,7 +150,7 @@ public class BestellingenController extends Pane {
 		long geselecteerdeTransportdienstDTOId = geselecteerdeTransportdienstDTO.getId();
 		
 		//WE KUNNEN DE TTC HALEN UIT DE BESTELLING, WE MOETEN DIT NIET MEEGEVEN ALS PARAMETER
-		String trackAndTraceCodeBestelling = txtTrackTraceGegevens.getText();
+		String trackAndTraceCodeBestelling = lblTrackTraceGegevens.getText();
 		
 		dc.wijzigBestelling(geselecteerdeBestellingDTOId, geselecteerdeTransportdienstDTOId);
 		
@@ -164,20 +164,20 @@ public class BestellingenController extends Pane {
 	}
 	
 	public void disableDetail() {
-		/*txtDozenVoorVerpakking.setDisable(true);
-		txtNaamKlant.setDisable(true);
-		txtNaamAankoper.setDisable(true);
-		txtEmailAankoper.setDisable(true);
-		txtOrderId.setDisable(true);
-		txtDatumGeplaatst.setDisable(true);
-		txtLeveradres.setDisable(true);
-		txtStatus.setDisable(true);
-		txtTotaleOrderbedrag.setDisable(true);
+		/*lblDozenVoorVerpakking.setDisable(true);
+		lblNaamKlant.setDisable(true);
+		lblNaamAankoper.setDisable(true);
+		lblEmailAankoper.setDisable(true);
+		lblOrderId.setDisable(true);
+		lblDatumGeplaatst.setDisable(true);
+		lblLeveradres.setDisable(true);
+		lblStatus.setDisable(true);
+		lblTotaleOrderbedrag.setDisable(true);
 		*/
 		cmbTransportdienst.setDisable(true);
 		//cmbTransportdienst.setStyle("-fx-opacity: 1.0;-fx-background-color: #EC4842;-fx-text-fill: #000000;");
-		txtTrackTraceGegevens.setDisable(true);
-		txtTrackTraceGegevens.setStyle("-fx-opacity: 1.0;-fx-background-color: #EC4842;");
+		lblTrackTraceGegevens.setDisable(true);
+		lblTrackTraceGegevens.setStyle("-fx-opacity: 1.0;-fx-background-color: #EC4842;");
 		btnWijzigBestelling.setDisable(true);
 		btnWijzigBestelling.setStyle("-fx-opacity: 1.0;");
 	}
@@ -201,27 +201,27 @@ public class BestellingenController extends Pane {
 	
 	private void maakVisueelDetailBestelling(BestellingDTO bestellingDTO) {
 		lblDetailsBestelling.setText(String.format("Detail bestelling: %s", bestellingDTO.getOrderID()));
-		txtDozenVoorVerpakking.setText(maakVisueelDoosType(bestellingDTO));
-		//txtDozenVoorVerpakking.setDisable(true);
-		txtNaamKlant.setText(bestellingDTO.getKlantNaam());
-		//txtNaamKlant.setDisable(true);
-		txtNaamAankoper.setText(maakVisueelNaamAankoper(bestellingDTO));
-		//txtNaamAankoper.setDisable(true);
-		txtEmailAankoper.setText(maakVisueelEmailAankoper(bestellingDTO));
-		//txtEmailAankoper.setDisable(true);
-		txtOrderId.setText(bestellingDTO.getOrderID());
-		//txtOrderId.setDisable(true);
+		lblDozenVoorVerpakking.setText(maakVisueelDoosType(bestellingDTO));
+		//lblDozenVoorVerpakking.setDisable(true);
+		lblNaamKlant.setText(bestellingDTO.getKlantNaam());
+		//lblNaamKlant.setDisable(true);
+		lblNaamAankoper.setText(maakVisueelNaamAankoper(bestellingDTO));
+		//lblNaamAankoper.setDisable(true);
+		lblEmailAankoper.setText(maakVisueelEmailAankoper(bestellingDTO));
+		//lblEmailAankoper.setDisable(true);
+		lblOrderId.setText(bestellingDTO.getOrderID());
+		//lblOrderId.setDisable(true);
 		//Date date = newBestellingDTO.getDatumGeplaatst();  
 		//DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
 		//String strDate = dateFormat.format(date);  
-		txtDatumGeplaatst.setText(DateFormat.getDateInstance().format(bestellingDTO.getDatumGeplaatst()));
-		//txtDatumGeplaatst.setDisable(true);
-		txtLeveradres.setText(maakVisueelLeveradres(bestellingDTO));
-		//txtLeveradres.setDisable(true);
-		txtStatus.setText(bestellingDTO.getStatus());
-		//txtStatus.setDisable(true);
-		txtTotaleOrderbedrag.setText(String.format("%.2f€", bestellingDTO.getTotaalbedrag()));
-		//txtTotaleOrderbedrag.setDisable(true);
+		lblDatumGeplaatst.setText(DateFormat.getDateInstance().format(bestellingDTO.getDatumGeplaatst()));
+		//lblDatumGeplaatst.setDisable(true);
+		lblLeveradres.setText(maakVisueelLeveradres(bestellingDTO));
+		//lblLeveradres.setDisable(true);
+		lblStatus.setText(bestellingDTO.getStatus());
+		//lblStatus.setDisable(true);
+		lblTotaleOrderbedrag.setText(String.format("%.2f€", bestellingDTO.getTotaalbedrag()));
+		//lblTotaleOrderbedrag.setDisable(true);
 		// transportdiensten van bedrijf van actueel ingelogde gebruiker
 		ObservableList<TransportdienstDTO> transportdienstDTOList = FXCollections.observableList(dc.getTransportdienstenDTO());
 		long geselecteerdeTransportdienstDTOId = dc.getTransportdienst(bestellingDTO.getTransportdienstID()).getId();
@@ -267,14 +267,14 @@ public class BestellingenController extends Pane {
 			btnWijzigBestelling.setDisable(true);
 			btnWijzigBestelling.setStyle("-fx-opacity: 1.0;");
 		}
-		txtTrackTraceGegevens.setText("ToDo");
+		lblTrackTraceGegevens.setText("ToDo");
 		if(bestellingDTO.getStatus().toUpperCase().equals(VERWERKT)) {
-			txtTrackTraceGegevens.setDisable(false);
+			lblTrackTraceGegevens.setDisable(false);
 			btnWijzigBestelling.setDisable(false);
 		}
 		else {
-			txtTrackTraceGegevens.setDisable(true);
-			txtTrackTraceGegevens.setStyle("-fx-opacity: 1.0;-fx-background-color: #EC4842;");
+			lblTrackTraceGegevens.setDisable(true);
+			lblTrackTraceGegevens.setStyle("-fx-opacity: 1.0;-fx-background-color: #EC4842;");
 			btnWijzigBestelling.setDisable(true);
 			btnWijzigBestelling.setStyle("-fx-opacity: 1.0;");
 		}
