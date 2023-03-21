@@ -64,7 +64,7 @@ public class DatabaseSeeding
 			domeinController.maakMedewerker("Jorgen", "Scheerens", "emailail3@test.be", "paswoord",
 					"Adres adres adres3", "047565442854", "admin", 2, 1);
 			domeinController.maakMedewerker("Bart", "De Paepe", "emailail4.bart@test.com", "paswoord",
-					"Adres adres adres4", "047565442854", "admin", 3, 2);
+					"Adres adres adres4", "047565442854", "magazijnier", 3, 2);
 			domeinController.maakMedewerker("Ian", "Daelman", "emailail5@test.com", "paswoord", "Adres adres adres5",
 					"047565442854", "admin", 4, 3);
 			domeinController.maakMedewerker("A1.", "De Aankoper", "aankoperA1@test.com", "paswoord", "Adres adres adres5", "047565442854", "aankoper", 6, 1);
