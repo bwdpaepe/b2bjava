@@ -88,14 +88,8 @@ public class BestellingService {
 		try {
 			GenericDaoJpa.startTransaction();
 			Bestelling bestelling = bestellingRepo.get(bestellingId);
-			// STATE PATTERN ZAL DEZE FOUT GOOIEN
-			/*if (!bestelling.getStatus().equalsIgnoreCase(BestellingStatus.VERWERKT.toString())) {
-				throw new IllegalArgumentException(
-						"Deze bestelling is niet wijzigbaar, want deze heeft niet de juiste status!");
-			}*/
 			Transportdienst transportdienst = dienstService.getTransportdienstByID(transportdienstId);
 			bestelling.wijzigBestelling(transportdienst);
-			//bestelling.setTransportdienst(transportdienst);
 			bestellingRepo.update(bestelling);
 			GenericDaoJpa.commitTransaction();
 		} catch (Exception e) {
@@ -103,22 +97,6 @@ public class BestellingService {
 			throw new IllegalArgumentException(e.getMessage());
 		}
 	}
-
-	
-	// ALS DE TRANSPORTDIENST VERANDERT, DAN WORDT EEN NIEUWE TRANK EN TRACE GEGENEREERD
-	// IN DE GUI KAN MEN GEEN TRACK EN TRACE INVOEREN, DE GUI KENT HET TTF NIET
-	/*public void wijzigTrackAndTraceCodeBestelling(long bestellingId) {
-		try {
-			GenericDaoJpa.startTransaction();
-			Bestelling bestelling = bestellingRepo.get(bestellingId);
-			bestelling.wijzigTrackAndTraceCodeBestelling();
-			bestellingRepo.update(bestelling);
-			GenericDaoJpa.commitTransaction();
-		} catch (Exception e) {
-			GenericDaoJpa.rollbackTransaction();
-			throw new IllegalArgumentException(e.getMessage());
-		}
-	}*/
 	
 	public void verwerkBestelling(long bestellingId, long transportdienstId) {
 		try {
