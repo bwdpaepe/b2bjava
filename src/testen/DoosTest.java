@@ -31,9 +31,9 @@ class DoosTest
 	void maakDoos_geldigeWaardes() {
 		Assertions.assertDoesNotThrow(() -> new Doos(NAAM, GELDIG_GETAL, GELDIG_GETAL, GELDIG_GETAL, TYPE_STRING, GELDIG_GETAL, BEDRIJF));
 		Assertions.assertEquals(NAAM, doos.getNaam());
-		Assertions.assertEquals(GELDIG_GETAL, doos.getBreedte());
-		Assertions.assertEquals(GELDIG_GETAL, doos.getLengte());
-		Assertions.assertEquals(GELDIG_GETAL, doos.getHoogte());
+		Assertions.assertEquals(GELDIG_GETAL, doos.getDimensie().getBreedte());
+		Assertions.assertEquals(GELDIG_GETAL, doos.getDimensie().getLengte());
+		Assertions.assertEquals(GELDIG_GETAL, doos.getDimensie().getHoogte());
 		Assertions.assertEquals(GELDIG_GETAL, doos.getPrijs());
 		Assertions.assertEquals(IS_ACTIEF, doos.isActief());
 		Assertions.assertEquals(TYPE, doos.getDoosType());
