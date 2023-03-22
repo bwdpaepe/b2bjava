@@ -177,7 +177,7 @@ public class BestellingenController extends Pane {
 		cmbTransportdienst.setDisable(true);
 		//cmbTransportdienst.setStyle("-fx-opacity: 1.0;-fx-background-color: #EC4842;-fx-text-fill: #000000;");
 		lblTrackTraceGegevens.setDisable(true);
-		lblTrackTraceGegevens.setStyle("-fx-opacity: 1.0;-fx-background-color: #EC4842;");
+		lblTrackTraceGegevens.setStyle("-fx-opacity: 1.0;");
 		btnWijzigBestelling.setDisable(true);
 		btnWijzigBestelling.setStyle("-fx-opacity: 1.0;");
 	}

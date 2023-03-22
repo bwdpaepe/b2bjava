@@ -221,7 +221,7 @@
                                              <VBox.margin>
                                                 <Insets right="20.0" />
                                              </VBox.margin></Label>
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="1000.0" prefWidth="1000.0" text="Genereer Track &amp; trace gegevens" textAlignment="JUSTIFY">
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="1000.0" text="Genereer Track &amp; trace gegevens" textAlignment="JUSTIFY">
                                              <VBox.margin>
                                                 <Insets right="20.0" />
                                              </VBox.margin></Button>
