@@ -1,15 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="apKlantenScherm" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KlantenController">
    <children>
-      <AnchorPane style="-fx-background-color: grey;" styleClass="rightComponent">
+      <AnchorPane fx:id="apRightComponent" styleClass="rightComponent">
          <children>
-            <TextField layoutX="479.0" layoutY="434.0" prefHeight="25.0" prefWidth="201.0" style="-fx-alignment: center;" text="Just a placeholder for UC6" />
+            <BorderPane id="bpKlantDetails" fx:id="bpKlantDetails">
+               <right>
+                  <ImageView id="bpKlantDetailsRIGHT" fx:id="ivLogoKlant" fitHeight="140.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </right>
+               <top>
+                  <AnchorPane id="bpKlantDetailsTOP" fx:id="bpKlantDetailsTOP" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label id="labelKlantDetailsNaam" fx:id="labelKlantDetailsNaam" text="" />
+                     </children>
+                  </AnchorPane>
+               </top>
+               <left>
+                  <VBox id="bpKlantDetailsLEFT" fx:id="bpKlantDetailsLEFT" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="klantDetailLabelStraatNummer" text="Straat en huisnummer" />
+                        <Label fx:id="klantDetailLabelPostcodeStad" text="Postcode en stad" />
+                        <Label fx:id="klantDetailLabelLand" text="Land" />
+                        <Label fx:id="klantDetailLabelTelefoonnr" text="Telefoonnummer" />
+                     </children>
+                  </VBox>
+               </left>
+               <center>
+                  <VBox id="bpKlantDetailsCENTER" fx:id="bpKlantDetailsCENTER" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="klantDetailLabelKlantStraatNummer" text="" />
+                        <Label fx:id="klantDetailLabelKlantPostcodeStad" text="" />
+                        <Label fx:id="klantDetailLabelKlantLand" text="" />
+                        <Label fx:id="klantDetailLabelKlantTelefoonnr" text="" />
+                     </children>
+                  </VBox>
+               </center>
+            </BorderPane>
+            <TableView id="tvKlantDetailAankopers" fx:id="tvKlantDetailAankopers">
+              <columns>
+                <TableColumn fx:id="naamAankoperColumn" text="Aankoper naam" />
+                <TableColumn fx:id="emailAankoperColumn" text="E-mailadres" />
+                 <TableColumn />
+              </columns>
+            </TableView>
+            <TableView id="tvKlantDetailBestellingen" fx:id="tvKlantDetailBestellingen">
+              <columns>
+                <TableColumn fx:id="orderIdColumn" text="Order ID" />
+                <TableColumn fx:id="orderDatumColumn" text="Datum" />
+                <TableColumn fx:id="orderStatusColumn" text="Status" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
       <TableView fx:id="tvKlantenLijst" styleClass="leftComponent">

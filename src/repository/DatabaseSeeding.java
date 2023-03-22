@@ -14,6 +14,8 @@ public class DatabaseSeeding
 	
 	public static final void startDatabaseSeed(DomeinController dc)
 	{
+		System.out.println("Database seeding started, please wait...");
+		
 		DomeinController domeinController = dc;
 
 		try
@@ -21,15 +23,15 @@ public class DatabaseSeeding
 
 			// bedrijven
 			domeinController.maakBedrijf("Bedrijf A", "Straat A", "A1", "1234A", "stad A", "land A", "0123456789",
-					"logo_bedrijf_A");
+					"1.jpg");
 			domeinController.maakBedrijf("Bedrijf B", "Straat B", "B2", "4321B", "stad B", "land B", "9876543210",
-					"logo_bedrijf_B");
+					"2.jpg");
 			domeinController.maakBedrijf("Bedrijf C", "Straat C", "C3", "9876C", "stad C", "land C", "1234567",
-					"logo_bedrijf_C");
+					"3.jpg");
 			domeinController.maakBedrijf("Bedrijf D", "Straat D", "D4", "9876D", "stad D", "land D", "1234567",
-					"logo_bedrijf_D");
+					"4.jpg");
 			domeinController.maakBedrijf("Bedrijf E", "Straat E", "E5", "9876E", "stad E", "land E", "1234567",
-					"logo_bedrijf_E");
+					"5.jpg");
 
 			// Dozen
 			for (int i = 1; i <= AANTAL_BEDRIJVEN; i++) {
@@ -64,7 +66,7 @@ public class DatabaseSeeding
 			domeinController.maakMedewerker("Jorgen", "Scheerens", "emailail3@test.be", "paswoord",
 					"Adres adres adres3", "047565442854", "admin", 2, 1);
 			domeinController.maakMedewerker("Bart", "De Paepe", "emailail4.bart@test.com", "paswoord",
-					"Adres adres adres4", "047565442854", "magazijnier", 3, 2);
+					"Adres adres adres4", "047565442854", "admin", 3, 2);
 			domeinController.maakMedewerker("Ian", "Daelman", "emailail5@test.com", "paswoord", "Adres adres adres5",
 					"047565442854", "admin", 4, 3);
 			domeinController.maakMedewerker("A1.", "De Aankoper", "aankoperA1@test.com", "paswoord", "Adres adres adres5", "047565442854", "aankoper", 6, 1);
@@ -83,7 +85,7 @@ public class DatabaseSeeding
 			
 			
 			// transportdienst
-			domeinController.maakTransportdienst("Post FR", 10, true, "1", "POSTCODE", "jos", "josinson", "0478559871",
+			domeinController.maakTransportdienst("Post FR", 4, true, "1", "POSTCODE", "jos", "josinson", "0478559871",
 					"email@test.fr", 1);
 			domeinController.maakTransportdienst("Post BE", 4, true, "2", "ORDERID", "jos", "josinson", "0478559872",
 					"email@test.be", 1);
