@@ -7,6 +7,7 @@ import java.util.List;
 
 import repository.BestellingDTO;
 import repository.DatabaseSeeding;
+import repository.DoosDTO;
 import repository.GenericDaoJpa;
 import repository.KlantAankopersBestellingenDTO;
 import repository.KlantLijstEntryDTO;
@@ -200,6 +201,12 @@ public class DomeinController {
 	
 	public void wijzigdoos(long doosID, String naam, double lengte, double breedte, double hoogte, String doosType, double prijs, boolean isActief) {
 		doosService.wijzigDoos(doosID, naam, lengte, breedte, hoogte, doosType, prijs, isActief);
+	}
+	
+	public List<DoosDTO> getDozen(){
+		List<Doos> dozen = doosService.getDozen(ingelogdeUser.getBedrijf().getId());
+		List<DoosDTO> dozenDTO = dozen.stream().map(d -> new DoosDTO(d)).toList();
+		return Collections.unmodifiableList(dozenDTO);
 	}
 	
 	// PRODUCT OPERATIONS

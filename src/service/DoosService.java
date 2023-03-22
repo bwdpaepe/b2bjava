@@ -1,18 +1,23 @@
 package service;
 
+import java.util.List;
+
+import domein.Bedrijf;
+
 import domein.Doos;
-import repository.GenericDao;
+
+import repository.DoosDao;
+import repository.DoosDaoJpa;
+
 import repository.GenericDaoJpa;
 
 public class DoosService {
-	GenericDao<Doos> doosRepo;
+	DoosDao doosRepo;
+	BedrijfService bedrijfService;
 
 	public DoosService() {
-		this.doosRepo = new GenericDaoJpa<>(Doos.class);
-	}
-
-	public DoosService(GenericDao<Doos> doosRepo) {
-		this.doosRepo = doosRepo;
+		this.doosRepo = new DoosDaoJpa();
+		this.bedrijfService = new BedrijfService();
 	}
 
 	public Doos getDoosById(long doosId) {
@@ -50,5 +55,13 @@ public class DoosService {
 					"Er ging iets mis met het wijzigen van de doos, gelieve opnieuw te proberen" + e.getMessage());
 		}
 
+	}
+
+	public List<Doos> getDozen(long bedrijfID) {
+		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfID);
+
+		List<Doos> dozen = doosRepo.getDozenVanBedrijf(bedrijf);
+
+		return dozen;
 	}
 }
