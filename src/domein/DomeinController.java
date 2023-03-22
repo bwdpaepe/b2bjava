@@ -7,6 +7,7 @@ import java.util.List;
 
 import repository.BestellingDTO;
 import repository.DatabaseSeeding;
+import repository.DoosDTO;
 import repository.GenericDaoJpa;
 import repository.KlantAankopersBestellingenDTO;
 import repository.KlantLijstEntryDTO;
@@ -15,6 +16,7 @@ import repository.UserDTO;
 import service.BedrijfService;
 import service.BestellingService;
 import service.DienstService;
+import service.DoosService;
 import service.UserService;
 
 public class DomeinController {
@@ -23,12 +25,14 @@ public class DomeinController {
 	private DienstService dienstService;
 	private BedrijfService bedrijfService;
 	private BestellingService bestellingService;
+	private DoosService doosService;
 
 	public DomeinController() {
 		setUserService(new UserService());
 		setDienstService(new DienstService());
 		setBedrijfService(new BedrijfService());
 		setBestellingService(new BestellingService());
+		setDoosService();
 	}
 
 	public DomeinController(Boolean doSeeding) {
@@ -193,9 +197,37 @@ public class DomeinController {
 
 	// DOOS OPERATIONS
 	// --------------------------------------------------------------------------------------------------------------------------------------------------
-	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte,
-			double lengte, double prijs) {
-		bedrijfService.maakDoos(bedrijfsId, naam, doosTypeString, hoogte, breedte, lengte, prijs);
+	
+	private void setDoosService() {
+		this.doosService = new DoosService();
+	}
+	
+	public void maakDoos(String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs) {
+			
+		Medewerker ingelogdeMW = userService.getMedewerkerById(ingelogdeUser.getID());
+		if(ingelogdeMW.getFunctie().toLowerCase().equals("admin")) {
+			Bedrijf bedrijf = bedrijfService.getBedrijfById(ingelogdeUser.getBedrijf().getId());
+			Doos doos = new Doos(naam, hoogte, breedte, lengte, doosTypeString, prijs, bedrijf);		
+			doosService.maakDoos(doos);
+		}
+		else throw new IllegalAccessError("You need to be an admin to perform this operation");
+
+	}
+	
+	public void wijzigdoos(long doosID, String naam, double lengte, double breedte, double hoogte, String doosType, double prijs, boolean isActief) {
+		
+		Medewerker ingelogdeMW = userService.getMedewerkerById(ingelogdeUser.getID());
+		if(ingelogdeMW.getFunctie().toLowerCase().equals("admin")) {
+		doosService.wijzigDoos(doosID, naam, lengte, breedte, hoogte, doosType, prijs, isActief);
+		}
+		else throw new IllegalAccessError("You need to be an admin to perform this operation");
+	}
+
+	public List<DoosDTO> getDozen(){
+		List<Doos> dozen = doosService.getDozen(ingelogdeUser.getBedrijf().getId());
+		List<DoosDTO> dozenDTO = dozen.stream().map(d -> new DoosDTO(d)).toList();
+		return Collections.unmodifiableList(dozenDTO);
+
 	}
 
 	// PRODUCT OPERATIONS
