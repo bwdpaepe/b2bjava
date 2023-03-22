@@ -7,6 +7,7 @@ import domein.User;
 // ENKEL FINAL ATTRIBUTEN EN NOOIT LOGICA OPNEMEN
 public abstract class UserDTO
 {
+	protected final long id;
 	protected final String voornaam;
 	protected final String familienaam;
 	protected final String email;
@@ -16,12 +17,17 @@ public abstract class UserDTO
 
 	public UserDTO(User user)
 	{
+		this.id = user.getId();
 		this.voornaam = user.getVoornaam();
 		this.familienaam = user.getFamilienaam();
 		this.email = user.getEmail();
 		this.telefoonnummer = user.getTelefoonnummer();
 		this.adres = user.getAdres();
 		this.bedrijf = new BedrijfDTO(user.getBedrijf());
+	}
+	
+	public long getID() {
+		return this.id;
 	}
 
 	public String getVoornaam()

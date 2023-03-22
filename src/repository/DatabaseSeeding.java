@@ -30,31 +30,6 @@ public class DatabaseSeeding
 					"4.jpg");
 			domeinController.maakBedrijf("Bedrijf E", "Straat E", "E5", "9876E", "stad E", "land E", "1234567",
 					"5.jpg");
-
-			// Dozen
-			for (int i = 1; i <= AANTAL_BEDRIJVEN; i++) {
-			    for (int j = 1; j <= 10; j++) {
-			        String naam = "doos_" + j;
-			        double hoogte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
-			        double breedte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
-			        double lengte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
-			        double prijs = Math.round((Math.random() * 100 + 1) * 100.0) / 100.0;
-			        String doosType = "standaard";
-			        if (j % 2 == 0) {
-			            doosType = "custom";
-			        }
-			        domeinController.maakDoos(i, naam, doosType, hoogte, breedte, lengte, prijs);
-			    }
-			}
-			
-			// Producten
-			for (int i = 1; i <= AANTAL_BEDRIJVEN; i++) {
-			    for (int j = 1; j <= AANTAL_PRODUCTEN_PER_LEVERANCIER; j++) {
-			        String naam = "product_" + j;
-			        double prijs = Math.round((Math.random() * 10000 + 1)) / 100.0;
-			        domeinController.maakProduct(i, naam, prijs);
-			    }
-			}
 			
 			// Medewerkers
 			domeinController.maakMedewerker("Joachim2", "Dauchot", "emailail1@test.com", "paswoord",
@@ -72,7 +47,7 @@ public class DatabaseSeeding
 			domeinController.maakMedewerker("C1.", "De Aankoper", "aankoperC1@test.com", "paswoord", "Adres adres adres3", "047565442853", "aankoper", 8, 3);
 			domeinController.maakMedewerker("D1.", "De Aankoper", "aankoperD1@test.com", "paswoord", "Adres adres adres4", "047565442854", "aankoper", 9, 4);
 			domeinController.maakMedewerker("E1.", "De Aankoper", "aankoperE1@test.com", "paswoord", "Adres adres adres5", "047565442855", "aankoper", 10, 5);
-			domeinController.maakMedewerker("A2.", "De Aankoper", "aankoper1@test.com", "paswoord", "Adres adres adres5", "047565442854", "aankoper", 11, 1);
+			domeinController.maakMedewerker("A2.", "De Aankoper", "mag1@test.com", "paswoord", "Adres adres adres5", "047565442854", "magazijnier", 11, 1);
 			domeinController.maakMedewerker("B2.", "De Aankoper", "aankoper2@test.com", "paswoord", "Adres adres adres2", "047565442852", "aankoper", 12, 2);
 			domeinController.maakMedewerker("C2.", "De Aankoper", "aankoper3@test.com", "paswoord", "Adres adres adres3", "047565442853", "aankoper", 13, 3);
 			domeinController.maakMedewerker("D2.", "De Aankoper", "aankoper4@test.com", "paswoord", "Adres adres adres4", "047565442854", "aankoper", 14, 4);
@@ -80,6 +55,39 @@ public class DatabaseSeeding
 			domeinController.maakMedewerker("B3.", "De Aankoper", "aankoperB3@test.com", "paswoord", "Adres adres adres2", "047565442852", "aankoper", 16, 2);
 			domeinController.maakMedewerker("C3.", "De Aankoper", "aankoperC3@test.com", "paswoord", "Adres adres adres3", "047565442853", "aankoper", 17, 3);
 			domeinController.maakMedewerker("D3.", "De Aankoper", "aankoperD3@test.com", "paswoord", "Adres adres adres4", "047565442854", "aankoper", 18, 4);
+			
+			//aanmelden nodig voor ingelogdeUser related operations
+			domeinController.aanmelden("emailail1@test.com", "paswoord");
+
+			// Dozen
+			for (int i = 1; i <= AANTAL_BEDRIJVEN; i++) {
+			    for (int j = 1; j <= 10; j++) {
+			        String naam = "doos_" + j + "_" + i;
+			        double hoogte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
+			        double breedte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
+			        double lengte = Math.round((Math.random() * 10 + 1) * 100.0) / 100.0;
+			        double prijs = Math.round((Math.random() * 100 + 1) * 100.0) / 100.0;
+			        String doosType = "standaard";
+			        if (j % 2 == 0) {
+			            doosType = "custom";
+			        }
+			        domeinController.maakDoos(naam, doosType, hoogte, breedte, lengte, prijs);
+			    }
+			}
+
+			
+			// Producten
+			for (int i = 1; i <= AANTAL_BEDRIJVEN; i++) {
+			    for (int j = 1; j <= AANTAL_PRODUCTEN_PER_LEVERANCIER; j++) {
+			        String naam = "product_" + j;
+			        double prijs = Math.round((Math.random() * 10000 + 1)) / 100.0;
+			        domeinController.maakProduct(i, naam, prijs);
+			    }
+			}
+			
+
+			
+
 			
 			
 			// transportdienst

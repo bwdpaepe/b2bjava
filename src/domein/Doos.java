@@ -2,8 +2,11 @@ package domein;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,15 +30,14 @@ public class Doos implements Serializable {
 	private long id;
 	
 	@ManyToOne
-	private Bedrijf bedrijf;
-	
+	private Bedrijf bedrijf;	
 	
 	@Column
 	private String naam;
-	@Column
+	@Enumerated(EnumType.STRING)
 	private DoosType doosType;
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="dimensie")
 	private Dimensie dimensie;
 	@Column
 	private boolean isActief;
@@ -55,9 +57,9 @@ public class Doos implements Serializable {
 		
 	}
 	
-	public void wijzigDoos(String naam, double hoogte, double breedte, double lengte, String doosTypeString, double prijs, boolean isActief) {
+	public void wijzigDoos(String naam, String doosTypeString, double prijs, boolean isActief) {
 		setNaam(naam);
-		setDimensie(lengte, breedte, hoogte);
+
 		setDoosType(doosTypeString);
 		setPrijs(prijs);
 		setActief(isActief);

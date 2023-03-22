@@ -193,14 +193,25 @@ public class DomeinController {
 		this.doosService = new DoosService();
 	}
 	
-	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs) {
-		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
-		Doos doos = new Doos(naam, hoogte, breedte, lengte, doosTypeString, prijs, bedrijf);		
-		doosService.maakDoos(doos);
+	public void maakDoos(String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs) {
+			
+		Medewerker ingelogdeMW = userService.getMedewerkerById(ingelogdeUser.getID());
+		if(ingelogdeMW.getFunctie().toLowerCase().equals("admin")) {
+			Bedrijf bedrijf = bedrijfService.getBedrijfById(ingelogdeUser.getBedrijf().getId());
+			Doos doos = new Doos(naam, hoogte, breedte, lengte, doosTypeString, prijs, bedrijf);		
+			doosService.maakDoos(doos);
+		}
+		else throw new IllegalAccessError("You need to be an admin to perform this operation");
+
 	}
 	
 	public void wijzigdoos(long doosID, String naam, double lengte, double breedte, double hoogte, String doosType, double prijs, boolean isActief) {
+		
+		Medewerker ingelogdeMW = userService.getMedewerkerById(ingelogdeUser.getID());
+		if(ingelogdeMW.getFunctie().toLowerCase().equals("admin")) {
 		doosService.wijzigDoos(doosID, naam, lengte, breedte, hoogte, doosType, prijs, isActief);
+		}
+		else throw new IllegalAccessError("You need to be an admin to perform this operation");
 	}
 	
 	public List<DoosDTO> getDozen(){

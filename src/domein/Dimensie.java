@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import service.ValidationService;
 
 @Entity
+@Table(name ="dimensies")
 public class Dimensie {
 	
 	@Id
@@ -27,6 +29,14 @@ public class Dimensie {
 		setLengte(lengte);
 		setBreedte(breedte);
 		setHoogte(hoogte);
+	}
+	
+	public Dimensie() {
+		
+	};
+	
+	public long getId() {
+		return this.id;
 	}
 
 	public double getLengte() {
@@ -74,6 +84,13 @@ public class Dimensie {
 				&& Double.doubleToLongBits(hoogte) == Double.doubleToLongBits(other.hoogte)
 				&& Double.doubleToLongBits(lengte) == Double.doubleToLongBits(other.lengte);
 	}
+
+	@Override
+	public String toString() {
+		return "Dimensie [id=" + id + ", lengte=" + lengte + ", breedte=" + breedte + ", hoogte=" + hoogte + "]";
+	}
+	
+	
 	
 	
 	

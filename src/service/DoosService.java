@@ -3,20 +3,22 @@ package service;
 import java.util.List;
 
 import domein.Bedrijf;
-
+import domein.Dimensie;
 import domein.Doos;
 
 import repository.DoosDao;
 import repository.DoosDaoJpa;
-
+import repository.GenericDao;
 import repository.GenericDaoJpa;
 
 public class DoosService {
 	DoosDao doosRepo;
+	GenericDao<Dimensie> dimensieRepo;
 	BedrijfService bedrijfService;
 
 	public DoosService() {
 		this.doosRepo = new DoosDaoJpa();
+		this.dimensieRepo = new GenericDaoJpa<>(Dimensie.class);
 		this.bedrijfService = new BedrijfService();
 	}
 
@@ -44,9 +46,20 @@ public class DoosService {
 	public void wijzigDoos(long doosID, String naam, double lengte, double breedte, double hoogte, String doostype,
 			double prijs, boolean isActief) {
 		Doos doos = getDoosById(doosID);
-		doos.wijzigDoos(naam, hoogte, breedte, lengte, doostype, prijs, isActief);
+		Dimensie huidigeDimensie= doos.getDimensie();
+		Dimensie newDimensie = new Dimensie(lengte, breedte, hoogte);
+
+
+		doos.wijzigDoos(naam,doostype, prijs, isActief);
 		GenericDaoJpa.startTransaction();
 		try {
+			//check if dimensions changed
+			if(!huidigeDimensie.equals(newDimensie)) {
+				huidigeDimensie.setLengte(lengte);
+				huidigeDimensie.setBreedte(breedte);
+				huidigeDimensie.setHoogte(hoogte);
+				dimensieRepo.update(huidigeDimensie);
+			}
 			doosRepo.update(doos);
 			GenericDaoJpa.commitTransaction();
 		} catch (Exception e) {
