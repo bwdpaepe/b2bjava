@@ -3,6 +3,7 @@ package domein;
 import java.util.Date;
 import java.util.List;
 
+import javax.naming.SizeLimitExceededException;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -95,15 +96,15 @@ public class Bestelling {
 			toState(new GeplaatstBestellingState(this));
 	}
 
-	public void verwerkBestelling(Transportdienst transportdienst) {
+	public void verwerkBestelling(Transportdienst transportdienst) throws SizeLimitExceededException {
 		currentState.verwerkBestelling(transportdienst);
 	}
 
-	public void wijzigBestelling(Transportdienst transportdienst) {
+	public void wijzigBestelling(Transportdienst transportdienst) throws SizeLimitExceededException {
 		currentState.wijzigBestelling(transportdienst);
 	}
 
-	public void wijzigTrackAndTraceCode() {
+	public void wijzigTrackAndTraceCode() throws SizeLimitExceededException {
 		currentState.wijzigTrackAndTraceCode();
 	}
 
