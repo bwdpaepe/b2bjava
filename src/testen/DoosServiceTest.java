@@ -57,9 +57,9 @@ public class DoosServiceTest {
 
 		Doos doos2 = doosService.getDoosById(DOOS_ID);
 
-		Assertions.assertEquals(doos.getBreedte(), doos2.getBreedte());
-		Assertions.assertEquals(doos.getHoogte(), doos2.getHoogte());
-		Assertions.assertEquals(doos.getLengte(), doos2.getLengte());
+		Assertions.assertEquals(doos.getDimensie().getBreedte(), doos2.getDimensie().getBreedte());
+		Assertions.assertEquals(doos.getDimensie().getHoogte(), doos2.getDimensie().getHoogte());
+		Assertions.assertEquals(doos.getDimensie().getLengte(), doos2.getDimensie().getLengte());
 		Assertions.assertEquals(doos.getPrijs(), doos2.getPrijs());
 		Assertions.assertEquals(doos.getNaam(), doos2.getNaam());
 		Assertions.assertEquals(doos.getBedrijf(), doos2.getBedrijf());

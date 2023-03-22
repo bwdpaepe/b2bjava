@@ -17,9 +17,9 @@ public class DoosDTO {
 		this.id = doos.getId();
 		this.naam = doos.getNaam();
 		this.doosType = doos.getDoosType().toString();
-		this.hoogte = doos.getHoogte();
-		this.breedte = doos.getBreedte();
-		this.lengte = doos.getLengte();
+		this.hoogte = doos.getDimensie().getHoogte();
+		this.breedte = doos.getDimensie().getBreedte();
+		this.lengte = doos.getDimensie().getLengte();
 		this.isActief = doos.isActief();
 		this.prijs = doos.getPrijs();
 	}

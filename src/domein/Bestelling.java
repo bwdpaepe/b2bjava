@@ -3,6 +3,7 @@ package domein;
 import java.util.Date;
 import java.util.List;
 
+import javax.naming.SizeLimitExceededException;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class Bestelling {
 	private String leveradresLand;
 	private String leveradresStad;
 	private String trackAndTraceCode;
-	
+
 	@Transient
 	private BestellingState currentState;
 
@@ -67,20 +68,15 @@ public class Bestelling {
 	@ManyToOne
 	@JoinColumn(name = "Doos", nullable = false)
 	private Doos doos;
-	
-	
-	
-
 
 	@OneToOne(mappedBy = "bestelling")
 	private Notificatie notificatie;
 
-
 	protected Bestelling() {
 
 	};
-
-	public Bestelling(String orderID, Date datum_geplaatst, String statusString, Bedrijf leverancier, Bedrijf klant,
+	
+	public Bestelling(String orderID, Date datum_geplaatst, Bedrijf leverancier, Bedrijf klant,
 			Transportdienst transportdienst, Medewerker aankoper, String leveradresStraat, String leveradresNummer,
 			String leveradresPostcode, String leveradresStad, String leveradresLand, Doos doos) {
 		setOrderID(orderID);
@@ -89,7 +85,7 @@ public class Bestelling {
 		setKlant(klant);
 		setKlantNaam(klant.getNaam());
 		setTransportdienst(transportdienst);
-		setStatus(statusString);
+		setStatus("geplaatst");
 		setAankoper(aankoper);
 		setLeveradresLand(leveradresLand);
 		setLeveradresStraat(leveradresStraat);
@@ -97,17 +93,19 @@ public class Bestelling {
 		setLeveradresPostcode(leveradresPostcode);
 		setLeveradresStad(leveradresStad);
 		setDoos(doos);
-
-		toState(new GeplaatstBestellingState(this));
-
+			toState(new GeplaatstBestellingState(this));
 	}
 
-	public void verwerkBestelling(Transportdienst transportdienst) {
+	public void verwerkBestelling(Transportdienst transportdienst) throws SizeLimitExceededException {
 		currentState.verwerkBestelling(transportdienst);
 	}
 
-	public void wijzigBestelling(Transportdienst transportdienst) {
+	public void wijzigBestelling(Transportdienst transportdienst) throws SizeLimitExceededException {
 		currentState.wijzigBestelling(transportdienst);
+	}
+
+	public void wijzigTrackAndTraceCode() throws SizeLimitExceededException {
+		currentState.wijzigTrackAndTraceCode();
 	}
 
 	public Doos getDoos() {
@@ -260,12 +258,10 @@ public class Bestelling {
 	public void setTrackAndTraceCode(String trackAndTraceCode) {
 		this.trackAndTraceCode = trackAndTraceCode;
 	}
-	
+
 	protected void toState(BestellingState state) {
 		currentState = state;
 	}
-	
-
 
 	public Notificatie getNotificatie() {
 		return notificatie;
@@ -274,6 +270,5 @@ public class Bestelling {
 	public void setNotificatie(Notificatie notificatie) {
 		this.notificatie = notificatie;
 	}
-
 
 }
