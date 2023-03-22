@@ -45,9 +45,9 @@ public class KlantAankopersBestellingenDtoTest
 	private static final String STATUS_1 = BestellingStatus.GEPLAATST.toString();
 	private static final String STATUS_2 = BestellingStatus.GEPLAATST.toString();
 	private static final String STATUS_3 = BestellingStatus.VERWERKT.toString();
-	private static final Bestelling BESTELLING_1 = new Bestelling(ORDERID_1, DATE_1, STATUS_1, new Bedrijf(), KLANT, null, (Medewerker) AANKOPER_1, STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, null);
-	private static final Bestelling BESTELLING_2 = new Bestelling(ORDERID_2, DATE_2, STATUS_2, new Bedrijf(), KLANT, null, (Medewerker) AANKOPER_2, STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, null);
-	private static final Bestelling BESTELLING_3 = new Bestelling(ORDERID_3, DATE_3, STATUS_3, new Bedrijf(), KLANT, null, (Medewerker) AANKOPER_2, STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, null);
+	private static final Bestelling BESTELLING_1 = new Bestelling(ORDERID_1, DATE_1,  new Bedrijf(), KLANT, null, (Medewerker) AANKOPER_1, STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, null);
+	private static final Bestelling BESTELLING_2 = new Bestelling(ORDERID_2, DATE_2,  new Bedrijf(), KLANT, null, (Medewerker) AANKOPER_2, STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, null);
+	private static final Bestelling BESTELLING_3 = new Bestelling(ORDERID_3, DATE_3,  new Bedrijf(), KLANT, null, (Medewerker) AANKOPER_2, STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, null);
 	private static final List<Bestelling> BESTELLINGEN = new ArrayList<>(Arrays.asList(BESTELLING_1, BESTELLING_2, BESTELLING_3));
 	
 	private KlantAankopersBestellingenDTO kab;

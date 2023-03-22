@@ -149,6 +149,9 @@ public class BestellingenController extends Pane {
 		TransportdienstDTO geselecteerdeTransportdienstDTO = cmbTransportdienst.getValue();
 		long geselecteerdeTransportdienstDTOId = geselecteerdeTransportdienstDTO.getId();
 		
+		//WE KUNNEN DE TTC HALEN UIT DE BESTELLING, WE MOETEN DIT NIET MEEGEVEN ALS PARAMETER
+		String trackAndTraceCodeBestelling = txtTrackTraceGegevens.getText();
+		
 		dc.wijzigBestelling(geselecteerdeBestellingDTOId, geselecteerdeTransportdienstDTOId);
 		
 		//***toon gewijzigd BestellingDTO op het scherm***
