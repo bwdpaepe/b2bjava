@@ -72,20 +72,7 @@ public class BedrijfService
 		        .collect(Collectors.toUnmodifiableList());
 	}
 	
-	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs) {
-		GenericDaoJpa.startTransaction();
-		try {
-	        Bedrijf bedrijf = bedrijfRepo.get(bedrijfsId);
-	        Doos doos = new Doos(naam, hoogte, breedte, lengte, doosTypeString, prijs, bedrijf);
-	        bedrijf.getDozen().add(doos);
-	        bedrijfRepo.update(bedrijf);
-	        GenericDaoJpa.commitTransaction();
-		} catch (Exception e) {
-			GenericDaoJpa.rollbackTransaction();
-//			System.err.println(e.getMessage());
-			throw new IllegalArgumentException(e.getMessage());
-		};
-	}
+
 	
 	public void maakProduct(long leveranciersId, String naam, double eenheidsprijs) {
 		GenericDaoJpa.startTransaction();

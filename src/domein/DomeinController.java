@@ -15,6 +15,7 @@ import repository.UserDTO;
 import service.BedrijfService;
 import service.BestellingService;
 import service.DienstService;
+import service.DoosService;
 import service.UserService;
 
 public class DomeinController {
@@ -23,12 +24,14 @@ public class DomeinController {
 	private DienstService dienstService;
 	private BedrijfService bedrijfService;
 	private BestellingService bestellingService;
+	private DoosService doosService;
 
 	public DomeinController() {
 		setUserService(new UserService());
 		setDienstService(new DienstService());
 		setBedrijfService(new BedrijfService());
 		setBestellingService(new BestellingService());
+		setDoosService();
 	}
 
 	public DomeinController(Boolean doSeeding) {
@@ -184,8 +187,19 @@ public class DomeinController {
 	
 	// DOOS OPERATIONS
 	// --------------------------------------------------------------------------------------------------------------------------------------------------
-	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs ) {
-		bedrijfService.maakDoos(bedrijfsId, naam, doosTypeString, hoogte, breedte, lengte, prijs);
+	
+	private void setDoosService() {
+		this.doosService = new DoosService();
+	}
+	
+	public void maakDoos(long bedrijfsId, String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs) {
+		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
+		Doos doos = new Doos(naam, hoogte, breedte, lengte, doosTypeString, prijs, bedrijf);		
+		doosService.maakDoos(doos);
+	}
+	
+	public void wijzigdoos(long doosID, String naam, double lengte, double breedte, double hoogte, String doosType, double prijs, boolean isActief) {
+		doosService.wijzigDoos(doosID, naam, lengte, breedte, hoogte, doosType, prijs, isActief);
 	}
 	
 	// PRODUCT OPERATIONS
