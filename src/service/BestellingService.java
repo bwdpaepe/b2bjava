@@ -29,7 +29,7 @@ public class BestellingService {
 		this.bestellingRepo = new BestellingDaoJpa();
 	}
 
-	public void maakBestelling(String orderID, String status, Date datum, long leverancierID, long klantID,
+	public void maakBestelling(String orderID, Date datum, long leverancierID, long klantID,
 			long transportdienstID, long aankoperId, String leveradresStraat, String leveradresNummer,
 			String leveradresPostcode, String leveradresStad, String leveradresLand, long doosId) {
 		try {
@@ -38,7 +38,7 @@ public class BestellingService {
 			Transportdienst td = dienstService.getTransportdienstByID(transportdienstID);
 			Medewerker aankoper = userService.getMedewerkerById(aankoperId);
 			Doos doos = doosService.getDoosById(doosId);
-			Bestelling bestelling = new Bestelling(orderID, datum, status, leverancier, klant, td, aankoper,
+			Bestelling bestelling = new Bestelling(orderID, datum, leverancier, klant, td, aankoper,
 					leveradresStraat, leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand, doos);
 
 			GenericDaoJpa.startTransaction();

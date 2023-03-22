@@ -156,10 +156,10 @@ public class DomeinController {
 		this.bestellingService = bs;
 	}
 
-	public void maakBestelling(String OrderId, String status, Date datum, long leverancierID, long klantID,
+	public void maakBestelling(String OrderId, Date datum, long leverancierID, long klantID,
 			long transportdienstID, long aankoperId, String leveradresStraat, String leveradresNummer,
 			String leveradresPostcode, String leveradresStad, String leveradresLand, long doosId) {
-		bestellingService.maakBestelling(OrderId, status, datum, leverancierID, klantID, transportdienstID, aankoperId,
+		bestellingService.maakBestelling(OrderId, datum, leverancierID, klantID, transportdienstID, aankoperId,
 				leveradresStraat, leveradresNummer, leveradresPostcode, leveradresStad, leveradresLand, doosId);
 	}
 

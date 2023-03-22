@@ -74,8 +74,8 @@ public class Bestelling {
 	protected Bestelling() {
 
 	};
-
-	public Bestelling(String orderID, Date datum_geplaatst, String statusString, Bedrijf leverancier, Bedrijf klant,
+	
+	public Bestelling(String orderID, Date datum_geplaatst, Bedrijf leverancier, Bedrijf klant,
 			Transportdienst transportdienst, Medewerker aankoper, String leveradresStraat, String leveradresNummer,
 			String leveradresPostcode, String leveradresStad, String leveradresLand, Doos doos) {
 		setOrderID(orderID);
@@ -84,7 +84,7 @@ public class Bestelling {
 		setKlant(klant);
 		setKlantNaam(klant.getNaam());
 		setTransportdienst(transportdienst);
-		setStatus(statusString);
+		setStatus("geplaatst");
 		setAankoper(aankoper);
 		setLeveradresLand(leveradresLand);
 		setLeveradresStraat(leveradresStraat);
@@ -92,9 +92,7 @@ public class Bestelling {
 		setLeveradresPostcode(leveradresPostcode);
 		setLeveradresStad(leveradresStad);
 		setDoos(doos);
-
-		toState(new GeplaatstBestellingState(this));
-
+			toState(new GeplaatstBestellingState(this));
 	}
 
 	public void verwerkBestelling(Transportdienst transportdienst) {

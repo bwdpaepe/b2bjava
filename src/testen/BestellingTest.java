@@ -58,39 +58,38 @@ class BestellingTest {
 
 	private static final Doos DOOS = new Doos();
 
-	private static Bestelling bGeplaatst;
-	private static Bestelling bVerwerkt;
+	private static Bestelling b;
 
 	@BeforeAll
 	static void beforeAll() {
-		bGeplaatst = new Bestelling(ORDERID, DATUMGEPLAATST, STATUS_GEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+		b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
 				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 				DOOS);
-		bVerwerkt = new Bestelling(ORDERID, DATUMGEPLAATST, STATUS_GEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
-				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
-				DOOS);
-		bVerwerkt.verwerkBestelling(TRANSPORTDIENST);
 	}
 
 	@Test
 	public void test() {
-		Assertions.assertDoesNotThrow(() -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS_GEPLAATST, LEVERANCIER,
+		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
+				DOOS);
+		
+		Assertions.assertDoesNotThrow(() -> new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER,
 				KLANT, TRANSPORTDIENST, AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE,
 				LEVERADRES_STAD, LEVERADRES_LAND, DOOS));
 
-		Assertions.assertEquals(ORDERID, bGeplaatst.getOrderID());
-		Assertions.assertEquals(new Date(2022, 10, 10), bGeplaatst.getDatumGeplaatst());
-		Assertions.assertEquals(STATUS_GEPLAATST, bGeplaatst.getStatus());
-		Assertions.assertEquals(LEVERANCIER, bGeplaatst.getLeverancier());
-		Assertions.assertEquals(KLANT, bGeplaatst.getKlant());
-		Assertions.assertEquals(TRANSPORTDIENST, bGeplaatst.getTransportdienst());
-		Assertions.assertEquals(AANKOPER, bGeplaatst.getAankoper());
-		Assertions.assertEquals(LEVERADRES_STRAAT, bGeplaatst.getLeveradresStraat());
-		Assertions.assertEquals(LEVERADRES_NUMMER, bGeplaatst.getLeveradresNummer());
-		Assertions.assertEquals(LEVERADRES_POSTCODE, bGeplaatst.getLeveradresPostcode());
-		Assertions.assertEquals(LEVERADRES_STAD, bGeplaatst.getLeveradresStad());
-		Assertions.assertEquals(LEVERADRES_LAND, bGeplaatst.getLeveradresLand());
-		Assertions.assertEquals(bGeplaatst.getTrackAndTraceCode(), null);
+		Assertions.assertEquals(ORDERID, b.getOrderID());
+		Assertions.assertEquals(new Date(2022, 10, 10), b.getDatumGeplaatst());
+		Assertions.assertEquals(STATUS_GEPLAATST, b.getStatus());
+		Assertions.assertEquals(LEVERANCIER, b.getLeverancier());
+		Assertions.assertEquals(KLANT, b.getKlant());
+		Assertions.assertEquals(TRANSPORTDIENST, b.getTransportdienst());
+		Assertions.assertEquals(AANKOPER, b.getAankoper());
+		Assertions.assertEquals(LEVERADRES_STRAAT, b.getLeveradresStraat());
+		Assertions.assertEquals(LEVERADRES_NUMMER, b.getLeveradresNummer());
+		Assertions.assertEquals(LEVERADRES_POSTCODE, b.getLeveradresPostcode());
+		Assertions.assertEquals(LEVERADRES_STAD, b.getLeveradresStad());
+		Assertions.assertEquals(LEVERADRES_LAND, b.getLeveradresLand());
+		Assertions.assertEquals(b.getTrackAndTraceCode(), null);
 
 	}
 
@@ -98,30 +97,26 @@ class BestellingTest {
 	@NullAndEmptySource
 	public void ongeldige_strings_throwsError(String value) {
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> new Bestelling(value, DATUMGEPLAATST, STATUS_GEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				() -> new Bestelling(value, DATUMGEPLAATST,  LEVERANCIER, KLANT, TRANSPORTDIENST,
 						AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD,
 						LEVERADRES_LAND, DOOS));
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> new Bestelling(ORDERID, DATUMGEPLAATST, value, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER,
-						LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
-						DOOS));
-		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS_GEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				() -> new Bestelling(ORDERID, DATUMGEPLAATST,  LEVERANCIER, KLANT, TRANSPORTDIENST,
 						AANKOPER, value, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 						DOOS));
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS_GEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				() -> new Bestelling(ORDERID, DATUMGEPLAATST,  LEVERANCIER, KLANT, TRANSPORTDIENST,
 						AANKOPER, LEVERADRES_STRAAT, value, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 						DOOS));
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS_GEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				() -> new Bestelling(ORDERID, DATUMGEPLAATST,  LEVERANCIER, KLANT, TRANSPORTDIENST,
 						AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, value, LEVERADRES_STAD, LEVERADRES_LAND, DOOS));
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS_GEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				() -> new Bestelling(ORDERID, DATUMGEPLAATST,  LEVERANCIER, KLANT, TRANSPORTDIENST,
 						AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, value, LEVERADRES_LAND,
 						DOOS));
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS_GEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				() -> new Bestelling(ORDERID, DATUMGEPLAATST,  LEVERANCIER, KLANT, TRANSPORTDIENST,
 						AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, value,
 						DOOS));
 	}
@@ -129,54 +124,63 @@ class BestellingTest {
 	@Test
 	public void ongeldig_bestelling_throwsError() {
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS_GEPLAATST, LEVERANCIER, null, TRANSPORTDIENST,
+				() -> new Bestelling(ORDERID, DATUMGEPLAATST,  LEVERANCIER, null, TRANSPORTDIENST,
 						AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD,
 						LEVERADRES_LAND, DOOS));
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> new Bestelling(ORDERID, DATUMGEPLAATST, STATUS_GEPLAATST, null, KLANT, TRANSPORTDIENST, AANKOPER,
+				() -> new Bestelling(ORDERID, DATUMGEPLAATST,  null, KLANT, TRANSPORTDIENST, AANKOPER,
 						LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 						DOOS));
 	}
 
 	@Test
 	void geldige_acties_bestelling() {
-		Assertions.assertDoesNotThrow(()-> bGeplaatst.verwerkBestelling(TRANSPORTDIENST));
-		Assertions.assertDoesNotThrow(()-> bVerwerkt.wijzigBestelling(TRANSPORTDIENST));
-		Assertions.assertDoesNotThrow(()-> bVerwerkt.wijzigTrackAndTraceCode());
+		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
+				DOOS);
+		Assertions.assertDoesNotThrow(()-> b.verwerkBestelling(TRANSPORTDIENST));
+		Assertions.assertDoesNotThrow(()-> b.wijzigBestelling(TRANSPORTDIENST));
+		Assertions.assertDoesNotThrow(()-> b.wijzigTrackAndTraceCode());
 		
 	}
 	
 	@Test
 	void ongeldige_acties_bestelling() {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> bGeplaatst.wijzigBestelling(TRANSPORTDIENST));
-		Assertions.assertThrows(IllegalArgumentException.class, () -> bGeplaatst.wijzigTrackAndTraceCode());
-		Assertions.assertThrows(IllegalArgumentException.class, () -> bVerwerkt.verwerkBestelling(TRANSPORTDIENST));
+		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
+				DOOS);
+		
+		Assertions.assertThrows(IllegalArgumentException.class, () -> b.wijzigBestelling(TRANSPORTDIENST));
+		Assertions.assertThrows(IllegalArgumentException.class, () -> b.wijzigTrackAndTraceCode());
+		b.verwerkBestelling(TRANSPORTDIENST);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> b.verwerkBestelling(TRANSPORTDIENST));
 	}
 	
 	@Test
 	void wijzig_track_and_trace_code_correct() {
-		String code1 = bVerwerkt.getTrackAndTraceCode();
-		bVerwerkt.wijzigTrackAndTraceCode();
-		String code2 = bVerwerkt.getTrackAndTraceCode();
+		b.verwerkBestelling(TRANSPORTDIENST);
+		String code1 = b.getTrackAndTraceCode();
+		b.wijzigTrackAndTraceCode();
+		String code2 = b.getTrackAndTraceCode();
 		
 		Assertions.assertNotEquals(code1, code2);
 	}
 	
 	@Test
 	void wijzig_bestelling_correct() {
-		String code1 = bVerwerkt.getTrackAndTraceCode();
-		Transportdienst TRANSPORTDIENST1 = bVerwerkt.getTransportdienst();
-		bVerwerkt.wijzigBestelling(TRANSPORTDIENST2);
-		String code2 = bVerwerkt.getTrackAndTraceCode();
+		String code1 = b.getTrackAndTraceCode();
+		Transportdienst TRANSPORTDIENST1 = b.getTransportdienst();
+		b.wijzigBestelling(TRANSPORTDIENST2);
+		String code2 = b.getTrackAndTraceCode();
 		
 		Assertions.assertNotEquals(code1, code2);
-		Assertions.assertEquals(TRANSPORTDIENST2, bVerwerkt.getTransportdienst());
+		Assertions.assertEquals(TRANSPORTDIENST2, b.getTransportdienst());
 		Assertions.assertNotEquals(TRANSPORTDIENST1, TRANSPORTDIENST2);
 	}
 	
 	@Test
 	void verwerk_bestelling_correct() {
-		Bestelling bestelling = new Bestelling(ORDERID, DATUMGEPLAATST, STATUS_GEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+		Bestelling bestelling = new Bestelling(ORDERID, DATUMGEPLAATST,  LEVERANCIER, KLANT, TRANSPORTDIENST,
 				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 				DOOS);;
 		

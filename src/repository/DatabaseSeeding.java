@@ -113,7 +113,6 @@ public class DatabaseSeeding
 			Random random = new Random();
 			for (int i = 1; i <= AANTAL_BESTELLINGEN; i++) {
 			    String orderId = "Order" + i;
-			    String status = random.nextBoolean() ? "geplaatst" : "verwerkt";
 			    Date datum = new Date();
 			    long leverancierID = random.nextLong(5) + 1;
 			    long klantID = random.nextLong(5) + 1;
@@ -121,7 +120,7 @@ public class DatabaseSeeding
 			    	klantID = random.nextLong(5) + 1;
 			    }
 			    long doosId = random.nextLong(10) + 1;
-			    domeinController.maakBestelling(orderId, status, datum, leverancierID, klantID, 1, 6, "leveradresStraat", "leveradresNummer", "leveradresPostcode", "leveradresStad", "leveradresLand", doosId);
+			    domeinController.maakBestelling(orderId, datum, leverancierID, klantID, 1, 6, "leveradresStraat", "leveradresNummer", "leveradresPostcode", "leveradresStad", "leveradresLand", doosId);
 			}
 			
 			// add BesteldProduct to bestelling
@@ -228,12 +227,11 @@ public class DatabaseSeeding
 			
 			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
 			
-			//genereren TTC voor verwerkte bestellingen van gebruiker
+			//Aantal geplaatste bestellingen verwerken 
 			List<BestellingDTO> bestellingen = dc.getBestellingen();
 			for(BestellingDTO bestelling: bestellingen) {
-				if(bestelling.getStatus().equalsIgnoreCase("verwerkt")) {
-					dc.verwerkBestelling(bestelling.getId(), 1L);	
-					dc.wijzigBestelling(bestelling.getId(), 2L);
+				if(random.nextBoolean()) {
+					dc.verwerkBestelling(bestelling.getId(), 1L);
 				}
 			}
 			System.out.println(kab);
