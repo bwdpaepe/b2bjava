@@ -134,7 +134,7 @@ class BestellingTest {
 	}
 
 	@Test
-	void geldige_acties_bestelling() {
+	void happy_flow_bestelling() {
 		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
 				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 				DOOS);
@@ -145,14 +145,14 @@ class BestellingTest {
 	}
 	
 	@Test
-	void ongeldige_acties_bestelling() {
+	void unhappy_flow_bestelling() {
 		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
 				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 				DOOS);
 		
 		Assertions.assertThrows(IllegalArgumentException.class, () -> b.wijzigBestelling(TRANSPORTDIENST));
 		Assertions.assertThrows(IllegalArgumentException.class, () -> b.wijzigTrackAndTraceCode());
-		b.verwerkBestelling(TRANSPORTDIENST);
+		b.verwerkBestelling(TRANSPORTDIENST); //Bestelling met status verwerkt
 		Assertions.assertThrows(IllegalArgumentException.class, () -> b.verwerkBestelling(TRANSPORTDIENST));
 	}
 	
