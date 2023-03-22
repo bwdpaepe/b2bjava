@@ -59,7 +59,6 @@ public class Doos implements Serializable {
 	
 	public void wijzigDoos(String naam, String doosTypeString, double prijs, boolean isActief) {
 		setNaam(naam);
-
 		setDoosType(doosTypeString);
 		setPrijs(prijs);
 		setActief(isActief);
@@ -82,6 +81,7 @@ public class Doos implements Serializable {
 	}
 
 	public void setNaam(String naam) {
+
 		ValidationService.controleerNietBlanco(naam);
 		this.naam = naam;
 	}
@@ -91,6 +91,7 @@ public class Doos implements Serializable {
 	}
 
 	public void setDoosType(String doosTypeString) {
+		ValidationService.controleerNietBlanco(doosTypeString);
 		this.doosType = switch (doosTypeString.toLowerCase()) {
 		case "standaard" -> DoosType.STANDAARD;
 		case "custom" -> DoosType.CUSTOM;

@@ -15,7 +15,7 @@ public class ValidationService {
 		if (waarde == null) {
 			throw new IllegalArgumentException("Veld is verplicht");
 		}
-		if (waarde instanceof String && ((String) waarde).isBlank()) {
+		if (waarde instanceof String && ((String) waarde).isBlank() && ((String)waarde).isEmpty()) {
 			throw new IllegalArgumentException("Veld is verplicht");
 		}
 	}
@@ -78,5 +78,7 @@ public class ValidationService {
 			}
 		}
 	}
+	
+
 
 }
