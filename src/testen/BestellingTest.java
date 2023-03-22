@@ -2,6 +2,8 @@ package testen;
 
 import java.util.Date;
 
+import javax.naming.SizeLimitExceededException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -147,7 +149,12 @@ class BestellingTest {
 		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
 				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 				DOOS);
-		b.verwerkBestelling(TRANSPORTDIENST); //Bestelling met status verwerkt
+		try {
+			b.verwerkBestelling(TRANSPORTDIENST);
+		} catch (SizeLimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //Bestelling met status verwerkt
 		Assertions.assertThrows(IllegalArgumentException.class, () -> b.verwerkBestelling(TRANSPORTDIENST));
 	}
 	
@@ -190,9 +197,19 @@ class BestellingTest {
 	
 	@Test
 	void wijzig_track_and_trace_code_correct() {
-		b.verwerkBestelling(TRANSPORTDIENST);
+		try {
+			b.verwerkBestelling(TRANSPORTDIENST);
+		} catch (SizeLimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String code1 = b.getTrackAndTraceCode();
-		b.wijzigTrackAndTraceCode();
+		try {
+			b.wijzigTrackAndTraceCode();
+		} catch (SizeLimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String code2 = b.getTrackAndTraceCode();
 		
 		Assertions.assertNotEquals(code1, code2);
@@ -202,7 +219,12 @@ class BestellingTest {
 	void wijzig_bestelling_correct() {
 		String code1 = b.getTrackAndTraceCode();
 		Transportdienst TRANSPORTDIENST1 = b.getTransportdienst();
-		b.wijzigBestelling(TRANSPORTDIENST2);
+		try {
+			b.wijzigBestelling(TRANSPORTDIENST2);
+		} catch (SizeLimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String code2 = b.getTrackAndTraceCode();
 		
 		Assertions.assertNotEquals(code1, code2);
@@ -216,7 +238,12 @@ class BestellingTest {
 				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 				DOOS);;
 		
-		bestelling.verwerkBestelling(TRANSPORTDIENST);
+		try {
+			bestelling.verwerkBestelling(TRANSPORTDIENST);
+		} catch (SizeLimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Assertions.assertEquals(TRANSPORTDIENST, bestelling.getTransportdienst());
 		Assertions.assertEquals("verwerkt", bestelling.getStatus());

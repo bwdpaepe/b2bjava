@@ -39,5 +39,6 @@ module B2B_Portal_Delaware {
 	requires org.junit.jupiter.params;
 	requires java.desktop;
 	requires org.apache.commons.lang3;
+	requires java.naming;
 
 }

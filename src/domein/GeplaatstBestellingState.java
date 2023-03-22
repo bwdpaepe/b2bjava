@@ -2,7 +2,11 @@ package domein;
 
 import java.util.Date;
 
+import javax.naming.SizeLimitExceededException;
+
 import org.apache.commons.lang3.RandomStringUtils;
+
+import util.Tools;
 
 public class GeplaatstBestellingState extends BestellingState {
 
@@ -11,29 +15,22 @@ public class GeplaatstBestellingState extends BestellingState {
 	}
 
 	@Override
-	public void verwerkBestelling(Transportdienst transportdienst) {
+	public void verwerkBestelling(Transportdienst transportdienst) throws SizeLimitExceededException {
 
 		bestelling.setStatus("verwerkt");
 		// transportdienst
 		bestelling.setTransportdienst(transportdienst);
 		TrackTraceFormat ttf = bestelling.getTransportdienst().getTrackTraceFormat();
-		String trackAndTraceCode = bestelling.getTrackAndTraceCode();
-		String generatedString;
-		String generatedCode;
 		// gebruik het ID van de bestelling om de code uniek te maken
-		// String id = String.valueOf(bestelling.getId());
-		// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3/3.12.0
+		String bestellingID = String.valueOf(bestelling.getId());
+				
+		String trackAndTraceCode = bestelling.getTrackAndTraceCode();
+		String generatedCode;
 		do {
-			if (ttf.isBarcodeEnkelCijfers()) {
-				generatedString = RandomStringUtils
-						.randomNumeric(ttf.getBarcodeLengte() - ttf.getBarcodePrefix().length());
-			} else {
-				generatedString = RandomStringUtils
-						.randomAlphanumeric(ttf.getBarcodeLengte() - ttf.getBarcodePrefix().length());
-			}
-			StringBuilder code = new StringBuilder().append(ttf.getBarcodePrefix()).append(generatedString);
-			generatedCode = new String(code);
+			generatedCode = Tools.generateTrackAndTraceCode(ttf, bestellingID);	
+				
 		} while (generatedCode.equals(trackAndTraceCode));
+		
 		bestelling.setTrackAndTraceCode(generatedCode);
 
 		Notificatie notificatie = new Notificatie(new Date(), false, bestelling.getAankoper(), bestelling);
