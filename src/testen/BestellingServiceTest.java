@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import domein.Bedrijf;
+import domein.BesteldProduct;
 import domein.Bestelling;
 import domein.Contactpersoon;
 import domein.Doos;
@@ -53,11 +54,11 @@ class BestellingServiceTest {
 	@InjectMocks
 	private BestellingService bestellingService;
 
-	private Bestelling bestelling;
+	private Bestelling bestellingGeplaatst;
 
 	private static final String ORDER_ID = "1";
 	private static final long BESTELLING_ID = 1;
-	private static final String STATUS = "geplaatst";
+	private static final String STATUS_GEPLAATST = "geplaatst";
 	private static final Date DATE = new Date();
 	private static final long LEVERANCIER_ID = 1;
 	private static final long KLANT_ID = 2;
@@ -154,20 +155,22 @@ class BestellingServiceTest {
 
 	// Besteld product
 	private static final int AANTAL = 10;
-	// private final BesteldProduct BESTELD_PRODUCT = new BesteldProduct(PRODUCT,
-	// AANTAL, bestelling);
+	private BesteldProduct BESTELD_PRODUCT;
 
 	@BeforeEach
 	void maakBestelling() {
-		bestelling = new Bestelling(ORDER_ID, DATE, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER,
-				LEVERADRES_STRAAT, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, LEVERADRES_HUISNUMMER, DOOS);
+		bestellingGeplaatst = new Bestelling(ORDER_ID, DATE,  LEVERANCIER, KLANT, TRANSPORTDIENST,
+				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
+				LEVERADRES_HUISNUMMER, DOOS);
+		BESTELD_PRODUCT = new BesteldProduct(PRODUCT, AANTAL, bestellingGeplaatst);
+
 	}
 
-////	Test werkt nog niet te bekijken
+//////	Test werkt nog niet te bekijken
 //	@Test
 //	void maakBestellingTest() {
 //
-//		Mockito.doNothing().when(bestellingRepoMock).insert(bestelling);
+//		bestelling = spy(bestelling);
 //
 //		Mockito.doReturn(LEVERANCIER).when(bedrijfServiceMock).getBedrijfById(LEVERANCIER_ID);
 //
@@ -179,6 +182,8 @@ class BestellingServiceTest {
 //
 //		Mockito.doReturn(DOOS).when(doosSerivceMock).getDoosById(DOOS_ID);
 //
+//		Mockito.doNothing().when(bestellingRepoMock).insert(bestelling);
+//
 //		bestellingService.maakBestelling(ORDER_ID, STATUS, DATE, LEVERANCIER_ID, KLANT_ID, TRANSPORT_ID, AANKOPER_ID,
 //				LEVERADRES_STRAAT, LEVERADRES_HUISNUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 //				DOOS_ID);
@@ -189,13 +194,12 @@ class BestellingServiceTest {
 
 	@Test
 	void testGetBestellingen() {
-		bestelling = new Bestelling(ORDER_ID, DATE, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER,
-				LEVERADRES_STRAAT, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, LEVERADRES_HUISNUMMER, DOOS);
-
-		Bestelling bestelling = new Bestelling(ORDER_ID, DATE, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER,
-				LEVERADRES_STRAAT, LEVERADRES_HUISNUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS);
-		Bestelling bestelling2 = new Bestelling(ORDER_ID, DATE, STATUS, LEVERANCIER, KLANT, TRANSPORTDIENST, AANKOPER,
-				LEVERADRES_STRAAT, LEVERADRES_HUISNUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND, DOOS);
+		Bestelling bestelling = new Bestelling(ORDER_ID, DATE,  LEVERANCIER, KLANT, TRANSPORTDIENST,
+				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_HUISNUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD,
+				LEVERADRES_LAND, DOOS);
+		Bestelling bestelling2 = new Bestelling(ORDER_ID, DATE, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_HUISNUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD,
+				LEVERADRES_LAND, DOOS);
 		List<Bestelling> bestellingList = new ArrayList<>();
 		bestellingList.add(bestelling);
 		bestellingList.add(bestelling2);
@@ -210,18 +214,32 @@ class BestellingServiceTest {
 		Mockito.verify(bestellingRepoMock).getBestellingenByLeverancierID(LEVERANCIER);
 
 	}
-
+//
 //	@Test
 //	void testAddBesteldProductToBestelling() {
-//	
+//		
 //		Mockito.doReturn(bestelling).when(bestellingRepoMock).get(BESTELLING_ID);
 //		Mockito.doReturn(PRODUCT).when(productServiceMock).getProductById(PRODUCT_ID);
+//		Bestelling bestellingSpy = spy(bestelling);
+//		Mockito.doNothing().when(bestellingSpy).addBesteldProductToBestelling(besteldProductSpy);
 //		Mockito.doReturn(bestelling).when(bestellingRepoMock).update(bestelling);
-//
+//		
 //		bestellingService.addBesteldProductToBestelling(BESTELLING_ID, PRODUCT_ID, AANTAL);
 //
 //		Mockito.verify(bestellingRepoMock).update(bestelling);
 //
+//	}
+
+//	@Test
+//	void testVerwerkBestelling() {
+//		Bestelling spy = spy(bestellingGeplaatst);
+//		Mockito.doReturn(bestellingGeplaatst).when(bestellingRepoMock).get(BESTELLING_ID);
+//		Mockito.doReturn(TRANSPORTDIENST).when(dienstServiceMock).getTransportdienstByID(TRANSPORT_ID);
+//		doNothing().when(spy).verwerkBestelling(TRANSPORTDIENST);
+//		Mockito.doReturn(bestellingGeplaatst).when(bestellingRepoMock).update(bestellingVerwerkt);
+//
+//		bestellingService.wijzigTrackAndTraceCode(BESTELLING_ID);
+//		Mockito.verify(bestellingRepoMock).update(bestellingGeplaatst);
 //	}
 
 }

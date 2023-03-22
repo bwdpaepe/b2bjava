@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -57,6 +59,8 @@ public abstract class User implements Serializable
 	private String adres;
 	@ManyToOne
 	private Bedrijf bedrijf;
+	@OneToMany(mappedBy = "aankoper")
+	private List<Notificatie> notificaties;
 
 	//niet in database
 	@Transient

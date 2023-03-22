@@ -1,6 +1,7 @@
 package repository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import domein.DomeinController;
@@ -19,6 +20,7 @@ public class DatabaseSeeding
 
 		try
 		{
+
 			// bedrijven
 			domeinController.maakBedrijf("Bedrijf A", "Straat A", "A1", "1234A", "stad A", "land A", "0123456789",
 					"1.jpg");
@@ -113,7 +115,6 @@ public class DatabaseSeeding
 			Random random = new Random();
 			for (int i = 1; i <= AANTAL_BESTELLINGEN; i++) {
 			    String orderId = "Order" + i;
-			    String status = random.nextBoolean() ? "geplaatst" : "verwerkt";
 			    Date datum = new Date();
 			    long leverancierID = random.nextLong(5) + 1;
 			    long klantID = random.nextLong(5) + 1;
@@ -121,7 +122,7 @@ public class DatabaseSeeding
 			    	klantID = random.nextLong(5) + 1;
 			    }
 			    long doosId = random.nextLong(10) + 1;
-			    domeinController.maakBestelling(orderId, status, datum, leverancierID, klantID, 1, 6, "leveradresStraat", "leveradresNummer", "leveradresPostcode", "leveradresStad", "leveradresLand", doosId);
+			    domeinController.maakBestelling(orderId, datum, leverancierID, klantID, 1, 6, "leveradresStraat", "leveradresNummer", "leveradresPostcode", "leveradresStad", "leveradresLand", doosId);
 			}
 			
 			// add BesteldProduct to bestelling
@@ -223,16 +224,25 @@ public class DatabaseSeeding
 
 			System.out.println("Database Seeded");
 			
-//			dc.aanmelden("emailail1@test.com", "paswoord");
-//			System.out.println("user 1 aangemeld");
-//			
-//			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
-//			System.out.println(kab);
+			dc.aanmelden("emailail1@test.com", "paswoord");
+			System.out.println("user 1 aangemeld");
+			
+			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
+			
+			//Aantal geplaatste bestellingen verwerken 
+			List<BestellingDTO> bestellingen = dc.getBestellingen();
+			for(BestellingDTO bestelling: bestellingen) {
+				if(random.nextBoolean()) {
+					dc.verwerkBestelling(bestelling.getId(), 1L);
+				}
+			}
+			System.out.println(kab);
 
 
 		} catch (IllegalArgumentException ex)
 		{
 			System.out.println("Operatie mislukt " + ex.getMessage());
 		}
+
 	}
 }
