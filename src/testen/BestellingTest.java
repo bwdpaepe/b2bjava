@@ -37,7 +37,6 @@ class BestellingTest {
 	private static final String ORDERID = "ORDER_111";
 	private static final Date DATUMGEPLAATST = new Date(2022, 10, 10);
 	private static final String STATUS_GEPLAATST = "geplaatst";
-	private static final String STATUS_VERWERKT = "verwerkt";
 	private static final Bedrijf LEVERANCIER = new Bedrijf("Testleverancier", "teststraat", "15", "2221",
 			"testgemeente", "testland", "32135135", "teststring");
 	private static final Bedrijf KLANT = new Bedrijf("Testklant", "teststraat", "15", "2221", "testgemeente",
@@ -89,7 +88,8 @@ class BestellingTest {
 		Assertions.assertEquals(LEVERADRES_POSTCODE, b.getLeveradresPostcode());
 		Assertions.assertEquals(LEVERADRES_STAD, b.getLeveradresStad());
 		Assertions.assertEquals(LEVERADRES_LAND, b.getLeveradresLand());
-		Assertions.assertEquals(b.getTrackAndTraceCode(), null);
+		Assertions.assertNull(b.getTrackAndTraceCode());
+		Assertions.assertNull(b.getNotificatie());
 
 	}
 
@@ -134,26 +134,58 @@ class BestellingTest {
 	}
 
 	@Test
-	void happy_flow_bestelling() {
+	void happy_flow_bestelling_verwerken() {
 		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
 				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 				DOOS);
 		Assertions.assertDoesNotThrow(()-> b.verwerkBestelling(TRANSPORTDIENST));
-		Assertions.assertDoesNotThrow(()-> b.wijzigBestelling(TRANSPORTDIENST));
+		
+	}
+	
+	@Test
+	void unhappy_flow_bestelling_verwerken() {
+		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
+				DOOS);
+		b.verwerkBestelling(TRANSPORTDIENST); //Bestelling met status verwerkt
+		Assertions.assertThrows(IllegalArgumentException.class, () -> b.verwerkBestelling(TRANSPORTDIENST));
+	}
+	
+	@Test
+	void happy_flow_bestelling_wijzigen() {
+		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
+				DOOS);
+		Assertions.assertDoesNotThrow(()-> b.verwerkBestelling(TRANSPORTDIENST));
+		Assertions.assertDoesNotThrow(()-> b.wijzigBestelling(TRANSPORTDIENST2));
+		
+	}
+	
+	@Test
+	void unhappy_flow_bestelling_wijzigen() {
+		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
+				DOOS);		
+		Assertions.assertThrows(IllegalArgumentException.class, () -> b.wijzigBestelling(TRANSPORTDIENST));
+	}
+	
+	@Test
+	void happy_flow_bestelling_wijzigen_TTC() {
+		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
+				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
+				DOOS);
+		Assertions.assertDoesNotThrow(()-> b.verwerkBestelling(TRANSPORTDIENST));
 		Assertions.assertDoesNotThrow(()-> b.wijzigTrackAndTraceCode());
 		
 	}
 	
 	@Test
-	void unhappy_flow_bestelling() {
+	void unhappy_flow_bestelling_wijzigen_TTC() {
 		Bestelling b = new Bestelling(ORDERID, DATUMGEPLAATST, LEVERANCIER, KLANT, TRANSPORTDIENST,
 				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_NUMMER, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 				DOOS);
-		
-		Assertions.assertThrows(IllegalArgumentException.class, () -> b.wijzigBestelling(TRANSPORTDIENST));
+
 		Assertions.assertThrows(IllegalArgumentException.class, () -> b.wijzigTrackAndTraceCode());
-		b.verwerkBestelling(TRANSPORTDIENST); //Bestelling met status verwerkt
-		Assertions.assertThrows(IllegalArgumentException.class, () -> b.verwerkBestelling(TRANSPORTDIENST));
 	}
 	
 	@Test

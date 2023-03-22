@@ -1,8 +1,5 @@
 package testen;
 
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.spy;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,12 +55,10 @@ class BestellingServiceTest {
 	private BestellingService bestellingService;
 
 	private Bestelling bestellingGeplaatst;
-	private Bestelling bestellingVerwerkt;
 
 	private static final String ORDER_ID = "1";
 	private static final long BESTELLING_ID = 1;
 	private static final String STATUS_GEPLAATST = "geplaatst";
-	private static final String STATUS_VERWERKT = "geplaatst";
 	private static final Date DATE = new Date();
 	private static final long LEVERANCIER_ID = 1;
 	private static final long KLANT_ID = 2;
@@ -165,9 +160,6 @@ class BestellingServiceTest {
 	@BeforeEach
 	void maakBestelling() {
 		bestellingGeplaatst = new Bestelling(ORDER_ID, DATE,  LEVERANCIER, KLANT, TRANSPORTDIENST,
-				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
-				LEVERADRES_HUISNUMMER, DOOS);
-		bestellingVerwerkt = new Bestelling(ORDER_ID, DATE, LEVERANCIER, KLANT, TRANSPORTDIENST,
 				AANKOPER, LEVERADRES_STRAAT, LEVERADRES_POSTCODE, LEVERADRES_STAD, LEVERADRES_LAND,
 				LEVERADRES_HUISNUMMER, DOOS);
 		BESTELD_PRODUCT = new BesteldProduct(PRODUCT, AANTAL, bestellingGeplaatst);
