@@ -34,25 +34,7 @@
                            </ImageView>
                         </graphic>
                      </Button>
-                     <Button id="transportdienstButton" mnemonicParsing="false" onMouseClicked="#loadTransportdienst" styleClass="menuButton" translateX="320.0">
-                        <graphic>
-                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@../gui_images/truck.png" />
-                              </image>
-                           </ImageView>
-                        </graphic>
-                     </Button>
-                     <Button id="doosButton" mnemonicParsing="false" onMouseClicked="#loadDoos" styleClass="menuButton" translateX="440.0">
-                        <graphic>
-                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@../gui_images/box.png" />
-                              </image>
-                           </ImageView>
-                        </graphic>
-                     </Button>
-                     <Button id="klantenButton" mnemonicParsing="false" onMouseClicked="#loadKlanten" styleClass="menuButton" translateX="560.0">
+                     <Button id="klantenButton" mnemonicParsing="false" onMouseClicked="#loadKlanten" styleClass="menuButton" translateX="320.0">
                         <graphic>
                            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -64,7 +46,25 @@
                            </ImageView>
                         </graphic>
                      </Button>
-                     <Button id="medewerkerButton" mnemonicParsing="false" onMouseClicked="#loadMedewerker" styleClass="menuButton" translateX="680.0">
+                     <Button fx:id="doosButton" id="doosButton" mnemonicParsing="false" onMouseClicked="#loadDoos" styleClass="menuButton" translateX="440.0">
+                        <graphic>
+                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../gui_images/box.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="transportdienstButton" id="transportdienstButton" mnemonicParsing="false" onMouseClicked="#loadTransportdienst" styleClass="menuButton" translateX="560.0">
+                        <graphic>
+                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../gui_images/truck.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="medewerkerButton" id="medewerkerButton" mnemonicParsing="false" onMouseClicked="#loadMedewerker" styleClass="menuButton" translateX="680.0">
                         <graphic>
                            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                               <image>

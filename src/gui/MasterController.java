@@ -34,6 +34,13 @@ public class MasterController extends Pane {
 	private void showContextMenu(ActionEvent event) {
 	    profileContextMenu.show(btnProfile, Side.BOTTOM, 0, 0);
 	}
+	
+	@FXML
+	private Button medewerkerButton;
+	@FXML
+	private Button doosButton;
+	@FXML
+	private Button transportdienstButton;
         
 	public void initialize(URL location, ResourceBundle resources) {
 	    ContextMenu contextMenu = new ContextMenu();
@@ -64,6 +71,18 @@ public class MasterController extends Pane {
 	    } catch (Exception e) {
 	        // Handle any exceptions
 	        e.printStackTrace();
+	    }
+	}
+	
+	private void updateMedewerkerButtonVisibility() {
+	    if (dc.getFunctionOfLoggedInUser().toLowerCase().equals("admin")) {
+	        medewerkerButton.setVisible(true);
+	        doosButton.setVisible(true);
+	        transportdienstButton.setVisible(true);
+	    } else {
+	        medewerkerButton.setVisible(false);
+	        doosButton.setVisible(false);
+	        transportdienstButton.setVisible(false);
 	    }
 	}
 	
@@ -129,5 +148,6 @@ public class MasterController extends Pane {
 	
 	public void setParams(DomeinController dc) {
 		this.dc = dc;
+		updateMedewerkerButtonVisibility();
 	}
 }
