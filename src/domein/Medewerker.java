@@ -18,7 +18,7 @@ public class Medewerker extends User
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "personeelsNr", unique = true)
+	@Column(name = "personeelsNr")
 	private int personeelsNr;
 
 	@Column(name = "Functie")
