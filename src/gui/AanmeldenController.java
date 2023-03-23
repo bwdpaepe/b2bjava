@@ -1,10 +1,6 @@
 package gui;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -21,9 +17,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import repository.DienstDTO;
-import repository.TransportdienstDTO;
-import repository.UserDTO;
 
 public class AanmeldenController extends Pane {
 
@@ -79,6 +72,7 @@ public class AanmeldenController extends Pane {
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			stage.setScene(scene);
 			stage.show();
+			mc.loadBestellingen();
 
 		} catch (IllegalArgumentException e) {
 			errorMessage.setText(e.getMessage());
@@ -101,11 +95,12 @@ public class AanmeldenController extends Pane {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Master.fxml"));
 			Parent root = loader.load();
 			MasterController mc = loader.getController();
-			mc.setParams(dc);			
+			mc.setParams(dc);		
 			scene = new Scene(root);
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			stage.setScene(scene);
 			stage.show();
+			mc.loadBestellingen();
 
 		} catch (IllegalArgumentException e) {
 			errorMessage.setText(e.getMessage());
