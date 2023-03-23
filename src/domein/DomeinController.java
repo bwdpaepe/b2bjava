@@ -62,6 +62,10 @@ public class DomeinController {
 		setIngelogdeUser(user);
 		return user;
 	}
+	
+	public void afmelden() {
+		setIngelogdeUser(null);
+	}
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres,
 			String telefoonnumer, String functie, int personeelsNr, int bedrijfsId) {
