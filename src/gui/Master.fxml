@@ -23,11 +23,11 @@
                            <Image url="@../gui_images/logo_red.jpg" />
                         </image>
                      </ImageView>
-                     <Button id="medewerkerButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#loadMedewerker" styleClass="menuButton" translateX="200.0">
+                     <Button id="bestellingButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#loadBestellingen" styleClass="menuButton" translateX="200.0">
                         <graphic>
                            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                 <Image url="@../gui_images/team.png" />
+                                 <Image url="@../gui_images/order.png" />
                               </image>
                            </ImageView>
                         </graphic>
@@ -62,15 +62,17 @@
                            </ImageView>
                         </graphic>
                      </Button>
-                     <Button id="bestellingButton" mnemonicParsing="false" onMouseClicked="#loadBestellingen" styleClass="menuButton" translateX="680.0">
+                     <Button id="medewerkerButton" mnemonicParsing="false" onMouseClicked="#loadMedewerker" styleClass="menuButton" translateX="680.0">
                         <graphic>
                            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                 <Image url="@../gui_images/order.png" />
+                                 <Image url="@../gui_images/team.png" />
                               </image>
                            </ImageView>
                         </graphic>
                      </Button>
+                                   
+                     
                      <Button id="profielButton" mnemonicParsing="false" styleClass="profileButton" StackPane.alignment="CENTER_RIGHT">
                         <graphic>
                            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
