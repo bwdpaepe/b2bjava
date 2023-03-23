@@ -1,6 +1,5 @@
 package repository;
 
-import domein.Bedrijf;
 import domein.User;
 
 // Data Transfer Object PATTERN (DTO PATTERN)
@@ -14,6 +13,7 @@ public abstract class UserDTO
 	protected final String telefoonnummer;
 	protected final String adres;
 	protected final BedrijfDTO bedrijf;
+	protected final Boolean isActief;
 
 	public UserDTO(User user)
 	{
@@ -24,6 +24,7 @@ public abstract class UserDTO
 		this.telefoonnummer = user.getTelefoonnummer();
 		this.adres = user.getAdres();
 		this.bedrijf = new BedrijfDTO(user.getBedrijf());
+		this.isActief = user.getIsActief();
 	}
 	
 	public long getID() {
@@ -58,14 +59,18 @@ public abstract class UserDTO
 	public BedrijfDTO getBedrijf() {
 		return bedrijf;
 	}
-
-	@Override
-	public String toString() {
-		return "UserDTO [voornaam=" + voornaam + ", familienaam=" + familienaam + ", email=" + email
-				+ ", telefoonnummer=" + telefoonnummer + ", adres=" + adres + "]";
+	
+	public Boolean getIsActief()
+	{
+		return isActief;
 	}
 
-	
-
+	@Override
+	public String toString()
+	{
+		return "UserDTO [id=" + id + ", voornaam=" + voornaam + ", familienaam=" + familienaam + ", email=" + email
+				+ ", telefoonnummer=" + telefoonnummer + ", adres=" + adres + ", bedrijf=" + bedrijf + ", isActief="
+				+ isActief + "]";
+	}
 
 }
