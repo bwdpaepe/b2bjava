@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.naming.SizeLimitExceededException;
+
 import domein.DomeinController;
 
 public class DatabaseSeeding
@@ -11,6 +13,7 @@ public class DatabaseSeeding
 	private static final int AANTAL_BEDRIJVEN = 5;
 	private static final int AANTAL_BESTELLINGEN = 100;
 	private static final int  AANTAL_PRODUCTEN_PER_LEVERANCIER = 20;
+	final private static int TRACKTRACECODELENGTE = 30;
 	
 	public static final void startDatabaseSeed(DomeinController dc)
 	{
@@ -93,23 +96,23 @@ public class DatabaseSeeding
 			
 			
 			// transportdienst
-			domeinController.maakTransportdienst("Post FR", 4, true, "1", "POSTCODE", "jos", "josinson", "0478559871",
+			domeinController.maakTransportdienst("Post FR", TRACKTRACECODELENGTE, true, "1", "POSTCODE", "jos", "josinson", "0478559871",
 					"email@test.fr", 1);
-			domeinController.maakTransportdienst("Post BE", 4, true, "2", "ORDERID", "jos", "josinson", "0478559872",
+			domeinController.maakTransportdienst("Post BE", TRACKTRACECODELENGTE, true, "2", "ORDERID", "jos", "josinson", "0478559872",
 					"email@test.be", 1);
-			domeinController.maakTransportdienst("Post DE", 4, true, "3", "POSTCODE", "jos", "josinson", "0478559873",
+			domeinController.maakTransportdienst("Post DE", TRACKTRACECODELENGTE, true, "3", "POSTCODE", "jos", "josinson", "0478559873",
 					"email@test.de", 1);
-			domeinController.maakTransportdienst("Post NL", 4, true, "4", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("Post NL", TRACKTRACECODELENGTE, true, "4", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.nl", 1);
-			domeinController.maakTransportdienst("DHL", 2, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("DHL", TRACKTRACECODELENGTE, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.hk", 3);
-			domeinController.maakTransportdienst("GLS", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("GLS", TRACKTRACECODELENGTE, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.uk", 2);
-			domeinController.maakTransportdienst("Post MM", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("Post MM", TRACKTRACECODELENGTE, true, "2", "POSTCODE", "jos", "josinson", "0478559874",
 					"email2@test.fr", 2);
-			domeinController.maakTransportdienst("BHV", 2, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("BHV", TRACKTRACECODELENGTE, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
 					"email2@test.hk", 1);
-			domeinController.maakTransportdienst("ZOEF", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("ZOEF", TRACKTRACECODELENGTE, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
 					"email2@test.uk", 3);
 			
 			// contactpersonen transportdienst
@@ -241,7 +244,12 @@ public class DatabaseSeeding
 			List<BestellingDTO> bestellingen = dc.getBestellingen();
 			for(BestellingDTO bestelling: bestellingen) {
 				if(random.nextBoolean()) {
-					dc.verwerkBestelling(bestelling.getId(), 1L);
+					try {
+						dc.verwerkBestelling(bestelling.getId(), 1L);
+					} catch (SizeLimitExceededException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 			System.out.println(kab);

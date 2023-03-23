@@ -3,6 +3,8 @@ package service;
 import java.util.Date;
 import java.util.List;
 
+import javax.naming.SizeLimitExceededException;
+
 import domein.Bedrijf;
 import domein.BesteldProduct;
 import domein.Bestelling;
@@ -84,7 +86,7 @@ public class BestellingService {
 		}
 	}
 
-	public void wijzigBestelling(long bestellingId, long transportdienstId) {
+	public void wijzigBestelling(long bestellingId, long transportdienstId) throws SizeLimitExceededException {
 		try {
 			GenericDaoJpa.startTransaction();
 			Bestelling bestelling = bestellingRepo.get(bestellingId);
@@ -92,13 +94,17 @@ public class BestellingService {
 			bestelling.wijzigBestelling(transportdienst);
 			bestellingRepo.update(bestelling);
 			GenericDaoJpa.commitTransaction();
-		} catch (Exception e) {
+		} catch (SizeLimitExceededException e) {
+			throw new SizeLimitExceededException(e.getMessage());
+		}
+		
+		   catch (Exception e) {
 			GenericDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException(e.getMessage());
 		}
 	}
 	
-	public void verwerkBestelling(long bestellingId, long transportdienstId) {
+	public void verwerkBestelling(long bestellingId, long transportdienstId) throws SizeLimitExceededException {
 		try {
 			GenericDaoJpa.startTransaction();
 			Bestelling bestelling = bestellingRepo.get(bestellingId);
@@ -106,7 +112,11 @@ public class BestellingService {
 			bestelling.verwerkBestelling(transportdienst);
 			bestellingRepo.update(bestelling);
 			GenericDaoJpa.commitTransaction();
-		} catch (Exception e) {
+		} catch (SizeLimitExceededException e) {
+			throw new SizeLimitExceededException(e.getMessage());
+		}
+		
+		   catch (Exception e) {
 			GenericDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException(e.getMessage());
 		}

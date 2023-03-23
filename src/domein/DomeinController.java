@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.naming.SizeLimitExceededException;
+
 import repository.BestellingDTO;
 import repository.DatabaseSeeding;
 import repository.DoosDTO;
@@ -183,11 +185,11 @@ public class DomeinController {
 		bestellingService.addBesteldProductToBestelling(bestellingId, longProductId, aantal);
 	}
 
-	public void wijzigBestelling(long bestellingId, long transportdienstId) {
+	public void wijzigBestelling(long bestellingId, long transportdienstId) throws SizeLimitExceededException {
 		bestellingService.wijzigBestelling(bestellingId, transportdienstId);
 	}
 
-	public void verwerkBestelling(long bestellingId, long transportdienstId) {
+	public void verwerkBestelling(long bestellingId, long transportdienstId) throws SizeLimitExceededException {
 		bestellingService.verwerkBestelling(bestellingId, transportdienstId);
 	}
 

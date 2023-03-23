@@ -16,7 +16,7 @@ public class StartUpCUI {
 		// NON-seed related operations
 		// --------------------------------------------------------------------------------------------------------------
 
-		domeinController.wijzigdoos(1, "nieuwe doos", 50f, 75f, 80f, "standaard", 300, true);
+		/*domeinController.wijzigdoos(1, "nieuwe doos", 50f, 75f, 80f, "standaard", 300, true);
 		domeinController.wijzigdoos(1, "nieuwe doos", 50f, 75f, 80f, "standaard", 300, false);
 
 		try {
@@ -35,6 +35,6 @@ public class StartUpCUI {
 		} catch (Exception e) {
 			System.out.println(e.getMessage()+ e.toString());		}
 
-		domeinController.close();
+		domeinController.close();*/
 	}
 }
