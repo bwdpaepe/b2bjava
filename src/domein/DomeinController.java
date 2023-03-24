@@ -18,6 +18,7 @@ import repository.DoosDTO;
 import repository.GenericDaoJpa;
 import repository.KlantAankopersBestellingenDTO;
 import repository.KlantLijstEntryDTO;
+import repository.MedewerkerDTO;
 import repository.TransportdienstDTO;
 import repository.UserDTO;
 import service.BedrijfService;
@@ -69,6 +70,21 @@ public class DomeinController {
 		UserDTO user = userService.aanmelden(emailAdress, password);
 		setIngelogdeUser(user);
 		return user;
+	}
+	
+	public String getFunctionOfLoggedInUser()
+	{
+		if(this.ingelogdeUser instanceof MedewerkerDTO) {
+			MedewerkerDTO medewerker = (MedewerkerDTO) ingelogdeUser;
+			System.out.println(medewerker.getFunctie());
+			return medewerker.getFunctie();
+		}
+		System.out.println("return null");
+		return null;
+	}
+	
+	public void afmelden() {
+		setIngelogdeUser(null);
 	}
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres,
