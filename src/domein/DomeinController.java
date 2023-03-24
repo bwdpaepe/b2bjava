@@ -12,6 +12,7 @@ import repository.GenericDaoJpa;
 import repository.KlantAankopersBestellingenDTO;
 import repository.KlantLijstEntryDTO;
 import repository.MedewerkerDTO;
+import repository.MedewerkerListEntryDTO;
 import repository.TransportdienstDTO;
 import repository.UserDTO;
 import service.BedrijfService;
@@ -68,7 +69,7 @@ public class DomeinController {
 	{
 		if(this.ingelogdeUser instanceof MedewerkerDTO) {
 			MedewerkerDTO medewerker = (MedewerkerDTO) ingelogdeUser;
-			System.out.println(medewerker.getFunctie());
+			//System.out.println(medewerker.getFunctie());
 			return medewerker.getFunctie();
 		}
 		System.out.println("return null");
@@ -88,6 +89,14 @@ public class DomeinController {
 
 	public void updateMedewerker(int id, String rol) {
 		userService.updateMedewerker(id, rol);
+	}
+	
+	public List<MedewerkerListEntryDTO> findAllMedewerkersByBedrijfId() {
+		return userService.findAllMedewerkersByBedrijfId(ingelogdeUser.getBedrijf().getId());
+	}
+	
+	public MedewerkerDTO findMedewerkerById(long medewerkerId) {
+		return new MedewerkerDTO(userService.getMedewerkerById(medewerkerId));
 	}
 
 	// TRANSPORTDIENST OPERATIONS

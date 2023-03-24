@@ -1,11 +1,14 @@
 package service;
 
+import java.util.List;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 import domein.Bedrijf;
 import domein.Medewerker;
 import domein.User;
 import repository.MedewerkerDTO;
+import repository.MedewerkerListEntryDTO;
 import repository.UserDTO;
 import repository.UserDao;
 import repository.UserDaoJpa;
@@ -84,5 +87,13 @@ public class UserService
 			return (Medewerker) user;
 		}
 		throw new IllegalArgumentException("Ongeldige id of usertype");
+	}
+	
+	public List<MedewerkerListEntryDTO> findAllMedewerkersByBedrijfId(long bedrijfId) {
+		try {
+			return userRepo.findAllMedewerkersByBedrijfId(bedrijfId);
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e.getMessage());
+		}
 	}
 }

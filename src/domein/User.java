@@ -32,7 +32,8 @@ import service.ValidationService;
 	{ 
 		@NamedQuery(name = "User.findByEmailAdress", query = "select u from User u where u.emailAdress = :emailAdress"),
 		@NamedQuery(name = "User.findAankopersByBedrijfId", query = "select m from Medewerker m where m.bedrijf.id = :klantId and m.functieString = 'aankoper'"),
-		@NamedQuery(name = "User.findMaxPersoneelsNrByBedrijfId", query = "SELECT MAX(m.personeelsNr) FROM Medewerker m WHERE m.bedrijf.id = :bedrijfId")
+		@NamedQuery(name = "User.findMaxPersoneelsNrByBedrijfId", query = "SELECT MAX(m.personeelsNr) FROM Medewerker m WHERE m.bedrijf.id = :bedrijfId"),
+		@NamedQuery(name = "User.findAllMedewerkersByBedrijfId", query = "select new repository.MedewerkerListEntryDTO(m) from Medewerker m where m.bedrijf.id = :bedrijfId ORDER BY m.personeelsNr"),
 	})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "soort")

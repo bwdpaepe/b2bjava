@@ -53,5 +53,17 @@ public class UserDaoJpa extends GenericDaoJpa<User> implements UserDao  {
 		}
 	
 	}
+
+	@Override
+	public List<MedewerkerListEntryDTO> findAllMedewerkersByBedrijfId(long bedrijfId)
+	{
+		try {
+			return em.createNamedQuery("User.findAllMedewerkersByBedrijfId", MedewerkerListEntryDTO.class)
+					.setParameter("bedrijfId", bedrijfId)
+					.getResultList();
+			} catch (Exception e) {
+				throw new IllegalArgumentException(e.getMessage());
+			}
+	}
     
 }
