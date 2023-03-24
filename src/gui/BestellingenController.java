@@ -138,6 +138,8 @@ public class BestellingenController extends Pane {
 	private BestellingDTO selectedBestellingDTO;
 	
 	private Alert melding = new Alert(AlertType.NONE);
+	
+	private int indexSelectedRow;
 
 	public BestellingenController() {
 		
@@ -252,6 +254,7 @@ public class BestellingenController extends Pane {
 					loadBesteldeProducten(newBestellingDTO);
 				}
 			});
+		indexSelectedRow = tvBestellingen.getSelectionModel().getSelectedIndex();
 	}
 	
 	// Event Listener on Button[#btnWijzigBestelling].onAction
@@ -286,6 +289,8 @@ public class BestellingenController extends Pane {
 		catch(EntityNotFoundException e) {
 			toonMelding(AlertType.INFORMATION, e.getMessage());
 		}
+		
+		tvBestellingen.getSelectionModel().select(indexSelectedRow);
 		
 		
 	}
@@ -353,7 +358,7 @@ public class BestellingenController extends Pane {
 			toonMelding(AlertType.INFORMATION, e.getMessage());
 		}
 		
-		
+		tvBestellingen.getSelectionModel().select(indexSelectedRow);
 	}
 	
 	// Event Listener on Tab[#bestellingVerwerkenTab].onSelectionChanged
