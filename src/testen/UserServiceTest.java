@@ -70,7 +70,7 @@ class UserServiceTest
 		
 		Mockito.doNothing().when(userRepoMock).insert(mw);
 
-		userService.maakMedewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER,PERSONEELNR,
+		userService.maakMedewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER,
 				FUNCTIE, BEDRIJF);
 
 		Mockito.verify(userRepoMock, Mockito.times(1)).insert(mw);

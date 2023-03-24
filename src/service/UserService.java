@@ -48,10 +48,11 @@ public class UserService
 	}
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres,
-			String telefoonnummer, int personeelsNr, String functie, Bedrijf bedrijf)
+			String telefoonnummer, String functie, Bedrijf bedrijf)
 	{
 		UserDaoJpa.startTransaction();
-
+		
+		int personeelsNr = userRepo.findMaxPersoneelNrFromBedrijf(bedrijf.getID()) + 1;
 		userRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, adres, telefoonnummer, personeelsNr,
 				functie, bedrijf));
 

@@ -36,5 +36,22 @@ public class UserDaoJpa extends GenericDaoJpa<User> implements UserDao  {
 			 throw new EntityNotFoundException("Geen aankopers gevonden");
 		}
 	}
+
+	@Override
+	public int findMaxPersoneelNrFromBedrijf(long bedrijfId)
+	{
+		try {
+			Integer huidigMaxPersoneelNr = em.createNamedQuery("User.findMaxPersoneelsNrByBedrijfId", Integer.class)
+					.setParameter("bedrijfId", bedrijfId)
+					.getSingleResult();
+
+			if(huidigMaxPersoneelNr == null) return 0; // 1e medewerker zal dan nr 1 krijgen
+			return huidigMaxPersoneelNr.intValue();
+			
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e.getMessage());
+		}
+	
+	}
     
 }

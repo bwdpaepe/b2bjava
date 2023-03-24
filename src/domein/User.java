@@ -29,8 +29,11 @@ import service.ValidationService;
 @Table(name = "Gebruikers", uniqueConstraints =
 	{ @UniqueConstraint(columnNames ={ "personeelsNr", "bedrijf_id" }) })
 @NamedQueries(
-	{ @NamedQuery(name = "User.findByEmailAdress", query = "select u from User u where u.emailAdress = :emailAdress"),
-			@NamedQuery(name = "User.findAankopersByBedrijfId", query = "select m from Medewerker m where m.bedrijf.id = :klantId and m.functieString = 'aankoper'") })
+	{ 
+		@NamedQuery(name = "User.findByEmailAdress", query = "select u from User u where u.emailAdress = :emailAdress"),
+		@NamedQuery(name = "User.findAankopersByBedrijfId", query = "select m from Medewerker m where m.bedrijf.id = :klantId and m.functieString = 'aankoper'"),
+		@NamedQuery(name = "User.findMaxPersoneelsNrByBedrijfId", query = "SELECT MAX(m.personeelsNr) FROM Medewerker m WHERE m.bedrijf.id = :bedrijfId")
+	})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "soort")
 public abstract class User implements Serializable
@@ -77,7 +80,7 @@ public abstract class User implements Serializable
 		setAdres(adres);
 		setTelefoonnummer(telefoonnumer);
 		setBedrijf(bedrijf);
-		setIsActief(true);
+		setIsActief(true); // by default is nieuwe medewerker actief
 	}
 
 	// lege Constructor voor JPA
