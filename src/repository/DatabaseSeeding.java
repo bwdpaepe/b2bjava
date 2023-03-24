@@ -88,11 +88,6 @@ public class DatabaseSeeding
 			    }
 			}
 			
-
-			
-
-			
-			
 			// transportdienst
 			domeinController.maakTransportdienst("Post FR", 4, true, "1", "POSTCODE", "jos", "josinson", "0478559871",
 					"email@test.fr", 1);
@@ -144,99 +139,23 @@ public class DatabaseSeeding
 			    }
 			}
 			
-			/*
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 1, 5, 3);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 1, 5, 3);
-			*/
-			
-
 			System.out.println("Database Seeded");
 			
 			dc.aanmelden("emailail1@test.com", "paswoord");
-			System.out.println("user 1 aangemeld");
+			System.out.println("user aangemeld\n");
+			
+			System.out.println("Voor update user 2:");
+			System.out.println(dc.findMedewerkerById(2L));
+			dc.updateMedewerker(2l, "test_vn", "test_an", "testemail@test.com", "test adres", "123456789", "aankoper", false);
+			System.out.println("Na update user 2:");
+			System.out.println(dc.findMedewerkerById(2L) + "\n");
 			
 			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
+			System.out.println(kab);
+			
+			List<MedewerkerListEntryDTO> mwList = dc.findAllMedewerkersByBedrijfId();
+			System.out.println(mwList);
+			//System.out.println(mwList.size());
 			
 			//Aantal geplaatste bestellingen verwerken 
 			List<BestellingDTO> bestellingen = dc.getBestellingen();
@@ -245,7 +164,7 @@ public class DatabaseSeeding
 					dc.verwerkBestelling(bestelling.getId(), 1L);
 				}
 			}
-			System.out.println(kab);
+
 
 
 		} catch (IllegalArgumentException ex)

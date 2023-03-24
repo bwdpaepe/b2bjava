@@ -29,6 +29,6 @@ public class MedewerkerDTO extends UserDTO
 	{
 		return "MedewerkerDTO [personeelsNr=" + personeelsNr + ", functie=" + functie + ", id=" + id + ", voornaam="
 				+ voornaam + ", familienaam=" + familienaam + ", email=" + email + ", telefoonnummer=" + telefoonnummer
-				+ ", adres=" + adres + ", bedrijf=" + bedrijf + ", isActief=" + isActief + "]";
+				+ ", adres=" + adres  + ", isActief=" + isActief + ", bedrijf=" + bedrijf + "]";
 	}
 }
