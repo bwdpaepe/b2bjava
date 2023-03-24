@@ -16,21 +16,23 @@ import repository.UserDaoJpa;
 public class UserService
 {
 	private UserDao userRepo;
+	private BedrijfService bedrijfService;
 
 	public UserService()
 	{
 		this.userRepo = new UserDaoJpa();
+		this.bedrijfService = new BedrijfService();
 	}
 
 	// voor mockito
-	public UserService(UserDao userRepo)
+	public UserService(UserDao userRepo, BedrijfService bedrijfService)
 	{
 		this.userRepo = userRepo;
+		this.bedrijfService = bedrijfService;
 	}
 
 	public UserDTO aanmelden(String emailAdress, String password)
 	{
-
 		try
 		{
 			User user = userRepo.getMedewerkerByEmailAdress(emailAdress);
@@ -54,25 +56,49 @@ public class UserService
 	}
 
 	public void maakMedewerker(UserDTO ingelogdeUser, String voornaam, String familienaam, String emailadres,
-			String password, String adres, String telefoonnummer, String functie, Bedrijf bedrijf)
+			String password, String adres, String telefoonnummer, String functie)
+	{
+		try {
+			// enkel admin mag medewerker aanmaken
+			checkIfUserIsAdmin(ingelogdeUser);
+
+			int personeelsNr = userRepo.findMaxPersoneelNrFromBedrijf(ingelogdeUser.getBedrijf().getId()) + 1;
+			Bedrijf bedrijf = bedrijfService.getBedrijfById(ingelogdeUser.getBedrijf().getId());
+			
+			try {
+				UserDaoJpa.startTransaction();
+				userRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, adres, telefoonnummer,
+						personeelsNr, functie, bedrijf));
+				UserDaoJpa.commitTransaction();
+			} catch (Exception e) {
+				UserDaoJpa.rollbackTransaction();
+				throw new IllegalArgumentException(e.getMessage());
+			}
+		} catch (Exception e) {
+ 			throw new IllegalArgumentException(e.getMessage());
+		}
+	}
+
+	// TODO deze methode enkel nodig in database seeder, nadien verwijderen
+	public void maakMedewerkerDatabaseSeeder(String voornaam, String familienaam, String emailadres, String password,
+			String adres, String telefoonnummer, String functie, Long bedrijfId)
 	{
 		try
 		{
-			// enkel admin mag medewerker aanmaken
-			/* TODO NOG BEKIJKEN HOE SEEDING DAN KAN
-			 * if (!getFunctionOfLoggedInUser(ingelogdeUser).toLowerCase().equals("admin"))
-			 * throw new
-			 * IllegalArgumentException("Onvoldoende rechten om medewerker aan te maken");
-			 */
+			int personeelsNr = userRepo.findMaxPersoneelNrFromBedrijf(bedrijfId) + 1;
+			Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfId);
 
-			UserDaoJpa.startTransaction();
-
-			int personeelsNr = userRepo.findMaxPersoneelNrFromBedrijf(bedrijf.getID()) + 1;
-			userRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, adres, telefoonnummer,
-					personeelsNr, functie, bedrijf));
-
-			UserDaoJpa.commitTransaction();
-
+			try
+			{
+				UserDaoJpa.startTransaction();
+				userRepo.insert(new Medewerker(voornaam, familienaam, emailadres, password, adres, telefoonnummer,
+						personeelsNr, functie, bedrijf));
+				UserDaoJpa.commitTransaction();
+			} catch (Exception e)
+			{
+				UserDaoJpa.rollbackTransaction();
+				throw new IllegalArgumentException(e.getMessage());
+			}
 		} catch (Exception e)
 		{
 			throw new IllegalArgumentException(e.getMessage());
@@ -85,44 +111,41 @@ public class UserService
 		try
 		{
 			// enkel admin mag medewerker updaten
-			if (!getFunctionOfLoggedInUser(ingelogdeUser).toLowerCase().equals("admin"))
-				throw new IllegalArgumentException("Onvoldoende rechten om medewerker te updaten");
-
+			checkIfUserIsAdmin(ingelogdeUser);
+			
 			User user = userRepo.get(id);
 
-			if (user instanceof Medewerker)
-			{
-				Medewerker mw = ((Medewerker) user); // om gemakkelijker de setters te gebruiken in lijnen hieronder
+			if (!(user instanceof Medewerker))
+				throw new IllegalArgumentException("User met id " + id + " is geen medewerker");
 
-				mw.setVoornaam(voornaam);
-				mw.setFamilienaam(familienaam);
-				mw.setEmail(emailadres);
-				mw.setAdres(adres);
-				mw.setTelefoonnummer(telefoonnummer);
-				mw.setFunctie(functie);
-				mw.setIsActief(isActief);
+			Medewerker mw = ((Medewerker) user); // om gemakkelijker de setters te gebruiken in lijnen hieronder
 
+			mw.setVoornaam(voornaam);
+			mw.setFamilienaam(familienaam);
+			mw.setEmail(emailadres);
+			mw.setAdres(adres);
+			mw.setTelefoonnummer(telefoonnummer);
+			mw.setFunctie(functie);
+			mw.setIsActief(isActief);
+			try {
 				UserDaoJpa.startTransaction();
 				userRepo.update(user);
-
 				UserDaoJpa.commitTransaction();
-			} else
-			{
-				throw new IllegalArgumentException("Fout bij updaten Medewerker met id " + id);
+			} catch (Exception e) {
+				UserDaoJpa.rollbackTransaction();
+				throw new IllegalArgumentException("Fout bij updaten Medewerker met id " + id + ": " + e.getMessage());
 			}
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new IllegalArgumentException(e.getMessage());
 		}
-
 	}
 
+ 
 	public Medewerker getMedewerkerById(long id)
 	{
 		User user = userRepo.get(id);
 
-		if (user instanceof Medewerker)
-		{
+		if (user instanceof Medewerker) {
 			return (Medewerker) user;
 		}
 		throw new IllegalArgumentException("Ongeldige id of usertype");
@@ -130,25 +153,29 @@ public class UserService
 
 	public List<MedewerkerListEntryDTO> findAllMedewerkersByBedrijfId(UserDTO ingelogdeUser)
 	{
-		try
-		{
+		try {
 			// enkel admin mag alle medewerkers opvragen
-			if (!getFunctionOfLoggedInUser(ingelogdeUser).toLowerCase().equals("admin"))
-				throw new IllegalArgumentException("Onvoldoende rechten om alle medewerkers op te vragen");
+			checkIfUserIsAdmin(ingelogdeUser);
+
 			return userRepo.findAllMedewerkersByBedrijfId(ingelogdeUser.getBedrijf().getId());
-		} catch (Exception e)
-		{
+
+		} catch (Exception e) {
 			throw new IllegalArgumentException(e.getMessage());
 		}
 	}
 
 	public String getFunctionOfLoggedInUser(UserDTO ingelogdeUser)
 	{
-		if (ingelogdeUser instanceof MedewerkerDTO)
-		{
+		if (ingelogdeUser instanceof MedewerkerDTO) {
 			MedewerkerDTO medewerker = (MedewerkerDTO) ingelogdeUser;
 			return medewerker.getFunctie();
 		}
 		return null;
+	}
+	
+	private void checkIfUserIsAdmin(UserDTO ingelogdeUser)
+	{
+		if (!getFunctionOfLoggedInUser(ingelogdeUser).toLowerCase().equals("admin"))
+			throw new IllegalArgumentException("Onvoldoende rechten voor deze bewerking");
 	}
 }

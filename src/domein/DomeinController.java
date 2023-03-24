@@ -75,15 +75,14 @@ public class DomeinController {
 	}
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres,
-			String telefoonnumer, String functie, int bedrijfsId) {
-		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
+			String telefoonnumer, String functie) {
 		userService.maakMedewerker(ingelogdeUser ,voornaam, familienaam, emailadres, password, adres, telefoonnumer, 
-				functie, bedrijf);
+				functie);
 	}
-
-	public void updateMedewerker(long id, String voornaam, String familienaam, String emailadres, String adres,
+	
+	public void updateMedewerker(long userId, String voornaam, String familienaam, String emailadres, String adres,
 			String telefoonnummer, String functie, Boolean isActief) {
-		userService.updateMedewerker(ingelogdeUser, id, voornaam, familienaam, emailadres, adres, telefoonnummer, functie, isActief);
+		userService.updateMedewerker(ingelogdeUser, userId, voornaam, familienaam, emailadres, adres, telefoonnummer, functie, isActief);
 	}
 	
 	public List<MedewerkerListEntryDTO> findAllMedewerkersByBedrijfId() {
