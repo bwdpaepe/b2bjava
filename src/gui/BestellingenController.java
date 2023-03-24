@@ -26,6 +26,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -80,6 +81,8 @@ public class BestellingenController extends Pane {
 	@FXML
 	private Label lblTrackTraceGegevens;
 	@FXML
+	private Button btnTrackAndTrace;
+	@FXML
 	private Label vLblDetailsBestelling;
 	@FXML
 	private Button btnVerwerkBestelling;
@@ -121,6 +124,8 @@ public class BestellingenController extends Pane {
 	
 	@FXML ChoiceBox<String> choiceStatus;
 	
+	@FXML TabPane bestellingenTabPane;
+	
 	@FXML 
 	private Tab bestellingRaadplegenTab;
 	
@@ -152,14 +157,11 @@ public class BestellingenController extends Pane {
 					cellData -> new SimpleStringProperty(cellData.getValue().getTransportdienstNaam()));
 			datumColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
 					DateFormat.getDateInstance().format(cellData.getValue().getDatumGeplaatst())));
-	
-			
 			
 			// Create a filtered list that wraps the original list
 		    FilteredList<BestellingDTO> filteredList = new FilteredList<>(bestellingList, p -> true);
-	
-		  //ToDo: haal status uit het domein
-			ObservableList<String> statusList = FXCollections.observableList(Arrays.asList(new String[]{"GEPLAATST", "VERWERKT", "ALLES"}));
+		  
+			ObservableList<String> statusList = FXCollections.observableList(Arrays.asList(dc.getGebruikteStatussen()));
 			choiceStatus.setItems(statusList);
 			//Adding action to the choice box
 			choiceStatus.getSelectionModel().selectedItemProperty().addListener(
@@ -288,42 +290,71 @@ public class BestellingenController extends Pane {
 		
 	}
 	
-	// Event Listener on Button[#btnVerwerkBestelling].onAction
-		@FXML
-		public void verwerkBestelling(ActionEvent event) {
-			long geselecteerdeBestellingDTOId = selectedBestellingDTO.getId();
-			System.out.println(geselecteerdeBestellingDTOId);
-			TransportdienstDTO geselecteerdeTransportdienstDTO = vCmbTransportdienst.getValue();
-			long geselecteerdeTransportdienstDTOId = geselecteerdeTransportdienstDTO.getId();
-			
-			try{
-				dc.verwerkBestelling(geselecteerdeBestellingDTOId, geselecteerdeTransportdienstDTOId);
-			}
-			catch(SizeLimitExceededException e) {
-				toonMelding(AlertType.ERROR, e.getMessage());
-			}
-			catch(IllegalArgumentException e) {
-				toonMelding(AlertType.INFORMATION, e.getMessage());
-			}
-			
-			//***toon gewijzigd BestellingDTO op het scherm***
-			BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
-			try {
-				maakVisueelDetailBestellingRaadplegen(gewijzigdeDetailBestellingDTO);
-			}
-			catch(EntityNotFoundException e) {
-				toonMelding(AlertType.INFORMATION, e.getMessage());
-			}
-			//***laadt de lijst met bestellingen***
-			try {
-				loadBestellingen();
-			}
-			catch(EntityNotFoundException e) {
-				toonMelding(AlertType.INFORMATION, e.getMessage());
-			}
-			
-			
+	// Event Listeren on Button[#btnTrackAndTrace].onAction
+	@FXML
+	public void genereerTrackAndTrace(ActionEvent event) {
+		long geselecteerdeBestellingDTOId = selectedBestellingDTO.getId();
+		try {
+			dc.wijzigTrackAndTraceCode(geselecteerdeBestellingDTOId);
 		}
+		catch(SizeLimitExceededException e) {
+			toonMelding(AlertType.ERROR, e.getMessage());
+		}
+		catch(IllegalArgumentException e) {
+			toonMelding(AlertType.INFORMATION, e.getMessage());
+		}
+		//***toon gewijzigd BestellingDTO op het scherm***
+		BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
+		try {
+			maakVisueelDetailBestellingRaadplegen(gewijzigdeDetailBestellingDTO);
+		}
+		catch(EntityNotFoundException e) {
+			toonMelding(AlertType.INFORMATION, e.getMessage());
+		}
+				
+	}
+	
+	// Event Listener on Button[#btnVerwerkBestelling].onAction
+	@FXML
+	public void verwerkBestelling(ActionEvent event) {
+		long geselecteerdeBestellingDTOId = selectedBestellingDTO.getId();
+		System.out.println(geselecteerdeBestellingDTOId);
+		TransportdienstDTO geselecteerdeTransportdienstDTO = vCmbTransportdienst.getValue();
+		long geselecteerdeTransportdienstDTOId = geselecteerdeTransportdienstDTO.getId();
+		
+		try{
+			dc.verwerkBestelling(geselecteerdeBestellingDTOId, geselecteerdeTransportdienstDTOId);
+		}
+		catch(SizeLimitExceededException e) {
+			toonMelding(AlertType.ERROR, e.getMessage());
+		}
+		catch(IllegalArgumentException e) {
+			toonMelding(AlertType.INFORMATION, e.getMessage());
+		}
+		
+		//***toon gewijzigd BestellingDTO op het scherm***
+		BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
+		try {
+			maakVisueelDetailBestellingRaadplegen(gewijzigdeDetailBestellingDTO);
+		}
+		catch(EntityNotFoundException e) {
+			toonMelding(AlertType.INFORMATION, e.getMessage());
+		}
+		//***spring naar de tab 'raadplegen'***
+		bestellingenTabPane.getSelectionModel().select(bestellingRaadplegenTab);
+		//***disable de tab 'verwerken'
+		bestellingVerwerkenTab.setDisable(true);
+		
+		//***laadt de lijst met bestellingen***
+		try {
+			loadBestellingen();
+		}
+		catch(EntityNotFoundException e) {
+			toonMelding(AlertType.INFORMATION, e.getMessage());
+		}
+		
+		
+	}
 	
 	// Event Listener on Tab[#bestellingVerwerkenTab].onSelectionChanged
 	/*@FXML
@@ -339,6 +370,12 @@ public class BestellingenController extends Pane {
 		cmbTransportdienst.setStyle("-fx-opacity: 1.0;-fx-text-fill: #000000;");
 		btnWijzigBestelling.setDisable(true);
 		btnWijzigBestelling.setStyle("-fx-opacity: 1.0;");
+		btnTrackAndTrace.setDisable(true);
+		btnTrackAndTrace.setStyle("-fx-opacity: 1.0;");
+		vCmbTransportdienst.setDisable(true);
+		vCmbTransportdienst.setStyle("-fx-opacity: 1.0;-fx-text-fill: #000000;");
+		btnVerwerkBestelling.setDisable(true);
+		btnVerwerkBestelling.setStyle("-fx-opacity: 1.0;");
 	}
 	
 	private void maakVisueelDetailBestellingRaadplegen(BestellingDTO bestellingDTO) {
@@ -387,26 +424,23 @@ public class BestellingenController extends Pane {
                 }
             }
         });
+		lblTrackTraceGegevens.setText(bestellingDTO.getTrackAndTraceCode());
+		
+		// pas de status van de knoppen aan
 		if(bestellingDTO.getStatus().toUpperCase().equals(VERWERKT)) {
 			cmbTransportdienst.setDisable(false);
 			btnWijzigBestelling.setDisable(false);
+			btnTrackAndTrace.setDisable(false);
 		}
 		else {
 			cmbTransportdienst.setDisable(true);
 			cmbTransportdienst.setStyle("-fx-opacity: 1.0;-fx-text-fill: #000000;");
 			btnWijzigBestelling.setDisable(true);
 			btnWijzigBestelling.setStyle("-fx-opacity: 1.0;");
+			btnTrackAndTrace.setDisable(true);
+			btnTrackAndTrace.setStyle("-fx-opacity: 1.0;");
 		}
-		lblTrackTraceGegevens.setText("ToDo");
-		if(bestellingDTO.getStatus().toUpperCase().equals(VERWERKT)) {
-			lblTrackTraceGegevens.setDisable(false);
-			btnWijzigBestelling.setDisable(false);
-		}
-		else {
-			lblTrackTraceGegevens.setDisable(true);
-			btnWijzigBestelling.setDisable(true);
-			btnWijzigBestelling.setStyle("-fx-opacity: 1.0;");
-		}
+		
 	}
 	
 	private void maakVisueelDetailBestellingVerwerken(BestellingDTO bestellingDTO) {
@@ -456,6 +490,9 @@ public class BestellingenController extends Pane {
             }
         });
 		vLblTrackTraceGegevens.setText("Nog niet beschikbaar");
+		// pas de status van de knoppen aan
+		vCmbTransportdienst.setDisable(false);
+		btnVerwerkBestelling.setDisable(false);
 		
 	}
 	

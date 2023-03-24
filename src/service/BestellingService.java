@@ -122,13 +122,15 @@ public class BestellingService {
 		}
 	}
 	
-	public void wijzigTrackAndTraceCode(long bestellingId) {
+	public void wijzigTrackAndTraceCode(long bestellingId) throws SizeLimitExceededException {
 		try {
 			GenericDaoJpa.startTransaction();
 			Bestelling bestelling = bestellingRepo.get(bestellingId);
 			bestelling.wijzigTrackAndTraceCode();
 			bestellingRepo.update(bestelling);
 			GenericDaoJpa.commitTransaction();
+		} catch (SizeLimitExceededException e) {
+			throw new SizeLimitExceededException(e.getMessage());
 		} catch (Exception e) {
 			GenericDaoJpa.rollbackTransaction();
 			throw new IllegalArgumentException(e.getMessage());
