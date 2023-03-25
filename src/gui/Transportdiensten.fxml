@@ -199,9 +199,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="743.0" prefHeight="104.0" prefWidth="1057.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                            <children>
-                              <Button fx:id="btnUpdateTransportdienst" mnemonicParsing="false" onAction="#updateTransportdienst" prefHeight="41.0" prefWidth="555.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Gegevens wijzigen" />
-                              <Button fx:id="btnSaveTransportdienst" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" prefHeight="41.0" prefWidth="290.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Wijzigingen opslaan" />
-                              <Button fx:id="btnAbortUpdate" mnemonicParsing="false" onAction="#abortUpdateTransportdienst" prefHeight="41.0" prefWidth="165.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Annuleren" />
+                              <Button fx:id="btnUpdateTransportdienst" mnemonicParsing="false" onAction="#updateTransportdienst" prefHeight="56.0" prefWidth="540.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Transportdienst gegevens wijzigen" />
                            </children>
                            <padding>
                               <Insets bottom="1.0" right="4.0" top="1.0" />
@@ -229,10 +227,11 @@
                            <padding>
                               <Insets bottom="1.0" top="1.0" />
                            </padding></HBox>
-                        <HBox fx:id="hBoxContactPersonen2" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="693.0" prefHeight="68.0" prefWidth="1057.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                        <HBox fx:id="hBoxContactPersonen2" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="691.0" prefHeight="68.0" prefWidth="1057.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#toevoegenContactpersoon" prefHeight="41.0" prefWidth="161.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Toevoegen" />
                               <Button mnemonicParsing="false" onAction="#verwijderenContactpersoon" prefHeight="41.0" prefWidth="165.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Verwijderen" />
+                              <Button fx:id="btnSaveTransportdienst" mnemonicParsing="false" onAction="#saveUpdateTransportdienst" prefHeight="41.0" prefWidth="165.0" style="-fx-background-radius: 15;" styleClass="loginButtons" text="Opslaan" />
                            </children>
                            <padding>
                               <Insets bottom="1.0" right="4.0" top="1.0" />
