@@ -22,6 +22,14 @@
     -fx-border-color: #000000; 
 }
 
+.middleComponent {
+	-fx-translate-x: 210.0px;
+    -fx-translate-y: 12.0px;
+    -fx-pref-width: 1500.0px;
+    -fx-pref-height: 892.0px;
+
+}
+
 #bpKlantDetails {
 	-fx-translate-y: 2.0px;
 	-fx-translate-x: 2.0px;
@@ -105,6 +113,12 @@
     -fx-pref-width: 366.0px; 
 }
 
+.tvDozen {
+
+    -fx-pref-width: 1502.0px;
+    -fx-pref-height: 894.0px;
+}
+
 /** Class selector voor de volledige table-view  */
 .table-view {
 	-fx-table-cell-border-color: transparent;
@@ -114,7 +128,7 @@
    -fx-mark-color: white ;
 }
 
-.table-view  .column-header {
+.table-view  .column-header, .table-view .column-header .filler, .table-view .column-header-background .filler {
     -fx-background-color: #EC4842;
     -fx-color: #FFFFFF;
     -fx-pref-height: 62.0px;
@@ -125,7 +139,7 @@
     -fx-alignment: bottom-left ;
     -fx-font: 12.0pt 'Inter', sans-serif;
     -fx-font-weight: bolder;
-    -fx-padding: 1.0px 4.0px; 
+    -fx-padding: 1.0px 4.0px;   
 } 
 
 .table-view .table-cell {
