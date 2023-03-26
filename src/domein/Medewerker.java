@@ -18,8 +18,8 @@ public class Medewerker extends User
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "personeelsNr", unique = true)
-	private int personeelsNr;
+	@Column(name = "personeelsNr")
+	private final int personeelsNr;
 
 	@Column(name = "Functie")
 	private String functieString;
@@ -32,13 +32,15 @@ public class Medewerker extends User
 	{
 		super(voornaam, familienaam, email, password, telefoonnummer, adres, bedrijf);
 		setFunctie(functie);
-		setPersoneelsNr(personeelsNr);
+		ValidationService.controleerGroterDanNul(personeelsNr); 
+		this.personeelsNr = personeelsNr;  // mag niet meer veranderen na creatie
 	}
 
 	// Lege constructor nodig voor JPA
 	public Medewerker()
 	{
 		super();
+		this.personeelsNr = -1;
 	}
 
 	public String getFunctie()
@@ -66,11 +68,4 @@ public class Medewerker extends User
 	{
 		return personeelsNr;
 	}
-
-	public final void setPersoneelsNr(int personeelsNR)
-	{
-		ValidationService.controleerGroterDanNul(personeelsNR);
-		this.personeelsNr = personeelsNR;
-	}
-
 }

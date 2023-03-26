@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -36,6 +37,7 @@
         <tabs>
           <Tab fx:id="raadpleegTab" closable="false" text="Raadpleeg">
             <content>
+
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="861.0" prefWidth="1000.0">
                      <children>
                         <VBox layoutX="-1.0" layoutY="360.0" prefHeight="468.0" prefWidth="1099.0">
@@ -188,6 +190,7 @@
                                     </VBox>
                                     <VBox prefHeight="334.0" prefWidth="805.0">
                                        <children>
+
                                           <TextField fx:id="txtNaamRaadpleegTab" editable="false" prefHeight="1000.0" prefWidth="1000.0">
                                              <font>
                                                 <Font name="SansSerif Regular" size="18.0" />

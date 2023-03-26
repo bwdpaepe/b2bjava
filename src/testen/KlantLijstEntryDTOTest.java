@@ -18,7 +18,6 @@ class KlantLijstEntryDTOTest
 	private static final String LAND = "land A";
 	private static final String TELEFOONNUMMER = "0123456789";
 	private static final String LOGO_FILENAME = "logog_bedrijf_A";
-	
 	private static final Bedrijf KLANT = new Bedrijf(NAAM, STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME);
 	private static final Long AANTAL = 9L;
 	

@@ -1,9 +1,16 @@
 package domein;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.naming.SizeLimitExceededException;
 
 import repository.BestellingDTO;
 import repository.DatabaseSeeding;
@@ -12,6 +19,7 @@ import repository.GenericDaoJpa;
 import repository.KlantAankopersBestellingenDTO;
 import repository.KlantLijstEntryDTO;
 import repository.MedewerkerDTO;
+import repository.MedewerkerListEntryDTO;
 import repository.TransportdienstDTO;
 import repository.UserDTO;
 import service.BedrijfService;
@@ -21,6 +29,7 @@ import service.DoosService;
 import service.UserService;
 
 public class DomeinController {
+	private final String ALLES = "ALLES";
 	private UserDTO ingelogdeUser;
 	private UserService userService; // service klasse om o.a aanmelden uit te werken
 	private DienstService dienstService;
@@ -66,13 +75,7 @@ public class DomeinController {
 	
 	public String getFunctionOfLoggedInUser()
 	{
-		if(this.ingelogdeUser instanceof MedewerkerDTO) {
-			MedewerkerDTO medewerker = (MedewerkerDTO) ingelogdeUser;
-			System.out.println(medewerker.getFunctie());
-			return medewerker.getFunctie();
-		}
-		System.out.println("return null");
-		return null;
+		return userService.getFunctionOfLoggedInUser(ingelogdeUser);
 	}
 	
 	public void afmelden() {
@@ -80,14 +83,22 @@ public class DomeinController {
 	}
 
 	public void maakMedewerker(String voornaam, String familienaam, String emailadres, String password, String adres,
-			String telefoonnumer, String functie, int personeelsNr, int bedrijfsId) {
-		Bedrijf bedrijf = bedrijfService.getBedrijfById(bedrijfsId);
-		userService.maakMedewerker(voornaam, familienaam, emailadres, password, adres, telefoonnumer, personeelsNr,
-				functie, bedrijf);
+			String telefoonnumer, String functie) {
+		userService.maakMedewerker(ingelogdeUser ,voornaam, familienaam, emailadres, password, adres, telefoonnumer, 
+				functie);
 	}
-
-	public void updateMedewerker(int id, String rol) {
-		userService.updateMedewerker(id, rol);
+	
+	public void updateMedewerker(long userId, String voornaam, String familienaam, String emailadres, String adres,
+			String telefoonnummer, String functie, Boolean isActief) {
+		userService.updateMedewerker(ingelogdeUser, userId, voornaam, familienaam, emailadres, adres, telefoonnummer, functie, isActief);
+	}
+	
+	public List<MedewerkerListEntryDTO> findAllMedewerkersByBedrijfId() {
+		return userService.findAllMedewerkersByBedrijfId(ingelogdeUser);
+	}
+	
+	public MedewerkerDTO findMedewerkerById(long medewerkerId) {
+		return new MedewerkerDTO(userService.getMedewerkerById(medewerkerId));
 	}
 
 	// TRANSPORTDIENST OPERATIONS
@@ -199,16 +210,24 @@ public class DomeinController {
 		bestellingService.addBesteldProductToBestelling(bestellingId, longProductId, aantal);
 	}
 
-	public void wijzigBestelling(long bestellingId, long transportdienstId) {
+	public void wijzigBestelling(long bestellingId, long transportdienstId) throws SizeLimitExceededException {
 		bestellingService.wijzigBestelling(bestellingId, transportdienstId);
 	}
 
-	public void verwerkBestelling(long bestellingId, long transportdienstId) {
+	public void verwerkBestelling(long bestellingId, long transportdienstId) throws SizeLimitExceededException {
 		bestellingService.verwerkBestelling(bestellingId, transportdienstId);
 	}
 
-	public void wijzigTrackAndTraceCode(long bestellingId) {
+	public void wijzigTrackAndTraceCode(long bestellingId) throws SizeLimitExceededException {
 		bestellingService.wijzigTrackAndTraceCode(bestellingId);
+	}
+	
+	public String[] getGebruikteStatussen() {
+		
+		List<String> statusLijst = new ArrayList<>(Stream.of(BestellingStatus.values()).map(b -> b.toString()).collect(Collectors.toList()));
+		statusLijst.add(0, ALLES);
+		return statusLijst.toArray(new String[statusLijst.size()]);
+		
 	}
 
 	// DOOS OPERATIONS

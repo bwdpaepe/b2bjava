@@ -4,19 +4,24 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.naming.SizeLimitExceededException;
+
 import domein.DomeinController;
+import service.UserService;
 
 public class DatabaseSeeding
 {
 	private static final int AANTAL_BEDRIJVEN = 5;
 	private static final int AANTAL_BESTELLINGEN = 100;
 	private static final int  AANTAL_PRODUCTEN_PER_LEVERANCIER = 20;
+	final private static int TRACKTRACECODELENGTE = 30;
 	
 	public static final void startDatabaseSeed(DomeinController dc)
 	{
 		System.out.println("Database seeding started, please wait...");
 		
 		DomeinController domeinController = dc;
+		UserService us = new UserService();
 
 		try
 		{
@@ -34,30 +39,30 @@ public class DatabaseSeeding
 					"5.jpg");
 			
 			// Medewerkers
-			domeinController.maakMedewerker("Joachim2", "Dauchot", "emailail1@test.com", "paswoord",
-					"Adres adres adres1", "047563541854", "admin", 5, 1);
-			domeinController.maakMedewerker("Dimitri_2", "Valckenier", "emailail2@test.test.com", "paswoord",
-					"Adres adres adres2", "+47565442854", "admin", 1, 1);
-			domeinController.maakMedewerker("Jorgen", "Scheerens", "emailail3@test.be", "paswoord",
-					"Adres adres adres3", "047565442854", "admin", 2, 1);
-			domeinController.maakMedewerker("Bart", "De Paepe", "emailail4.bart@test.com", "paswoord",
-					"Adres adres adres4", "047565442854", "admin", 3, 2);
-			domeinController.maakMedewerker("Ian", "Daelman", "emailail5@test.com", "paswoord", "Adres adres adres5",
-					"047565442854", "admin", 4, 3);
-			domeinController.maakMedewerker("A1.", "De Aankoper", "aankoperA1@test.com", "paswoord", "Adres adres adres5", "047565442854", "aankoper", 6, 1);
-			domeinController.maakMedewerker("B1.", "De Aankoper", "aankoperB1@test.com", "paswoord", "Adres adres adres2", "047565442852", "aankoper", 7, 2);
-			domeinController.maakMedewerker("C1.", "De Aankoper", "aankoperC1@test.com", "paswoord", "Adres adres adres3", "047565442853", "aankoper", 8, 3);
-			domeinController.maakMedewerker("D1.", "De Aankoper", "aankoperD1@test.com", "paswoord", "Adres adres adres4", "047565442854", "aankoper", 9, 4);
-			domeinController.maakMedewerker("E1.", "De Aankoper", "aankoperE1@test.com", "paswoord", "Adres adres adres5", "047565442855", "aankoper", 10, 5);
-			domeinController.maakMedewerker("M1_A.", "De Magazijnier", "mag1@test.com", "paswoord", "Adres adres adres5", "047565442854", "magazijnier", 11, 1);
-			domeinController.maakMedewerker("B2.", "De Aankoper", "aankoper2@test.com", "paswoord", "Adres adres adres2", "047565442852", "aankoper", 12, 2);
-			domeinController.maakMedewerker("C2.", "De Aankoper", "aankoper3@test.com", "paswoord", "Adres adres adres3", "047565442853", "aankoper", 13, 3);
-			domeinController.maakMedewerker("D2.", "De Aankoper", "aankoper4@test.com", "paswoord", "Adres adres adres4", "047565442854", "aankoper", 14, 4);
-			domeinController.maakMedewerker("E2.", "De Aankoper", "aankoper5@test.com", "paswoord", "Adres adres adres5", "047565442855", "aankoper", 15, 5);
-			domeinController.maakMedewerker("B3.", "De Aankoper", "aankoperB3@test.com", "paswoord", "Adres adres adres2", "047565442852", "aankoper", 16, 2);
-			domeinController.maakMedewerker("C3.", "De Aankoper", "aankoperC3@test.com", "paswoord", "Adres adres adres3", "047565442853", "aankoper", 17, 3);
-			domeinController.maakMedewerker("D3.", "De Aankoper", "aankoperD3@test.com", "paswoord", "Adres adres adres4", "047565442854", "aankoper", 18, 4);
-			domeinController.maakMedewerker("M1_B.", "De Magazijnier", "mag2@test.com", "paswoord", "Adres adres adres5", "047565442854", "magazijnier", 19, 2);
+			us.maakMedewerkerDatabaseSeeder("Joachim2", "Dauchot", "emailail1@test.com", "paswoord",
+					"Adres adres adres1", "047563541854", "admin", 1L);
+			us.maakMedewerkerDatabaseSeeder("Dimitri_2", "Valckenier", "emailail2@test.test.com", "paswoord",
+					"Adres adres adres2", "+47565442854", "admin",  1L);
+			us.maakMedewerkerDatabaseSeeder("Jorgen", "Scheerens", "emailail3@test.be", "paswoord",
+					"Adres adres adres3", "047565442854", "admin",  1L);
+			us.maakMedewerkerDatabaseSeeder("Bart", "De Paepe", "emailail4.bart@test.com", "paswoord",
+					"Adres adres adres4", "047565442854", "admin",  2L);
+			us.maakMedewerkerDatabaseSeeder("Ian", "Daelman", "emailail5@test.com", "paswoord", "Adres adres adres5",
+					"047565442854", "admin",  3L);
+			us.maakMedewerkerDatabaseSeeder("A1.", "De Aankoper", "aankoperA1@test.com", "paswoord", "Adres adres adres5", "047565442854", "aankoper",  1L);
+			us.maakMedewerkerDatabaseSeeder("B1.", "De Aankoper", "aankoperB1@test.com", "paswoord", "Adres adres adres2", "047565442852", "aankoper",  2L);
+			us.maakMedewerkerDatabaseSeeder("C1.", "De Aankoper", "aankoperC1@test.com", "paswoord", "Adres adres adres3", "047565442853", "aankoper",  3L);
+			us.maakMedewerkerDatabaseSeeder("D1.", "De Aankoper", "aankoperD1@test.com", "paswoord", "Adres adres adres4", "047565442854", "aankoper",  4L);
+			us.maakMedewerkerDatabaseSeeder("E1.", "De Aankoper", "aankoperE1@test.com", "paswoord", "Adres adres adres5", "047565442855", "aankoper",  5L);
+			us.maakMedewerkerDatabaseSeeder("M1_A.", "De Magazijnier", "mag1@test.com", "paswoord", "Adres adres adres5", "047565442854", "magazijnier",  1L);
+			us.maakMedewerkerDatabaseSeeder("B2.", "De Aankoper", "aankoper2@test.com", "paswoord", "Adres adres adres2", "047565442852", "aankoper",  2L);
+			us.maakMedewerkerDatabaseSeeder("C2.", "De Aankoper", "aankoper3@test.com", "paswoord", "Adres adres adres3", "047565442853", "aankoper",  3L);
+			us.maakMedewerkerDatabaseSeeder("D2.", "De Aankoper", "aankoper4@test.com", "paswoord", "Adres adres adres4", "047565442854", "aankoper",  4L);
+			us.maakMedewerkerDatabaseSeeder("E2.", "De Aankoper", "aankoper5@test.com", "paswoord", "Adres adres adres5", "047565442855", "aankoper",  5L);
+			us.maakMedewerkerDatabaseSeeder("B3.", "De Aankoper", "aankoperB3@test.com", "paswoord", "Adres adres adres2", "047565442852", "aankoper",  2L);
+			us.maakMedewerkerDatabaseSeeder("C3.", "De Aankoper", "aankoperC3@test.com", "paswoord", "Adres adres adres3", "047565442853", "aankoper",  3L);
+			us.maakMedewerkerDatabaseSeeder("D3.", "De Aankoper", "aankoperD3@test.com", "paswoord", "Adres adres adres4", "047565442854", "aankoper",  4L);
+			us.maakMedewerkerDatabaseSeeder("M1_B.", "De Magazijnier", "mag2@test.com", "paswoord", "Adres adres adres5", "047565442854", "magazijnier",  2L);
 			
 			//aanmelden nodig voor ingelogdeUser related operations
 			domeinController.aanmelden("emailail1@test.com", "paswoord");
@@ -88,29 +93,24 @@ public class DatabaseSeeding
 			    }
 			}
 			
-
-			
-
-			
-			
 			// transportdienst
-			domeinController.maakTransportdienst("Post FR", 4, true, "1", "POSTCODE", "jos", "josinson", "0478559871",
+			domeinController.maakTransportdienst("Post FR", TRACKTRACECODELENGTE, true, "1", "POSTCODE", "jos", "josinson", "0478559871",
 					"email@test.fr", 1);
-			domeinController.maakTransportdienst("Post BE", 4, true, "2", "ORDERID", "jos", "josinson", "0478559872",
+			domeinController.maakTransportdienst("Post BE", TRACKTRACECODELENGTE, true, "2", "ORDERID", "jos", "josinson", "0478559872",
 					"email@test.be", 1);
-			domeinController.maakTransportdienst("Post DE", 4, true, "3", "POSTCODE", "jos", "josinson", "0478559873",
+			domeinController.maakTransportdienst("Post DE", TRACKTRACECODELENGTE, true, "3", "POSTCODE", "jos", "josinson", "0478559873",
 					"email@test.de", 1);
-			domeinController.maakTransportdienst("Post NL", 4, true, "4", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("Post NL", TRACKTRACECODELENGTE, true, "4", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.nl", 1);
-			domeinController.maakTransportdienst("DHL", 2, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("DHL", TRACKTRACECODELENGTE, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.hk", 3);
-			domeinController.maakTransportdienst("GLS", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("GLS", TRACKTRACECODELENGTE, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
 					"email@test.uk", 2);
-			domeinController.maakTransportdienst("Post MM", 4, true, "2", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("Post MM", TRACKTRACECODELENGTE, true, "2", "POSTCODE", "jos", "josinson", "0478559874",
 					"email2@test.fr", 2);
-			domeinController.maakTransportdienst("BHV", 2, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("BHV", TRACKTRACECODELENGTE, true, "1", "POSTCODE", "jos", "josinson", "0478559874",
 					"email2@test.hk", 1);
-			domeinController.maakTransportdienst("ZOEF", 8, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
+			domeinController.maakTransportdienst("ZOEF", TRACKTRACECODELENGTE, true, "6", "POSTCODE", "jos", "josinson", "0478559874",
 					"email2@test.uk", 3);
 			
 			// contactpersonen transportdienst
@@ -144,108 +144,37 @@ public class DatabaseSeeding
 			    }
 			}
 			
-			/*
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			domeinController.maakBestelling("Order1", "VErweRkT", new Date(), 1, 2, 1);
-			domeinController.maakBestelling("Order2", "geplaatst", new Date(), 1, 3, 2);
-			domeinController.maakBestelling("Order3", "GEPLAATST", new Date(), 1, 2, 3);
-			domeinController.maakBestelling("Order4", "verwerkt", new Date(), 2, 3, 2);
-			domeinController.maakBestelling("Order5", "GEPLAATST", new Date(), 2, 2, 1);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 2, 5, 3);
-			domeinController.maakBestelling("Order7", "geplaatst", new Date(), 3, 4, 1);
-			domeinController.maakBestelling("Order8", "GEPLAATST", new Date(), 1, 3, 3);
-			
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 1, 5, 3);
-			domeinController.maakBestelling("Order6", "VErweRkT", new Date(), 1, 5, 3);
-			*/
-			
-
 			System.out.println("Database Seeded");
 			
 			dc.aanmelden("emailail1@test.com", "paswoord");
-			System.out.println("user 1 aangemeld");
+			System.out.println("user aangemeld\n");
+			
+			System.out.println("Voor update user 2:");
+			System.out.println(dc.findMedewerkerById(2L));
+			dc.updateMedewerker(2l, "test_vn", "test_an", "testemail@test.com", "test adres", "123456789", "aankoper", false);
+			System.out.println("Na update user 2:");
+			System.out.println(dc.findMedewerkerById(2L) + "\n");
 			
 			KlantAankopersBestellingenDTO kab = dc.geefDetailsVanKlant(2);
+			System.out.println(kab);
+			
+			List<MedewerkerListEntryDTO> mwList = dc.findAllMedewerkersByBedrijfId();
+			System.out.println(mwList);
+			//System.out.println(mwList.size());
 			
 			//Aantal geplaatste bestellingen verwerken 
 			List<BestellingDTO> bestellingen = dc.getBestellingen();
 			for(BestellingDTO bestelling: bestellingen) {
 				if(random.nextBoolean()) {
-					dc.verwerkBestelling(bestelling.getId(), 1L);
+					try {
+						dc.verwerkBestelling(bestelling.getId(), 1L);
+					} catch (SizeLimitExceededException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
-			System.out.println(kab);
+
 
 
 		} catch (IllegalArgumentException ex)
