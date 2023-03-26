@@ -234,6 +234,13 @@
     -fx-border-radius: 4.0px
 }
 
+.globalButtons{
+	-fx-font-weight: bolder;
+	-fx-font: 20.0pt 'Inter', calibri;
+	-fx-padding: 1.0px 4.0px; 
+    -fx-border-radius: 4.0px
+}
+
 #tvProductenLijst .column-header, #tvProductenLijst .column-header-background, #tvProductenLijst .table-cell {
     -fx-pref-width: 275.0px; 
 }
@@ -275,6 +282,11 @@
     -fx-background-color:#E0433E ;
     -fx-border-color:white;
     -fx-font-weight: bolder;
+}
+
+.borderTab {
+	-fx-border-color:black;
+	-fx-border-width:0.7;
 }
 
 .combo-box:disabled, .combo-box:disabled > * {
