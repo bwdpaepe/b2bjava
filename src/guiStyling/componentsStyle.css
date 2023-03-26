@@ -300,12 +300,22 @@
 
 }
 
-.formField, .formField .jfx-text-field, .combo-box .text-field{
-	-fx-background-color: #818589;
-	-fx-prompt-text-fill: white;
-	-fx-text-fill: white;
+.formField, .formField .jfx-text-field{
+
+	-fx-background-color: black;
+	-fx-prompt-text-fill: red;
+	-fx-text-fill: red;
 	-fx-font: 12.0pt 'Inter', calibri;
 	
+}
+
+.jfx-combo-box {
+	-fx-background-color:  pink;
+}
+
+.jfx-combo-box .label {
+	-fx-background-color:  white;
+	-fx-text-fill: red;
 }
 
 

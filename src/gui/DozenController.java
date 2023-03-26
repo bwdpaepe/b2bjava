@@ -3,6 +3,8 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.util.Date;
 
+import javax.swing.event.ChangeListener;
+
 import domein.DomeinController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -83,8 +85,9 @@ public class DozenController {
 	public void setParams(DomeinController dc) {
 		this.dc = dc;
 		addButton.setOnAction(event -> {
-			System.out.println(tfNaam.getText());
+			voegDoosToe();
 		});
+
 		} 
 	
 	public void loadDozen() {
@@ -104,6 +107,8 @@ public class DozenController {
 	    SortedList<DoosDTO> sortedDozenList = new SortedList<>(filteredDozenList);
 	    sortedDozenList.comparatorProperty().bind(tvDozen.comparatorProperty());
 	    
+
+	    
 	    tvDozen.setItems(sortedDozenList);
 	    
 	    editColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<DoosDTO, Boolean>, ObservableValue<Boolean>>() {
@@ -119,10 +124,44 @@ public class DozenController {
 	    		return new ButtonCell(tvDozen);
 	    	}
 		});
+	    
+		TextField[] textFields = {tfLengte,tfBreedte,tfHoogte,tfPrijs};
+		setFieldNumericalOnly(textFields);
+		
+		ObservableList<String> typeOptions = FXCollections.observableArrayList("Standaard", "Custom");
+		cbType.setItems(typeOptions);
+	    
 
 
 
 
+
+	}
+	
+	private void voegDoosToe() {
+		String naam = tfNaam.getText();
+		String type = cbType.getValue();
+		String lengte = tfLengte.getText();
+		String breedte = tfBreedte.getText();
+		String hoogte = tfHoogte.getText();
+		String prijs = tfPrijs.getText();
+		
+		dc.maakDoos(naam, prijs, 0, 0, 0, 0);
+		
+		
+	}
+	
+	private void setFieldNumericalOnly(TextField[] textFields) {
+		for (TextField textField : textFields) {
+			textField.textProperty().addListener((observable, OldValue, newValue) -> {
+
+		        if (!newValue.matches("^[+]?(([1-9]\\d*)|0)(\\.\\d*)?")) {
+		            textField.setText(newValue.replaceAll("[^\\d+\\.?\\d*$]?", ""));
+		        }
+		    
+		});
+			
+		}		
 	}
 	
 	
