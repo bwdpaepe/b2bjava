@@ -325,6 +325,12 @@
 	-fx-border-radius:10px;
 	
 }
+#editPane {
+	-fx-border-color:#EEB2B2;
+		-fx-border-width: 2.0;
+	-fx-border-radius: 15.0;
+	-fx-background-color: white;
+}
 
 
 #tvProductenLijst .column-header, #tvProductenLijst .column-header-background, #tvProductenLijst .table-cell {

@@ -18,7 +18,7 @@
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="middleComponent">
          <children>
-            <TableView fx:id="tvDozen" fixedCellSize="0.0" layoutX="2.0" layoutY="2.0" prefHeight="784.0" styleClass="tvDozen">
+            <TableView fx:id="tvDozen" editable="true" fixedCellSize="0.0" layoutX="2.0" layoutY="2.0" prefHeight="784.0" styleClass="tvDozen">
               <columns>
                 <TableColumn fx:id="naamColumn" editable="false" prefWidth="75.0" text="Naam" />
                 <TableColumn fx:id="typeColumn" editable="false" prefWidth="75.0" text="Type" />
@@ -83,6 +83,26 @@
             </GridPane>
          </children>
       </AnchorPane>
+      <Pane id="editPane" fx:id="editPane" prefHeight="500.0" prefWidth="900.0" translateX="500.0" translateY="150.0" visible="false">
+         <children>
+            <Button fx:id="confirmEdit" layoutX="345.0" layoutY="442.0" mnemonicParsing="false" styleClass="tvAddButton" text="OK" />
+            <Button fx:id="cancelEdit" layoutX="510.0" layoutY="442.0" mnemonicParsing="false" onMouseClicked="#closeEditPane" styleClass="tvAddButton" text="TERUG" />
+            <TextField fx:id="tfEditNaam" layoutX="233.0" layoutY="102.0" styleClass="formField" />
+            <TextField fx:id="tfEditLengte" layoutX="84.0" layoutY="189.0" styleClass="formField" />
+            <TextField fx:id="tfEditBreedte" layoutX="359.0" layoutY="189.0" styleClass="formField" />
+            <TextField fx:id="tfEditHoogte" layoutX="616.0" layoutY="189.0" styleClass="formField" />
+            <TextField fx:id="tfEditPrijs" layoutX="359.0" layoutY="284.0" styleClass="formField" />
+            <ComboBox fx:id="cbEditType" layoutX="520.0" layoutY="103.0" prefHeight="34.0" prefWidth="150.0" />
+            <ComboBox fx:id="cbEditIsActief" layoutX="383.0" layoutY="363.0" prefHeight="34.0" prefWidth="150.0" />
+            <Text layoutX="311.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAAM" />
+            <Text layoutX="577.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TYPE" wrappingWidth="35.232421875" />
+            <Text layoutX="162.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LENGTE" />
+            <Text layoutX="440.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BREEDTE" />
+            <Text layoutX="697.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HOOGTE" />
+            <Text layoutX="440.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRIJS" />
+            <Text layoutX="440.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IS ACTIEF" />
+         </children>
+      </Pane>
       <Pane id="errorPane" fx:id="errorPane" prefHeight="240.0" prefWidth="750.0" translateX="550.0" translateY="150.0" visible="false">
          <children>
             <Text fx:id="errorMessage" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" translateY="50.0" wrappingWidth="750.0">

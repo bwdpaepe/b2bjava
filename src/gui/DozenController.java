@@ -78,6 +78,23 @@ public class DozenController {
 	private Pane errorPane;
 	@FXML
 	private Text errorMessage;
+	@FXML 
+	private Pane editPane;
+	@FXML
+	private TextField tfEditNaam;
+	@FXML
+	private ComboBox<String> cbEditType;
+	@FXML
+	private TextField tfEditLengte;
+	@FXML
+	private TextField tfEditBreedte;
+	@FXML
+	private TextField tfEditHoogte;
+	@FXML
+	private TextField tfEditPrijs;
+	@FXML
+	private ComboBox<String> cbEditIsActief;
+	
 
 	public DozenController() {
 		// TODO Auto-generated constructor stub
@@ -125,7 +142,7 @@ public class DozenController {
 		editColumn.setCellFactory(new Callback<TableColumn<DoosDTO, Boolean>, TableCell<DoosDTO, Boolean>>() {
 			@Override
 			public TableCell<DoosDTO, Boolean> call(TableColumn<DoosDTO, Boolean> doosBooleanTableColumn) {
-				return new ButtonCell(tvDozen);
+				return new ButtonCell(tvDozen, editPane);
 			}
 		});
 
@@ -282,15 +299,47 @@ public class DozenController {
 
 		}
 	}
+	
+	public void setEditPane(String naam, String type, String lengte, String breedte, String hoogte, String prijs, String isActief) {
+		tfEditNaam.setText(naam);
+		ObservableList<String> typeOptions = FXCollections.observableArrayList("Standaard", "Custom");
+		cbEditType.setItems(typeOptions);
+		cbEditType.setValue(type);
+		tfEditLengte.setText(lengte);
+		tfEditBreedte.setText(breedte);
+		tfEditHoogte.setText(hoogte);
+		tfEditPrijs.setText(prijs);
+		ObservableList<String> isActiefOptions = FXCollections.observableArrayList("Ja", "Nee");
+		cbEditIsActief.setItems(isActiefOptions);
+		cbEditIsActief.setValue(isActief);
+		editPane.setVisible(true);
+	}
+	
+	public void closeEditPane() {
+		editPane.setVisible(false);
+	}
+	
+	public void confirmEdit() {
+		//TODO
+	}
 
 	private class ButtonCell extends TableCell<DoosDTO, Boolean> {
 		final Button button = new Button("Wijzig");
 		final StackPane paddedButton = new StackPane();
+		
+		
 
-		private ButtonCell(TableView<DoosDTO> table) {
+		private ButtonCell(TableView<DoosDTO> table, Pane editPane) {
 			paddedButton.setPadding(new Insets(3));
 			paddedButton.getChildren().add(button);
 			button.getStyleClass().add("tvButton");
+			button.setOnAction(event -> {
+				DoosDTO doos = 	this.getTableRow().getItem();
+				setEditPane(doos.getNaam(),doos.getDoosType(), Double.toString(doos.getLengte()),Double.toString(doos.getBreedte()),Double.toString(doos.getHoogte()),Double.toString(doos.getPrijs()), doos.isActief()? "Ja": "Nee");
+				
+
+				
+			});
 
 		}
 
