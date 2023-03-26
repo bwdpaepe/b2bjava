@@ -300,10 +300,10 @@
 
 }
 
-.formField, .formfield .jfx-text-field{
+.formField, .formField .jfx-text-field, .combo-box .text-field{
 	-fx-background-color: #818589;
 	-fx-prompt-text-fill: white;
-	-fx-text-fill: black;
+	-fx-text-fill: white;
 	-fx-font: 12.0pt 'Inter', calibri;
 	
 }

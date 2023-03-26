@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.event.ActionEvent;
 import java.util.Date;
 
 import domein.DomeinController;
@@ -13,14 +14,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import repository.BestellingDetailsDTO;
@@ -51,7 +55,24 @@ public class DozenController {
 	@FXML
 	TableColumn<DoosDTO, Boolean> editColumn;
 	@FXML
-	TableColumn<Button, Button> deleteColumn;
+	private TextField tfNaam;
+	@FXML
+	private ComboBox<String> cbType;
+	@FXML
+	private TextField tfLengte;
+	@FXML
+	private TextField tfBreedte;
+	@FXML
+	private TextField tfHoogte;
+	@FXML
+	private TextField tfPrijs;
+	@FXML
+	private Button addButton;
+
+
+
+
+
 
 
 	public DozenController() {
@@ -61,7 +82,10 @@ public class DozenController {
 	
 	public void setParams(DomeinController dc) {
 		this.dc = dc;
-	}
+		addButton.setOnAction(event -> {
+			System.out.println(tfNaam.getText());
+		});
+		} 
 	
 	public void loadDozen() {
 	    //System.out.println("Klanten lijst loading");
@@ -100,6 +124,7 @@ public class DozenController {
 
 
 	}
+	
 	
 	private class ButtonCell extends TableCell<DoosDTO, Boolean>{
 		final Button button = new Button("Wijzig");
