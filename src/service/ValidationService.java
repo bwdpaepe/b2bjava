@@ -3,13 +3,11 @@ package service;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Transient;
-
 import repository.ContactpersoonDTO;
 
 public class ValidationService {
-	@Transient
-	public static final int MIN_PW_LENGTH = 8; // TODO afspreken met team
+	
+	public static final int MIN_PW_LENGTH = 8; 
 
 	public static final void controleerNietBlanco(Object waarde) {
 		if (waarde == null) {
@@ -20,24 +18,12 @@ public class ValidationService {
 		}
 	}
 
-	public static final void controleerGroterDanNul(int waarde) {
-		if (waarde <= 0) {// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
-		}
+	public static final <T extends Number> void controleerGroterDanNul(T waarde) {
+	    if (waarde.doubleValue() <= 0) {
+	        throw new IllegalArgumentException("Veld moet groter zijn dan nul");
+	    }
 	}
-
-	public static final void controleerGroterDanNul(long waarde) {
-		if (waarde <= 0) {// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
-		}
-	}
-
-	public static final void controleerGroterDanNul(double waarde) {
-		if (waarde <= 0) {// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
-		}
-	}
-
+	
 	public static final void controleerEmail(String email) {
 		if (email == null || email.isBlank()) {
 			throw new IllegalArgumentException("E-mailadres is verplicht");
