@@ -8,6 +8,8 @@ import javax.persistence.Transient;
 import repository.ContactpersoonDTO;
 
 public class ValidationService {
+	final private static int TRACKTRACECODELENGTE = 30;
+	// WAAROM STAAT HIER Transient, 't is toch geen entity?
 	@Transient
 	public static final int MIN_PW_LENGTH = 8; // TODO afspreken met team
 
@@ -84,6 +86,12 @@ public class ValidationService {
 	public static final void controleerTTFPrefixLengte(int TTFlengte, String TTFPrefix) {
 		if(TTFPrefix.length() >= TTFlengte) {
 			throw new IllegalArgumentException("Prefix kan niet groter of gelijk zijn dan totale lengte code");
+		}
+	}
+	
+	public static final void controleerTTFTotaleLengte(int totaleLengte) {
+		if(totaleLengte < TRACKTRACECODELENGTE) {
+			throw new IllegalArgumentException(String.format("%s%d", "Totale lengte code kan niet kleiner zijn dan ", TRACKTRACECODELENGTE));
 		}
 	}
 

@@ -16,7 +16,6 @@ public class GeplaatstBestellingState extends BestellingState {
 
 	@Override
 	public void verwerkBestelling(Transportdienst transportdienst) throws SizeLimitExceededException {
-
 		bestelling.setStatus("verwerkt");
 		// transportdienst
 		bestelling.setTransportdienst(transportdienst);
@@ -32,7 +31,6 @@ public class GeplaatstBestellingState extends BestellingState {
 		} while (generatedCode.equals(trackAndTraceCode));
 		
 		bestelling.setTrackAndTraceCode(generatedCode);
-
 		Notificatie notificatie = new Notificatie(new Date(), false, bestelling.getAankoper(), bestelling);
 		bestelling.setNotificatie(notificatie);
 
