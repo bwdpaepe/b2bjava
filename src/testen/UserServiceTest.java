@@ -33,10 +33,12 @@ class UserServiceTest
 	private static final String ADRES = "TestStraat 1, 1234 Demo";
 	private static final String TELEFOONNUMMER = "+1123456";
 	private static final String FUNCTIE = "Admin";
-	//private static final String FUNCTIE_NIEUW = "Magazijnier"; eventueel later te gebruiken bij Update
+	private static final String FUNCTIE_NIEUW = "Magazijnier"; 
 	private static final int PERSONEELNR = 12345;
 	private static final Bedrijf BEDRIJF = new Bedrijf("Bedrijf A", "Straat A", "A1", "1234A", "stad A", "land A", "0123456789", "logo_bedrijf_A");
 
+	private static final UserDTO adminUser = new MedewerkerDTO(new Medewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELNR, "admin", BEDRIJF));
+	
 	@Test
 	void aanmelden()
 	{
@@ -60,7 +62,40 @@ class UserServiceTest
 		Mockito.verify(userRepoMock).getMedewerkerByEmailAdress(EMAILADRES);
 	}
 
+	
+	@Test
+	void testUpdateMedewerker() {
+	    
+	    long id = 1L;
+	    String updatedVoornaam = "UpdatedFirstName";
+	    String updatedFamilienaam = "UpdatedLastName";
+	    String updatedEmailadres = "updated@test.com";
+	    String updatedAdres = "Updated Street 1, 1234 Demo";
+	    String updatedTelefoonnummer = "+1987654321";
+	    String updatedFunctie = FUNCTIE_NIEUW;
+	    Boolean updatedIsActief = false;
+
+	    Medewerker mw = new Medewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD, ADRES, TELEFOONNUMMER, PERSONEELNR, FUNCTIE, BEDRIJF);
+
+	    Mockito.when(userRepoMock.get(Mockito.anyLong())).thenReturn(mw);
+
+	    userService.updateMedewerker(adminUser, id, updatedVoornaam, updatedFamilienaam, updatedEmailadres,
+	            updatedAdres, updatedTelefoonnummer, updatedFunctie, updatedIsActief);
+
+	    Assertions.assertEquals(updatedVoornaam, mw.getVoornaam());
+	    Assertions.assertEquals(updatedFamilienaam, mw.getFamilienaam());
+	    Assertions.assertEquals(updatedEmailadres, mw.getEmail());
+	    Assertions.assertEquals(updatedAdres, mw.getAdres());
+	    Assertions.assertEquals(updatedTelefoonnummer, mw.getTelefoonnummer());
+	    Assertions.assertEquals(updatedFunctie.toLowerCase(), mw.getFunctie().toLowerCase());
+	    Assertions.assertEquals(updatedIsActief, mw.getIsActief());
+
+	    Mockito.verify(userRepoMock).get(id);
+	    Mockito.verify(userRepoMock).update(mw);
+	}
+	
 	// TODO nog uitzoeken hoe connectie met databank kan voorkomen worden door UserDaoJpa.startTransaction()
+	
 	/*
 	 * @Test public void testMaakMedewerker() {
 	 * 
@@ -69,11 +104,12 @@ class UserServiceTest
 	 * 
 	 * Mockito.doNothing().when(userRepoMock).insert(mw);
 	 * 
-	 * userService.maakMedewerker(VOORNAAM, FAMILIENAAM, EMAILADRES, WACHTWOORD,
-	 * ADRES, TELEFOONNUMMER, FUNCTIE, BEDRIJF);
+	 * userService.maakMedewerker(adminUser, VOORNAAM, FAMILIENAAM, EMAILADRES,
+	 * WACHTWOORD, ADRES, TELEFOONNUMMER, FUNCTIE);
 	 * 
 	 * Mockito.verify(userRepoMock, Mockito.times(1)).insert(mw); }
 	 */
+	 
 
 	// TODO nog uitzoeken hoe connectie met databank kan voorkomen worden door UserDaoJpa.startTransaction()
 //	@Test
