@@ -3,43 +3,30 @@ package service;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Transient;
+
 
 import repository.ContactpersoonDTO;
 
 public class ValidationService {
 	final private static int TRACKTRACECODELENGTE = 30;
-	// WAAROM STAAT HIER Transient, 't is toch geen entity?
-	@Transient
-	public static final int MIN_PW_LENGTH = 8; // TODO afspreken met team
+	
+	public static final int MIN_PW_LENGTH = 8; 
 
 	public static final void controleerNietBlanco(Object waarde) {
 		if (waarde == null) {
 			throw new IllegalArgumentException("Veld is verplicht");
 		}
-		if (waarde instanceof String && ((String) waarde).isBlank() && ((String)waarde).isEmpty()) {
+		if (waarde instanceof String && (((String) waarde).isBlank() || ((String)waarde).isEmpty())) {
 			throw new IllegalArgumentException("Veld is verplicht");
 		}
 	}
 
-	public static final void controleerGroterDanNul(int waarde) {
-		if (waarde <= 0) {// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
-		}
+	public static final <T extends Number> void controleerGroterDanNul(T waarde) {
+	    if (waarde.doubleValue() <= 0) {
+	        throw new IllegalArgumentException("Veld moet groter zijn dan nul");
+	    }
 	}
-
-	public static final void controleerGroterDanNul(long waarde) {
-		if (waarde <= 0) {// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
-		}
-	}
-
-	public static final void controleerGroterDanNul(double waarde) {
-		if (waarde <= 0) {// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
-		}
-	}
-
+	
 	public static final void controleerEmail(String email) {
 		if (email == null || email.isBlank()) {
 			throw new IllegalArgumentException("E-mailadres is verplicht");

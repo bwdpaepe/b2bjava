@@ -12,23 +12,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.mindrot.jbcrypt.BCrypt;
 
 import service.ValidationService;
 
 @Entity
-@Table(name = "Gebruikers")
+@Table(name = "Gebruikers", uniqueConstraints =
+	{ @UniqueConstraint(columnNames ={ "personeelsNr", "bedrijf_id" }) })
 @NamedQueries(
 	{ 
 		@NamedQuery(name = "User.findByEmailAdress", query = "select u from User u where u.emailAdress = :emailAdress"),
-		@NamedQuery(name = "User.findAankopersByBedrijfId", query = "select m from Medewerker m where m.bedrijf.id = :klantId and m.functieString = 'aankoper'")
+		@NamedQuery(name = "User.findAankopersByBedrijfId", query = "select m from Medewerker m where m.bedrijf.id = :klantId and m.functieString = 'aankoper'"),
+		@NamedQuery(name = "User.findMaxPersoneelsNrByBedrijfId", query = "SELECT MAX(m.personeelsNr) FROM Medewerker m WHERE m.bedrijf.id = :bedrijfId"),
+		@NamedQuery(name = "User.findAllMedewerkersByBedrijfId", query = "select new repository.MedewerkerListEntryDTO(m) from Medewerker m where m.bedrijf.id = :bedrijfId ORDER BY m.personeelsNr"),
 	})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "soort")
@@ -36,11 +41,8 @@ public abstract class User implements Serializable
 {
 
 	private static final long serialVersionUID = 1L;
-	
 
-
-
-	//in database
+	// in database
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -58,16 +60,19 @@ public abstract class User implements Serializable
 	@Column(name = "adres")
 	private String adres;
 	@ManyToOne
+	@JoinColumn(name = "bedrijf_id")
 	private Bedrijf bedrijf;
 	@OneToMany(mappedBy = "aankoper")
 	private List<Notificatie> notificaties;
+	@Column(name = "isActief")
+	private Boolean isActief;
 
-	//niet in database
+	// niet in database
 	@Transient
-	private String salt = BCrypt.gensalt(12);	
+	private String salt = BCrypt.gensalt(12);
 
-
-	public User(String voornaam, String familienaam, String email, String password, String telefoonnumer, String adres, Bedrijf bedrijf)
+	public User(String voornaam, String familienaam, String email, String password, String telefoonnumer, String adres,
+			Bedrijf bedrijf)
 	{
 		setVoornaam(voornaam);
 		setFamilienaam(familienaam);
@@ -76,6 +81,7 @@ public abstract class User implements Serializable
 		setAdres(adres);
 		setTelefoonnummer(telefoonnumer);
 		setBedrijf(bedrijf);
+		setIsActief(true); // by default is nieuwe medewerker actief
 	}
 
 	// lege Constructor voor JPA
@@ -107,7 +113,7 @@ public abstract class User implements Serializable
 	{
 		return id;
 	}
-	
+
 	public String getVoornaam()
 	{
 		return voornaam;
@@ -173,14 +179,28 @@ public abstract class User implements Serializable
 		ValidationService.controleerNietBlanco(adres);
 		this.adres = adres;
 	}
-	
-	public Bedrijf getBedrijf() {
+
+	public Bedrijf getBedrijf()
+	{
 		return this.bedrijf;
 	}
-	
-	public void setBedrijf(Bedrijf bedrijf) {
+
+	public final void setBedrijf(Bedrijf bedrijf)
+	{
 		ValidationService.controleerNietBlanco(bedrijf);
 		this.bedrijf = bedrijf;
+	}
+
+	public Boolean getIsActief()
+	{
+		return isActief;
+	}
+
+	public final void setIsActief(Boolean isActief)
+	{
+		this.isActief = isActief;
 	};
+	
+	
 
 }
