@@ -302,20 +302,28 @@
 
 .formField, .formField .jfx-text-field{
 
-	-fx-background-color: black;
-	-fx-prompt-text-fill: red;
-	-fx-text-fill: red;
+	-fx-background-color: #818589;
+	-fx-prompt-text-fill: white;
+	-fx-text-fill: white;
 	-fx-font: 12.0pt 'Inter', calibri;
 	
 }
 
-.jfx-combo-box {
-	-fx-background-color:  pink;
+.combo-box, combo-box .cell {
+	-fx-background-color: #818589;
+	-fx-prompt-text-fill: white;
+	-fx-text-fill: white;
 }
 
-.jfx-combo-box .label {
-	-fx-background-color:  white;
-	-fx-text-fill: red;
+.combo-box .cell:selected {
+
+	-fx-text-fill: white;
+}
+
+#errorPane {
+	-fx-background-color: rgba(255, 100, 100);
+	-fx-border-radius:10px;
+	
 }
 
 

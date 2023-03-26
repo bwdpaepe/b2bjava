@@ -1,11 +1,13 @@
 package gui;
 
 import java.awt.event.ActionEvent;
+import java.time.Duration;
 import java.util.Date;
 
 import javax.swing.event.ChangeListener;
 
 import domein.DomeinController;
+import javafx.animation.FadeTransition;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -27,7 +29,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import repository.BestellingDetailsDTO;
 import repository.DoosDTO;
@@ -36,6 +40,7 @@ import repository.KlantLijstEntryDTO;
 public class DozenController {
 	
 	private DomeinController dc;
+	private Boolean formError = true; //initieel niks ingevuld, dus er is sowieso een fout in de form om dozen toe te voegen
 	
 	
 	@FXML
@@ -70,6 +75,10 @@ public class DozenController {
 	private TextField tfPrijs;
 	@FXML
 	private Button addButton;
+	@FXML
+	private Pane errorPane;
+	@FXML
+	private Text errorMessage;
 
 
 
@@ -130,7 +139,8 @@ public class DozenController {
 		
 		ObservableList<String> typeOptions = FXCollections.observableArrayList("Standaard", "Custom");
 		cbType.setItems(typeOptions);
-	    
+		
+
 
 
 
@@ -146,10 +156,47 @@ public class DozenController {
 		String hoogte = tfHoogte.getText();
 		String prijs = tfPrijs.getText();
 		
-		dc.maakDoos(naam, prijs, 0, 0, 0, 0);
+
+		try {
+			double prijsd = Double.parseDouble(prijs);
+			double lengted = Double.parseDouble(lengte);
+			double breedted = Double.parseDouble(breedte);
+			double hoogted = Double.parseDouble(hoogte);
+		} catch (Exception e) {
+			formError = true;
+			errorPane.setVisible(true);
+			errorMessage.setText("Controleer dat de numerieke gegevens correct werden ingevoerd");
+			FadeTransition ft = new FadeTransition(javafx.util.Duration.millis(3000), errorPane);
+			ft.setFromValue(1);
+			ft.setToValue(0);
+			ft.play();
+		}
+		
+		if(formError = false) {
+			try {
+				dc.maakDoos(naam, type, 0, 0, 0, 0);
+			} catch (Exception e) {
+				
+				errorPane.setVisible(true);
+				errorMessage.setText("Er ging iets mis bij het maken van de doos");
+				FadeTransition ft = new FadeTransition(javafx.util.Duration.millis(3000), errorPane);
+				ft.setFromValue(1);
+				ft.setToValue(0);
+				ft.play();
+				e.printStackTrace();
+			    
+				
+			}
+
+		}
+		
+		
+
 		
 		
 	}
+	
+
 	
 	private void setFieldNumericalOnly(TextField[] textFields) {
 		for (TextField textField : textFields) {
@@ -157,6 +204,12 @@ public class DozenController {
 
 		        if (!newValue.matches("^[+]?(([1-9]\\d*)|0)(\\.\\d*)?")) {
 		            textField.setText(newValue.replaceAll("[^\\d+\\.?\\d*$]?", ""));
+		            textField.setStyle("-fx-background-color: red");
+		            formError = true;
+		        }
+		        else {
+		        	textField.setStyle("-fx-background-color: #818589");
+		        	formError = false;
 		        }
 		    
 		});
