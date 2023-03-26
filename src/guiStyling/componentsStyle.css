@@ -117,7 +117,7 @@
 .tvDozen {
 
     -fx-pref-width: 1499.0px;
-    -fx-pref-height: 891.0px;
+    -fx-pref-height: 800px;
 }
 
 /** Class selector voor de volledige table-view  */
@@ -249,6 +249,66 @@
     -fx-border-radius: 4.0px
 }
 
+.loginButtons:hover{
+	-fx-background-color: #E0433E;
+	-fx-font: 20.0pt 'Inter', calibri;
+	-fx-border-color: black;
+	-fx-border-width: 2.0;
+	-fx-border-radius: 15.0;
+}
+.tvButton{
+	-fx-background-color: #EC4842;
+	-fx-font-weight: bolder;
+	-fx-font: 12.0pt 'Inter', calibri;
+	-fx-text-fill: white;
+
+}
+
+.tvButton:hover{
+	-fx-background-color: white;
+	-fx-text-fill: #EC4842;
+	-fx-font: 12.0pt 'Inter', calibri;
+
+}
+
+.tvButton:pressed{
+	-fx-background-color: #E0433E;
+	-fx-text-fill: white;
+	-fx-font: 12.0pt 'Inter', calibri;
+
+}
+
+.tvAddButton{
+	-fx-background-color: #EC4842;
+	-fx-font-weight: bolder;
+	-fx-font: 12.0pt 'Inter', calibri;
+	-fx-text-fill: white;
+
+}
+
+.tvAddButton:hover{
+	-fx-background-color: #E0433E;
+
+	-fx-font: 12.0pt 'Inter', calibri;
+
+}
+
+.tvAddButton:pressed{
+	-fx-background-color: #EC4842;
+	-fx-text-fill: white;
+	-fx-font: 12.0pt 'Inter', calibri;
+
+}
+
+.formField, .formfield .jfx-text-field{
+	-fx-background-color: #818589;
+	-fx-prompt-text-fill: white;
+	-fx-text-fill: black;
+	-fx-font: 12.0pt 'Inter', calibri;
+	
+}
+
+
 #tvProductenLijst .column-header, #tvProductenLijst .column-header-background, #tvProductenLijst .table-cell {
     -fx-pref-width: 275.0px; 
 }
@@ -266,13 +326,7 @@
     -fx-pref-height: 62.0px;
     }
 
-.loginButtons:hover{
-	-fx-background-color: #E0433E;
-	-fx-font: 20.0pt 'Inter', calibri;
-	-fx-border-color: black;
-	-fx-border-width: 2.0;
-	-fx-border-radius: 15.0;
-}
+
 
 .tab {
   -fx-font-family: Arial;
@@ -299,3 +353,5 @@
 .tab-pane .tab-header-area .tab-header-background{
 	-fx-background-color:#EC4842 ;
 }
+
+
