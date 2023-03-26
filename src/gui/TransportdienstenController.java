@@ -117,6 +117,12 @@ public class TransportdienstenController extends Pane {
 	private Button btnSaveTransportdienst;
 
 	@FXML
+	private Button btnVerwijderContactPersoon;
+
+	@FXML
+	private Button btnToevoegenContactPersoon;
+
+	@FXML
 	private TextField txtNaamTransportdienst;
 
 	@FXML
@@ -145,12 +151,6 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	private TextField txtPrefix;
-
-	@FXML
-	private HBox hBoxContactPersonen1;
-
-	@FXML
-	private HBox hBoxContactPersonen2;
 
 	@FXML
 	private TextField txtVoornaamToevoegen;
@@ -391,7 +391,8 @@ public class TransportdienstenController extends Pane {
 			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-			//toonMelding(AlertType.INFORMATION, "De gewijzigde contactpersoon is opgeslaan");
+			// toonMelding(AlertType.INFORMATION, "De gewijzigde contactpersoon is
+			// opgeslaan");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
@@ -423,10 +424,11 @@ public class TransportdienstenController extends Pane {
 			txtTelefoonnummerToevoegen.clear();
 			txtVoornaamToevoegen.requestFocus();
 
-			//toonMelding(AlertType.INFORMATION, "De contactpersoon is opgeslaan");
+			// toonMelding(AlertType.INFORMATION, "De contactpersoon is opgeslaan");
 
 		} catch (Exception e) {
-			toonMelding(AlertType.ERROR, "Dit contactpersoon kan niet worden toegevoegd, gelieve de ingevoerde gegevens te controleren.");
+			toonMelding(AlertType.ERROR,
+					"Dit contactpersoon kan niet worden toegevoegd, gelieve de ingevoerde gegevens te controleren.");
 		}
 		buildGui();
 		editableGui();
@@ -447,7 +449,7 @@ public class TransportdienstenController extends Pane {
 			this.selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-			//toonMelding(AlertType.INFORMATION, "Contactpersoon is succesvol verwijderd");
+			// toonMelding(AlertType.INFORMATION, "Contactpersoon is succesvol verwijderd");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		} catch (IndexOutOfBoundsException e) {
@@ -459,9 +461,6 @@ public class TransportdienstenController extends Pane {
 	}
 
 	private void disableGui() {
-		if (ingelogdeUser.getFunctie() != "Admin") {
-			btnUpdateTransportdienst.setVisible(false);
-		}
 		txtBarcodeLengteRaadpleegTab.setEditable(false);
 		txtTransportdienstZoeken.setEditable(false);
 		txtNaamRaadpleegTab.setEditable(false);
@@ -471,10 +470,10 @@ public class TransportdienstenController extends Pane {
 		rbOrderIdRaadpleegTab.setDisable(true);
 		rbPostcodeRaadpleegTab.setDisable(true);
 		btnSaveTransportdienst.setVisible(false);
-		btnUpdateTransportdienst.setVisible(true);
+		btnToevoegenContactPersoon.setVisible(false);
+		btnVerwijderContactPersoon.setVisible(false);
+		btnUpdateTransportdienst.setDisable(false);
 		tvContactpersonen.setEditable(false);
-		hBoxContactPersonen1.setVisible(false);
-		hBoxContactPersonen2.setVisible(false);
 		tvTransportdiensten.setDisable(false);
 		toevoegTab.setDisable(false);
 	}
@@ -489,10 +488,10 @@ public class TransportdienstenController extends Pane {
 		rbOrderIdRaadpleegTab.setDisable(false);
 		rbPostcodeRaadpleegTab.setDisable(false);
 		btnSaveTransportdienst.setVisible(true);
-		btnUpdateTransportdienst.setVisible(false);
+		btnToevoegenContactPersoon.setVisible(true);
+		btnVerwijderContactPersoon.setVisible(true);
+		btnUpdateTransportdienst.setDisable(true);
 		tvContactpersonen.setEditable(true);
-		hBoxContactPersonen1.setVisible(true);
-		hBoxContactPersonen2.setVisible(true);
 		tvTransportdiensten.setDisable(true);
 		toevoegTab.setDisable(true);
 	}
