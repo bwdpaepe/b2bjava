@@ -321,7 +321,7 @@
 }
 
 #errorPane {
-	-fx-background-color: rgba(255, 100, 100);
+	-fx-background-color: #EEB2B2;
 	-fx-border-radius:10px;
 	
 }

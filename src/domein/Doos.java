@@ -49,7 +49,7 @@ public class Doos implements Serializable {
 	@Column
 	private double prijs;
 	
-	public Doos(String naam, double hoogte, double breedte, double lengte, String doosTypeString, double prijs, Bedrijf bedrijf) {
+	public Doos(String naam, double lengte, double breedte, double hoogte, String doosTypeString, double prijs, Bedrijf bedrijf) {
 		setNaam(naam);
 		setDimensie(lengte, breedte, hoogte);
 		setDoosType(doosTypeString);

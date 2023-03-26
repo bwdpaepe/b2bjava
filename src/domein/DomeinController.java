@@ -234,12 +234,12 @@ public class DomeinController {
 		this.doosService = new DoosService();
 	}
 	
-	public void maakDoos(String naam, String doosTypeString, double hoogte, double breedte, double lengte, double prijs) {
+	public void maakDoos(String naam, String doosTypeString, double lengte, double breedte, double hoogte, double prijs) {
 			
 		Medewerker ingelogdeMW = userService.getMedewerkerById(ingelogdeUser.getID());
 		if(ingelogdeMW.getFunctie().toLowerCase().equals("admin")) {
 			Bedrijf bedrijf = bedrijfService.getBedrijfById(ingelogdeUser.getBedrijf().getId());
-			Doos doos = new Doos(naam, hoogte, breedte, lengte, doosTypeString, prijs, bedrijf);		
+			Doos doos = new Doos(naam, lengte, breedte, hoogte, doosTypeString, prijs, bedrijf);		
 			doosService.maakDoos(doos);
 		}
 		else throw new IllegalAccessError("You need to be an admin to perform this operation");
