@@ -22,6 +22,7 @@ public class BestellingDTO {
 	protected final String leveradresPostcode;
 	protected final String leveradresStad;
 	protected final String leveradresLand;
+	protected final String trackAndTraceCode;
 	protected final MedewerkerDTO aankoper;
 	protected final DoosDTO doos;
 	protected final List<BesteldProductDTO> besteldeProducten;
@@ -43,6 +44,7 @@ public class BestellingDTO {
 		this.leveradresPostcode = bestelling.getLeveradresPostcode();
 		this.leveradresStad = bestelling.getLeveradresStad();
 		this.leveradresLand = bestelling.getLeveradresLand();
+		this.trackAndTraceCode = bestelling.getTrackAndTraceCode();
 		this.aankoper = new MedewerkerDTO(bestelling.getAankoper());
 		this.doos = new DoosDTO(bestelling.getDoos());
 		this.besteldeProducten = bestelling.getBesteldeProducten().stream().map(e -> new BesteldProductDTO(e)).collect(Collectors.toUnmodifiableList());
@@ -95,6 +97,10 @@ public class BestellingDTO {
 	
 	public String getLeveradresLand() {
 		return leveradresLand;
+	}
+	
+	public String getTrackAndTraceCode() {
+		return trackAndTraceCode;
 	}
 	
 	public MedewerkerDTO getAankoper() {

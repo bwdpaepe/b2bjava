@@ -1,9 +1,16 @@
 package domein;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.naming.SizeLimitExceededException;
 
 import repository.BestellingDTO;
 import repository.DatabaseSeeding;
@@ -22,6 +29,7 @@ import service.DoosService;
 import service.UserService;
 
 public class DomeinController {
+	private final String ALLES = "ALLES";
 	private UserDTO ingelogdeUser;
 	private UserService userService; // service klasse om o.a aanmelden uit te werken
 	private DienstService dienstService;
@@ -202,16 +210,24 @@ public class DomeinController {
 		bestellingService.addBesteldProductToBestelling(bestellingId, longProductId, aantal);
 	}
 
-	public void wijzigBestelling(long bestellingId, long transportdienstId) {
+	public void wijzigBestelling(long bestellingId, long transportdienstId) throws SizeLimitExceededException {
 		bestellingService.wijzigBestelling(bestellingId, transportdienstId);
 	}
 
-	public void verwerkBestelling(long bestellingId, long transportdienstId) {
+	public void verwerkBestelling(long bestellingId, long transportdienstId) throws SizeLimitExceededException {
 		bestellingService.verwerkBestelling(bestellingId, transportdienstId);
 	}
 
-	public void wijzigTrackAndTraceCode(long bestellingId) {
+	public void wijzigTrackAndTraceCode(long bestellingId) throws SizeLimitExceededException {
 		bestellingService.wijzigTrackAndTraceCode(bestellingId);
+	}
+	
+	public String[] getGebruikteStatussen() {
+		
+		List<String> statusLijst = new ArrayList<>(Stream.of(BestellingStatus.values()).map(b -> b.toString()).collect(Collectors.toList()));
+		statusLijst.add(0, ALLES);
+		return statusLijst.toArray(new String[statusLijst.size()]);
+		
 	}
 
 	// DOOS OPERATIONS

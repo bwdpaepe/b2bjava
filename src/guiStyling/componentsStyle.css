@@ -50,13 +50,21 @@
 
 #bpKlantDetailsLEFT Label, #bpKlantDetailsCENTER Label {
     -fx-font: 12.0pt 'Inter', sans-serif;
-    -fx-padding: 5px 10px;
+    -fx-padding: 5.0px 10.0px;
     -fx-text-fill: #333333;
     -fx-vgrow: always;
 }
 
 #bpKlantDetailsCENTER {
 
+}
+
+/**bestellingen */
+
+#bpBestellingRaadplegen .text-field {
+    -fx-background-color: -fx-control-inner-background;
+    -fx-background-insets: 0;
+    -fx-padding: 1 3 1 3;
 }
 
 
@@ -66,7 +74,7 @@
 	-fx-pref-width: 1098.0px;
 	-fx-pref-height: 344.0px;
 	-fx-translate-y: 203.0px;
-	-fx-padding: 10px 0 0 0; /* top margin 10px, no other margins */
+	-fx-padding: 10.0px 0.0 0.0 0.0; /* top margin 10px, no other margins */
 }
 
 #tvKlantDetailAankopers .column-header{
@@ -76,7 +84,7 @@
 #tvKlantDetailAankopers .column-header, 
 #tvKlantDetailAankopers .column-header-background, 
 #tvKlantDetailAankopers .table-cell {
-    -fx-pref-width: 366px; 
+    -fx-pref-width: 366.0px; 
 }
 
 #tvKlantDetailBestellingen {
@@ -84,7 +92,7 @@
 	-fx-pref-width: 1098.0px;
 	-fx-pref-height: 344.0px;
 	-fx-translate-y: 547.0px;
-	-fx-padding: 10px 0 0 0; /* top margin 10px, no other margins */
+	-fx-padding: 10.0px 0.0 0.0 0.0; /* top margin 10px, no other margins */
 }
 
 #tvKlantDetailBestellingen .column-header{
@@ -94,12 +102,16 @@
 #tvKlantDetailBestellingen .column-header, 
 #tvKlantDetailBestellingen .column-header-background, 
 #tvKlantDetailBestellingen .table-cell {
-    -fx-pref-width: 366px; 
+    -fx-pref-width: 366.0px; 
 }
 
 /** Class selector voor de volledige table-view  */
 .table-view {
 	-fx-table-cell-border-color: transparent;
+}
+
+.table-view .arrow {
+   -fx-mark-color: white ;
 }
 
 .table-view  .column-header {
@@ -223,20 +235,20 @@
 }
 
 #tvProductenLijst .column-header, #tvProductenLijst .column-header-background, #tvProductenLijst .table-cell {
-    -fx-pref-width: 275px; 
+    -fx-pref-width: 275.0px; 
 }
 
 /** Header */
 .container-header {
     -fx-background-color: #EC4842;
     -fx-color: #FFFFFF;
-    -fx-pref-height: 62px;
+    -fx-pref-height: 62.0px;
     }
     
 .pre-header {
     -fx-background-color: #FFFFFF;
     -fx-color: #000000;
-    -fx-pref-height: 62px;
+    -fx-pref-height: 62.0px;
     }
 
 .loginButtons:hover{

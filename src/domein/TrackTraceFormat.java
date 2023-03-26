@@ -52,6 +52,7 @@ public class TrackTraceFormat implements Serializable
 	public final void setBarcodeLengte(int barcodeLengte)
 	{
 		ValidationService.controleerGroterDanNul(barcodeLengte);
+		ValidationService.controleerTTFTotaleLengte(barcodeLengte);
 		this.barcodeLengte = barcodeLengte;
 	}
 
