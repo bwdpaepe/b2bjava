@@ -313,7 +313,7 @@ public class DozenController {
 					ValidationService.controleerNietBlanco(naam);
 					ValidationService.controleerNietBlanco(type);
 				} catch (Exception e) {
-					formError = true;
+					editFormError = true;
 
 					errorMessage.setText("Controleer dat de naam en het type correct zijn");
 					errorPane.setVisible(true);
@@ -339,7 +339,7 @@ public class DozenController {
 					ValidationService.controleerGroterDanNul(breedted);
 					ValidationService.controleerGroterDanNul(hoogted);
 				} catch (Exception e) {
-					formError = true;
+					editFormError = true;
 					errorMessage.setText("Controleer dat de numerieke gegevens correct werden ingevoerd");
 					errorPane.setVisible(true);
 					FadeTransition ft = new FadeTransition(Duration.millis(5000), errorPane);
