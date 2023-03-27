@@ -22,9 +22,9 @@
 	   <children>
             <TabPane fx:id="bestellingenTabPane">
                <tabs>
-                  <Tab fx:id="bestellingRaadplegenTab" closable="false" text="Raadplegen">
+                  <Tab fx:id="bestellingRaadplegenTab" closable="false" style="-fx-pref-height: 62;" text="Raadplegen">
                      <content>
-            	      <BorderPane id="bpBestellingRaadplegen" prefHeight="1000.0" stylesheets="@../guiStyling/componentsStyle.css">
+            	      <BorderPane id="bpBestellingRaadplegen" prefHeight="1000.0" styleClass="borderTab" stylesheets="@../guiStyling/componentsStyle.css">
             	         <top>
             	            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="container-header" stylesheets="@../guiStyling/componentsStyle.css" BorderPane.alignment="CENTER">
             	               <children>
@@ -36,7 +36,7 @@
             	                        <Font name="SansSerif Bold" size="12.0" />
             	                     </font>
             	                  </Label>
-            	                  <Button fx:id="btnWijzigBestelling" mnemonicParsing="false" onAction="#wijzigBestelling" prefHeight="1000.0" prefWidth="1000.0" text="Wijzig bestelling" textFill="#ec4842">
+            	                  <Button fx:id="btnWijzigBestelling" mnemonicParsing="false" onAction="#wijzigBestelling" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-radius: 15;" styleClass="globalButtons" stylesheets="@../guiStyling/componentsStyle.css" text="Wijzig bestelling" textFill="#ec4842">
             	                     <font>
             	                        <Font name="SansSerif Bold" size="12.0" />
             	                     </font>
@@ -221,7 +221,7 @@
                                              <VBox.margin>
                                                 <Insets right="20.0" />
                                              </VBox.margin></Label>
-                                          <Button fx:id="btnTrackAndTrace" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#genereerTrackAndTrace" prefHeight="1000.0" text="Genereer Track &amp; trace gegevens" textAlignment="JUSTIFY">
+                                          <Button fx:id="btnTrackAndTrace" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#genereerTrackAndTrace" prefHeight="1000.0" style="-fx-background-radius: 15;" styleClass="globalButtons" stylesheets="@../guiStyling/componentsStyle.css" text="Genereer Track &amp; trace gegevens" textAlignment="JUSTIFY">
                                              <VBox.margin>
                                                 <Insets right="20.0" />
                                              </VBox.margin></Button>
@@ -233,9 +233,9 @@
                         </BorderPane>
                      </content>
                   </Tab>
-                  <Tab fx:id="bestellingVerwerkenTab" closable="false" text="Verwerken">
+                  <Tab fx:id="bestellingVerwerkenTab" closable="false" style="-fx-pref-height: 62.0px;" text="Verwerken">
                     <content>
-                        <BorderPane>
+                        <BorderPane styleClass="borderTab" stylesheets="@../guiStyling/componentsStyle.css">
                            <top>
                               <HBox prefHeight="100.0" prefWidth="200.0" styleClass="container-header" BorderPane.alignment="CENTER">
                                  <children>
@@ -247,7 +247,7 @@
                                           <Insets left="20.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Button fx:id="btnVerwerkBestelling" mnemonicParsing="false" onAction="#verwerkBestelling" prefHeight="1000.0" prefWidth="1000.0" text="Verwerk bestelling" textFill="RED">
+                                    <Button fx:id="btnVerwerkBestelling" mnemonicParsing="false" onAction="#verwerkBestelling" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-radius: 15;" styleClass="globalButtons" stylesheets="@../guiStyling/componentsStyle.css" text="Verwerk bestelling" textFill="#ec4842">
                                        <HBox.margin>
                                           <Insets bottom="10.0" left="50.0" right="20.0" top="10.0" />
                                        </HBox.margin>
@@ -482,6 +482,12 @@
                     </content>
                   </Tab>
                </tabs>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets top="-5.0" />
+               </padding>
             </TabPane>
 	      <BorderPane prefHeight="1000.0" style="-fx-border-color: black; -fx-border-width: 0.5; -fx-background-color: white;" stylesheets="@../guiStyling/componentsStyle.css">
 	         <top>

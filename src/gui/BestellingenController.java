@@ -207,7 +207,7 @@ public class BestellingenController extends Pane {
 		    tvBestellingen.setItems(sortedList);
 		}
 		catch(EntityNotFoundException e) {
-			toonMelding(AlertType.INFORMATION, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 
 	}
@@ -230,7 +230,7 @@ public class BestellingenController extends Pane {
 						maakVisueelDetailBestellingRaadplegen(newBestellingDTO);
 					}
 					catch(EntityNotFoundException e) {
-						toonMelding(AlertType.INFORMATION, e.getMessage());
+						toonMelding(AlertType.ERROR, e.getMessage());
 					}
 					
 					//***vul het detail verwerken op***
@@ -246,7 +246,7 @@ public class BestellingenController extends Pane {
 							maakVisueelDetailBestellingVerwerken(newBestellingDTO);
 						}
 						catch(EntityNotFoundException e) {
-							toonMelding(AlertType.INFORMATION, e.getMessage());
+							toonMelding(AlertType.ERROR, e.getMessage());
 						}
 					}
 					
@@ -271,7 +271,7 @@ public class BestellingenController extends Pane {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 		catch(IllegalArgumentException e) {
-			toonMelding(AlertType.INFORMATION, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 		
 		//***toon gewijzigd BestellingDTO op het scherm***
@@ -280,14 +280,14 @@ public class BestellingenController extends Pane {
 			maakVisueelDetailBestellingRaadplegen(gewijzigdeDetailBestellingDTO);
 		}
 		catch(EntityNotFoundException e) {
-			toonMelding(AlertType.INFORMATION, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 		//***laadt de lijst met bestellingen***
 		try {
 			loadBestellingen();
 		}
 		catch(EntityNotFoundException e) {
-			toonMelding(AlertType.INFORMATION, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 		
 		tvBestellingen.getSelectionModel().select(indexSelectedRow);
@@ -306,7 +306,7 @@ public class BestellingenController extends Pane {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 		catch(IllegalArgumentException e) {
-			toonMelding(AlertType.INFORMATION, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 		//***toon gewijzigd BestellingDTO op het scherm***
 		BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
@@ -314,7 +314,7 @@ public class BestellingenController extends Pane {
 			maakVisueelDetailBestellingRaadplegen(gewijzigdeDetailBestellingDTO);
 		}
 		catch(EntityNotFoundException e) {
-			toonMelding(AlertType.INFORMATION, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 				
 	}
@@ -334,7 +334,7 @@ public class BestellingenController extends Pane {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 		catch(IllegalArgumentException e) {
-			toonMelding(AlertType.INFORMATION, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 		
 		//***toon gewijzigd BestellingDTO op het scherm***
@@ -343,7 +343,7 @@ public class BestellingenController extends Pane {
 			maakVisueelDetailBestellingRaadplegen(gewijzigdeDetailBestellingDTO);
 		}
 		catch(EntityNotFoundException e) {
-			toonMelding(AlertType.INFORMATION, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 		//***spring naar de tab 'raadplegen'***
 		bestellingenTabPane.getSelectionModel().select(bestellingRaadplegenTab);
@@ -355,20 +355,11 @@ public class BestellingenController extends Pane {
 			loadBestellingen();
 		}
 		catch(EntityNotFoundException e) {
-			toonMelding(AlertType.INFORMATION, e.getMessage());
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 		
 		tvBestellingen.getSelectionModel().select(indexSelectedRow);
 	}
-	
-	// Event Listener on Tab[#bestellingVerwerkenTab].onSelectionChanged
-	/*@FXML
-	public void checkMagTabVerwerkenOpenen(ActionEvent event) {
-		String status = selectedBestellingDTO.getStatus();
-		if(status.toUpperCase().equals(VERWERKT)) {
-			toonMelding(AlertType.INFORMATION, "De geselecteerde bestelling is reeds verwerkt, en kan enkel nog gewijzigd worden");						
-		}
-	}*/
 	
 	public void disableDetail() {
 		cmbTransportdienst.setDisable(true);
@@ -390,9 +381,6 @@ public class BestellingenController extends Pane {
 		lblNaamAankoper.setText(maakVisueelNaamAankoper(bestellingDTO));
 		lblEmailAankoper.setText(maakVisueelEmailAankoper(bestellingDTO));
 		lblOrderId.setText(bestellingDTO.getOrderID());
-		//Date date = newBestellingDTO.getDatumGeplaatst();  
-		//DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
-		//String strDate = dateFormat.format(date);  
 		lblDatumGeplaatst.setText(DateFormat.getDateInstance().format(bestellingDTO.getDatumGeplaatst()));
 		lblLeveradres.setText(maakVisueelLeveradres(bestellingDTO));
 		lblStatus.setText(bestellingDTO.getStatus());
@@ -455,9 +443,6 @@ public class BestellingenController extends Pane {
 		vLblNaamAankoper.setText(maakVisueelNaamAankoper(bestellingDTO));
 		vLblEmailAankoper.setText(maakVisueelEmailAankoper(bestellingDTO));
 		vLblOrderId.setText(bestellingDTO.getOrderID());
-		//Date date = newBestellingDTO.getDatumGeplaatst();  
-		//DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
-		//String strDate = dateFormat.format(date);  
 		vLblDatumGeplaatst.setText(DateFormat.getDateInstance().format(bestellingDTO.getDatumGeplaatst()));
 		vLblLeveradres.setText(maakVisueelLeveradres(bestellingDTO));
 		vLblStatus.setText(bestellingDTO.getStatus());
