@@ -1,5 +1,7 @@
 package gui;
 
+import javax.naming.SizeLimitExceededException;
+
 import domein.DomeinController;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -304,7 +306,7 @@ public class TransportdienstenController extends Pane {
 	void addTransportdienst(ActionEvent event) {
 		try {
 			String naamTransportdienst = txtNaamTransportdienst.getText();
-			int barcodeLengte = Integer.valueOf(txtLengteBarcodeToevoegTab.getText());
+			String barcodeLengte = txtLengteBarcodeToevoegTab.getText();
 			boolean isBarcodeEnkelCijfers = cbCijfers.isSelected();
 			String barcodePrefix = txtPrefix.getText();
 			String verificatiecode = rbOrderIdToevoegTab.isSelected() ? "Orderid" : "Postcode";
@@ -316,22 +318,27 @@ public class TransportdienstenController extends Pane {
 
 			// Validatie input formulier
 			ValidationService.controleerNietBlanco(naamTransportdienst);
-			ValidationService.controleerGroterDanNul(barcodeLengte);
+			ValidationService.controleerNumerischeWaardeBarcodeLengte(barcodeLengte);
+			ValidationService.controleerGroterDanNul(Integer.parseInt(barcodeLengte));
+			ValidationService.controleerTTFTotaleLengte(Integer.parseInt(barcodeLengte));
 			ValidationService.controleerNietBlanco(barcodePrefix);
+			ValidationService.controleerTTFPrefixLengte(Integer.parseInt(barcodeLengte), barcodePrefix);
 			ValidationService.controleerNietBlanco(contactVoornaam);
 			ValidationService.controleerNietBlanco(contactFamilienaam);
 			ValidationService.controleerEmail(contactEmailadres);
 			ValidationService.controleerTelefoonnummer(contactTelefoon);
 
+			if (isBarcodeEnkelCijfers) {
+				ValidationService.controleerNumerischeWaardeBarcodePrefix(barcodePrefix);
+			}
+
 			// Aanmaken van een transportdienst
-			dc.maakTransportdienst(naamTransportdienst, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
-					verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres,
-					bedrijfsId);
+			dc.maakTransportdienst(naamTransportdienst, Integer.parseInt(barcodeLengte), isBarcodeEnkelCijfers,
+					barcodePrefix, verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon,
+					contactEmailadres, bedrijfsId);
 
 			toonMelding(AlertType.INFORMATION, "De transportdienst is aangemaakt");
 
-		} catch (NumberFormatException e) {
-			toonMelding(AlertType.ERROR, "De lengte van de barcode moet een cijfer zijn.");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
@@ -355,22 +362,32 @@ public class TransportdienstenController extends Pane {
 		try {
 
 			String naamTransportdienst = txtNaamRaadpleegTab.getText();
-			int barcodeLengte = Integer.valueOf(txtBarcodeLengteRaadpleegTab.getText());
+			String barcodeLengte = txtBarcodeLengteRaadpleegTab.getText();
 			boolean isBarcodeEnkelCijfers = cbEnkelCijfersRaadpleegTab.isSelected();
 			boolean isStatusActief = cbStatusRaadpleegTab.isSelected();
 			String barcodePrefix = txtPrefixRaadpleegTab.getText();
 			String verificatiecode = rbOrderIdRaadpleegTab.isSelected() ? "Orderid" : "Postcode";
 			long dienstId = selectedTransportdienstDTO.getId();
 
-			dc.updateTransportdienst(naamTransportdienst, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
-					verificatiecode, dienstId);
+			// Validatie input formulier
+			ValidationService.controleerNietBlanco(naamTransportdienst);
+			ValidationService.controleerNumerischeWaardeBarcodeLengte(barcodeLengte);
+			ValidationService.controleerGroterDanNul(Integer.valueOf(barcodeLengte));
+			ValidationService.controleerTTFTotaleLengte(Integer.valueOf(barcodeLengte));
+			ValidationService.controleerNietBlanco(barcodePrefix);
+			ValidationService.controleerTTFPrefixLengte(Integer.valueOf(barcodeLengte), barcodePrefix);
+
+			if (isBarcodeEnkelCijfers) {
+				ValidationService.controleerNumerischeWaardeBarcodePrefix(barcodePrefix);
+			}
+
+			dc.updateTransportdienst(naamTransportdienst, Integer.parseInt(barcodeLengte), isBarcodeEnkelCijfers,
+					barcodePrefix, verificatiecode, dienstId);
 			dc.wijzigActivatieDienst(dienstId, isStatusActief);
 			this.transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
 			this.selectedTransportdienstDTO = dc.getTransportdienst(dienstId);
 			toonMelding(AlertType.INFORMATION, "De wijzigingen zijn opgeslaan");
 
-		} catch (NumberFormatException e) {
-			toonMelding(AlertType.ERROR, "De lengte van de barcode moet een cijfer zijn.");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
@@ -391,8 +408,6 @@ public class TransportdienstenController extends Pane {
 			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-			// toonMelding(AlertType.INFORMATION, "De gewijzigde contactpersoon is
-			// opgeslaan");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 			selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
@@ -411,6 +426,10 @@ public class TransportdienstenController extends Pane {
 
 			ValidationService.controleerUniekEmailadres(selectedTransportdienstDTO.getContactpersonen(),
 					txtEmailadresToevoegen.getText());
+			ValidationService.controleerNietBlanco(txtVoornaamToevoegen.getText());
+			ValidationService.controleerNietBlanco(txtFamilienaamToevoegen.getText());
+			ValidationService.controleerEmail(txtEmailadresToevoegen.getText());
+			ValidationService.controleerTelefoonnummer(txtTelefoonnummerToevoegen.getText());
 
 			dc.addContactpersoon(txtVoornaamToevoegen.getText(), txtFamilienaamToevoegen.getText(),
 					txtTelefoonnummerToevoegen.getText(), txtEmailadresToevoegen.getText(),
@@ -424,11 +443,8 @@ public class TransportdienstenController extends Pane {
 			txtTelefoonnummerToevoegen.clear();
 			txtVoornaamToevoegen.requestFocus();
 
-			// toonMelding(AlertType.INFORMATION, "De contactpersoon is opgeslaan");
-
 		} catch (Exception e) {
-			toonMelding(AlertType.ERROR,
-					"Dit contactpersoon kan niet worden toegevoegd, gelieve de ingevoerde gegevens te controleren.");
+			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 		buildGui();
 		editableGui();
@@ -449,7 +465,6 @@ public class TransportdienstenController extends Pane {
 			this.selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-			// toonMelding(AlertType.INFORMATION, "Contactpersoon is succesvol verwijderd");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		} catch (IndexOutOfBoundsException e) {
