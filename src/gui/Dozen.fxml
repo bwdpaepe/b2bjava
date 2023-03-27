@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DozenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DozenController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="middleComponent">
          <children>
@@ -48,27 +48,27 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="tfNaam" promptText="Naam...." styleClass="formField">
+                  <TextField fx:id="tfNaam" promptText="Naam....">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="tfLengte" promptText="Lengte in cm..." styleClass="formField" GridPane.columnIndex="2">
+                  <TextField fx:id="tfLengte" promptText="Lengte in cm..." GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="tfBreedte" promptText="Breedte in cm..." styleClass="formField" GridPane.columnIndex="3">
+                  <TextField fx:id="tfBreedte" promptText="Breedte in cm..." GridPane.columnIndex="3">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="tfHoogte" promptText="Hoogte in cm...." styleClass="formField" GridPane.columnIndex="4">
+                  <TextField fx:id="tfHoogte" promptText="Hoogte in cm...." GridPane.columnIndex="4">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="tfPrijs" promptText="Prijs in €...." styleClass="formField" GridPane.columnIndex="5">
+                  <TextField fx:id="tfPrijs" promptText="Prijs in €...." GridPane.columnIndex="5">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
@@ -85,7 +85,7 @@
       </AnchorPane>
       <Pane id="editPane" fx:id="editPane" prefHeight="500.0" prefWidth="900.0" translateX="500.0" translateY="150.0" visible="false">
          <children>
-            <Button fx:id="confirmEdit" layoutX="345.0" layoutY="442.0" mnemonicParsing="false"  styleClass="tvAddButton" text="OK" />
+            <Button fx:id="confirmEdit" layoutX="345.0" layoutY="442.0" mnemonicParsing="false" styleClass="tvAddButton" text="OK" />
             <Button fx:id="cancelEdit" layoutX="510.0" layoutY="442.0" mnemonicParsing="false" onMouseClicked="#closeEditPane" styleClass="tvAddButton" text="TERUG" />
             <TextField fx:id="tfEditNaam" layoutX="84.0" layoutY="102.0" styleClass="formField" />
             <TextField fx:id="tfEditLengte" layoutX="84.0" layoutY="189.0" styleClass="formField" />

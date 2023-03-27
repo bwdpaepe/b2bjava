@@ -298,16 +298,6 @@
 
 }
 
-.formField, .formField .jfx-text-field{
-
-	-fx-background-color: white;
-	-fx-prompt-text-fill: black;
-	-fx-text-fill: black;
-	-fx-font: 12.0pt 'Inter', calibri;
-	-fx-border-color: black;
-	-fx-border-width:2px;
-	
-}
 
 
 
