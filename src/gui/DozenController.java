@@ -60,6 +60,7 @@ public class DozenController {
 	TableColumn<DoosDTO, String> isActiefColumn;
 	@FXML
 	TableColumn<DoosDTO, Boolean> editColumn;
+	//FOOTER FORM-------------------------------------------------------
 	@FXML
 	private TextField tfNaam;
 	@FXML
@@ -74,10 +75,12 @@ public class DozenController {
 	private TextField tfPrijs;
 	@FXML
 	private Button addButton;
+	//ERROR---------------------------------------------------------------
 	@FXML
 	private Pane errorPane;
 	@FXML
 	private Text errorMessage;
+	//EDIT PANE-----------------------------------------------------------
 	@FXML 
 	private Pane editPane;
 	@FXML
