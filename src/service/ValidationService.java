@@ -68,8 +68,6 @@ public class ValidationService {
 		}
 	}
 	
-
-	
 	public static final void controleerTTFPrefixLengte(int TTFlengte, String TTFPrefix) {
 		if(TTFPrefix.length() >= TTFlengte) {
 			throw new IllegalArgumentException("Prefix kan niet groter of gelijk zijn dan totale lengte code");
@@ -79,6 +77,22 @@ public class ValidationService {
 	public static final void controleerTTFTotaleLengte(int totaleLengte) {
 		if(totaleLengte < TRACKTRACECODELENGTE) {
 			throw new IllegalArgumentException(String.format("%s%d", "Totale lengte code kan niet kleiner zijn dan ", TRACKTRACECODELENGTE));
+		}
+	}
+	
+	public static final void controleerNumerischeWaardeBarcodeLengte(String barCodeLengte) {
+		try {
+			int barcode = Integer.parseInt(barCodeLengte);
+		}catch(NumberFormatException e) {
+			throw new IllegalArgumentException("De lengte van de barcode moet een cijfer zijn.");
+		}
+	}
+	
+	public static final void controleerNumerischeWaardeBarcodePrefix(String barCodePrefix) {
+		try {
+			int barcode = Integer.parseInt(barCodePrefix);
+		}catch(NumberFormatException e) {
+			throw new IllegalArgumentException("De barcodeprefix mag enkel nummers bevatten.");
 		}
 	}
 

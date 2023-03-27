@@ -51,8 +51,8 @@ public class DienstService {
 			dienstRepo.insert(transportdienst);
 			DienstDaoJpa.commitTransaction();
 		} catch (Exception e) {
-			System.err.println(e);
 			DienstDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException(e);
 		}
 
 	}
