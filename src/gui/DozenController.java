@@ -42,6 +42,8 @@ public class DozenController {
 
 	private DomeinController dc;
 	private Boolean formError = false;
+	private Boolean editFormError = false;
+	protected long doosID;
 	@FXML
 	private TableView<DoosDTO> tvDozen;
 	@FXML
@@ -97,6 +99,8 @@ public class DozenController {
 	private TextField tfEditPrijs;
 	@FXML
 	private ComboBox<String> cbEditIsActief;
+	@FXML
+	private Button confirmEdit;
 	
 
 	public DozenController() {
@@ -243,6 +247,7 @@ public class DozenController {
 						errorMessage.setText(null);
 					});
 
+
 					
 					
 				} catch (Exception e) {
@@ -282,6 +287,138 @@ public class DozenController {
 
 
 	}
+	
+	private void wijzigDoos() {
+		
+		String naam = tfEditNaam.getText();
+		String type = cbEditType.getValue();
+		String lengte = tfEditLengte.getText();
+		String breedte = tfEditBreedte.getText();
+		String hoogte = tfEditHoogte.getText();
+		String prijs = tfEditPrijs.getText();
+		String isActief = cbEditIsActief.getValue();
+		Boolean isActief_ = false;
+		double prijsd = 0;
+		double lengted = 0;
+		double breedted = 0;
+		double hoogted = 0;
+		
+		while(!editFormError) {
+			switch (isActief) {
+			case "Ja" -> isActief_ = true;
+			case "Nee" -> isActief_ = false;
+			}
+
+				try {
+					ValidationService.controleerNietBlanco(naam);
+					ValidationService.controleerNietBlanco(type);
+				} catch (Exception e) {
+					formError = true;
+
+					errorMessage.setText("Controleer dat de naam en het type correct zijn");
+					errorPane.setVisible(true);
+					FadeTransition ft = new FadeTransition(Duration.millis(5000), errorPane);
+					ft.setFromValue(1);
+					ft.setToValue(0);
+					ft.play();
+					ft.setOnFinished(event -> errorPane.setVisible(false));
+					
+				}
+			
+
+			
+			if (!editFormError) {
+				try {
+					prijsd = Double.parseDouble(prijs);
+					lengted = Double.parseDouble(lengte);
+					System.out.print(lengted);
+					breedted = Double.parseDouble(breedte);
+					hoogted = Double.parseDouble(hoogte);
+					ValidationService.controleerGroterDanNul(prijsd);
+					ValidationService.controleerGroterDanNul(lengted);
+					ValidationService.controleerGroterDanNul(breedted);
+					ValidationService.controleerGroterDanNul(hoogted);
+				} catch (Exception e) {
+					formError = true;
+					errorMessage.setText("Controleer dat de numerieke gegevens correct werden ingevoerd");
+					errorPane.setVisible(true);
+					FadeTransition ft = new FadeTransition(Duration.millis(5000), errorPane);
+					ft.setFromValue(1);
+					ft.setToValue(0);
+					ft.play();
+					ft.setOnFinished(event -> errorPane.setVisible(false));
+				}
+			}
+			else {
+				//errorMessage.setText(null);
+				editFormError = false;
+				break;
+			}
+
+
+			if (!editFormError) {
+				try {
+					dc.wijzigdoos(doosID, naam, lengted, breedted, hoogted, type, prijsd, isActief_);
+					System.out.print(lengted + " + " +  breedted + " + " +  hoogted);
+					loadDozen();
+					
+					//hergebruik van errorPane, nog aan te passen naar mss notification pane 
+					errorMessage.setText("Succesvol gewijzigd");
+					errorPane.setStyle("-fx-background-color: #99EDC3");
+					errorPane.setVisible(true);
+					FadeTransition ft = new FadeTransition(Duration.millis(5000), errorPane);
+					ft.setFromValue(1);
+					ft.setToValue(0);
+					ft.play();
+					ft.setOnFinished(event -> {
+						errorPane.setVisible(false);
+						errorPane.setStyle("-fx-background-color: #EEB2B2");
+						errorMessage.setText(null);
+					});
+					cbEditType.setItems(null);
+					cbEditType.setValue(null);
+					editPane.setVisible(false);
+					addButton.setDisable(false);
+
+					
+					
+				} catch (Exception e) {
+
+					errorMessage.setText("Er ging iets mis bij het wijzigen van de doos, controleer dat de naam niet reeds in gebruik is");
+					errorPane.setVisible(true);
+					FadeTransition ft = new FadeTransition(Duration.millis(5000), errorPane);
+					ft.setFromValue(1);
+					ft.setToValue(0);
+					ft.play();
+					ft.setOnFinished(event -> errorPane.setVisible(false));
+					e.printStackTrace();
+
+
+
+				}
+				break;
+				
+
+			}
+			else {
+				//errorMessage.setText(null);
+				editFormError = false;
+				break;
+			}
+		}
+		
+		if (editFormError) {
+			errorPane.setVisible(true);
+			FadeTransition ft = new FadeTransition(Duration.millis(5000), errorPane);
+			ft.setFromValue(1);
+			ft.setToValue(0);
+			ft.play();
+			ft.setOnFinished(event -> errorPane.setVisible(false));
+
+
+		}
+		
+	}
 
 	private void setFieldNumericalOnly(TextField[] textFields) {
 		for (TextField textField : textFields) {
@@ -292,10 +429,12 @@ public class DozenController {
 					textField.setStyle("-fx-background-color: red");
 					errorMessage.setText( "De ingevoerde waarden voor lengte, breedte, hoogte en/of prijs zijn geen geldige getallen");
 					formError = true;
+					editFormError = true;
 				} else {
 					textField.setStyle("-fx-background-color: #818589");
 					errorMessage.setText(null);
 					formError = false;
+					editFormError = false;
 				}
 
 			});
@@ -303,7 +442,8 @@ public class DozenController {
 		}
 	}
 	
-	public void setEditPane(String naam, String type, String lengte, String breedte, String hoogte, String prijs, String isActief) {
+	public void setEditPane(long doosID, String naam, String type, String lengte, String breedte, String hoogte, String prijs, String isActief) {
+		this.doosID = doosID;
 		tfEditNaam.setText(naam);
 		ObservableList<String> typeOptions = FXCollections.observableArrayList("Standaard", "Custom");
 		cbEditType.setItems(typeOptions);
@@ -316,15 +456,22 @@ public class DozenController {
 		cbEditIsActief.setItems(isActiefOptions);
 		cbEditIsActief.setValue(isActief);
 		editPane.setVisible(true);
+		
+		TextField[] textfields = {tfEditLengte, tfEditBreedte,tfEditHoogte, tfEditPrijs};
+		setFieldNumericalOnly(textfields);
+		addButton.setDisable(true);
+		
+		confirmEdit.setOnAction(event -> wijzigDoos());
 	}
 	
 	public void closeEditPane() {
+		cbEditType.setItems(null);
+		cbEditType.setValue(null);
 		editPane.setVisible(false);
+		addButton.setDisable(false);
 	}
 	
-	public void confirmEdit() {
-		//TODO
-	}
+
 
 	private class ButtonCell extends TableCell<DoosDTO, Boolean> {
 		final Button button = new Button("Wijzig");
@@ -338,8 +485,8 @@ public class DozenController {
 			button.getStyleClass().add("tvButton");
 			button.setOnAction(event -> {
 				DoosDTO doos = 	this.getTableRow().getItem();
-				setEditPane(doos.getNaam(),doos.getDoosType(), Double.toString(doos.getLengte()),Double.toString(doos.getBreedte()),Double.toString(doos.getHoogte()),Double.toString(doos.getPrijs()), doos.isActief()? "Ja": "Nee");
-				
+				setEditPane(doos.getId(),doos.getNaam(),doos.getDoosType(), Double.toString(doos.getLengte()),Double.toString(doos.getBreedte()),Double.toString(doos.getHoogte()),Double.toString(doos.getPrijs()), doos.isActief()? "Ja": "Nee");
+
 
 				
 			});

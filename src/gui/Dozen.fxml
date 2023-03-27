@@ -83,9 +83,9 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <Pane id="editPane" fx:id="editPane" prefHeight="500.0" prefWidth="900.0" translateX="500.0" translateY="150.0">
+      <Pane id="editPane" fx:id="editPane" prefHeight="500.0" prefWidth="900.0" translateX="500.0" translateY="150.0" visible="false">
          <children>
-            <Button fx:id="confirmEdit" layoutX="345.0" layoutY="442.0" mnemonicParsing="false" styleClass="tvAddButton" text="OK" />
+            <Button fx:id="confirmEdit" layoutX="345.0" layoutY="442.0" mnemonicParsing="false"  styleClass="tvAddButton" text="OK" />
             <Button fx:id="cancelEdit" layoutX="510.0" layoutY="442.0" mnemonicParsing="false" onMouseClicked="#closeEditPane" styleClass="tvAddButton" text="TERUG" />
             <TextField fx:id="tfEditNaam" layoutX="84.0" layoutY="102.0" styleClass="formField" />
             <TextField fx:id="tfEditLengte" layoutX="84.0" layoutY="189.0" styleClass="formField" />
