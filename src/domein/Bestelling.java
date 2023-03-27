@@ -71,7 +71,7 @@ public class Bestelling {
 
 	@OneToOne(mappedBy = "bestelling")
 	private Notificatie notificatie;
-
+	
 	protected Bestelling() {
 
 	};
@@ -93,7 +93,7 @@ public class Bestelling {
 		setLeveradresPostcode(leveradresPostcode);
 		setLeveradresStad(leveradresStad);
 		setDoos(doos);
-			toState(new GeplaatstBestellingState(this));
+		toState(new GeplaatstBestellingState(this));
 	}
 
 	public void verwerkBestelling(Transportdienst transportdienst) throws SizeLimitExceededException {
@@ -102,6 +102,18 @@ public class Bestelling {
 
 	public void wijzigBestelling(Transportdienst transportdienst) throws SizeLimitExceededException {
 		currentState.wijzigBestelling(transportdienst);
+	}
+
+	public void verzendBestelling() {
+		currentState.verzendBestelling();
+	}
+
+	public void uitBestelling() {
+		currentState.uitvoorleveringBestelling();
+	}
+
+	public void leverBestelling() {
+		currentState.leverBestelling();
 	}
 
 	public void wijzigTrackAndTraceCode() throws SizeLimitExceededException {
@@ -176,6 +188,9 @@ public class Bestelling {
 		this.status = switch (statusString.toLowerCase()) {
 		case "geplaatst" -> BestellingStatus.GEPLAATST;
 		case "verwerkt" -> BestellingStatus.VERWERKT;
+		case "verzonden" -> BestellingStatus.VERZONDEN;
+		case "uit_voor_levering" -> BestellingStatus.UIT_VOOR_LEVERING;
+		case "geleverd" -> BestellingStatus.GELEVERD;
 		default -> throw new IllegalArgumentException("Ongeldige status van Bestelling: " + statusString);
 		};
 	}
@@ -257,6 +272,7 @@ public class Bestelling {
 
 	public void setTrackAndTraceCode(String trackAndTraceCode) {
 		this.trackAndTraceCode = trackAndTraceCode;
+		
 	}
 
 	protected void toState(BestellingState state) {

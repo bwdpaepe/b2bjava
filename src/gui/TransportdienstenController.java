@@ -1,7 +1,5 @@
 package gui;
 
-import javax.naming.SizeLimitExceededException;
-
 import domein.DomeinController;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,7 +25,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import repository.ContactpersoonDTO;
 import repository.MedewerkerDTO;

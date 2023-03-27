@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.naming.SizeLimitExceededException;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
 import util.Tools;
 
 public class GeplaatstBestellingState extends BestellingState {
@@ -31,7 +29,7 @@ public class GeplaatstBestellingState extends BestellingState {
 		} while (generatedCode.equals(trackAndTraceCode));
 		
 		bestelling.setTrackAndTraceCode(generatedCode);
-		Notificatie notificatie = new Notificatie(new Date(), false, bestelling.getAankoper(), bestelling);
+		Notificatie notificatie = new Notificatie(new Date(), true, bestelling.getAankoper(), bestelling);
 		bestelling.setNotificatie(notificatie);
 
 		bestelling.toState(new VerwerktBestellingState(bestelling));

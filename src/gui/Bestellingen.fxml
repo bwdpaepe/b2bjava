@@ -36,7 +36,7 @@
             	                        <Font name="SansSerif Bold" size="12.0" />
             	                     </font>
             	                  </Label>
-            	                  <Button fx:id="btnWijzigBestelling" mnemonicParsing="false" onAction="#wijzigBestelling" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-radius: 15;" styleClass="globalButtons" stylesheets="@../guiStyling/componentsStyle.css" text="Wijzig bestelling" textFill="#ec4842">
+            	                  <Button fx:id="btnWijzigBestelling" mnemonicParsing="false" onAction="#wijzigBestelling" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-radius: 15;" styleClass="globalButtons" stylesheets="@../guiStyling/componentsStyle.css" text="Wijzigingen opslaan" textFill="#ec4842">
             	                     <font>
             	                        <Font name="SansSerif Bold" size="12.0" />
             	                     </font>
@@ -463,6 +463,759 @@
                                              </VBox.margin>
                                           </ComboBox>
                                           <Label fx:id="vLblTrackTraceGegevens" prefHeight="1000.0" prefWidth="1000.0" text="Nog niet beschikbaar">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </center>
+                        </BorderPane>
+                    </content>
+                  </Tab>
+                  <Tab fx:id="bestellingVerzendenTab" closable="false" style="-fx-pref-height: 62.0px;" text="Verzenden">
+                    <content>
+                        <BorderPane styleClass="borderTab" stylesheets="@../guiStyling/componentsStyle.css">
+                           <top>
+                              <HBox prefHeight="100.0" prefWidth="200.0" styleClass="container-header" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label fx:id="zLblDetailsBestelling" prefHeight="1000.0" prefWidth="1000.0" text="Selecteer een bestelling" textFill="WHITE">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Button fx:id="btnVerzendBestelling" mnemonicParsing="false" onAction="#verzendBestelling" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-radius: 15;" styleClass="globalButtons" stylesheets="@../guiStyling/componentsStyle.css" text="Verzend bestelling" textFill="#ec4842">
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="50.0" right="20.0" top="10.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </top>
+                           <center>
+                              <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="300.0">
+                                       <children>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Naam klant">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Naam Aankoper">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Email aankoper">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Order ID">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Datum geplaatst">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Leveradres">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Status">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Totaal orderbedrag">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Dozen voor verpakking">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Transportdienst">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Track and trace gegevens">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="1000.0">
+                                       <children>
+                                          <Label fx:id="zLblNaamKlant" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="zLblNaamAankoper" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="zLblEmailAankoper" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="zLblOrderId" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="zLblDatumGeplaatst" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="zLblLeveradres" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="zLblStatus" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="zLblTotaleOrderbedrag" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="zLblDozenVoorVerpakking" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="zLblTransportdienst" prefHeight="1000.0" prefWidth="1000.0">
+                                          	<font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="zLblTrackTraceGegevens" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </center>
+                        </BorderPane>
+                    </content>
+                  </Tab>
+                  <Tab fx:id="bestellingUitTab" closable="false" style="-fx-pref-height: 62.0px;" text="Uit">
+                    <content>
+                        <BorderPane styleClass="borderTab" stylesheets="@../guiStyling/componentsStyle.css">
+                           <top>
+                              <HBox prefHeight="100.0" prefWidth="200.0" styleClass="container-header" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label fx:id="uLblDetailsBestelling" prefHeight="1000.0" prefWidth="1000.0" text="Selecteer een bestelling" textFill="WHITE">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Button fx:id="btnUitBestelling" mnemonicParsing="false" onAction="#uitBestelling" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-radius: 15;" styleClass="globalButtons" stylesheets="@../guiStyling/componentsStyle.css" text="Bestelling uit voor levering" textFill="#ec4842">
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="50.0" right="20.0" top="10.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </top>
+                           <center>
+                              <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="300.0">
+                                       <children>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Naam klant">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Naam Aankoper">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Email aankoper">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Order ID">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Datum geplaatst">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Leveradres">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Status">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Totaal orderbedrag">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Dozen voor verpakking">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Transportdienst">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Track and trace gegevens">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="1000.0">
+                                       <children>
+                                          <Label fx:id="uLblNaamKlant" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="uLblNaamAankoper" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="uLblEmailAankoper" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="uLblOrderId" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="uLblDatumGeplaatst" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="uLblLeveradres" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="uLblStatus" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="uLblTotaleOrderbedrag" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="uLblDozenVoorVerpakking" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="uLblTransportdienst" prefHeight="1000.0" prefWidth="1000.0">
+                                          	<font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="uLblTrackTraceGegevens" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </center>
+                        </BorderPane>
+                    </content>
+                  </Tab>
+                  <Tab fx:id="bestellingLeverenTab" closable="false" style="-fx-pref-height: 62.0px;" text="Leveren">
+                    <content>
+                        <BorderPane styleClass="borderTab" stylesheets="@../guiStyling/componentsStyle.css">
+                           <top>
+                              <HBox prefHeight="100.0" prefWidth="200.0" styleClass="container-header" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label fx:id="lLblDetailsBestelling" prefHeight="1000.0" prefWidth="1000.0" text="Selecteer een bestelling" textFill="WHITE">
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Button fx:id="btnLeverBestelling" mnemonicParsing="false" onAction="#leverBestelling" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-radius: 15;" styleClass="globalButtons" stylesheets="@../guiStyling/componentsStyle.css" text="Lever bestelling" textFill="#ec4842">
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="50.0" right="20.0" top="10.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="SansSerif Bold" size="12.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </top>
+                           <center>
+                              <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="300.0">
+                                       <children>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Naam klant">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Naam Aankoper">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Email aankoper">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Order ID">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Datum geplaatst">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Leveradres">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Status">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Totaal orderbedrag">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Dozen voor verpakking">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Transportdienst">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label prefHeight="1000.0" prefWidth="1000.0" text="Track and trace gegevens">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="1000.0">
+                                       <children>
+                                          <Label fx:id="lLblNaamKlant" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="lLblNaamAankoper" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="lLblEmailAankoper" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="lLblOrderId" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="lLblDatumGeplaatst" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="lLblLeveradres" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="lLblStatus" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="lLblTotaleOrderbedrag" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="lLblDozenVoorVerpakking" prefHeight="1000.0" prefWidth="1000.0">
+                                             <font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="lLblTransportdienst" prefHeight="1000.0" prefWidth="1000.0">
+                                          	<font>
+                                                <Font name="SansSerif Bold" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="1.0" left="20.0" right="4.0" top="1.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="lLblTrackTraceGegevens" prefHeight="1000.0" prefWidth="1000.0">
                                              <font>
                                                 <Font name="SansSerif Bold" size="12.0" />
                                              </font>
