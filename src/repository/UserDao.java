@@ -12,5 +12,7 @@ public interface UserDao extends GenericDao<User>  {
 
 		public List<User> getAankopersFromCompany(long klantId);
 
-
+		public int findMaxPersoneelNrFromBedrijf(long bedrijfId);
+		
+		public List<MedewerkerListEntryDTO> findAllMedewerkersByBedrijfId( long bedrijfId);
 }
