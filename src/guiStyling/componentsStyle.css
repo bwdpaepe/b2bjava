@@ -252,9 +252,7 @@
 .loginButtons:hover{
 	-fx-background-color: #E0433E;
 	-fx-font: 20.0pt 'Inter', calibri;
-	-fx-border-color: black;
-	-fx-border-width: 2.0;
-	-fx-border-radius: 15.0;
+	-fx-border-radius: 4.0;
 }
 .tvButton{
 	-fx-background-color: #EC4842;
@@ -302,23 +300,16 @@
 
 .formField, .formField .jfx-text-field{
 
-	-fx-background-color: #818589;
-	-fx-prompt-text-fill: white;
-	-fx-text-fill: white;
+	-fx-background-color: white;
+	-fx-prompt-text-fill: black;
+	-fx-text-fill: black;
 	-fx-font: 12.0pt 'Inter', calibri;
+	-fx-border-color: black;
+	-fx-border-width:2px;
 	
 }
 
-.combo-box, combo-box .cell {
-	-fx-background-color: #818589;
-	-fx-prompt-text-fill: white;
-	-fx-text-fill: white;
-}
 
-.combo-box .cell:selected {
-
-	-fx-text-fill: white;
-}
 
 #errorPane {
 	-fx-background-color: #EEB2B2;

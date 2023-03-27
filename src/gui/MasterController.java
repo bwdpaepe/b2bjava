@@ -91,7 +91,18 @@ public class MasterController extends Pane {
 	}
 	
 	public void loadMedewerker() {
-		// TODO
+		Parent root = null;
+		try {
+			titlePlaceholder.setText("Medewerkers");
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Medewerkers.fxml"));
+			root = loader.load();
+			MedewerkerController mwc = loader.getController();
+			mwc.setParams(dc);
+			mwc.loadMedewerkers();
+			bp.setCenter(root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void loadTransportdienst() {
