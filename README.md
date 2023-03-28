@@ -68,6 +68,7 @@
 ```
 
 ## Log-in demo accounts
-- admin: 'emailail1@test.com' ('paswoord')
-- magazijnier: 'mag1@test.com' ('paswoord')
-- aankoper: 'testemail@test.com' ('paswoord')
+- "emailail1@test.com", "paswoord"   -> Admin user bedrijf A
+- "mag1@test.com", "paswoord"        -> Magazijnier bedrijf A
+- "emailail4.bart@test.com", "paswoord" -> Admin user bedrijf B
+- "mag2@test.com", "paswoord" -> Magazijnier bedrijf B
