@@ -431,7 +431,7 @@ public class DozenController {
 					formError = true;
 					editFormError = true;
 				} else {
-					textField.setStyle("-fx-background-color: #818589");
+					textField.setStyle(null);
 					errorMessage.setText(null);
 					formError = false;
 					editFormError = false;

@@ -152,6 +152,8 @@ public class DatabaseSeeding
 			System.out.println("Voor update user 2:");
 			System.out.println(dc.findMedewerkerById(2L));
 			dc.updateMedewerker(2l, "test_vn", "test_an", "testemail@test.com", "test adres", "123456789", "aankoper", false);
+			
+			dc.updateMedewerker(3L,"Jorgen", "Scheerens", "emailail3@test.be","Adres adres adres3", "047565442854", "admin", false);
 			System.out.println("Na update user 2:");
 			System.out.println(dc.findMedewerkerById(2L) + "\n");
 			

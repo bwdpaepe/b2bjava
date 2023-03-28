@@ -31,6 +31,11 @@
 
 }
 
+.voegMedewerkerToePane{
+	-fx-border-width:2px;
+	-fx-border-color:black;
+}
+
 #bpKlantDetails {
 	-fx-translate-y: 2.0px;
 	-fx-translate-x: 2.0px;

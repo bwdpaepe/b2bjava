@@ -5,31 +5,33 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="containerAnchor" stylesheets="@../guiStyling/componentsStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MedewerkerController">
    <children>
-      <TableView prefHeight="200.0" prefWidth="200.0" styleClass="leftComponent">
+      <TableView fx:id="tvMedewerkers" prefHeight="200.0" prefWidth="200.0" styleClass="leftComponent">
         <columns>
-          <TableColumn prefWidth="75.0" text="Naam" />
-          <TableColumn prefWidth="75.0" text="Functie" />
-            <TableColumn prefWidth="75.0" text="Actief" />
+          <TableColumn fx:id="tvVoornaam" prefWidth="75.0" text="Voornaam" />
+            <TableColumn fx:id="tvFamilienaam" prefWidth="75.0" text="Familienaam" />
+          <TableColumn fx:id="tvFunctie" prefWidth="75.0" text="Functie" />
+            <TableColumn fx:id="tvIsActief" prefWidth="75.0" text="Actief" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextField promptText="zoeken...." styleClass="search-field" />
+      <TextField fx:id="tvZoekMedewerker" promptText="zoeken op familienaam..." styleClass="search-field" />
       <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" styleClass="rightComponent">
          <top>
             <StackPane prefHeight="63.0" prefWidth="200.0" style="-fx-background-color: #EC4842;" BorderPane.alignment="CENTER">
@@ -44,7 +46,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fx:id="textNaam" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <Text fx:id="textMedewerker" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
@@ -71,17 +73,15 @@
                   <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="200.0" minHeight="200.0" prefHeight="200.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField maxHeight="40.0" minWidth="40.0" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="tfDetailsVoornaam" maxHeight="40.0" minWidth="40.0" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <padding>
                         <Insets left="15.0" right="15.0" />
                      </padding>
@@ -89,42 +89,22 @@
                         <Insets left="15.0" right="15.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField maxHeight="40.0" minWidth="40.0" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="tfDetailsFamilienaam" maxHeight="40.0" minWidth="40.0" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="15.0" right="15.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField maxHeight="40.0" minHeight="40.0" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextField fx:id="tfDetailsEmail" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="15.0" right="15.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField maxHeight="40.0" minHeight="40.0" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <TextField fx:id="tfDetailsTelefoonnummer" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="15.0" right="15.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField maxHeight="40.0" minHeight="40.0" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <TextField maxHeight="40.0" minHeight="40.0" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <GridPane.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <TextField maxHeight="40.0" minHeight="40.0" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                     <GridPane.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <TextField maxHeight="40.0" minHeight="40.0" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                     <GridPane.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <TextField maxHeight="40.0" minHeight="40.0" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <TextField fx:id="tfDetailsPersoneelnummer" editable="false" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="15.0" right="15.0" />
                      </GridPane.margin>
@@ -153,7 +133,7 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adres" GridPane.rowIndex="4">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adres" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="50.0" />
                      </GridPane.margin>
@@ -185,7 +165,7 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Actief" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Actief" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets left="50.0" />
                      </GridPane.margin>
@@ -193,21 +173,149 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <ComboBox maxHeight="40.0" maxWidth="189.0" minHeight="40.0" minWidth="189.0" prefHeight="40.0" prefWidth="189.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" styleClass="loginButtons" text="Wijzig" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10">
+                  <ComboBox fx:id="cbDetailsFunctie" maxHeight="40.0" maxWidth="189.0" minHeight="40.0" minWidth="189.0" prefHeight="40.0" prefWidth="189.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                  <Button fx:id="btnWijzigMedewerker" alignment="TOP_LEFT" mnemonicParsing="false" styleClass="loginButtons" text="Wijzig" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" styleClass="loginButtons" text="Nieuw..." GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="10">
+                  <Button fx:id="btnNieuweMedewerker" mnemonicParsing="false" styleClass="loginButtons" text="Nieuw..." GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                      <font>
                         <Font size="29.0" />
                      </font>
                   </Button>
-                  <ComboBox maxHeight="40.0" maxWidth="189.0" minHeight="40.0" minWidth="189.0" prefHeight="40.0" prefWidth="189.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="cbDetailsIsActief" maxHeight="40.0" maxWidth="189.0" minHeight="40.0" minWidth="189.0" prefHeight="40.0" prefWidth="189.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                  <TextArea fx:id="taDetailsAdres" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                     </GridPane.margin>
+                  </TextArea>
                </children>
             </GridPane>
          </left>
       </BorderPane>
+      <Pane fx:id="voegToePane" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: white;" translateX="360.0" translateY="100.0" visible="false">
+         <children>
+            <GridPane prefHeight="600.0" prefWidth="1200.0" styleClass="voegMedewerkerToePane">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="403.3333740234375" minWidth="200.0" prefWidth="403.3333740234375" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="196.6666259765625" prefWidth="221.33329264322913" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="389.9999999999999" minWidth="0.0" prefWidth="375.3333740234374" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="205.33333333333334" minHeight="10.0" prefHeight="189.33333333333334" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="157.99997965494794" minHeight="8.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="55.0" minHeight="8.000020345052064" prefHeight="12.666707356770814" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="btnVoegtoe" mnemonicParsing="false" styleClass="loginButtons" text="Voeg Toe" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                  <Button fx:id="btnTerug" mnemonicParsing="false" styleClass="loginButtons" text="Terug" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Voornaam" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Familienaam" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail adres" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Functie" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Telefoonnummer" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="paswoord" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adres" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Text>
+                  <TextField fx:id="tfVoegtoeVoornaam" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <TextField fx:id="tfVoegtoeFamilienaam" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <TextField fx:id="tfVoegtoeEmail" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <TextArea fx:id="taVoegtoeAdres" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </GridPane.margin>
+                  </TextArea>
+                  <TextField fx:id="tfVoegtoeTelefoonnummer" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <TextField fx:id="tfVoegtoePaswoord" accessibleRole="PASSWORD_FIELD" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <ComboBox fx:id="cbVoegtoeFunctie" prefWidth="342.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+         </children>
+      </Pane>
+      <Pane fx:id="paneNotification" prefHeight="200.0" prefWidth="800.0" style="-fx-background-color: white;" translateX="560.0" translateY="150.0" visible="false">
+         <children>
+            <Text fx:id="textNotification" fill="WHITE" layoutX="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TEXT" textAlignment="CENTER" translateY="40.0" wrappingWidth="769.3333333333333">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
