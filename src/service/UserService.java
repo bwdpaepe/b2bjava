@@ -136,7 +136,7 @@ public class UserService
 				throw new IllegalArgumentException("Fout bij updaten Medewerker met id " + id + ": " + e.getMessage());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw new IllegalArgumentException(e.getMessage());
 		}
 	}
