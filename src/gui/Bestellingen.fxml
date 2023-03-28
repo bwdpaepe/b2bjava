@@ -1275,13 +1275,13 @@
       <TableView fx:id="tvBestellingen" styleClass="leftComponent">
         <columns>
           <TableColumn fx:id="orderColumn" prefWidth="110.0" resizable="false" text="OrderID" />
-          <TableColumn fx:id="statusColumn" prefWidth="86.0" resizable="false" text="Status" />
-          <TableColumn fx:id="datumColumn" prefWidth="144.66668701171875" resizable="false" text="Datum" />
-          <TableColumn fx:id="klantColumn" prefWidth="184.6666259765625" resizable="false" text="Klant" />
+          <TableColumn fx:id="statusColumn" prefWidth="146.0" resizable="false" text="Status" />
+          <TableColumn fx:id="datumColumn" prefWidth="134.66668701171875" resizable="false" text="Datum" />
+          <TableColumn fx:id="klantColumn" prefWidth="134.6666259765625" resizable="false" text="Klant" />
           <TableColumn fx:id="transportdienstColumn" prefWidth="242.66668701171875" resizable="false" text="Transportdienst" />
         </columns>
       </TableView>
-      <TextField fx:id="tfBestellingZoeken" promptText="Zoeken..." styleClass="search-field" />
+      <TextField fx:id="tfBestellingZoeken" promptText="Klant zoeken..." styleClass="search-field" />
       <ChoiceBox fx:id="choiceStatus" layoutX="366.0" layoutY="19.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
