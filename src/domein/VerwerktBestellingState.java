@@ -30,6 +30,8 @@ public class VerwerktBestellingState extends BestellingState {
 			bestelling.setTrackAndTraceCode(generatedCode);
 			
 			bestelling.getNotificatie().setCreationDate(new Date());
+			
+			bestelling.getNotificatie().setBekenen(false);
 		}
 	}
 
@@ -48,9 +50,11 @@ public class VerwerktBestellingState extends BestellingState {
 		
 	}
 	
+	@Override
 	public void verzendBestelling() {
 		bestelling.setStatus("verzonden");
 		bestelling.getNotificatie().setCreationDate(new Date());
+		bestelling.getNotificatie().setBekenen(false);
 		bestelling.toState(new VerzondenBestellingState(bestelling));
 	}
 

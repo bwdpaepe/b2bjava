@@ -29,7 +29,7 @@ public class GeplaatstBestellingState extends BestellingState {
 		} while (generatedCode.equals(trackAndTraceCode));
 		
 		bestelling.setTrackAndTraceCode(generatedCode);
-		Notificatie notificatie = new Notificatie(new Date(), true, bestelling.getAankoper(), bestelling);
+		Notificatie notificatie = new Notificatie(new Date(), false, bestelling.getAankoper(), bestelling); // nieuwe notification is ongelezen (false)
 		bestelling.setNotificatie(notificatie);
 
 		bestelling.toState(new VerwerktBestellingState(bestelling));

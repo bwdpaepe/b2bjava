@@ -36,7 +36,7 @@ public abstract class BestellingState {
 	
 	public void leverBestelling() {
 		throw new IllegalArgumentException(
-				"Een bestelling kan enkel uit voor geleverd zijn wanneer deze de status uitvoorlevering heeft");
+				"Een bestelling kan enkel afgeleverd zijn wanneer deze de status uit voor levering heeft");
 	}
 
 }

@@ -7,9 +7,11 @@ public class VerzondenBestellingState extends BestellingState {
 		super(bestelling);
 	}
 	
+	@Override
 	public void uitvoorleveringBestelling() {
 		bestelling.setStatus("uit_voor_levering");
 		bestelling.getNotificatie().setCreationDate(new Date());
+		bestelling.getNotificatie().setBekenen(false);
 		bestelling.toState(new UitVoorLeveringBestellingState(bestelling));
 	}
 
