@@ -30,15 +30,44 @@
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2"
-
-
-...
-...
-
-
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="b2b_portal"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<!-- <class>domein.CLASSNAME</class> goes here -->
+		<class>domein.Bedrijf</class>
+		<class>domein.User</class>
+		<class>domein.Medewerker</class>
+		<class>domein.Dienst</class>
+		<class>domein.Transportdienst</class>
+		<class>domein.Persoon</class>
+		<class>domein.Contactpersoon</class>
+		<class>domein.TrackTraceFormat</class>
+		<class>domein.Bestelling</class>
+		<class>domein.Product</class>
+		<class>domein.BesteldProduct</class>
+		<class>domein.Doos</class>
+		<class>domein.Dimensie</class>
+		<class>domein.Notificatie</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://vichogent.be:40058/SDP2DBT03?serverTimezone=UTC" />
+			<property name="javax.persistence.jdbc.user" value="SDP2T03" />
+			<property name="javax.persistence.jdbc.driver"
+				value="com.mysql.cj.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.password"
+				value="@7PlyRUVHzP#1qG7Qm@f#dBTi" />
+			<property
+				name="javax.persistence.schema-generation.database.action"
+				value="none" />
+		</properties>
+	</persistence-unit>
 </persistence>
 ```
 
 ## Log-in demo accounts
-- ...
-- ...
+- admin: 'emailail1@test.com' ('paswoord')
+- magazijnier: 'mag1@test.com' ('paswoord')
+- aankoper: 'testemail@test.com' ('paswoord')
