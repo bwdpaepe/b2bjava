@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -21,6 +23,9 @@ import service.ValidationService;
 @Table(name = "Dozen", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"bedrijf_id", "naam"})
 })
+@NamedQueries({
+	@NamedQuery(name = "Doos.getDozenVanBedrijf", query = "select d from Doos d where d.bedrijf = :bedrijf")})
+
 public class Doos implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -44,7 +49,7 @@ public class Doos implements Serializable {
 	@Column
 	private double prijs;
 	
-	public Doos(String naam, double hoogte, double breedte, double lengte, String doosTypeString, double prijs, Bedrijf bedrijf) {
+	public Doos(String naam, double lengte, double breedte, double hoogte, String doosTypeString, double prijs, Bedrijf bedrijf) {
 		setNaam(naam);
 		setDimensie(lengte, breedte, hoogte);
 		setDoosType(doosTypeString);
