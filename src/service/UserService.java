@@ -42,6 +42,8 @@ public class UserService
 				throw new IllegalArgumentException("Ongeldige inloggegevens");
 			}
 
+			if (!user.getIsActief()) throw new IllegalArgumentException("De gebruiker is niet actief");
+			
 			if (user instanceof Medewerker && ((Medewerker) user).getFunctie() != "Aankoper")
 			{
 				return new MedewerkerDTO((Medewerker) user);
@@ -136,7 +138,7 @@ public class UserService
 				throw new IllegalArgumentException("Fout bij updaten Medewerker met id " + id + ": " + e.getMessage());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw new IllegalArgumentException(e.getMessage());
 		}
 	}
