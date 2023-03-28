@@ -122,6 +122,45 @@ public class BestellingService {
 		}
 	}
 	
+	public void verzendBestelling(long bestellingId) {
+		try {
+			GenericDaoJpa.startTransaction();
+			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			bestelling.verzendBestelling();
+			bestellingRepo.update(bestelling);
+			GenericDaoJpa.commitTransaction();
+		} catch (Exception e) {
+			GenericDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException(e.getMessage());
+		}
+	}
+	
+	public void uitBestelling(long bestellingId) {
+		try {
+			GenericDaoJpa.startTransaction();
+			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			bestelling.uitBestelling();
+			bestellingRepo.update(bestelling);
+			GenericDaoJpa.commitTransaction();
+		} catch (Exception e) {
+			GenericDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException(e.getMessage());
+		}
+	}
+	
+	public void leverBestelling(long bestellingId) {
+		try {
+			GenericDaoJpa.startTransaction();
+			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			bestelling.leverBestelling();
+			bestellingRepo.update(bestelling);
+			GenericDaoJpa.commitTransaction();
+		} catch (Exception e) {
+			GenericDaoJpa.rollbackTransaction();
+			throw new IllegalArgumentException(e.getMessage());
+		}
+	}
+	
 	public void wijzigTrackAndTraceCode(long bestellingId) throws SizeLimitExceededException {
 		try {
 			GenericDaoJpa.startTransaction();

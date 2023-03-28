@@ -67,6 +67,6 @@
           <TableColumn fx:id="aantalBestellingenColumn" text="Aantal open bestellingen" />
         </columns>
       </TableView>
-      <TextField fx:id="tfKlantZoeken" promptText="Zoeken..." styleClass="search-field" />
+      <TextField fx:id="tfKlantZoeken" promptText="Klant zoeken..." styleClass="search-field" />
    </children>
 </AnchorPane>

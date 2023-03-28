@@ -1,12 +1,9 @@
 package domein;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -217,9 +214,24 @@ public class DomeinController {
 	public void verwerkBestelling(long bestellingId, long transportdienstId) throws SizeLimitExceededException {
 		bestellingService.verwerkBestelling(bestellingId, transportdienstId);
 	}
+	
+	public void verzendBestelling(long bestellingId) {
+		bestellingService.verzendBestelling(bestellingId);
+	}
+	
+	public void uitBestelling(long bestellingId) {
+		bestellingService.uitBestelling(bestellingId);
+	}
+	
+	public void leverBestelling(long bestellingId) {
+		bestellingService.leverBestelling(bestellingId);
+	}
 
-	public void wijzigTrackAndTraceCode(long bestellingId) throws SizeLimitExceededException {
-		bestellingService.wijzigTrackAndTraceCode(bestellingId);
+	public String wijzigTrackAndTraceCode(long bestellingId) throws SizeLimitExceededException {
+		Bestelling bestelling = bestellingService.getBestelling(bestellingId);
+		bestelling.wijzigTrackAndTraceCode();
+		//bestellingService.wijzigTrackAndTraceCode(bestellingId);
+		return bestelling.getTrackAndTraceCode();
 	}
 	
 	public String[] getGebruikteStatussen() {

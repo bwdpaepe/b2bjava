@@ -2,6 +2,10 @@ package domein;
 
 public enum BestellingStatus {
 	GEPLAATST,
-	VERWERKT,;
+	VERWERKT,
+	VERZONDEN,
+	UIT_VOOR_LEVERING,
+	GELEVERD
+	;
 
 }

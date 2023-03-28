@@ -4,7 +4,7 @@
 
 ### Module Path
 - byte-buddy-1.12.16
-- commons-lang3-3.12.0
+- commons-lang3-3.12.0  [Download Apache Commons Lang jar here](https://mvnrepository.com/artifact/org.apache.commons/commons-lang3/3.12.0)
 - jakarta.persistence.2.2.3
 - javafx.base
 - javafx.controls

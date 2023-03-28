@@ -1,10 +1,7 @@
 package gui;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 import javax.naming.SizeLimitExceededException;
 import javax.persistence.EntityNotFoundException;
@@ -24,7 +21,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -37,11 +33,11 @@ import repository.BesteldProductDTO;
 import repository.BestellingDTO;
 import repository.DoosDTO;
 import repository.TransportdienstDTO;
-import repository.KlantLijstEntryDTO;
 import repository.MedewerkerDTO;
 
 public class BestellingenController extends Pane {
 	private DomeinController dc;
+	
 	@FXML
 	private TableView<BestellingDTO> tvBestellingen;
 	@FXML
@@ -108,6 +104,91 @@ public class BestellingenController extends Pane {
 	private ComboBox<TransportdienstDTO> vCmbTransportdienst;
 	@FXML
 	private Label vLblTrackTraceGegevens;
+	
+	@FXML
+	private Label zLblDetailsBestelling;
+	@FXML
+	private Button btnVerzendBestelling;
+	@FXML
+	private Label zLblDozenVoorVerpakking;
+	@FXML
+	private Label zLblNaamKlant;
+	@FXML
+	private Label zLblNaamAankoper;
+	@FXML
+	private Label zLblEmailAankoper;
+	@FXML
+	private Label zLblOrderId;
+	@FXML
+	private Label zLblDatumGeplaatst;
+	@FXML
+	private Label zLblLeveradres;
+	@FXML
+	private Label zLblStatus;
+	@FXML
+	private Label zLblTotaleOrderbedrag;
+	@FXML
+	private Label zLblTransportdienst;
+	@FXML
+	private Label zLblTrackTraceGegevens;
+	
+	
+	@FXML
+	private Label uLblDetailsBestelling;
+	@FXML
+	private Button btnUitBestelling;
+	@FXML
+	private Label uLblDozenVoorVerpakking;
+	@FXML
+	private Label uLblNaamKlant;
+	@FXML
+	private Label uLblNaamAankoper;
+	@FXML
+	private Label uLblEmailAankoper;
+	@FXML
+	private Label uLblOrderId;
+	@FXML
+	private Label uLblDatumGeplaatst;
+	@FXML
+	private Label uLblLeveradres;
+	@FXML
+	private Label uLblStatus;
+	@FXML
+	private Label uLblTotaleOrderbedrag;
+	@FXML
+	private Label uLblTransportdienst;
+	@FXML
+	private Label uLblTrackTraceGegevens;
+	
+	
+	@FXML
+	private Label lLblDetailsBestelling;
+	@FXML
+	private Button btnLeverBestelling;
+	@FXML
+	private Label lLblDozenVoorVerpakking;
+	@FXML
+	private Label lLblNaamKlant;
+	@FXML
+	private Label lLblNaamAankoper;
+	@FXML
+	private Label lLblEmailAankoper;
+	@FXML
+	private Label lLblOrderId;
+	@FXML
+	private Label lLblDatumGeplaatst;
+	@FXML
+	private Label lLblLeveradres;
+	@FXML
+	private Label lLblStatus;
+	@FXML
+	private Label lLblTotaleOrderbedrag;
+	@FXML
+	private Label lLblTransportdienst;
+	@FXML
+	private Label lLblTrackTraceGegevens;
+	
+	
 	@FXML
 	private TableView<BesteldProductDTO> tvBesteldeProducten;
 	@FXML
@@ -131,9 +212,21 @@ public class BestellingenController extends Pane {
 	
 	@FXML 
 	private Tab bestellingVerwerkenTab;
+	@FXML 
+	private Tab bestellingVerzendenTab;
+	
+	@FXML 
+	private Tab bestellingUitTab;
+	@FXML 
+	private Tab bestellingLeverenTab;
+	
+
 	
 	private final String VERWERKT = "VERWERKT";
 	private final String GEPLAATST = "GEPLAATST";
+	private final String VERZONDEN = "VERZONDEN";
+	private final String UIT_VOOR_LEVERING = "UIT_VOOR_LEVERING";
+	private final String GELEVERD = "GELEVERD";
 	
 	private BestellingDTO selectedBestellingDTO;
 	
@@ -145,7 +238,7 @@ public class BestellingenController extends Pane {
 		
 
 	}
-
+	
 	public void loadBestellingen() {
 
 		//assign values to columns
@@ -226,18 +319,90 @@ public class BestellingenController extends Pane {
 					selectedBestellingDTO = newBestellingDTO;
 					
 					//***vul het detail raadplegen op***
-					try {
+					/*try {
 						maakVisueelDetailBestellingRaadplegen(newBestellingDTO);
 					}
 					catch(EntityNotFoundException e) {
 						toonMelding(AlertType.ERROR, e.getMessage());
-					}
+					}*/
 					
 					//***vul het detail verwerken op***
 					//***we doen dit alleen maar als de status GEPLAATST is***
 					//***als de status VERWERKT is, dan disablen we tab 'verwerken' en tonen we een melding***
 					String status = selectedBestellingDTO.getStatus();
-					if(status.toUpperCase().equals(VERWERKT)) {
+					switch (status.toUpperCase()) {
+						case GEPLAATST -> {
+							bestellingRaadplegenTab.setDisable(false);
+							bestellingVerwerkenTab.setDisable(false);
+							bestellingVerzendenTab.setDisable(true);
+							bestellingUitTab.setDisable(true);
+							bestellingLeverenTab.setDisable(true);
+							try {
+								maakVisueelDetailBestellingRaadplegen(newBestellingDTO);
+								maakVisueelDetailBestellingVerwerken(newBestellingDTO);
+							}
+							catch(EntityNotFoundException e) {
+								toonMelding(AlertType.ERROR, e.getMessage());
+							}
+						}
+					
+						case VERWERKT -> {
+							bestellingRaadplegenTab.setDisable(false);
+							bestellingVerwerkenTab.setDisable(true);
+							bestellingVerzendenTab.setDisable(false);
+							bestellingUitTab.setDisable(true);
+							bestellingLeverenTab.setDisable(true);
+							try {
+								maakVisueelDetailBestellingRaadplegen(newBestellingDTO);
+								maakVisueelDetailBestellingVerzenden(newBestellingDTO);
+							}
+							catch(EntityNotFoundException e) {
+								toonMelding(AlertType.ERROR, e.getMessage());
+							}
+						}
+						case VERZONDEN -> {
+							bestellingRaadplegenTab.setDisable(true);
+							bestellingVerwerkenTab.setDisable(true);
+							bestellingVerzendenTab.setDisable(true);
+							bestellingUitTab.setDisable(false);
+							bestellingLeverenTab.setDisable(true);
+							try {
+								maakVisueelDetailBestellingUit(newBestellingDTO);
+							}
+							catch(EntityNotFoundException e) {
+								toonMelding(AlertType.ERROR, e.getMessage());
+							}
+						}
+						case UIT_VOOR_LEVERING -> {
+							bestellingRaadplegenTab.setDisable(true);
+							bestellingVerwerkenTab.setDisable(true);
+							bestellingVerzendenTab.setDisable(true);
+							bestellingUitTab.setDisable(true);
+							bestellingLeverenTab.setDisable(false);
+							try {
+								maakVisueelDetailBestellingLeveren(newBestellingDTO);
+							}
+							catch(EntityNotFoundException e) {
+								toonMelding(AlertType.ERROR, e.getMessage());
+							}
+						}
+						case GELEVERD -> {
+							bestellingRaadplegenTab.setDisable(true);
+							bestellingVerwerkenTab.setDisable(true);
+							bestellingVerzendenTab.setDisable(true);
+							bestellingUitTab.setDisable(true);
+							bestellingLeverenTab.setDisable(true);
+							try {
+								maakVisueelDetailBestellingVerwerken(newBestellingDTO);
+							}
+							catch(EntityNotFoundException e) {
+								toonMelding(AlertType.ERROR, e.getMessage());
+							}
+						}
+					
+					}
+					
+					/*if(status.toUpperCase().equals(VERWERKT)) {
 						bestellingVerwerkenTab.setDisable(true);						
 					}
 					else {
@@ -248,7 +413,7 @@ public class BestellingenController extends Pane {
 						catch(EntityNotFoundException e) {
 							toonMelding(AlertType.ERROR, e.getMessage());
 						}
-					}
+					}*/
 					
 					//***Overzicht bestelde producten van deze bestelling***
 					loadBesteldeProducten(newBestellingDTO);
@@ -278,6 +443,7 @@ public class BestellingenController extends Pane {
 		BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
 		try {
 			maakVisueelDetailBestellingRaadplegen(gewijzigdeDetailBestellingDTO);
+			maakVisueelDetailBestellingVerzenden(gewijzigdeDetailBestellingDTO);
 		}
 		catch(EntityNotFoundException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
@@ -299,8 +465,10 @@ public class BestellingenController extends Pane {
 	@FXML
 	public void genereerTrackAndTrace(ActionEvent event) {
 		long geselecteerdeBestellingDTOId = selectedBestellingDTO.getId();
+		
 		try {
-			dc.wijzigTrackAndTraceCode(geselecteerdeBestellingDTOId);
+			String ttc = dc.wijzigTrackAndTraceCode(geselecteerdeBestellingDTOId);
+			lblTrackTraceGegevens.setText(ttc);
 		}
 		catch(SizeLimitExceededException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
@@ -308,14 +476,15 @@ public class BestellingenController extends Pane {
 		catch(IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
+		
 		//***toon gewijzigd BestellingDTO op het scherm***
-		BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
+		/*BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
 		try {
 			maakVisueelDetailBestellingRaadplegen(gewijzigdeDetailBestellingDTO);
 		}
 		catch(EntityNotFoundException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
-		}
+		}*/
 				
 	}
 	
@@ -341,6 +510,7 @@ public class BestellingenController extends Pane {
 		BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
 		try {
 			maakVisueelDetailBestellingRaadplegen(gewijzigdeDetailBestellingDTO);
+			maakVisueelDetailBestellingVerzenden(gewijzigdeDetailBestellingDTO);
 		}
 		catch(EntityNotFoundException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
@@ -349,6 +519,8 @@ public class BestellingenController extends Pane {
 		bestellingenTabPane.getSelectionModel().select(bestellingRaadplegenTab);
 		//***disable de tab 'verwerken'
 		bestellingVerwerkenTab.setDisable(true);
+		//***enable de tab 'verzenden'
+		bestellingVerzendenTab.setDisable(false);
 		
 		//***laadt de lijst met bestellingen***
 		try {
@@ -361,7 +533,117 @@ public class BestellingenController extends Pane {
 		tvBestellingen.getSelectionModel().select(indexSelectedRow);
 	}
 	
-	public void disableDetail() {
+	// Event Listener on Button[#btnVerzendBestelling].onAction
+		@FXML
+		public void verzendBestelling(ActionEvent event) {
+			long geselecteerdeBestellingDTOId = selectedBestellingDTO.getId();
+			
+			try{
+				dc.verzendBestelling(geselecteerdeBestellingDTOId);
+			}
+			catch(IllegalArgumentException e) {
+				toonMelding(AlertType.ERROR, e.getMessage());
+			}
+			
+			//***toon gewijzigd BestellingDTO op het scherm***
+			BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
+			try {
+				maakVisueelDetailBestellingUit(gewijzigdeDetailBestellingDTO);
+			}
+			catch(EntityNotFoundException e) {
+				toonMelding(AlertType.ERROR, e.getMessage());
+			}
+			//***spring naar de tab 'uit'***
+			bestellingUitTab.setDisable(false);
+			bestellingenTabPane.getSelectionModel().select(bestellingUitTab);
+			//***disable de tab 'raadplegen' en 'verzenden'
+			bestellingRaadplegenTab.setDisable(true);
+			bestellingVerzendenTab.setDisable(true);
+			
+			//***laadt de lijst met bestellingen***
+			try {
+				loadBestellingen();
+			}
+			catch(EntityNotFoundException e) {
+				toonMelding(AlertType.ERROR, e.getMessage());
+			}
+			
+			tvBestellingen.getSelectionModel().select(indexSelectedRow);
+		}
+	
+		// Event Listener on Button[#btnUitBestelling].onAction
+		@FXML
+		public void uitBestelling(ActionEvent event) {
+			long geselecteerdeBestellingDTOId = selectedBestellingDTO.getId();
+			
+			try{
+				dc.uitBestelling(geselecteerdeBestellingDTOId);
+			}
+			catch(IllegalArgumentException e) {
+				toonMelding(AlertType.ERROR, e.getMessage());
+			}
+			
+			//***toon gewijzigd BestellingDTO op het scherm***
+			BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
+			try {
+				maakVisueelDetailBestellingLeveren(gewijzigdeDetailBestellingDTO);
+			}
+			catch(EntityNotFoundException e) {
+				toonMelding(AlertType.ERROR, e.getMessage());
+			}
+			//***spring naar de tab 'leveren'***
+			bestellingLeverenTab.setDisable(false);
+			bestellingenTabPane.getSelectionModel().select(bestellingLeverenTab);
+			//***disable de tab 'uit'
+			bestellingUitTab.setDisable(true);
+			
+			
+			//***laadt de lijst met bestellingen***
+			try {
+				loadBestellingen();
+			}
+			catch(EntityNotFoundException e) {
+				toonMelding(AlertType.ERROR, e.getMessage());
+			}
+			
+			tvBestellingen.getSelectionModel().select(indexSelectedRow);
+		}
+			
+		// Event Listener on Button[#btnLeverBestelling].onAction
+		@FXML
+		public void leverBestelling(ActionEvent event) {
+			long geselecteerdeBestellingDTOId = selectedBestellingDTO.getId();
+			
+			try{
+				dc.leverBestelling(geselecteerdeBestellingDTOId);
+			}
+			catch(IllegalArgumentException e) {
+				toonMelding(AlertType.ERROR, e.getMessage());
+			}
+			
+			//***toon gewijzigd BestellingDTO op het scherm***
+			BestellingDTO gewijzigdeDetailBestellingDTO = dc.getBestelling(geselecteerdeBestellingDTOId);
+			try {
+				maakVisueelDetailBestellingLeveren(gewijzigdeDetailBestellingDTO);
+			}
+			catch(EntityNotFoundException e) {
+				toonMelding(AlertType.ERROR, e.getMessage());
+			}
+			//***disable knop leveren
+			btnLeverBestelling.setDisable(true);
+			
+			//***laadt de lijst met bestellingen***
+			try {
+				loadBestellingen();
+			}
+			catch(EntityNotFoundException e) {
+				toonMelding(AlertType.ERROR, e.getMessage());
+			}
+			
+			tvBestellingen.getSelectionModel().select(indexSelectedRow);
+		}
+			
+		public void disableDetail() {
 		cmbTransportdienst.setDisable(true);
 		cmbTransportdienst.setStyle("-fx-opacity: 1.0;-fx-text-fill: #000000;");
 		btnWijzigBestelling.setDisable(true);
@@ -486,6 +768,57 @@ public class BestellingenController extends Pane {
 		
 	}
 	
+	private void maakVisueelDetailBestellingVerzenden(BestellingDTO bestellingDTO) {
+		zLblDetailsBestelling.setText(String.format("Detail bestelling: %s", bestellingDTO.getOrderID()));
+		zLblDozenVoorVerpakking.setText(maakVisueelDoosType(bestellingDTO));
+		zLblNaamKlant.setText(bestellingDTO.getKlantNaam());
+		zLblNaamAankoper.setText(maakVisueelNaamAankoper(bestellingDTO));
+		zLblEmailAankoper.setText(maakVisueelEmailAankoper(bestellingDTO));
+		zLblOrderId.setText(bestellingDTO.getOrderID());
+		zLblDatumGeplaatst.setText(DateFormat.getDateInstance().format(bestellingDTO.getDatumGeplaatst()));
+		zLblLeveradres.setText(maakVisueelLeveradres(bestellingDTO));
+		zLblStatus.setText(bestellingDTO.getStatus());
+		zLblTotaleOrderbedrag.setText(String.format("%.2f€", bestellingDTO.getTotaalbedrag()));
+		zLblTransportdienst.setText(dc.getTransportdienst(bestellingDTO.getTransportdienstID()).getNaam());
+		zLblTrackTraceGegevens.setText(bestellingDTO.getTrackAndTraceCode());
+		/*btnVerwerkBestelling.setDisable(false);*/
+		
+	}
+	
+	private void maakVisueelDetailBestellingUit(BestellingDTO bestellingDTO) {
+		uLblDetailsBestelling.setText(String.format("Detail bestelling: %s", bestellingDTO.getOrderID()));
+		uLblDozenVoorVerpakking.setText(maakVisueelDoosType(bestellingDTO));
+		uLblNaamKlant.setText(bestellingDTO.getKlantNaam());
+		uLblNaamAankoper.setText(maakVisueelNaamAankoper(bestellingDTO));
+		uLblEmailAankoper.setText(maakVisueelEmailAankoper(bestellingDTO));
+		uLblOrderId.setText(bestellingDTO.getOrderID());
+		uLblDatumGeplaatst.setText(DateFormat.getDateInstance().format(bestellingDTO.getDatumGeplaatst()));
+		uLblLeveradres.setText(maakVisueelLeveradres(bestellingDTO));
+		uLblStatus.setText(bestellingDTO.getStatus());
+		uLblTotaleOrderbedrag.setText(String.format("%.2f€", bestellingDTO.getTotaalbedrag()));
+		uLblTransportdienst.setText(dc.getTransportdienst(bestellingDTO.getTransportdienstID()).getNaam());
+		uLblTrackTraceGegevens.setText(bestellingDTO.getTrackAndTraceCode());
+		/*btnVerwerkBestelling.setDisable(false);*/
+		
+	}
+	
+	private void maakVisueelDetailBestellingLeveren(BestellingDTO bestellingDTO) {
+		lLblDetailsBestelling.setText(String.format("Detail bestelling: %s", bestellingDTO.getOrderID()));
+		lLblDozenVoorVerpakking.setText(maakVisueelDoosType(bestellingDTO));
+		lLblNaamKlant.setText(bestellingDTO.getKlantNaam());
+		lLblNaamAankoper.setText(maakVisueelNaamAankoper(bestellingDTO));
+		lLblEmailAankoper.setText(maakVisueelEmailAankoper(bestellingDTO));
+		lLblOrderId.setText(bestellingDTO.getOrderID());
+		lLblDatumGeplaatst.setText(DateFormat.getDateInstance().format(bestellingDTO.getDatumGeplaatst()));
+		lLblLeveradres.setText(maakVisueelLeveradres(bestellingDTO));
+		lLblStatus.setText(bestellingDTO.getStatus());
+		lLblTotaleOrderbedrag.setText(String.format("%.2f€", bestellingDTO.getTotaalbedrag()));
+		lLblTransportdienst.setText(dc.getTransportdienst(bestellingDTO.getTransportdienstID()).getNaam());
+		lLblTrackTraceGegevens.setText(bestellingDTO.getTrackAndTraceCode());
+		/*btnVerwerkBestelling.setDisable(false);*/
+		
+	}
+	
 	private TransportdienstDTO filterTransportdienst(ObservableList<TransportdienstDTO> transportdienstDTOList, long geselecteerdeTransportdienstDTOId) {
 		return transportdienstDTOList.stream().filter(td -> (td.getId() == geselecteerdeTransportdienstDTOId)).findFirst().get();
 	}
@@ -511,6 +844,10 @@ public class BestellingenController extends Pane {
 	private String maakVisueelDoosType(BestellingDTO bestellingDTO) {
 		DoosDTO doosDTO = bestellingDTO.getDoos();
 		return (doosDTO.getDoosType());
+	}
+	
+	private String maakVisueelTransportdienst(TransportdienstDTO transportdienstDTO) {
+		return transportdienstDTO.getNaam();
 	}
 	
 	private void loadBesteldeProducten(BestellingDTO bestellingDTO) {
