@@ -42,6 +42,8 @@ public class UserService
 				throw new IllegalArgumentException("Ongeldige inloggegevens");
 			}
 
+			if (!user.getIsActief()) throw new IllegalArgumentException("De gebruiker is niet actief");
+			
 			if (user instanceof Medewerker && ((Medewerker) user).getFunctie() != "Aankoper")
 			{
 				return new MedewerkerDTO((Medewerker) user);
