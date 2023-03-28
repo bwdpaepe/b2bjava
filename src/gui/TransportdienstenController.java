@@ -474,7 +474,6 @@ public class TransportdienstenController extends Pane {
 
 	private void disableGui() {
 		txtBarcodeLengteRaadpleegTab.setEditable(false);
-		txtTransportdienstZoeken.setEditable(false);
 		txtNaamRaadpleegTab.setEditable(false);
 		txtPrefixRaadpleegTab.setEditable(false);
 		cbEnkelCijfersRaadpleegTab.setDisable(true);
