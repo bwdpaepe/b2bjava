@@ -21,6 +21,12 @@ public class DoosService {
 		this.dimensieRepo = new GenericDaoJpa<>(Dimensie.class);
 		this.bedrijfService = new BedrijfService();
 	}
+	
+	public DoosService(DoosDao doosRepo) {
+		this.doosRepo = doosRepo;
+		this.dimensieRepo = new GenericDaoJpa<>(Dimensie.class);
+		this.bedrijfService = new BedrijfService();
+	}
 
 	public Doos getDoosById(long doosId) {
 		Doos doos = doosRepo.get(doosId);
