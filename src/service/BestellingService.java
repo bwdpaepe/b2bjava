@@ -10,9 +10,14 @@ import domein.BesteldProduct;
 import domein.Bestelling;
 import domein.BestellingStatus;
 import domein.Doos;
+import domein.GeleverdBestellingState;
+import domein.GeplaatstBestellingState;
 import domein.Medewerker;
 import domein.Product;
 import domein.Transportdienst;
+import domein.UitVoorLeveringBestellingState;
+import domein.VerwerktBestellingState;
+import domein.VerzondenBestellingState;
 import repository.BestellingDao;
 import repository.BestellingDaoJpa;
 import repository.GenericDaoJpa;
@@ -56,7 +61,7 @@ public class BestellingService {
 
 	public Bestelling getBestelling(long bestellingID) {
 
-		Bestelling bestelling = bestellingRepo.get(bestellingID);
+		Bestelling bestelling = getBestellingIncludingCurrentState(bestellingID);
 		return bestelling;
 	}
 
@@ -71,10 +76,39 @@ public class BestellingService {
 		return bestellingen;
 	}
 
+	private Bestelling getBestellingIncludingCurrentState(Long bestellingId) {
+		
+		Bestelling bestelling = bestellingRepo.get(bestellingId);
+		
+	    BestellingStatus status;
+	    try {
+	        status = BestellingStatus.valueOf(bestelling.getStatus().toUpperCase());
+	    } catch (IllegalArgumentException e) {
+	        throw new IllegalArgumentException("Ongeldige bestellingstatus: " + bestelling);
+	    }
+
+	    switch (status) {
+	        case GEPLAATST ->
+	            bestelling.toState(new GeplaatstBestellingState(bestelling));
+	        case VERWERKT ->
+            	bestelling.toState(new VerwerktBestellingState(bestelling));
+	        case VERZONDEN ->
+        		bestelling.toState(new VerzondenBestellingState(bestelling));
+	        case UIT_VOOR_LEVERING ->
+    			bestelling.toState(new UitVoorLeveringBestellingState(bestelling));
+	        case GELEVERD ->
+    			bestelling.toState(new GeleverdBestellingState(bestelling));
+	        default -> 
+	            throw new IllegalArgumentException("Ongeldige bestellingstatus: " + bestelling);
+	    }
+	    
+	    return bestelling;
+	}
+	
 	public void addBesteldProductToBestelling(long bestellingId, long productId, int aantal) {
 		try {
 			GenericDaoJpa.startTransaction();
-			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			Bestelling bestelling = getBestellingIncludingCurrentState(bestellingId);
 			Product product = productService.getProductById(productId);
 			BesteldProduct besteldProduct = new BesteldProduct(product, aantal, bestelling);
 			bestelling.addBesteldProductToBestelling(besteldProduct);
@@ -89,7 +123,7 @@ public class BestellingService {
 	public void wijzigBestelling(long bestellingId, long transportdienstId) throws SizeLimitExceededException {
 		try {
 			GenericDaoJpa.startTransaction();
-			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			Bestelling bestelling = getBestellingIncludingCurrentState(bestellingId);
 			Transportdienst transportdienst = dienstService.getTransportdienstByID(transportdienstId);
 			bestelling.wijzigBestelling(transportdienst);
 			bestellingRepo.update(bestelling);
@@ -107,7 +141,7 @@ public class BestellingService {
 	public void verwerkBestelling(long bestellingId, long transportdienstId) throws SizeLimitExceededException {
 		try {
 			GenericDaoJpa.startTransaction();
-			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			Bestelling bestelling = getBestellingIncludingCurrentState(bestellingId);
 			Transportdienst transportdienst = dienstService.getTransportdienstByID(transportdienstId);
 			bestelling.verwerkBestelling(transportdienst);
 			bestellingRepo.update(bestelling);
@@ -125,7 +159,7 @@ public class BestellingService {
 	public void verzendBestelling(long bestellingId) {
 		try {
 			GenericDaoJpa.startTransaction();
-			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			Bestelling bestelling = getBestellingIncludingCurrentState(bestellingId);
 			bestelling.verzendBestelling();
 			bestellingRepo.update(bestelling);
 			GenericDaoJpa.commitTransaction();
@@ -138,7 +172,7 @@ public class BestellingService {
 	public void uitBestelling(long bestellingId) {
 		try {
 			GenericDaoJpa.startTransaction();
-			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			Bestelling bestelling = getBestellingIncludingCurrentState(bestellingId);
 			bestelling.uitBestelling();
 			bestellingRepo.update(bestelling);
 			GenericDaoJpa.commitTransaction();
@@ -151,7 +185,7 @@ public class BestellingService {
 	public void leverBestelling(long bestellingId) {
 		try {
 			GenericDaoJpa.startTransaction();
-			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			Bestelling bestelling = getBestellingIncludingCurrentState(bestellingId);
 			bestelling.leverBestelling();
 			bestellingRepo.update(bestelling);
 			GenericDaoJpa.commitTransaction();
@@ -164,7 +198,7 @@ public class BestellingService {
 	public void wijzigTrackAndTraceCode(long bestellingId) throws SizeLimitExceededException {
 		try {
 			GenericDaoJpa.startTransaction();
-			Bestelling bestelling = bestellingRepo.get(bestellingId);
+			Bestelling bestelling = getBestellingIncludingCurrentState(bestellingId);
 			bestelling.wijzigTrackAndTraceCode();
 			bestellingRepo.update(bestelling);
 			GenericDaoJpa.commitTransaction();
