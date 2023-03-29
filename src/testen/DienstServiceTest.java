@@ -36,7 +36,7 @@ class DienstServiceTest {
 	
 	private final String NAAMTRANSPORTDIENT = "Transportdienst_A";
 	
-	private final int BARCODELENGTE = 10;
+	private final int BARCODELENGTE = 30;
 	private final boolean ISBARCODEENKELCIJFERS = true;
 	private final String BARCODEPREFIX = "123";
 	private final String VERIFICATIECODE = "POSTCODE";
@@ -104,28 +104,6 @@ class DienstServiceTest {
 		
 	}
 	
-	/*org.mockito.exceptions.misusing.PotentialStubbingProblem: 
-		Strict stubbing argument mismatch. Please check:
-		 - this invocation of 'findDienstenWithBedrijf' method:
-		    dienstRepoMock.findDienstenWithBedrijf(null);
-		    -> at B2B_Portal_Delaware/service.DienstService.getTransportdiensten(DienstService.java:97)
-		 - has following stubbing(s) with different arguments:
-		    1. dienstRepoMock.findDienstenWithBedrijf(
-		    domein.Bedrijf@a7ec44d4
-		);
-		      -> at B2B_Portal_Delaware/testen.DienstServiceTest.testGetTransportdiensten(DienstServiceTest.java:113)
-		Typically, stubbing argument mismatch indicates user mistake when writing tests.
-		Mockito fails early so that you can debug potential problem easily.
-		However, there are legit scenarios when this exception generates false negative signal:
-		  - stubbing the same method multiple times using 'given().will()' or 'when().then()' API
-		    Please use 'will().given()' or 'doReturn().when()' API for stubbing.
-		  - stubbed method is intentionally invoked with different arguments by code under test
-		    Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).
-		For more information see javadoc for PotentialStubbingProblem class.
-			at B2B_Portal_Delaware/service.DienstService.getTransportdiensten(DienstService.java:97)
-			at B2B_Portal_Delaware/testen.DienstServiceTest.testGetTransportdiensten(DienstServiceTest.java:115)
-
-	 */
 	@Test
 	void testGetTransportdiensten() {
 		Bedrijf BEDRIJF2 = new Bedrijf(NAAMBEDRIJF, STRAAT, HUISNUMMER,POSTCODE,STAD,LAND,TELEFOONNUMMER,LOGO_FILENAME);
@@ -196,7 +174,7 @@ class DienstServiceTest {
 	@Test
 	void updateTransportdienst() {
 		final String NAAMTRANSPORTDIENT2 = "UPDATE_TRANSPORTDIENST";
-		final int BARCODELENGTE2 = 11;
+		final int BARCODELENGTE2 = 31;
 		final boolean ISBARCODEENKELCIJFERS2 = false;
 		final String BARCODEPREFIX2 = "456";
 		final String VERIFICATIECODE2 = "ORDERID";

@@ -19,17 +19,19 @@
 		<class>domein.Product</class>
 		<class>domein.BesteldProduct</class>
 		<class>domein.Doos</class>
+		<class>domein.Dimensie</class>
+		<class>domein.Notificatie</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/sdp2_test?serverTimezone=UTC" />
-			<property name="javax.persistence.jdbc.user" value="root" />
+				value="jdbc:mysql://vichogent.be:40058/SDP2DBT03?serverTimezone=UTC" />
+			<property name="javax.persistence.jdbc.user" value="SDP2T03" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.password"
-				value="root" />
+				value="@7PlyRUVHzP#1qG7Qm@f#dBTi" />
 			<property
 				name="javax.persistence.schema-generation.database.action"
-				value="drop-and-create" />
+				value="none" />
 		</properties>
 	</persistence-unit>
 </persistence>

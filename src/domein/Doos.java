@@ -2,12 +2,18 @@ package domein;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -17,6 +23,9 @@ import service.ValidationService;
 @Table(name = "Dozen", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"bedrijf_id", "naam"})
 })
+@NamedQueries({
+	@NamedQuery(name = "Doos.getDozenVanBedrijf", query = "select d from Doos d where d.bedrijf = :bedrijf")})
+
 public class Doos implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -26,33 +35,38 @@ public class Doos implements Serializable {
 	private long id;
 	
 	@ManyToOne
-	private Bedrijf bedrijf;
-	
+	private Bedrijf bedrijf;	
 	
 	@Column
 	private String naam;
-	@Column
+	@Enumerated(EnumType.STRING)
 	private DoosType doosType;
-	@Column
-	private double hoogte;
-	@Column
-	private double breedte;
-	@Column
-	private double lengte;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="dimensie")
+	private Dimensie dimensie;
 	@Column
 	private boolean isActief;
 	@Column
 	private double prijs;
 	
-	public Doos(String naam, double hoogte, double breedte, double lengte, String doosTypeString, double prijs, Bedrijf bedrijf) {
+	public Doos(String naam, double lengte, double breedte, double hoogte, String doosTypeString, double prijs, Bedrijf bedrijf) {
 		setNaam(naam);
-		setBreedte(breedte);
-		setHoogte(hoogte);
-		setLengte(lengte);
+		setDimensie(lengte, breedte, hoogte);
 		setDoosType(doosTypeString);
 		setPrijs(prijs);
 		setActief(true);
 		setBedrijf(bedrijf);
+	}
+	
+	public Doos() {
+		
+	}
+	
+	public void wijzigDoos(String naam, String doosTypeString, double prijs, boolean isActief) {
+		setNaam(naam);
+		setDoosType(doosTypeString);
+		setPrijs(prijs);
+		setActief(isActief);
 	}
 	
 	public Bedrijf getBedrijf() {
@@ -65,15 +79,14 @@ public class Doos implements Serializable {
 		this.bedrijf = bedrijf;	
 	}
 
-	public Doos() {
-		
-	}
+
 
 	public String getNaam() {
 		return naam;
 	}
 
 	public void setNaam(String naam) {
+
 		ValidationService.controleerNietBlanco(naam);
 		this.naam = naam;
 	}
@@ -83,6 +96,7 @@ public class Doos implements Serializable {
 	}
 
 	public void setDoosType(String doosTypeString) {
+		ValidationService.controleerNietBlanco(doosTypeString);
 		this.doosType = switch (doosTypeString.toLowerCase()) {
 		case "standaard" -> DoosType.STANDAARD;
 		case "custom" -> DoosType.CUSTOM;
@@ -90,32 +104,14 @@ public class Doos implements Serializable {
 		};
 	}
 
-	public double getHoogte() {
-		return hoogte;
+	public void setDimensie(double lengte, double breedte, double hoogte){
+		this.dimensie = new Dimensie(lengte, breedte, hoogte);
+	}
+	
+	public Dimensie getDimensie() {
+		return this.dimensie;
 	}
 
-	public void setHoogte(double hoogte) {
-		ValidationService.controleerGroterDanNul(hoogte);
-		this.hoogte = hoogte;
-	}
-
-	public double getBreedte() {
-		return breedte;
-	}
-
-	public void setBreedte(double breedte) {
-		ValidationService.controleerGroterDanNul(breedte);
-		this.breedte = breedte;
-	}
-
-	public double getLengte() {
-		return lengte;
-	}
-
-	public void setLengte(double lengte) {
-		ValidationService.controleerGroterDanNul(lengte);
-		this.lengte = lengte;
-	}
 
 	public boolean isActief() {
 		return isActief;

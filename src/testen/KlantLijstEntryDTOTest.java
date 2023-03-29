@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import domein.Bedrijf;
+import domein.KlantEnAantalBestellingen;
 import repository.KlantLijstEntryDTO;
 
 class KlantLijstEntryDTOTest
@@ -17,11 +18,10 @@ class KlantLijstEntryDTOTest
 	private static final String LAND = "land A";
 	private static final String TELEFOONNUMMER = "0123456789";
 	private static final String LOGO_FILENAME = "logog_bedrijf_A";
-	
 	private static final Bedrijf KLANT = new Bedrijf(NAAM, STRAAT, HUISNUMMER, POSTCODE, STAD, LAND, TELEFOONNUMMER, LOGO_FILENAME);
-	private static final int AANTAL = 9;
+	private static final Long AANTAL = 9L;
 	
-	private static final Object[] OBJ = new Object[]{ KLANT, AANTAL };
+	private static final KlantEnAantalBestellingen OBJ = new KlantEnAantalBestellingen(KLANT, AANTAL);
 	
 	private KlantLijstEntryDTO dto;
 	
@@ -36,11 +36,9 @@ class KlantLijstEntryDTOTest
 	{
 		Assertions.assertDoesNotThrow(() -> new KlantLijstEntryDTO(OBJ));
 		
-		Assertions.assertEquals(KLANT.getID(), dto.getKlantId());
-		Assertions.assertEquals(KLANT.getNaam(), dto.getKlantNaam());
-		Assertions.assertEquals(OBJ[1], dto.getAantalOpenBestellingen());
-		
-		
+		Assertions.assertEquals(OBJ.getBedrijf().getID(), dto.getKlantId());
+		Assertions.assertEquals(OBJ.getBedrijf().getNaam(), dto.getKlantNaam());
+		Assertions.assertEquals(OBJ.getAantalOpenBestellingen().intValue(), dto.getAantalOpenBestellingen());
 	}
 	
 	

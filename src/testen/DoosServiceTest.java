@@ -11,14 +11,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import domein.Bedrijf;
 import domein.Doos;
-import repository.GenericDao;
+import repository.DoosDao;
 import service.DoosService;
 
 @ExtendWith(MockitoExtension.class)
 public class DoosServiceTest {
 
 	@Mock
-	private GenericDao<Doos> doosRepoMock;
+	private DoosDao doosDaoMock;
 
 	@InjectMocks
 	private DoosService doosService;
@@ -43,9 +43,9 @@ public class DoosServiceTest {
 	private static double LENGTE = 10.0;
 	private static String DOOS_TYPE_STRING = "standaard";
 	private static double PRIJS = 5.0;
-	private static long DOOS_ID = 1;
+	private static long DOOS_ID = 1L;
 	private Doos doos;
-
+	
 	@BeforeEach
 	void maakDoos() {
 		doos = new Doos(NAAM, HOOGTE, BREEDTE, LENGTE, DOOS_TYPE_STRING, PRIJS, LEVERANCIER);
@@ -53,19 +53,22 @@ public class DoosServiceTest {
 
 	@Test
 	void testGetDoosById() {
-		Mockito.doReturn(doos).when(doosRepoMock).get(DOOS_ID);
+		
+	    DoosService doosService = new DoosService(doosDaoMock);
 
-		Doos doos2 = doosService.getDoosById(DOOS_ID);
+	    Mockito.when(doosDaoMock.get(DOOS_ID)).thenReturn(doos);
+	    
+	    Doos doos2 = doosService.getDoosById(DOOS_ID);
 
-		Assertions.assertEquals(doos.getBreedte(), doos2.getBreedte());
-		Assertions.assertEquals(doos.getHoogte(), doos2.getHoogte());
-		Assertions.assertEquals(doos.getLengte(), doos2.getLengte());
-		Assertions.assertEquals(doos.getPrijs(), doos2.getPrijs());
-		Assertions.assertEquals(doos.getNaam(), doos2.getNaam());
-		Assertions.assertEquals(doos.getBedrijf(), doos2.getBedrijf());
-		Assertions.assertEquals(doos.getDoosType(), doos2.getDoosType());
+	    Assertions.assertEquals(doos.getDimensie().getBreedte(), doos2.getDimensie().getBreedte());
+	    Assertions.assertEquals(doos.getDimensie().getHoogte(), doos2.getDimensie().getHoogte());
+	    Assertions.assertEquals(doos.getDimensie().getLengte(), doos2.getDimensie().getLengte());
+	    Assertions.assertEquals(doos.getPrijs(), doos2.getPrijs());
+	    Assertions.assertEquals(doos.getNaam(), doos2.getNaam());
+	    Assertions.assertEquals(doos.getBedrijf(), doos2.getBedrijf());
+	    Assertions.assertEquals(doos.getDoosType(), doos2.getDoosType());
 
-		Mockito.verify(doosRepoMock).get(DOOS_ID);
+	    Mockito.verify(doosDaoMock).get(DOOS_ID);
 	}
 
 }

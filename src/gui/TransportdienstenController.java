@@ -25,7 +25,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import repository.ContactpersoonDTO;
 import repository.MedewerkerDTO;
@@ -117,7 +116,10 @@ public class TransportdienstenController extends Pane {
 	private Button btnSaveTransportdienst;
 
 	@FXML
-	private Button btnAbortUpdate;
+	private Button btnVerwijderContactPersoon;
+
+	@FXML
+	private Button btnToevoegenContactPersoon;
 
 	@FXML
 	private TextField txtNaamTransportdienst;
@@ -148,12 +150,6 @@ public class TransportdienstenController extends Pane {
 
 	@FXML
 	private TextField txtPrefix;
-
-	@FXML
-	private HBox hBoxContactPersonen1;
-
-	@FXML
-	private HBox hBoxContactPersonen2;
 
 	@FXML
 	private TextField txtVoornaamToevoegen;
@@ -223,7 +219,7 @@ public class TransportdienstenController extends Pane {
 		tvTransportdiensten.setRowFactory(tv -> {
 			TableRow<TransportdienstDTO> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
-				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() >=1) {
+				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() >= 1) {
 
 					this.selectedTransportdienstDTO = row.getItem();
 					tabPane.getSelectionModel().select(raadpleegTab);
@@ -307,7 +303,7 @@ public class TransportdienstenController extends Pane {
 	void addTransportdienst(ActionEvent event) {
 		try {
 			String naamTransportdienst = txtNaamTransportdienst.getText();
-			int barcodeLengte = Integer.valueOf(txtLengteBarcodeToevoegTab.getText());
+			String barcodeLengte = txtLengteBarcodeToevoegTab.getText();
 			boolean isBarcodeEnkelCijfers = cbCijfers.isSelected();
 			String barcodePrefix = txtPrefix.getText();
 			String verificatiecode = rbOrderIdToevoegTab.isSelected() ? "Orderid" : "Postcode";
@@ -319,44 +315,45 @@ public class TransportdienstenController extends Pane {
 
 			// Validatie input formulier
 			ValidationService.controleerNietBlanco(naamTransportdienst);
-			ValidationService.controleerGroterDanNul(barcodeLengte);
+			ValidationService.controleerNumerischeWaardeBarcodeLengte(barcodeLengte);
+			ValidationService.controleerGroterDanNul(Integer.parseInt(barcodeLengte));
+			ValidationService.controleerTTFTotaleLengte(Integer.parseInt(barcodeLengte));
 			ValidationService.controleerNietBlanco(barcodePrefix);
+			ValidationService.controleerTTFPrefixLengte(Integer.parseInt(barcodeLengte), barcodePrefix);
 			ValidationService.controleerNietBlanco(contactVoornaam);
 			ValidationService.controleerNietBlanco(contactFamilienaam);
 			ValidationService.controleerEmail(contactEmailadres);
 			ValidationService.controleerTelefoonnummer(contactTelefoon);
 
+			if (isBarcodeEnkelCijfers) {
+				ValidationService.controleerNumerischeWaardeBarcodePrefix(barcodePrefix);
+			}
+
 			// Aanmaken van een transportdienst
-			dc.maakTransportdienst(naamTransportdienst, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
-					verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon, contactEmailadres,
-					bedrijfsId);
+			dc.maakTransportdienst(naamTransportdienst, Integer.parseInt(barcodeLengte), isBarcodeEnkelCijfers,
+					barcodePrefix, verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon,
+					contactEmailadres, bedrijfsId);
+			
+			txtNaamTransportdienst.clear();
+			txtLengteBarcodeToevoegTab.clear();
+			cbCijfers.setSelected(false);
+			rbOrderIdToevoegTab.setSelected(false);
+			rbPostcodeToevoegTab.setSelected(false);
+			txtPrefix.clear();
+			txtVoornaam.clear();
+			txtFamilienaam.clear();
+			txtTelefoonnummer.clear();
+			txtEmailadres.clear();
 
 			toonMelding(AlertType.INFORMATION, "De transportdienst is aangemaakt");
 
-		} catch (NumberFormatException e) {
-			toonMelding(AlertType.ERROR, "De lengte van de barcode moet een cijfer zijn.");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
 
 		transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
 		tvTransportdiensten.setItems(transportdiensten);
-		txtNaamTransportdienst.clear();
-		txtLengteBarcodeToevoegTab.clear();
-		cbCijfers.setSelected(false);
-		rbOrderIdToevoegTab.setSelected(false);
-		rbPostcodeToevoegTab.setSelected(false);
-		txtPrefix.clear();
-		txtVoornaam.clear();
-		txtFamilienaam.clear();
-		txtTelefoonnummer.clear();
-		txtEmailadres.clear();
-	}
-
-	@FXML
-	void abortUpdateTransportdienst(ActionEvent event) {
-		buildGuiRaadpleegTab();
-		disableGui();
+		
 	}
 
 	@FXML
@@ -364,22 +361,32 @@ public class TransportdienstenController extends Pane {
 		try {
 
 			String naamTransportdienst = txtNaamRaadpleegTab.getText();
-			int barcodeLengte = Integer.valueOf(txtBarcodeLengteRaadpleegTab.getText());
+			String barcodeLengte = txtBarcodeLengteRaadpleegTab.getText();
 			boolean isBarcodeEnkelCijfers = cbEnkelCijfersRaadpleegTab.isSelected();
 			boolean isStatusActief = cbStatusRaadpleegTab.isSelected();
 			String barcodePrefix = txtPrefixRaadpleegTab.getText();
 			String verificatiecode = rbOrderIdRaadpleegTab.isSelected() ? "Orderid" : "Postcode";
 			long dienstId = selectedTransportdienstDTO.getId();
 
-			dc.updateTransportdienst(naamTransportdienst, barcodeLengte, isBarcodeEnkelCijfers, barcodePrefix,
-					verificatiecode, dienstId);
+			// Validatie input formulier
+			ValidationService.controleerNietBlanco(naamTransportdienst);
+			ValidationService.controleerNumerischeWaardeBarcodeLengte(barcodeLengte);
+			ValidationService.controleerGroterDanNul(Integer.valueOf(barcodeLengte));
+			ValidationService.controleerTTFTotaleLengte(Integer.valueOf(barcodeLengte));
+			ValidationService.controleerNietBlanco(barcodePrefix);
+			ValidationService.controleerTTFPrefixLengte(Integer.valueOf(barcodeLengte), barcodePrefix);
+
+			if (isBarcodeEnkelCijfers) {
+				ValidationService.controleerNumerischeWaardeBarcodePrefix(barcodePrefix);
+			}
+
+			dc.updateTransportdienst(naamTransportdienst, Integer.parseInt(barcodeLengte), isBarcodeEnkelCijfers,
+					barcodePrefix, verificatiecode, dienstId);
 			dc.wijzigActivatieDienst(dienstId, isStatusActief);
 			this.transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
 			this.selectedTransportdienstDTO = dc.getTransportdienst(dienstId);
 			toonMelding(AlertType.INFORMATION, "De wijzigingen zijn opgeslaan");
 
-		} catch (NumberFormatException e) {
-			toonMelding(AlertType.ERROR, "De lengte van de barcode moet een cijfer zijn.");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
@@ -406,6 +413,8 @@ public class TransportdienstenController extends Pane {
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
 		}
+		buildGui();
+		editableGui();
 
 	}
 
@@ -416,6 +425,10 @@ public class TransportdienstenController extends Pane {
 
 			ValidationService.controleerUniekEmailadres(selectedTransportdienstDTO.getContactpersonen(),
 					txtEmailadresToevoegen.getText());
+			ValidationService.controleerNietBlanco(txtVoornaamToevoegen.getText());
+			ValidationService.controleerNietBlanco(txtFamilienaamToevoegen.getText());
+			ValidationService.controleerEmail(txtEmailadresToevoegen.getText());
+			ValidationService.controleerTelefoonnummer(txtTelefoonnummerToevoegen.getText());
 
 			dc.addContactpersoon(txtVoornaamToevoegen.getText(), txtFamilienaamToevoegen.getText(),
 					txtTelefoonnummerToevoegen.getText(), txtEmailadresToevoegen.getText(),
@@ -429,11 +442,11 @@ public class TransportdienstenController extends Pane {
 			txtTelefoonnummerToevoegen.clear();
 			txtVoornaamToevoegen.requestFocus();
 
-			toonMelding(AlertType.INFORMATION, "De contactpersoon is opgeslaan");
-
 		} catch (Exception e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		}
+		buildGui();
+		editableGui();
 
 	}
 
@@ -451,33 +464,29 @@ public class TransportdienstenController extends Pane {
 			this.selectedTransportdienstDTO = dc.getTransportdienst(selectedTransportdienstDTO.getId());
 			tvContactpersonen
 					.setItems(FXCollections.observableArrayList(selectedTransportdienstDTO.getContactpersonen()));
-			toonMelding(AlertType.INFORMATION, "Contactpersoon is succesvol verwijderd");
 		} catch (IllegalArgumentException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
 		} catch (IndexOutOfBoundsException e) {
 			toonMelding(AlertType.ERROR, "Selecteer een contactpersoon");
 		}
+		buildGui();
+		editableGui();
 
 	}
 
 	private void disableGui() {
-		if (ingelogdeUser.getFunctie() != "Admin") {
-			btnUpdateTransportdienst.setVisible(false);
-		}
 		txtBarcodeLengteRaadpleegTab.setEditable(false);
-		txtTransportdienstZoeken.setEditable(false);
 		txtNaamRaadpleegTab.setEditable(false);
 		txtPrefixRaadpleegTab.setEditable(false);
 		cbEnkelCijfersRaadpleegTab.setDisable(true);
 		cbStatusRaadpleegTab.setDisable(true);
 		rbOrderIdRaadpleegTab.setDisable(true);
 		rbPostcodeRaadpleegTab.setDisable(true);
-		btnAbortUpdate.setVisible(false);
 		btnSaveTransportdienst.setVisible(false);
-		btnUpdateTransportdienst.setVisible(true);
+		btnToevoegenContactPersoon.setVisible(false);
+		btnVerwijderContactPersoon.setVisible(false);
+		btnUpdateTransportdienst.setDisable(false);
 		tvContactpersonen.setEditable(false);
-		hBoxContactPersonen1.setVisible(false);
-		hBoxContactPersonen2.setVisible(false);
 		tvTransportdiensten.setDisable(false);
 		toevoegTab.setDisable(false);
 	}
@@ -491,12 +500,11 @@ public class TransportdienstenController extends Pane {
 		cbStatusRaadpleegTab.setDisable(false);
 		rbOrderIdRaadpleegTab.setDisable(false);
 		rbPostcodeRaadpleegTab.setDisable(false);
-		btnAbortUpdate.setVisible(true);
 		btnSaveTransportdienst.setVisible(true);
-		btnUpdateTransportdienst.setVisible(false);
+		btnToevoegenContactPersoon.setVisible(true);
+		btnVerwijderContactPersoon.setVisible(true);
+		btnUpdateTransportdienst.setDisable(true);
 		tvContactpersonen.setEditable(true);
-		hBoxContactPersonen1.setVisible(true);
-		hBoxContactPersonen2.setVisible(true);
 		tvTransportdiensten.setDisable(true);
 		toevoegTab.setDisable(true);
 	}

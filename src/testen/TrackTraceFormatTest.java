@@ -12,7 +12,7 @@ import domein.TrackTraceFormat;
 class TrackTraceFormatTest {
 
 	private TrackTraceFormat ttf;
-	private static final int BARCODE_LENGTE = 5;
+	private static final int BARCODE_LENGTE = 30;
 	private static final boolean IS_BARCODE_ENKEL_CIJFERS = true;
 	private static final String BARCODE_PREFIX = "TEST";
 	private static final String VERIFICATIE_CODE = "postcode";

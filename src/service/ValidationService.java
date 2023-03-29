@@ -3,41 +3,30 @@ package service;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Transient;
+
 
 import repository.ContactpersoonDTO;
 
 public class ValidationService {
-	@Transient
-	public static final int MIN_PW_LENGTH = 8; // TODO afspreken met team
+	final private static int TRACKTRACECODELENGTE = 30;
+	
+	public static final int MIN_PW_LENGTH = 8; 
 
 	public static final void controleerNietBlanco(Object waarde) {
 		if (waarde == null) {
 			throw new IllegalArgumentException("Veld is verplicht");
 		}
-		if (waarde instanceof String && ((String) waarde).isBlank()) {
+		if (waarde instanceof String && (((String) waarde).isBlank() || ((String)waarde).isEmpty())) {
 			throw new IllegalArgumentException("Veld is verplicht");
 		}
 	}
 
-	public static final void controleerGroterDanNul(int waarde) {
-		if (waarde <= 0) {// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
-		}
+	public static final <T extends Number> void controleerGroterDanNul(T waarde) {
+	    if (waarde.doubleValue() <= 0) {
+	        throw new IllegalArgumentException("Veld moet groter zijn dan nul");
+	    }
 	}
-
-	public static final void controleerGroterDanNul(long waarde) {
-		if (waarde <= 0) {// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
-		}
-	}
-
-	public static final void controleerGroterDanNul(double waarde) {
-		if (waarde <= 0) {// eventueel nog andere checks toevoegen
-			throw new IllegalArgumentException("Veld moet groter zijn dan nul");
-		}
-	}
-
+	
 	public static final void controleerEmail(String email) {
 		if (email == null || email.isBlank()) {
 			throw new IllegalArgumentException("E-mailadres is verplicht");
@@ -76,6 +65,34 @@ public class ValidationService {
 			if (c.getEmailAdres().equals(emailadres)) {
 				throw new IllegalArgumentException("Iedere contactpersoon moet een uniek emailadres hebben");
 			}
+		}
+	}
+	
+	public static final void controleerTTFPrefixLengte(int TTFlengte, String TTFPrefix) {
+		if(TTFPrefix.length() >= TTFlengte) {
+			throw new IllegalArgumentException("Prefix kan niet groter of gelijk zijn dan totale lengte code");
+		}
+	}
+	
+	public static final void controleerTTFTotaleLengte(int totaleLengte) {
+		if(totaleLengte < TRACKTRACECODELENGTE) {
+			throw new IllegalArgumentException(String.format("%s%d", "Totale lengte code kan niet kleiner zijn dan ", TRACKTRACECODELENGTE));
+		}
+	}
+	
+	public static final void controleerNumerischeWaardeBarcodeLengte(String barCodeLengte) {
+		try {
+			int barcode = Integer.parseInt(barCodeLengte);
+		}catch(NumberFormatException e) {
+			throw new IllegalArgumentException("De lengte van de barcode moet een cijfer zijn.");
+		}
+	}
+	
+	public static final void controleerNumerischeWaardeBarcodePrefix(String barCodePrefix) {
+		try {
+			int barcode = Integer.parseInt(barCodePrefix);
+		}catch(NumberFormatException e) {
+			throw new IllegalArgumentException("De barcodeprefix mag enkel nummers bevatten.");
 		}
 	}
 
