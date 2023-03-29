@@ -61,7 +61,7 @@ public class BestellingService {
 
 	public Bestelling getBestelling(long bestellingID) {
 
-		Bestelling bestelling = bestellingRepo.get(bestellingID);
+		Bestelling bestelling = getBestellingIncludingCurrentState(bestellingID);
 		return bestelling;
 	}
 
