@@ -333,6 +333,17 @@ public class TransportdienstenController extends Pane {
 			dc.maakTransportdienst(naamTransportdienst, Integer.parseInt(barcodeLengte), isBarcodeEnkelCijfers,
 					barcodePrefix, verificatiecode, contactVoornaam, contactFamilienaam, contactTelefoon,
 					contactEmailadres, bedrijfsId);
+			
+			txtNaamTransportdienst.clear();
+			txtLengteBarcodeToevoegTab.clear();
+			cbCijfers.setSelected(false);
+			rbOrderIdToevoegTab.setSelected(false);
+			rbPostcodeToevoegTab.setSelected(false);
+			txtPrefix.clear();
+			txtVoornaam.clear();
+			txtFamilienaam.clear();
+			txtTelefoonnummer.clear();
+			txtEmailadres.clear();
 
 			toonMelding(AlertType.INFORMATION, "De transportdienst is aangemaakt");
 
@@ -342,16 +353,7 @@ public class TransportdienstenController extends Pane {
 
 		transportdiensten = FXCollections.observableArrayList(dc.getTransportdienstenDTO());
 		tvTransportdiensten.setItems(transportdiensten);
-		txtNaamTransportdienst.clear();
-		txtLengteBarcodeToevoegTab.clear();
-		cbCijfers.setSelected(false);
-		rbOrderIdToevoegTab.setSelected(false);
-		rbPostcodeToevoegTab.setSelected(false);
-		txtPrefix.clear();
-		txtVoornaam.clear();
-		txtFamilienaam.clear();
-		txtTelefoonnummer.clear();
-		txtEmailadres.clear();
+		
 	}
 
 	@FXML
