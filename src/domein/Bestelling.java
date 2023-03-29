@@ -275,7 +275,7 @@ public class Bestelling {
 		
 	}
 
-	protected void toState(BestellingState state) {
+	public final void toState(BestellingState state) {
 		currentState = state;
 	}
 
