@@ -22,7 +22,7 @@ class BestellingTest {
 
 	private final static String NAAMTRANSPORTDIENT = "Transportdienst_A";
 	private final static String NAAMTRANSPORTDIENT2 = "Transportdienst_B";
-	private final static int BARCODELENGTE = 10;
+	private final static int BARCODELENGTE = 30;
 	private final static boolean ISBARCODEENKELCIJFERS = true;
 	private final static String BARCODEPREFIX = "123";
 	private final static String VERIFICATIECODE = "POSTCODE";

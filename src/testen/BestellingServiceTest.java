@@ -98,7 +98,7 @@ class BestellingServiceTest {
 
 	private final String NAAMTRANSPORTDIENT = "Transportdienst_A";
 
-	private final int BARCODELENGTE = 10;
+	private final int BARCODELENGTE = 30;
 	private final boolean ISBARCODEENKELCIJFERS = true;
 	private final String BARCODEPREFIX = "123";
 	private final String VERIFICATIECODE = "POSTCODE";

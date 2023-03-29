@@ -36,7 +36,7 @@ class DienstServiceTest {
 	
 	private final String NAAMTRANSPORTDIENT = "Transportdienst_A";
 	
-	private final int BARCODELENGTE = 10;
+	private final int BARCODELENGTE = 30;
 	private final boolean ISBARCODEENKELCIJFERS = true;
 	private final String BARCODEPREFIX = "123";
 	private final String VERIFICATIECODE = "POSTCODE";
@@ -174,7 +174,7 @@ class DienstServiceTest {
 	@Test
 	void updateTransportdienst() {
 		final String NAAMTRANSPORTDIENT2 = "UPDATE_TRANSPORTDIENST";
-		final int BARCODELENGTE2 = 11;
+		final int BARCODELENGTE2 = 31;
 		final boolean ISBARCODEENKELCIJFERS2 = false;
 		final String BARCODEPREFIX2 = "456";
 		final String VERIFICATIECODE2 = "ORDERID";
