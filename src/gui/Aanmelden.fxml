@@ -53,7 +53,7 @@
                   <Font name="Calibri Bold Italic" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="paswoordVergetenButton" layoutX="549.0" layoutY="2.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="240.0" style="-fx-background-color: EC4842; -fx-background-radius: 15;" text="Paswoord vergeten" textFill="WHITE">
+            <Button fx:id="paswoordVergetenButton" layoutX="549.0" layoutY="2.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="240.0" style="-fx-background-color: EC4842; -fx-background-radius: 15;" text="Paswoord vergeten" textFill="WHITE" visible="false">
                <font>
                   <Font name="Calibri Bold Italic" size="24.0" />
                </font>
