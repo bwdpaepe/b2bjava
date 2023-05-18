@@ -669,9 +669,14 @@ public class BestellingenController extends Pane {
 		lblTotaleOrderbedrag.setText(String.format("%.2f€", bestellingDTO.getTotaalbedrag()));
 		// transportdiensten van bedrijf van actueel ingelogde gebruiker
 		ObservableList<TransportdienstDTO> transportdienstDTOList = FXCollections.observableList(dc.getTransportdienstenDTO());
-		long geselecteerdeTransportdienstDTOId = dc.getTransportdienst(bestellingDTO.getTransportdienstID()).getId();
+		Long transportdienstId = bestellingDTO.getTransportdienstID();
+		Long geselecteerdeTransportdienstDTOId = (transportdienstId != null) ? transportdienstId.longValue() : null;
 		cmbTransportdienst.setItems(transportdienstDTOList);
-		cmbTransportdienst.setValue(filterTransportdienst(transportdienstDTOList, geselecteerdeTransportdienstDTOId));
+		if (geselecteerdeTransportdienstDTOId != null) {
+		    cmbTransportdienst.setValue(filterTransportdienst(transportdienstDTOList, geselecteerdeTransportdienstDTOId));
+		} else {
+			cmbTransportdienst.setValue(null);
+		}
 		cmbTransportdienst.setCellFactory(new Callback<ListView<TransportdienstDTO>, ListCell<TransportdienstDTO>>() {
             @Override
             public ListCell<TransportdienstDTO> call(ListView<TransportdienstDTO> param) {
@@ -731,9 +736,14 @@ public class BestellingenController extends Pane {
 		vLblTotaleOrderbedrag.setText(String.format("%.2f€", bestellingDTO.getTotaalbedrag()));
 		// transportdiensten van bedrijf van actueel ingelogde gebruiker
 		ObservableList<TransportdienstDTO> transportdienstDTOList = FXCollections.observableList(dc.getTransportdienstenDTO());
-		long geselecteerdeTransportdienstDTOId = dc.getTransportdienst(bestellingDTO.getTransportdienstID()).getId();
+		Long transportdienstId = bestellingDTO.getTransportdienstID();
+		Long geselecteerdeTransportdienstDTOId = (transportdienstId != null) ? transportdienstId.longValue() : null;
 		vCmbTransportdienst.setItems(transportdienstDTOList);
-		vCmbTransportdienst.setValue(filterTransportdienst(transportdienstDTOList, geselecteerdeTransportdienstDTOId));
+		if (geselecteerdeTransportdienstDTOId != null) {
+		    cmbTransportdienst.setValue(filterTransportdienst(transportdienstDTOList, geselecteerdeTransportdienstDTOId));
+		} else {
+			cmbTransportdienst.setValue(null);
+		}
 		vCmbTransportdienst.setCellFactory(new Callback<ListView<TransportdienstDTO>, ListCell<TransportdienstDTO>>() {
             @Override
             public ListCell<TransportdienstDTO> call(ListView<TransportdienstDTO> param) {
@@ -843,7 +853,7 @@ public class BestellingenController extends Pane {
 	
 	private String maakVisueelDoosType(BestellingDTO bestellingDTO) {
 		DoosDTO doosDTO = bestellingDTO.getDoos();
-		return (doosDTO.getDoosType());
+		return (doosDTO.getDoosType() + " (Naam: " + doosDTO.getNaam() + ", prijs: " + String.format("%.2f€", doosDTO.getPrijs()) + ")");
 	}
 	
 	private String maakVisueelTransportdienst(TransportdienstDTO transportdienstDTO) {
