@@ -14,7 +14,7 @@ public class BestellingDTO {
 	protected final String status;
 	protected final long leverancierID;
 	protected final long klantID;
-	protected final long transportdienstID;
+	protected final Long transportdienstID;
 	protected final String transportdienstNaam;
 	protected final String klantNaam;
 	protected final String leveradresStraat;
@@ -36,8 +36,13 @@ public class BestellingDTO {
 		this.status = bestelling.getStatus();
 		this.leverancierID = bestelling.getLeverancier().getID();
 		this.klantNaam = bestelling.getKlant().getNaam();
-		this.transportdienstNaam = bestelling.getTransportdienst().getNaam();
-		this.transportdienstID = bestelling.getTransportdienst().getId();
+		if (bestelling.getTransportdienst() != null) {
+		    this.transportdienstNaam = bestelling.getTransportdienst().getNaam();
+		    this.transportdienstID = bestelling.getTransportdienst().getId();
+		} else {
+		    this.transportdienstNaam = null;
+		    this.transportdienstID = null;
+		}
 		this.klantID = bestelling.getKlant().getID();
 		this.leveradresStraat = bestelling.getLeveradresStraat();
 		this.leveradresNummer = bestelling.getLeveradresNummer();
@@ -48,7 +53,7 @@ public class BestellingDTO {
 		this.aankoper = new MedewerkerDTO(bestelling.getAankoper());
 		this.doos = new DoosDTO(bestelling.getDoos());
 		this.besteldeProducten = bestelling.getBesteldeProducten().stream().map(e -> new BesteldProductDTO(e)).collect(Collectors.toUnmodifiableList());
-		this.totaalbedrag = bestelling.getBesteldeProducten().stream().mapToDouble(bp -> bp.getAantal() * bp.getEenheidsprijs()).sum();
+		this.totaalbedrag = bestelling.getBesteldeProducten().stream().mapToDouble(bp -> bp.getAantal() * bp.getEenheidsprijs()).sum() + bestelling.getDoos().getPrijs();
 	}
 	public long getId() {
 		return id;
@@ -69,7 +74,7 @@ public class BestellingDTO {
 	public long getKlantID() {
 		return klantID;
 	}
-	public long getTransportdienstID() {
+	public Long getTransportdienstID() {
 		return transportdienstID;
 	}
 	public String getTransportdienstNaam() {
