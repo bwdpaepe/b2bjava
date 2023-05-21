@@ -1,5 +1,7 @@
 package gui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.util.Arrays;
 
@@ -35,7 +37,7 @@ import repository.DoosDTO;
 import repository.TransportdienstDTO;
 import repository.MedewerkerDTO;
 
-public class BestellingenController extends Pane {
+public class BestellingenController extends Pane implements PropertyChangeListener {
 	private DomeinController dc;
 	
 	@FXML
@@ -235,7 +237,7 @@ public class BestellingenController extends Pane {
 	private int indexSelectedRow;
 
 	public BestellingenController() {
-		
+		//lblTrackTraceGegevens
 
 	}
 	
@@ -308,6 +310,8 @@ public class BestellingenController extends Pane {
 	public void setParams(DomeinController dc) {
 
 		this.dc = dc;
+		
+		this.dc.addPropertyChangeListener(this);
 	}
 	
 	public void addListenerRijSelecteren() {
@@ -467,8 +471,8 @@ public class BestellingenController extends Pane {
 		long geselecteerdeBestellingDTOId = selectedBestellingDTO.getId();
 		
 		try {
-			String ttc = dc.wijzigTrackAndTraceCode(geselecteerdeBestellingDTOId);
-			lblTrackTraceGegevens.setText(ttc);
+			dc.wijzigTrackAndTraceCode(geselecteerdeBestellingDTOId);
+			//lblTrackTraceGegevens.setText(ttc);
 		}
 		catch(SizeLimitExceededException e) {
 			toonMelding(AlertType.ERROR, e.getMessage());
@@ -866,6 +870,12 @@ public class BestellingenController extends Pane {
 		melding.setAlertType(type);
 		melding.setContentText(boodschap);
 		melding.show();
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		lblTrackTraceGegevens.setText(String.format("%s", evt.getNewValue()));
+		
 	}
 
 }

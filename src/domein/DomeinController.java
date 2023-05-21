@@ -1,5 +1,7 @@
 package domein;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -33,6 +35,8 @@ public class DomeinController {
 	private BedrijfService bedrijfService;
 	private BestellingService bestellingService;
 	private DoosService doosService;
+	private PropertyChangeListener pcl;
+	//private PropertyChangeSupport subject;
 
 	public DomeinController() {
 		setUserService(new UserService());
@@ -40,6 +44,7 @@ public class DomeinController {
 		setBedrijfService(new BedrijfService());
 		setBestellingService(new BestellingService());
 		setDoosService();
+		//subject = new PropertyChangeSupport(this);
 	}
 
 	public DomeinController(Boolean doSeeding) {
@@ -227,11 +232,21 @@ public class DomeinController {
 		bestellingService.leverBestelling(bestellingId);
 	}
 
-	public String wijzigTrackAndTraceCode(long bestellingId) throws SizeLimitExceededException {
+	public void wijzigTrackAndTraceCode(long bestellingId) throws SizeLimitExceededException {
 		Bestelling bestelling = bestellingService.getBestelling(bestellingId);
+		if(this.pcl != null) {
+			bestelling.addPropertyChangeListener(pcl);	
+		}
+		else {
+			System.out.println(pcl);
+		}
+		
+		//String ttc_old = bestelling.getTrackAndTraceCode();
 		bestelling.wijzigTrackAndTraceCode();
+		//String ttc_new = bestelling.getTrackAndTraceCode();
 		//bestellingService.wijzigTrackAndTraceCode(bestellingId);
-		return bestelling.getTrackAndTraceCode();
+		//return bestelling.getTrackAndTraceCode();
+		//subject.firePropertyChange("ttc", ttc_old, ttc_new);
 	}
 	
 	public String[] getGebruikteStatussen() {
@@ -239,6 +254,11 @@ public class DomeinController {
 		List<String> statusLijst = new ArrayList<>(Stream.of(BestellingStatus.values()).map(b -> b.toString()).collect(Collectors.toList()));
 		statusLijst.add(0, ALLES);
 		return statusLijst.toArray(new String[statusLijst.size()]);
+		
+	}
+	
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		this.pcl = pcl;
 		
 	}
 

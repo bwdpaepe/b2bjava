@@ -1,5 +1,7 @@
 package domein;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +42,9 @@ public class Bestelling {
 	private String leveradresLand;
 	private String leveradresStad;
 	private String trackAndTraceCode;
+	
+	@Transient
+	private PropertyChangeSupport subject;
 
 	@Transient
 	private BestellingState currentState;
@@ -73,7 +78,7 @@ public class Bestelling {
 	private Notificatie notificatie;
 	
 	protected Bestelling() {
-
+		subject = new PropertyChangeSupport(this);
 	};
 	
 	public Bestelling(String orderID, Date datum_geplaatst, Bedrijf leverancier, Bedrijf klant,
@@ -94,6 +99,7 @@ public class Bestelling {
 		setLeveradresStad(leveradresStad);
 		setDoos(doos);
 		toState(new GeplaatstBestellingState(this));
+		subject = new PropertyChangeSupport(this);
 	}
 
 	public void verwerkBestelling(Transportdienst transportdienst) throws SizeLimitExceededException {
@@ -271,7 +277,14 @@ public class Bestelling {
 	}
 
 	public void setTrackAndTraceCode(String trackAndTraceCode) {
+		String ttc_old = this.trackAndTraceCode;
+		
 		this.trackAndTraceCode = trackAndTraceCode;
+		
+		String ttc_new = trackAndTraceCode;
+		
+		subject.firePropertyChange("ttc", ttc_old, ttc_new);
+		
 		
 	}
 
@@ -285,6 +298,11 @@ public class Bestelling {
 
 	public void setNotificatie(Notificatie notificatie) {
 		this.notificatie = notificatie;
+	}
+	
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		subject.addPropertyChangeListener(pcl);
+		
 	}
 
 }
