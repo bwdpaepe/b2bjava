@@ -23,7 +23,7 @@
 		<class>domein.Notificatie</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://vichogent.be:40058/SDP2DBT03?serverTimezone=UTC" />
+				value="jdbc:mysql://vichogent.be:40058/SDP2DBT03?serverTimezone=Europe/Brussels" />
 			<property name="javax.persistence.jdbc.user" value="SDP2T03" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
