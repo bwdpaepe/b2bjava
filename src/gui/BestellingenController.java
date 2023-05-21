@@ -10,11 +10,12 @@ import domein.DomeinController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -26,14 +27,13 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import repository.BesteldProductDTO;
 import repository.BestellingDTO;
 import repository.DoosDTO;
-import repository.TransportdienstDTO;
 import repository.MedewerkerDTO;
+import repository.TransportdienstDTO;
 
 public class BestellingenController extends Pane {
 	private DomeinController dc;
@@ -735,7 +735,7 @@ public class BestellingenController extends Pane {
 		vLblStatus.setText(bestellingDTO.getStatus());
 		vLblTotaleOrderbedrag.setText(String.format("%.2f€", bestellingDTO.getTotaalbedrag()));
 		// transportdiensten van bedrijf van actueel ingelogde gebruiker
-		ObservableList<TransportdienstDTO> transportdienstDTOList = FXCollections.observableList(dc.getTransportdienstenDTO());
+		ObservableList<TransportdienstDTO> transportdienstDTOList = FXCollections.observableList(dc.getActiveTransportdienstenDTO());
 		Long transportdienstId = bestellingDTO.getTransportdienstID();
 		Long geselecteerdeTransportdienstDTOId = (transportdienstId != null) ? transportdienstId.longValue() : null;
 		vCmbTransportdienst.setItems(transportdienstDTOList);

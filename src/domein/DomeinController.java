@@ -122,6 +122,12 @@ public class DomeinController {
 		}
 		return tdListDTO;
 	}
+	
+	public List<TransportdienstDTO> getActiveTransportdienstenDTO()
+	{
+		// TODO Auto-generated method stub
+		return getTransportdienstenDTO().stream().filter(td -> td.getIsActief()).collect(Collectors.toList());
+	}
 
 	public void maakTransportdienst(String naam, int barcodeLengte, boolean isBarcodeEnkelCijfers, String barcodePrefix,
 			String verificatiecode, String contactVoornaam, String contactFamilienaam, String contactTelefoon,
@@ -289,5 +295,7 @@ public class DomeinController {
 	public void close() {
 		GenericDaoJpa.closePersistency();
 	}
+
+	
 
 }
